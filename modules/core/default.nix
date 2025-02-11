@@ -1,0 +1,20 @@
+{
+  inputs,
+  nixpkgs,
+  self,
+  username,
+  host,
+  ...
+}:
+{
+  imports = [
+    ./boot.nix
+    ./home-manager.nix
+    ./networking.nix
+    ./pipewire.nix
+    ./security.nix
+    ./system.nix
+    ./xserver.nix
+    ./zsh.nix
+  ];
+}
