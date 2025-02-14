@@ -6,7 +6,6 @@
   ...
 }:
 {
-  # imports = [ inputs.nix-gaming.nixosModules.default ];
   nix = {
     settings = {
       experimental-features = [

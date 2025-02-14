@@ -1,8 +1,9 @@
 {inputs, username, host, ...}: {
   imports = [
-    ./vscode.nix
     ./firefox.nix
+    ./meld.nix
     ./telegram.nix
+    ./vscode.nix
   ];
 }
 

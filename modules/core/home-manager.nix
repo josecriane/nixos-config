@@ -10,9 +10,13 @@
   home-manager = {
     useUserPackages = true;
     useGlobalPkgs = true;
+    
     extraSpecialArgs = { inherit inputs username host; };
     users.${username} = {
-      imports = [ ./../home ];
+      imports = [
+        ./../home-core
+        ./../desktop
+      ];
       home.username = "${username}";
       home.homeDirectory = "/home/${username}";
       home.stateVersion = "24.11";
