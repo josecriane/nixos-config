@@ -1,10 +1,4 @@
-{
-  hostname,
-  config,
-  pkgs,
-  host,
-  ...
-}:
+{ pkgs, ... }:
 {
   programs.zsh = {
     enable = true;
@@ -24,6 +18,8 @@
       plugins = [
         "asdf"
         "git"
+        "ssh-agent"
+        "sudo"
         "colored-man-pages"
         "colorize"
       ];
@@ -31,4 +27,3 @@
     };
   };
 }
-

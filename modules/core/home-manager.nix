@@ -10,12 +10,13 @@
   home-manager = {
     useUserPackages = true;
     useGlobalPkgs = true;
+
+    backupFileExtension = "bak";
     
     extraSpecialArgs = { inherit inputs username host; };
     users.${username} = {
       imports = [
-        ./../home-core
-        ./../desktop
+        ./../home
       ];
       home.username = "${username}";
       home.homeDirectory = "/home/${username}";
@@ -31,7 +32,6 @@
       "networkmanager"
       "wheel"
     ];
-    packages = with pkgs; [];
     shell = pkgs.zsh;
   };
   nix.settings.allowed-users = [ "${username}" ];

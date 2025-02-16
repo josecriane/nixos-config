@@ -48,4 +48,9 @@
       "erlang_ls.config"
     ];
   };
+
+  programs.zsh.shellAliases = {
+    gti = "git";
+    git-clean-branch="git branch --merged | grep -v \* | xargs git branch -D";
+  };
 }

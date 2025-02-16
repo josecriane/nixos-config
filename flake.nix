@@ -21,8 +21,9 @@
       nixosConfigurations = {
         imre = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          modules = [ 
+          modules = [
             ./hosts/imre
+            ./modules/core
             lanzaboote.nixosModules.lanzaboote
           ];
           specialArgs = {

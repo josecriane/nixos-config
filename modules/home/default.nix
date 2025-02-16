@@ -1,6 +1,6 @@
 {inputs, username, host, ...}: {
   imports = [
-    ./git.nix
+    ./all
+    ./desktop
   ];
 }
-
