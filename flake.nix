@@ -1,5 +1,5 @@
 {
-  description = "A simple NixOS flake";
+  description = "josecriane nixos flake";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -16,6 +16,7 @@
     { nixpkgs, self, lanzaboote, ... }@inputs:
     let
       username = "sito";
+      loadMachineOptions = host: import (./hosts + "/${host}/options.nix");
     in
     {
       nixosConfigurations = {
@@ -29,6 +30,7 @@
           specialArgs = {
             host = "imre";
             inherit self inputs username;
+            machineOptions = loadMachineOptions "imre";
           };
         };
       };

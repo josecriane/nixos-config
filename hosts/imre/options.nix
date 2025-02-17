@@ -1,0 +1,4 @@
+{
+  hasDesktop = true;
+}
+    

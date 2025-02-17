@@ -1,6 +1,7 @@
-{inputs, username, host, ...}: {
+{ config, lib, pkgs, machineOptions, ... }:
+{
   imports = [
     ./all
-    ./desktop
-  ];
+  ]
+  ++ (lib.optionals machineOptions.hasDesktop [ ./desktop ]);
 }
