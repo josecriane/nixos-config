@@ -4,13 +4,10 @@
     enable = true;
     settings = {
       window = {
-        padding.x = 10;
-        padding.y = 10;
         decorations = "Full";
       };
 
       cursor = {
-        unfocused_hollow = false;
         style = {
           blinking = "On";
           shape = "Block";
