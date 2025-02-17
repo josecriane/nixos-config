@@ -3,5 +3,6 @@
   imports = [
     ./all
   ]
-  ++ (lib.optionals machineOptions.hasDesktop [ ./desktop ]);
+  ++ (lib.optionals machineOptions.desktop [ ./desktop ])
+  ++ (lib.optionals machineOptions.develop [ ./develop ]);
 }

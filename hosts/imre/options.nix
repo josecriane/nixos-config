@@ -1,4 +1,4 @@
 {
-  hasDesktop = true;
+  desktop = true;
+  develop = true;
 }
-    
