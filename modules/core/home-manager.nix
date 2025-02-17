@@ -4,6 +4,7 @@
   username,
   host,
   machineOptions,
+  self,
   ...
 }:
 {
@@ -15,7 +16,7 @@
 
     backupFileExtension = "bak";
     
-    extraSpecialArgs = { inherit inputs username host machineOptions; };
+    extraSpecialArgs = { inherit inputs username host machineOptions self; };
     users.${username} = {
       imports = [
         ./../home
@@ -36,6 +37,6 @@
     ];
     shell = pkgs.zsh;
   };
-  
+
   nix.settings.allowed-users = [ "${username}" ];
 }

@@ -1,8 +1,8 @@
-{inputs, username, host, ...}: {
+{inputs, username, host, self, ...}: {
   imports = [
     ./commands.nix
     ./docker.nix
     ./git.nix
-    ./zsh.nix
+    ./zsh
   ];
 }

@@ -12,18 +12,17 @@
     #    { name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; }
     #  ];
     #};
+
+    promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
     
     ohMyZsh = {
       enable = true;
       plugins = [
         "asdf"
         "git"
-        "ssh-agent"
-        "sudo"
         "colored-man-pages"
         "colorize"
       ];
-      theme = "robbyrussell";
     };
   };
 }
