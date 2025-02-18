@@ -14,6 +14,10 @@
         };
       };
 
+      font = {
+        size = 10;
+      };
+
       general.import = [ "${pkgs.alacritty-theme}/alacritty_0_12.toml" ];
     };
   };

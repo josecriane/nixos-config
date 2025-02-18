@@ -7,4 +7,8 @@
     ];
     userSettings = {};
   };
+
+  programs.zsh.shellAliases = {
+    codenix = "code ~/nixos-config";
+  };
 }
