@@ -11,4 +11,7 @@ NixOS configuration files
 
 ### Package search
 * https://search.nixos.org/packages?channel=24.11
+
+### Options search
 * https://home-manager-options.extranix.com/?query=&release=release-24.11
+* https://nix-community.github.io/plasma-manager/options.xhtml
