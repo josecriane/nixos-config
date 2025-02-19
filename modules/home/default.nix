@@ -4,5 +4,6 @@
     ./all
   ]
   ++ (lib.optionals machineOptions.desktop [ ./desktop ])
-  ++ (lib.optionals machineOptions.develop [ ./develop ]);
+  ++ (lib.optionals machineOptions.develop [ ./develop ])
+  ++ (lib.optionals machineOptions.develop [ ./wm ]);
 }
