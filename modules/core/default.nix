@@ -4,6 +4,7 @@
   self,
   username,
   host,
+  machineOptions,
   ...
 }:
 {

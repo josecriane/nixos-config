@@ -1,21 +1,15 @@
-{ pkgs, username, ... }:
+{ pkgs, lib, machineOptions, ... }:
 {
   services = {
     xserver = {
       enable = true;
       xkb.layout = "us";
-
-      # displayManager.gdm.enable = true;
-      # desktopManager.gnome.enable = true;
     };
-
-    displayManager.sddm = {
-      enable = true;
-      wayland.enable = true;
-    };
-
-    desktopManager.plasma6.enable = true;
   };
+
+  imports = []
+  ++ (lib.optionals (machineOptions.wm == "plasma") [./wm/plasma.nix])
+  ++ (lib.optionals (machineOptions.wm == "gnome") [./wm/gnome.nix]);
 
   systemd.extraConfig = "DefaultTimeoutStopSec=10s";
 }
