@@ -11,6 +11,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    darwin = {
+      url = "github:lnl7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs-darwin";
+    };
+
     plasma-manager = {
       url = "github:nix-community/plasma-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -19,9 +25,16 @@
   };
   
   outputs =
-    { nixpkgs, self, plasma-manager, home-manager, lanzaboote, ... }@inputs:
+    { 
+      nixpkgs, 
+      self, 
+      darwin, 
+      plasma-manager, 
+      home-manager, 
+      lanzaboote, 
+      ... 
+    }@inputs:
     let
-      username = "sito";
       loadMachineOptions = host: import (./hosts + "/${host}/options.nix");
     in
     {
@@ -35,11 +48,28 @@
           ];
           specialArgs = {
             host = "imre";
-            inherit self inputs username;
+            inherit self inputs;
             machineOptions = loadMachineOptions "imre";
           };
         };
       };
+
+      darwinConfigurations = {
+        MacBookAir10-1-jose-cribeiro = darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          # inherit system specialArgs;
+          modules = [
+            ./hosts/MacBookAir10-1-jose-cribeiro
+            ./modules/core
+          ];
+          specialArgs = {
+            host = "MacBookAir10-1-jose-cribeiro";
+            inherit self inputs;
+            machineOptions = loadMachineOptions "MacBookAir10-1-jose-cribeiro";
+          };
+        };
+      };
+
     };
 }
 

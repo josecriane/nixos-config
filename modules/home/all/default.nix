@@ -1,4 +1,4 @@
-{inputs, username, host, self, ...}: {
+{inputs, host, self, ...}: {
   imports = [
     ./commands.nix
     ./docker.nix
