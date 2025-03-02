@@ -1,4 +1,4 @@
-{inputs, username, host, ...}: {
+{inputs, host, ...}: {
   imports = [
     ./alacritty.nix
     ./discord.nix

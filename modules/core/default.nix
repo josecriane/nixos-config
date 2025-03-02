@@ -1,8 +1,8 @@
 {
   inputs,
   nixpkgs,
+  lib,
   self,
-  username,
   host,
   machineOptions,
   ...
@@ -10,13 +10,9 @@
 {
   imports = [
     ./alias.nix
-    ./boot.nix
-    ./home-manager.nix
-    ./networking.nix
-    ./pipewire.nix
-    ./security.nix
     ./system.nix
-    ./xserver.nix
     ./zsh.nix
-  ];
+  ]
+  ++ (lib.optionals (machineOptions.os == "linux") [./linux])
+  ++ (lib.optionals (machineOptions.os == "macos") [./macos]);
 }

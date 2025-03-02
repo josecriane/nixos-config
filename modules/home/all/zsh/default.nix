@@ -9,6 +9,22 @@
 
   programs.zsh = {
     enable = true;
+    autosuggestion.enable = true;
+    syntaxHighlighting.enable = true;
+
+    initExtra = ''
+      export PATH="$PATH:$HOME/nixos-config/scripts"
+    '';
+
+    oh-my-zsh = {
+      enable = true;
+      plugins = [
+        "asdf"
+        "git"
+        "colored-man-pages"
+        "colorize"
+      ];
+    };
 
     sessionVariables = {
       EDITOR = "vim";
