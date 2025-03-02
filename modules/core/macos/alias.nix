@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 {
   environment.shellAliases = {
-    nixrebuild = "sudo darwin-rebuild switch --flake ~/nixos-config";
+    nixrebuild = "nix-mac.sh -bs";
     nixupdate = "sudo darwin-rebuild switch --upgrade";
   };
 }

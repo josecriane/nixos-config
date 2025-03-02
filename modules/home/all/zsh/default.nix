@@ -12,6 +12,10 @@
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
 
+    initExtra = ''
+      export PATH="$PATH:$HOME/nixos-config/scripts"
+    '';
+
     oh-my-zsh = {
       enable = true;
       plugins = [
