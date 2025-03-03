@@ -24,10 +24,17 @@ function build_conf {
 
 function switch {
     echo "${GREEN}Switch to generation${NC}"
-    ~/nixos-config/result/sw/bin/darwin-rebuild switch --flake ~/nixos-config#$HOSTNAME
+
+    if which darwin-rebuild &> /dev/null; then
+        darwin-rebuild switch --flake ~/nixos-config#$HOSTNAME
+    else
+        ~/nixos-config/result/sw/bin/darwin-rebuild switch --flake ~/nixos-config#$HOSTNAME
+    fi
 
     echo "${GREEN}Cleaning up${NC}"
-    unlink ~/nixos-config/result
+    if [ -e ~/nixos-config/result ]; then
+        unlink ~/nixos-config/result
+    fi
 }
 
 function list_generations {
