@@ -32,8 +32,8 @@ function switch {
     fi
 
     echo "${GREEN}Cleaning up${NC}"
-    if [ -e ~/nixos-config/result ]; then
-        unlink ~/nixos-config/result
+    if [ -e ./result ]; then
+        unlink ./result
     fi
 }
 

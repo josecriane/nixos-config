@@ -3,7 +3,9 @@ NixOS configuration files
 
 
 ### Some references
+
 #### NixOS
+* https://nixos.wiki/wiki/Nix_Cookbook
 * https://nixos-and-flakes.thiscute.world/nixos-with-flakes/get-started-with-nixos
 * https://jnsgr.uk/2024/04/nixos-secure-boot-tpm-fde/
 
