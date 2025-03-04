@@ -5,5 +5,5 @@
   ]
   ++ (lib.optionals machineOptions.desktop [ ./desktop ])
   ++ (lib.optionals machineOptions.develop [ ./develop ])
-  ++ (lib.optionals machineOptions.develop [ ./wm ]);
+  ++ (lib.optionals machineOptions.desktop [ ./wm ]);
 }
