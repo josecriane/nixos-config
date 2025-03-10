@@ -1,7 +1,6 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    jq
-    pandoc
+    texlive.combined.scheme-full
   ];
 }
