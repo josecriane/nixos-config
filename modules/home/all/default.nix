@@ -3,6 +3,7 @@
     ./commands.nix
     ./docker.nix
     ./git.nix
+    ./gnugp.nix
     ./paths.nix
     ./zsh
   ];

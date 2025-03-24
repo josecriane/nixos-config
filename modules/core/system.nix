@@ -28,6 +28,7 @@
     wget
     tree
     curl
+    sshpass
   ];
 
   environment.variables.EDITOR = "vim";
