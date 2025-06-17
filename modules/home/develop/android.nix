@@ -5,7 +5,7 @@
   
   home.packages = with pkgs; [
     # android-studio
-    flutter332
+    flutter327
     android-tools
     openjdk17
     gradle
