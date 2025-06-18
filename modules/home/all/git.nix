@@ -48,6 +48,7 @@
       "erlang_ls.config"
       "CLAUDE.md"
       ".envrc"
+      ".direnv"
     ];
   };
 
