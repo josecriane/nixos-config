@@ -23,6 +23,16 @@
 
       # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
       [[ ! -f ~/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
+
+      # Completion for _rcd function
+      _rcd_complete() {
+        local state
+        _arguments \
+          '1:base directory:(dev docs libs tmp)' \
+          '2:subdirectory:_path_files -W "$HOME/$words[2]" -/'
+      }
+      
+      compdef _rcd_complete _rcd
     '';
 
     plugins = [
