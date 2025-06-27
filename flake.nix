@@ -31,7 +31,7 @@
       darwin, 
       plasma-manager, 
       home-manager, 
-      lanzaboote, 
+      lanzaboote,
       ... 
     }@inputs:
     let
@@ -72,4 +72,3 @@
 
     };
 }
-

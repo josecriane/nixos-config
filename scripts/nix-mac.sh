@@ -26,9 +26,9 @@ function switch {
     echo "${GREEN}Switch to generation${NC}"
 
     if which darwin-rebuild &> /dev/null; then
-        darwin-rebuild switch --flake ~/nixos-config#$HOSTNAME
+        sudo darwin-rebuild switch --flake ~/nixos-config#$HOSTNAME
     else
-        ~/nixos-config/result/sw/bin/darwin-rebuild switch --flake ~/nixos-config#$HOSTNAME
+        sudo ~/nixos-config/result/sw/bin/darwin-rebuild switch --flake ~/nixos-config#$HOSTNAME
     fi
 
     echo "${GREEN}Cleaning up${NC}"

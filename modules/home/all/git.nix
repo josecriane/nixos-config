@@ -46,6 +46,9 @@
       ".DS_Store"
       ".vscode"
       "erlang_ls.config"
+      "CLAUDE.md"
+      ".envrc"
+      ".direnv"
     ];
   };
 
