@@ -54,6 +54,6 @@
 
   programs.zsh.shellAliases = {
     gti = "git";
-    git-clean-branch="git branch --merged | grep -v \\* | xargs git branch -D";
+    git-clean-branch="git branch -vv | grep ': gone]' | awk '{print $1}' | xargs -r git branch -D";
   };
 }
