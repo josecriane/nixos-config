@@ -1,8 +1,9 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    jq
-    pandoc
     imagemagick
+    jq
+    p7zip
+    pandoc
   ];
 }

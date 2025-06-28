@@ -1,0 +1,10 @@
+# Agenix private keys - NEVER commit these!
+secrets/agenix-key.age
+secrets/*.age.key
+
+# Age decrypted secrets
+*.age.decrypted
+
+# Temporary files
+*.tmp
+*.swp
