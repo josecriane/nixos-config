@@ -16,6 +16,7 @@
     ./pipewire.nix
     ./security.nix
     ./xserver.nix
+    ./secrets.nix
   ];
 
   system.stateVersion = "25.05";
