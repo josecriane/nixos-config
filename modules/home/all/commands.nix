@@ -5,5 +5,6 @@
     jq
     p7zip
     pandoc
+    yq
   ];
 }
