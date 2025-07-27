@@ -8,6 +8,7 @@ with pkgs.vscode-extensions; [
   hediet.vscode-drawio
   ms-azuretools.vscode-docker
   redhat.vscode-yaml
+  rust-lang.rust-analyzer
   ryu1kn.partial-diff
 ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
   {
