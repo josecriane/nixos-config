@@ -1,4 +1,4 @@
-{inputs, host, ...}: {
+{inputs, lib, machineOptions, host, ...}: {
   imports = [
     ./android.nix
     ./beam.nix
