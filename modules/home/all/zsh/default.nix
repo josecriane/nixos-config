@@ -1,4 +1,4 @@
-{ pkgs, self, ... }:
+{ pkgs, self, lib, ... }:
 {
   home.packages = with pkgs; [
     meslo-lgs-nf
@@ -22,7 +22,11 @@
       export PATH="$PATH:$HOME/nixos-config/scripts"
 
       # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-      [[ ! -f ~/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
+      ${if pkgs.stdenv.isDarwin then
+        "[[ ! -f ~/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh"
+      else
+        "[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh"
+      }
 
       # Completion for _rcd function
       _rcd_complete() {
