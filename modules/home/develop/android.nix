@@ -4,9 +4,6 @@
   nixpkgs.config.android_sdk.accept_license = true;
   
   home.packages = with pkgs; [
-    # android-studio
-    flutter332
-    android-tools
     openjdk17
     gradle
   ];
