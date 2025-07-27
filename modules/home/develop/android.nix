@@ -9,7 +9,6 @@
     android-tools
     openjdk17
     gradle
-    cocoapods
   ];
 
   home.sessionVariables = {
