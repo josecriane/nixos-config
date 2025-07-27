@@ -28,6 +28,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.darwin.follows = "darwin";
     };
+
+    secrets = {
+      url = "git+ssh://git@github.com/josecriane/nix-secrets.git";
+      flake = false;
+    };
   };
   
   outputs =
@@ -39,6 +44,7 @@
       home-manager, 
       lanzaboote,
       agenix,
+      secrets,
       ... 
     }@inputs:
     let
