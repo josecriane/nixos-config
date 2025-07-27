@@ -1,5 +1,5 @@
 {inputs, host, ...}: {
   imports = [
-    ./cocoapods.nix
+    ./android.nix
   ];
 }

@@ -10,7 +10,7 @@ let
   username = machineOptions.username;
 in
 {
-  imports = [ inputs.home-manager.darwinModules.home-manager ];
+  imports = [ inputs.home-manager.nixosModules.home-manager ];
 
   home-manager = {
     useUserPackages = true;

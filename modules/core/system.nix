@@ -16,6 +16,7 @@
   };
 
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.android_sdk.accept_license = true;
 
   nix.gc = {
     automatic = lib.mkDefault true;

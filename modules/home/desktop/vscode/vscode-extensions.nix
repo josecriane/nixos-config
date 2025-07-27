@@ -7,8 +7,8 @@ with pkgs.vscode-extensions; [
   foxundermoon.shell-format
   hediet.vscode-drawio
   ms-azuretools.vscode-docker
-  ryu1kn.partial-diff
   redhat.vscode-yaml
+  ryu1kn.partial-diff
 ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
   {
     name = "vscode-theme-onedark";
@@ -17,10 +17,10 @@ with pkgs.vscode-extensions; [
     sha256 = "8GGv4L4poTYjdkDwZxgNYajuEmIB5XF1mhJMxO2Ho84=";
   }
   {
-    name = "erlang-ls";
-    publisher = "erlang-ls";
-    version = "0.0.46";
-    sha256 = "HvQ0qv1wA+qSN1+8r9Z4iTq7DtpsCvOZ73bACeHZ9+o=";
+    name = "back-n-forth";
+    publisher = "nick-rudenko";
+    version = "3.1.1";
+    sha256 = "yircrP2CjlTWd0thVYoOip/KPve24Ivr9f6HbJN0Haw=";
   }
   {
     name = "elixir-ls";
@@ -29,9 +29,9 @@ with pkgs.vscode-extensions; [
     sha256 = "ipnKJRnRYDVadyfSAisYDc2fyZeWrzlRQ0ZpCX1hVl0=";
   }
   {
-    name = "back-n-forth";
-    publisher = "nick-rudenko";
-    version = "3.1.1";
-    sha256 = "yircrP2CjlTWd0thVYoOip/KPve24Ivr9f6HbJN0Haw=";
+    name = "erlang-ls";
+    publisher = "erlang-ls";
+    version = "0.0.46";
+    sha256 = "HvQ0qv1wA+qSN1+8r9Z4iTq7DtpsCvOZ73bACeHZ9+o=";
   }
 ]
