@@ -6,6 +6,7 @@
     ./git.nix
     ./gnugp.nix
     ./paths.nix
+    ./zellij.nix
     ./zsh
   ];
 }
