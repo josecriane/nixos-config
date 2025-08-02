@@ -38,6 +38,7 @@
       pull.rebase = false;
 
       push.default = "simple";
+      push.autoSetupRemote = true;
 
       status.submoduleSummary = true;
     };
