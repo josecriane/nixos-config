@@ -319,8 +319,12 @@
       "kwinrc"."Tiling"."padding" = 4;
       "kwinrc"."Tiling/d59c33cf-6857-5359-9ed6-d7b7d78b54d3"."tiles" =
         "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
-      "kwinrc"."Windows"."RollOverDesktops" = true;
+      "kwinrc"."Windows"."RollOverDesktops" = false;
       "kwinrc"."Xwayland"."Scale" = 1;
+      
+      # Desactivar hot corners
+      "kwinrc"."Effect-overview"."BorderActivate" = 9;
+      "kwinrc"."Effect-windowview"."BorderActivateAll" = 9;
 
       "kxkbrc"."Layout"."LayoutList" = "us";
       "kxkbrc"."Layout"."Use" = true;
