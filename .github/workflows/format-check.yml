@@ -19,4 +19,8 @@ jobs:
       
       - name: Check formatting with treefmt
         run: |
-          nix develop --command treefmt --fail-on-change
+          # Install treefmt and nixfmt
+          nix profile install nixpkgs#treefmt nixpkgs#nixfmt-rfc-style
+          
+          # Run treefmt check
+          treefmt --fail-on-change
