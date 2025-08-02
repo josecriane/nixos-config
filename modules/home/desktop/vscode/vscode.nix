@@ -28,6 +28,14 @@
         "erlangFormatter.formatter" = "erlfmt";
 
         "extensions.ignoreRecommendations" = true;
+        
+        # Nix formatting
+        "[nix]" = {
+          "editor.defaultFormatter" = "bbenoist.nix";
+          "editor.formatOnSave" = true;
+        };
+        "nix.enableLanguageServer" = true;
+        "nix.formatterPath" = "nixfmt";
       };
     };
   };
