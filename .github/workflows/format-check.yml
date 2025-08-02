@@ -20,7 +20,7 @@ jobs:
       - name: Check formatting with treefmt
         run: |
           # Install treefmt and nixfmt
-          nix profile install nixpkgs#treefmt nixpkgs#nixfmt-rfc-style
+          nix profile add nixpkgs#treefmt nixpkgs#nixfmt-rfc-style
           
           # Run treefmt check
-          treefmt --fail-on-change
+          treefmt --ci
