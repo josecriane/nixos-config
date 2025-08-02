@@ -321,7 +321,7 @@
         "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
       "kwinrc"."Windows"."RollOverDesktops" = false;
       "kwinrc"."Xwayland"."Scale" = 1;
-      
+
       # Desactivar hot corners
       "kwinrc"."Effect-overview"."BorderActivate" = 9;
       "kwinrc"."Effect-windowview"."BorderActivateAll" = 9;
