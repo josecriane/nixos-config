@@ -8,7 +8,7 @@
 
     # Elixir
     elixir_1_18
-    elixir-ls
+    (lowPrio elixir-ls)
   ];
 
   home.sessionVariables = {

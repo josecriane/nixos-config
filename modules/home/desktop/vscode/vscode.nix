@@ -2,7 +2,7 @@
 {
   programs.vscode = {
     enable = true;
-    
+    mutableExtensionsDir = false;
     profiles.default = {
       extensions = import ./vscode-extensions.nix { pkgs = pkgs; };
       userSettings = {

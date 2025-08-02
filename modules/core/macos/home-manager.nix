@@ -32,17 +32,11 @@ in
   };
 
   users.users.${username} = {
-    home = "/Users/${username}"; 
-    # isNormalUser = true;
+    home = "/Users/${username}";
     description = "${username}";
-    # extraGroups = [
-    #   "networkmanager"
-    #   "wheel"
-    # ];
+
     shell = pkgs.zsh;
   };
 
   nix.settings.trusted-users = [username];
-
-#   nix.settings.allowed-users = [ "${username}" ];
 }

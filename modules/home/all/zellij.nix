@@ -10,7 +10,7 @@
       mouse_mode = true;
       show_startup_tips = false;
       simplified_ui = false;
-      pane_frames = true;
+      pane_frames = false;
     };
   };
 

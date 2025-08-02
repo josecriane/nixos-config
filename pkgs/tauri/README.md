@@ -7,7 +7,6 @@ Este flake proporciona un entorno de desarrollo completo para proyectos Tauri co
 ### Opción 1: Usando nix develop
 
 ```bash
-# En el directorio de tu proyecto
 nix develop ~/nixos-config/pkgs/tauri
 ```
 
@@ -24,13 +23,10 @@ Luego ejecuta `direnv allow`.
 ## Verificar instalación
 
 ```bash
-# Verificar Rust
 rustc --version
 
-# Verificar Cargo
 cargo --version
 
-# Verificar las herramientas de Tauri
 cargo tauri --version
 ```
 

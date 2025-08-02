@@ -7,7 +7,6 @@ Este flake proporciona Erlang 25.3.2.20 para proyectos que requieren esta versi√
 ### Opci√≥n 1: Usando nix develop
 
 ```bash
-# En el directorio de tu proyecto
 nix develop ~/nixos-config/pkgs/nix-erlang25
 ```
 

@@ -49,6 +49,7 @@
       "CLAUDE.md"
       ".envrc"
       ".direnv"
+      ".claude"
     ];
   };
 

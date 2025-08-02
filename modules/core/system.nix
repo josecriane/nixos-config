@@ -35,6 +35,4 @@
   environment.variables.EDITOR = "vim";
 
   time.timeZone = "Europe/Madrid";
-  
-  # system.stateVersion = 5;
 }

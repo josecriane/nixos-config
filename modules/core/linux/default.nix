@@ -15,6 +15,7 @@
     ./networking.nix
     ./pipewire.nix
     ./security.nix
+    ./system.nix
     ./xserver.nix
     ./secrets.nix
   ];

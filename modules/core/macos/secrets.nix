@@ -6,13 +6,10 @@
   ];
 
   config = {
-    # Path to the age identity file (the private key)
     age.identityPaths = [
-      # This path should be where the agenix-key.age file will be copied on each machine
       "/etc/agenix/agenix-key.age"
     ];
 
-    # Define which secrets this host should have access to
     age.secrets = {
       # SSH RSA private key
       "id_rsa" = {
@@ -33,7 +30,6 @@
       };
     };
 
-    # Ensure agenix package is available
     environment.systemPackages = [ inputs.agenix.packages.${pkgs.system}.default ];
   };
 }

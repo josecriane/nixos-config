@@ -70,7 +70,6 @@
       darwinConfigurations = {
         MacBookAir10-1-jose-cribeiro = darwin.lib.darwinSystem {
           system = "aarch64-darwin";
-          # inherit system specialArgs;
           modules = [
             ./hosts/MacBookAir10-1-jose-cribeiro
             ./modules/core
