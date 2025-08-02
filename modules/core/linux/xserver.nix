@@ -17,5 +17,5 @@
     ++ (lib.optionals (machineOptions.wm == "plasma") [ ./wm/plasma.nix ])
     ++ (lib.optionals (machineOptions.wm == "gnome") [ ./wm/gnome.nix ]);
 
-  systemd.extraConfig = "DefaultTimeoutStopSec=10s";
+  systemd.settings.Manager.DefaultTimeoutStopSec = "10s";
 }
