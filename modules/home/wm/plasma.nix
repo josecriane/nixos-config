@@ -9,7 +9,8 @@
     shortcuts = {
       "ActivityManager"."switch-to-activity-2c0bab25-f4f2-4ade-81d8-2a2a27c116ab" = [ ];
 
-      "KDE Keyboard Layout Switcher"."Switch keyboard layout to English (US, intl., with dead keys)" = "none,none,Switch keyboard layout to English (US\\, intl.\\, with dead keys)";
+      "KDE Keyboard Layout Switcher"."Switch keyboard layout to English (US, intl., with dead keys)" =
+        "none,none,Switch keyboard layout to English (US\\, intl.\\, with dead keys)";
       "KDE Keyboard Layout Switcher"."Switch to Last-Used Keyboard Layout" = "Meta+Alt+L";
       "KDE Keyboard Layout Switcher"."Switch to Next Keyboard Layout" = "Meta+Alt+K";
 
@@ -17,7 +18,11 @@
 
       "kcm_touchpad"."Disable Touchpad" = "Touchpad Off";
       "kcm_touchpad"."Enable Touchpad" = "Touchpad On";
-      "kcm_touchpad"."Toggle Touchpad" = ["Touchpad Toggle" "Meta+Ctrl+Zenkaku Hankaku,Touchpad Toggle" "Meta+Ctrl+Zenkaku Hankaku"];
+      "kcm_touchpad"."Toggle Touchpad" = [
+        "Touchpad Toggle"
+        "Meta+Ctrl+Zenkaku Hankaku,Touchpad Toggle"
+        "Meta+Ctrl+Zenkaku Hankaku"
+      ];
 
       "kmix"."decrease_microphone_volume" = "Microphone Volume Down";
       "kmix"."decrease_volume" = "Volume Down";
@@ -25,11 +30,19 @@
       "kmix"."increase_microphone_volume" = "Microphone Volume Up";
       "kmix"."increase_volume" = "Volume Up";
       "kmix"."increase_volume_small" = "Shift+Volume Up";
-      "kmix"."mic_mute" = ["Microphone Mute" "Meta+Volume Mute,Microphone Mute" "Meta+Volume Mute,Mute Microphone"];
+      "kmix"."mic_mute" = [
+        "Microphone Mute"
+        "Meta+Volume Mute,Microphone Mute"
+        "Meta+Volume Mute,Mute Microphone"
+      ];
       "kmix"."mute" = "Volume Mute";
 
       "ksmserver"."Halt Without Confirmation" = "none,,Shut Down Without Confirmation";
-      "ksmserver"."Lock Session" = ["Meta+L" "Screensaver,Meta+L" "Screensaver,Lock Session"];
+      "ksmserver"."Lock Session" = [
+        "Meta+L"
+        "Screensaver,Meta+L"
+        "Screensaver,Lock Session"
+      ];
       "ksmserver"."Log Out" = "Ctrl+Alt+Del";
       "ksmserver"."Log Out Without Confirmation" = "none,,Log Out Without Confirmation";
       "ksmserver"."LogOut" = "none,,Log Out";
@@ -44,7 +57,11 @@
       "kwin"."Decrease Opacity" = "none,,Decrease Opacity of Active Window by 5%";
       "kwin"."Edit Tiles" = "Meta+T";
       "kwin"."Expose" = "Ctrl+F9";
-      "kwin"."ExposeAll" = ["Ctrl+F10" "Launch (C),Ctrl+F10" "Launch (C),Toggle Present Windows (All desktops)"];
+      "kwin"."ExposeAll" = [
+        "Ctrl+F10"
+        "Launch (C),Ctrl+F10"
+        "Launch (C),Toggle Present Windows (All desktops)"
+      ];
       "kwin"."ExposeClass" = "Ctrl+F7";
       "kwin"."ExposeClassCurrentDesktop" = [ ];
       "kwin"."Grid View" = "Meta+G";
@@ -57,7 +74,10 @@
       "kwin"."MoveZoomLeft" = [ ];
       "kwin"."MoveZoomRight" = [ ];
       "kwin"."MoveZoomUp" = [ ];
-      "kwin"."Overview" = ["Meta+Up" "Meta+W,Meta+W,Toggle Overview"];
+      "kwin"."Overview" = [
+        "Meta+Up"
+        "Meta+W,Meta+W,Toggle Overview"
+      ];
       "kwin"."Setup Window Shortcut" = "none,,Setup Window Shortcut";
       "kwin"."Show Desktop" = "Meta+D";
       "kwin"."Switch One Desktop Down" = "none,,Switch One Desktop Down";
@@ -109,11 +129,14 @@
       "kwin"."Walk Through Windows" = "Alt+Tab";
       "kwin"."Walk Through Windows (Reverse)" = "Alt+Shift+Tab";
       "kwin"."Walk Through Windows Alternative" = "none,,Walk Through Windows Alternative";
-      "kwin"."Walk Through Windows Alternative (Reverse)" = "none,,Walk Through Windows Alternative (Reverse)";
+      "kwin"."Walk Through Windows Alternative (Reverse)" =
+        "none,,Walk Through Windows Alternative (Reverse)";
       "kwin"."Walk Through Windows of Current Application" = "Alt+`";
       "kwin"."Walk Through Windows of Current Application (Reverse)" = "Alt+~";
-      "kwin"."Walk Through Windows of Current Application Alternative" = "none,,Walk Through Windows of Current Application Alternative";
-      "kwin"."Walk Through Windows of Current Application Alternative (Reverse)" = "none,,Walk Through Windows of Current Application Alternative (Reverse)";
+      "kwin"."Walk Through Windows of Current Application Alternative" =
+        "none,,Walk Through Windows of Current Application Alternative";
+      "kwin"."Walk Through Windows of Current Application Alternative (Reverse)" =
+        "none,,Walk Through Windows of Current Application Alternative (Reverse)";
       "kwin"."Window Above Other Windows" = "none,,Keep Window Above Others";
       "kwin"."Window Below Other Windows" = "none,,Keep Window Below Others";
       "kwin"."Window Close" = "Alt+F4";
@@ -121,7 +144,10 @@
       "kwin"."Window Grow Horizontal" = "none,,Expand Window Horizontally";
       "kwin"."Window Grow Vertical" = "none,,Expand Window Vertically";
       "kwin"."Window Lower" = "none,,Lower Window";
-      "kwin"."Window Maximize" = ["Meta+Ctrl+Up" "Meta+PgUp,Meta+PgUp,Maximize Window"];
+      "kwin"."Window Maximize" = [
+        "Meta+Ctrl+Up"
+        "Meta+PgUp,Meta+PgUp,Maximize Window"
+      ];
       "kwin"."Window Maximize Horizontal" = "none,,Maximize Window Horizontally";
       "kwin"."Window Maximize Vertical" = "none,,Maximize Window Vertically";
       "kwin"."Window Minimize" = "Meta+PgDown";
@@ -188,7 +214,11 @@
       "kwin"."Window to Screen 6" = "none,,Move Window to Screen 6";
       "kwin"."Window to Screen 7" = "none,,Move Window to Screen 7";
       "kwin"."view_actual_size" = "Meta+0";
-      "kwin"."view_zoom_in" = ["Meta++" "Meta+=,Meta++" "Meta+=,Zoom In"];
+      "kwin"."view_zoom_in" = [
+        "Meta++"
+        "Meta+=,Meta++"
+        "Meta+=,Zoom In"
+      ];
       "kwin"."view_zoom_out" = "Meta+-";
 
       "mediacontrol"."mediavolumedown" = "none,,Media volume down";
@@ -212,9 +242,17 @@
       "org_kde_powerdevil"."Sleep" = "Sleep";
       "org_kde_powerdevil"."Toggle Keyboard Backlight" = "Keyboard Light On/Off";
       "org_kde_powerdevil"."Turn Off Screen" = [ ];
-      "org_kde_powerdevil"."powerProfile" = ["Battery" "Meta+B,Battery" "Meta+B,Switch Power Profile"];
+      "org_kde_powerdevil"."powerProfile" = [
+        "Battery"
+        "Meta+B,Battery"
+        "Meta+B,Switch Power Profile"
+      ];
 
-      "plasmashell"."activate application launcher" = ["Meta" "Alt+F1,Meta" "Alt+F1,Activate Application Launcher"];
+      "plasmashell"."activate application launcher" = [
+        "Meta"
+        "Alt+F1,Meta"
+        "Alt+F1,Activate Application Launcher"
+      ];
       "plasmashell"."activate task manager entry 1" = "Meta+1";
       "plasmashell"."activate task manager entry 10" = "none,Meta+0,Activate Task Manager Entry 10";
       "plasmashell"."activate task manager entry 2" = "Meta+2";
@@ -245,7 +283,8 @@
 
     configFile = {
       "baloofilerc"."General"."dbVersion" = 2;
-      "baloofilerc"."General"."exclude filters" = "*~,*.part,*.o,*.la,*.lo,*.loT,*.moc,moc_*.cpp,qrc_*.cpp,ui_*.h,cmake_install.cmake,CMakeCache.txt,CTestTestfile.cmake,libtool,config.status,confdefs.h,autom4te,conftest,confstat,Makefile.am,*.gcode,.ninja_deps,.ninja_log,build.ninja,*.csproj,*.m4,*.rej,*.gmo,*.pc,*.omf,*.aux,*.tmp,*.po,*.vm*,*.nvram,*.rcore,*.swp,*.swap,lzo,litmain.sh,*.orig,.histfile.*,.xsession-errors*,*.map,*.so,*.a,*.db,*.qrc,*.ini,*.init,*.img,*.vdi,*.vbox*,vbox.log,*.qcow2,*.vmdk,*.vhd,*.vhdx,*.sql,*.sql.gz,*.ytdl,*.tfstate*,*.class,*.pyc,*.pyo,*.elc,*.qmlc,*.jsc,*.fastq,*.fq,*.gb,*.fasta,*.fna,*.gbff,*.faa,po,CVS,.svn,.git,_darcs,.bzr,.hg,CMakeFiles,CMakeTmp,CMakeTmpQmake,.moc,.obj,.pch,.uic,.npm,.yarn,.yarn-cache,__pycache__,node_modules,node_packages,nbproject,.terraform,.venv,venv,core-dumps,lost+found";
+      "baloofilerc"."General"."exclude filters" =
+        "*~,*.part,*.o,*.la,*.lo,*.loT,*.moc,moc_*.cpp,qrc_*.cpp,ui_*.h,cmake_install.cmake,CMakeCache.txt,CTestTestfile.cmake,libtool,config.status,confdefs.h,autom4te,conftest,confstat,Makefile.am,*.gcode,.ninja_deps,.ninja_log,build.ninja,*.csproj,*.m4,*.rej,*.gmo,*.pc,*.omf,*.aux,*.tmp,*.po,*.vm*,*.nvram,*.rcore,*.swp,*.swap,lzo,litmain.sh,*.orig,.histfile.*,.xsession-errors*,*.map,*.so,*.a,*.db,*.qrc,*.ini,*.init,*.img,*.vdi,*.vbox*,vbox.log,*.qcow2,*.vmdk,*.vhd,*.vhdx,*.sql,*.sql.gz,*.ytdl,*.tfstate*,*.class,*.pyc,*.pyo,*.elc,*.qmlc,*.jsc,*.fastq,*.fq,*.gb,*.fasta,*.fna,*.gbff,*.faa,po,CVS,.svn,.git,_darcs,.bzr,.hg,CMakeFiles,CMakeTmp,CMakeTmpQmake,.moc,.obj,.pch,.uic,.npm,.yarn,.yarn-cache,__pycache__,node_modules,node_packages,nbproject,.terraform,.venv,venv,core-dumps,lost+found";
       "baloofilerc"."General"."exclude filters version" = 9;
 
       "dolphinrc"."General"."ViewPropsTimestamp" = "2025,2,18,0,18,6.473";
@@ -278,7 +317,8 @@
       "kwinrc"."TabBox"."ActivitiesMode" = 2;
       "kwinrc"."TabBox"."DesktopMode" = 2;
       "kwinrc"."Tiling"."padding" = 4;
-      "kwinrc"."Tiling/d59c33cf-6857-5359-9ed6-d7b7d78b54d3"."tiles" = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
+      "kwinrc"."Tiling/d59c33cf-6857-5359-9ed6-d7b7d78b54d3"."tiles" =
+        "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
       "kwinrc"."Windows"."RollOverDesktops" = true;
       "kwinrc"."Xwayland"."Scale" = 1;
 

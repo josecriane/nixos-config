@@ -1,3 +1,4 @@
-{inputs, host, ...}: {
-  imports = [];
+{ inputs, host, ... }:
+{
+  imports = [ ];
 }

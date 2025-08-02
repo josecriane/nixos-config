@@ -1,34 +1,36 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, makeWrapper
-, gawk
-, gnum4
-, gnused
-, libxml2
-, libxslt
-, ncurses
-, openssl
-, perl
-, runtimeShell
-, openjdk11 ? null
-, unixODBC ? null
-, libGL ? null
-, libGLU ? null
-, wxGTK ? null
-, xorg ? null
-, systemd ? null
-, wrapGAppsHook3 ? null
-, zlib
-, parallelBuild ? false
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  gawk,
+  gnum4,
+  gnused,
+  libxml2,
+  libxslt,
+  ncurses,
+  openssl,
+  perl,
+  runtimeShell,
+  openjdk11 ? null,
+  unixODBC ? null,
+  libGL ? null,
+  libGLU ? null,
+  wxGTK ? null,
+  xorg ? null,
+  systemd ? null,
+  wrapGAppsHook3 ? null,
+  zlib,
+  parallelBuild ? false,
 }:
 
 let
   version = "25.3.2.20";
-in stdenv.mkDerivation {
+in
+stdenv.mkDerivation {
   pname = "erlang";
   inherit version;
-  
+
   src = fetchFromGitHub {
     owner = "erlang";
     repo = "otp";
@@ -44,21 +46,25 @@ in stdenv.mkDerivation {
     gnum4
     libxslt
     libxml2
-  ] ++ lib.optional (wxGTK != null) wrapGAppsHook3;
+  ]
+  ++ lib.optional (wxGTK != null) wrapGAppsHook3;
 
   buildInputs = [
     ncurses
     openssl
     zlib
-  ] ++ lib.optionals (wxGTK != null) [
+  ]
+  ++ lib.optionals (wxGTK != null) [
     wxGTK
     libGL
     libGLU
-  ] ++ lib.optionals (xorg != null) [
+  ]
+  ++ lib.optionals (xorg != null) [
     xorg.libX11
-  ] ++ lib.optional (unixODBC != null) unixODBC
-     ++ lib.optional (openjdk11 != null) openjdk11
-     ++ lib.optional (systemd != null && stdenv.isLinux) systemd;
+  ]
+  ++ lib.optional (unixODBC != null) unixODBC
+  ++ lib.optional (openjdk11 != null) openjdk11
+  ++ lib.optional (systemd != null && stdenv.isLinux) systemd;
 
   configureFlags = [
     "--with-ssl=${lib.getOutput "out" openssl}"
@@ -66,10 +72,11 @@ in stdenv.mkDerivation {
     "--enable-threads"
     "--enable-smp-support"
     "--enable-kernel-poll"
-  ] ++ lib.optional (wxGTK != null) "--enable-wx"
-    ++ lib.optional (systemd != null && stdenv.isLinux) "--enable-systemd"
-    ++ lib.optional stdenv.hostPlatform.isDarwin "--enable-darwin-64bit"
-    ++ lib.optional (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isx86_64) "--disable-jit";
+  ]
+  ++ lib.optional (wxGTK != null) "--enable-wx"
+  ++ lib.optional (systemd != null && stdenv.isLinux) "--enable-systemd"
+  ++ lib.optional stdenv.hostPlatform.isDarwin "--enable-darwin-64bit"
+  ++ lib.optional (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isx86_64) "--disable-jit";
 
   # On some machines, parallel build reliably crashes on `GEN asn1ct_eval_ext.erl` step
   enableParallelBuilding = parallelBuild;
@@ -78,13 +85,16 @@ in stdenv.mkDerivation {
     # Only build shell/IDE docs and man pages
     DOC_TARGETS = "chunks man";
   };
-  
+
   postPatch = ''
     patchShebangs make
   '';
 
   # install-docs will generate and install manpages and html docs
-  installTargets = [ "install" "install-docs" ];
+  installTargets = [
+    "install"
+    "install-docs"
+  ];
 
   postInstall = ''
     ln -s $out/lib/erlang/lib/erl_interface*/bin/erl_call $out/bin/erl_call
@@ -93,7 +103,12 @@ in stdenv.mkDerivation {
   # Some erlang bin/ scripts run sed and awk
   postFixup = ''
     wrapProgram $out/lib/erlang/bin/erl --prefix PATH ":" "${gnused}/bin/"
-    wrapProgram $out/lib/erlang/bin/start_erl --prefix PATH ":" "${lib.makeBinPath [ gnused gawk ]}"
+    wrapProgram $out/lib/erlang/bin/start_erl --prefix PATH ":" "${
+      lib.makeBinPath [
+        gnused
+        gawk
+      ]
+    }"
   '';
 
   meta = with lib; {

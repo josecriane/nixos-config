@@ -1,4 +1,10 @@
-{inputs, host, self, ...}: {
+{
+  inputs,
+  host,
+  self,
+  ...
+}:
+{
   imports = [
     ./commands.nix
     ./direnv.nix

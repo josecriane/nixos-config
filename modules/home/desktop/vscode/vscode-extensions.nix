@@ -1,6 +1,7 @@
 { pkgs }:
 
-with pkgs.vscode-extensions; [
+with pkgs.vscode-extensions;
+[
   bbenoist.nix
   dart-code.dart-code
   dotjoshjohnson.xml
@@ -10,7 +11,8 @@ with pkgs.vscode-extensions; [
   redhat.vscode-yaml
   rust-lang.rust-analyzer
   ryu1kn.partial-diff
-] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+]
+++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
   {
     name = "vscode-theme-onedark";
     publisher = "akamud";

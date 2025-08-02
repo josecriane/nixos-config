@@ -7,7 +7,7 @@
     rustfmt
     rust-analyzer
     clippy
-    
+
     # Additional tools
     cargo-watch
     cargo-edit

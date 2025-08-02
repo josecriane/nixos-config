@@ -1,7 +1,12 @@
-{ pkgs, lib, machineOptions, ... }:
+{
+  pkgs,
+  lib,
+  machineOptions,
+  ...
+}:
 {
   services.xserver = {
-      displayManager.gdm.enable = true;
-      desktopManager.gnome.enable = true;
+    displayManager.gdm.enable = true;
+    desktopManager.gnome.enable = true;
   };
 }

@@ -7,5 +7,6 @@
     p7zip
     pandoc
     yq
+    nixfmt-tree
   ];
 }

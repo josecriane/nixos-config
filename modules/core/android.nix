@@ -1,8 +1,9 @@
-{ config,
-  pkgs, 
+{
+  config,
+  pkgs,
   lib,
   machineOptions,
-  ... 
+  ...
 }:
 let
   username = machineOptions.username;

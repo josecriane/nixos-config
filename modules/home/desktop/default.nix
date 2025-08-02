@@ -1,4 +1,5 @@
-{inputs, host, ...}: {
+{ inputs, host, ... }:
+{
   imports = [
     ./alacritty.nix
     ./discord.nix
@@ -8,4 +9,3 @@
     ./vscode
   ];
 }
-

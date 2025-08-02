@@ -17,8 +17,15 @@ in
     useGlobalPkgs = true;
 
     backupFileExtension = "bak";
-    
-    extraSpecialArgs = { inherit inputs host machineOptions self; };
+
+    extraSpecialArgs = {
+      inherit
+        inputs
+        host
+        machineOptions
+        self
+        ;
+    };
 
     users.${username} = {
       imports = [
@@ -38,5 +45,5 @@ in
     shell = pkgs.zsh;
   };
 
-  nix.settings.trusted-users = [username];
+  nix.settings.trusted-users = [ username ];
 }

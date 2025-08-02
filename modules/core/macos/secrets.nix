@@ -1,4 +1,13 @@
-{ config, lib, pkgs, inputs, machineOptions, host, self, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  machineOptions,
+  host,
+  self,
+  ...
+}:
 
 {
   imports = [
@@ -19,7 +28,7 @@
         owner = machineOptions.username;
         group = "staff";
       };
-      
+
       # SSH RSA public key
       "id_rsa_pub" = {
         file = "${inputs.secrets}/id_rsa_pub.age";

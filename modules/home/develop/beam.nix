@@ -15,8 +15,7 @@
     ERL_AFLAGS = "-kernel shell_history enabled";
   };
 
-  home.file.".erlang_ls.config".text = 
-  ''
+  home.file.".erlang_ls.config".text = ''
     {
       "include_dirs": [
         "include",

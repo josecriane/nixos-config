@@ -6,9 +6,9 @@
     cder = "_rcd dev erlang";
     cdl = "_rcd libs";
     cdtmp = "_rcd tmp";
-    cp="cp -r";
+    cp = "cp -r";
     cdnix = "cd ~/nixos-config";
-    nixgc="sudo nix-env --delete-generations old; sudo nix-store --gc; sudo nix-collect-garbage -d";
+    nixgc = "sudo nix-env --delete-generations old; sudo nix-store --gc; sudo nix-collect-garbage -d";
   };
 
   environment.interactiveShellInit = ''

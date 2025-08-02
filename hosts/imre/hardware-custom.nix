@@ -1,7 +1,17 @@
-{ config, lib, pkgs, modulesPath, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
 
 {
-  boot.initrd.kernelModules = [ "amdgpu" "kvm-amd" "tpm_crb" ];
+  boot.initrd.kernelModules = [
+    "amdgpu"
+    "kvm-amd"
+    "tpm_crb"
+  ];
 
   hardware.bluetooth.enable = true;
 

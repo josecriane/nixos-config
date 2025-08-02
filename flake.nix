@@ -3,9 +3,9 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    
+
     lanzaboote.url = "github:nix-community/lanzaboote";
-    
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -34,18 +34,18 @@
       flake = false;
     };
   };
-  
+
   outputs =
-    { 
-      nixpkgs, 
-      self, 
-      darwin, 
-      plasma-manager, 
-      home-manager, 
+    {
+      nixpkgs,
+      self,
+      darwin,
+      plasma-manager,
+      home-manager,
       lanzaboote,
       agenix,
       secrets,
-      ... 
+      ...
     }@inputs:
     let
       loadMachineOptions = host: import (./hosts + "/${host}/options.nix");

@@ -1,4 +1,9 @@
-{ pkgs, lib, machineOptions, ... }:
+{
+  pkgs,
+  lib,
+  machineOptions,
+  ...
+}:
 {
   services = {
     xserver = {
@@ -7,9 +12,10 @@
     };
   };
 
-  imports = []
-  ++ (lib.optionals (machineOptions.wm == "plasma") [./wm/plasma.nix])
-  ++ (lib.optionals (machineOptions.wm == "gnome") [./wm/gnome.nix]);
+  imports =
+    [ ]
+    ++ (lib.optionals (machineOptions.wm == "plasma") [ ./wm/plasma.nix ])
+    ++ (lib.optionals (machineOptions.wm == "gnome") [ ./wm/gnome.nix ]);
 
   systemd.extraConfig = "DefaultTimeoutStopSec=10s";
 }

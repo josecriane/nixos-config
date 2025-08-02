@@ -1,4 +1,11 @@
-{ config, lib, pkgs, machineOptions, self, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  machineOptions,
+  self,
+  ...
+}:
 {
   imports = [
     ./all

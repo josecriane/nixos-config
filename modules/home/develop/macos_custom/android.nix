@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   home.packages = with pkgs; [
@@ -13,7 +18,7 @@
 
     FLUTTER_ROOT = "${pkgs.flutter332}";
     DART_SDK = "${pkgs.flutter332}/bin/cache/dart-sdk";
-    
+
     PATH = "$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools/bin";
   };
 

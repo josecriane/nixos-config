@@ -17,8 +17,15 @@ in
     useGlobalPkgs = true;
 
     backupFileExtension = "bak";
-    
-    extraSpecialArgs = { inherit inputs host machineOptions self; };
+
+    extraSpecialArgs = {
+      inherit
+        inputs
+        host
+        machineOptions
+        self
+        ;
+    };
     users.${username} = {
       imports = [
         ./../../home

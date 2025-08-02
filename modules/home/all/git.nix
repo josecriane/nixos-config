@@ -26,9 +26,9 @@
       diff.submodule = "log";
 
       filter.lfs = {
-          clean = "git lfs clean %f";
-          required = true;
-          smudge = "git lfs smudge %f";
+        clean = "git lfs clean %f";
+        required = true;
+        smudge = "git lfs smudge %f";
       };
 
       gpg.program = "gpg";
@@ -55,6 +55,6 @@
 
   programs.zsh.shellAliases = {
     gti = "git";
-    git-clean-branch="git branch -vv | grep ': gone]' | awk '{print $1}' | xargs -r git branch -D";
+    git-clean-branch = "git branch -vv | grep ': gone]' | awk '{print $1}' | xargs -r git branch -D";
   };
 }

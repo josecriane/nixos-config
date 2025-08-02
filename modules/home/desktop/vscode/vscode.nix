@@ -28,7 +28,7 @@
         "erlangFormatter.formatter" = "erlfmt";
 
         "extensions.ignoreRecommendations" = true;
-        
+
         # Nix formatting
         "[nix]" = {
           "editor.defaultFormatter" = "bbenoist.nix";
@@ -36,6 +36,11 @@
         };
         "nix.enableLanguageServer" = true;
         "nix.formatterPath" = "nixfmt";
+
+        # Mostrar cambios de espacios en blanco en el diff
+        "diffEditor.ignoreTrimWhitespace" = false;
+        "diffEditor.renderSideBySide" = true;
+        "editor.renderWhitespace" = "all";
       };
     };
   };

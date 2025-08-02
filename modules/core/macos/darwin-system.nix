@@ -1,21 +1,21 @@
-{ 
+{
   pkgs,
   machineOptions,
-  ... 
+  ...
 }:
 let
   username = machineOptions.username;
 in
-  ###################################################################################
-  #
-  #  macOS's System configuration
-  #
-  #  All the configuration options are documented here:
-  #    https://daiderd.com/nix-darwin/manual/index.html#sec-options
-  #  Incomplete list of macOS `defaults` commands :
-  #    https://github.com/yannbertrand/macos-defaults
-  #
-  ###################################################################################
+###################################################################################
+#
+#  macOS's System configuration
+#
+#  All the configuration options are documented here:
+#    https://daiderd.com/nix-darwin/manual/index.html#sec-options
+#  Incomplete list of macOS `defaults` commands :
+#    https://github.com/yannbertrand/macos-defaults
+#
+###################################################################################
 {
   nix.settings = {
     auto-optimise-store = false;
@@ -32,12 +32,12 @@ in
     '';
 
     defaults = {
-      menuExtraClock.Show24Hour = false;  # show 24 hour clock
-      
+      menuExtraClock.Show24Hour = false; # show 24 hour clock
+
       # customize dock
       dock = {
         autohide = true;
-        show-recents = false;  # disable recent apps
+        show-recents = false; # disable recent apps
         largesize = 44;
         magnification = true;
         orientation = "left";
@@ -57,10 +57,10 @@ in
         tilesize = 31;
 
         # customize Hot Corners
-        wvous-tl-corner = 1;  # top-left - Mission Control
-        wvous-tr-corner = 1;  # top-right - Lock Screen
-        wvous-bl-corner = 1;  # bottom-left - Application Windows
-        wvous-br-corner = 1;  # bottom-right - Desktop
+        wvous-tl-corner = 1; # top-left - Mission Control
+        wvous-tr-corner = 1; # top-right - Lock Screen
+        wvous-bl-corner = 1; # bottom-left - Application Windows
+        wvous-br-corner = 1; # bottom-right - Desktop
       };
 
       # customize finder
@@ -96,7 +96,7 @@ in
       #   # This is very useful for vim users, they use `hjkl` to move cursor.
       #   # sets how long it takes before it starts repeating.
       #   InitialKeyRepeat = 15;  # normal minimum is 15 (225 ms), maximum is 120 (1800 ms)
-      #   # sets how fast it repeats once it starts. 
+      #   # sets how fast it repeats once it starts.
       #   KeyRepeat = 3;  # normal minimum is 2 (30 ms), maximum is 120 (1800 ms)
       #
       #   NSAutomaticCapitalizationEnabled = false;  # disable auto capitalization(自动大写)
@@ -111,61 +111,61 @@ in
       # Customize settings that not supported by nix-darwin directly
       # see the source code of this project to get more undocumented options:
       #    https://github.com/rgcr/m-cli
-      # 
+      #
       # All custom entries can be found by running `defaults read` command.
       # or `defaults read xxx` to read a specific domain.
       CustomUserPreferences = {
-      #   ".GlobalPreferences" = {
-      #     # automatically switch to a new space when switching to the application
-      #     AppleSpacesSwitchOnActivate = true;
-      #   };
+        #   ".GlobalPreferences" = {
+        #     # automatically switch to a new space when switching to the application
+        #     AppleSpacesSwitchOnActivate = true;
+        #   };
         NSGlobalDomain = {
           AppleLanguages = [
             "en-US"
             "es-ES"
           ];
           AppleLocale = "en_US";
-      #     # Add a context menu item for showing the Web Inspector in web views
-      #     WebKitDeveloperExtras = true;
+          #     # Add a context menu item for showing the Web Inspector in web views
+          #     WebKitDeveloperExtras = true;
         };
-      #   "com.apple.finder" = {
-      #     ShowExternalHardDrivesOnDesktop = true;
-      #     ShowHardDrivesOnDesktop = true;
-      #     ShowMountedServersOnDesktop = true;
-      #     ShowRemovableMediaOnDesktop = true;
-      #     _FXSortFoldersFirst = true;
-      #     # When performing a search, search the current folder by default
-      #     FXDefaultSearchScope = "SCcf";
-      #   };
-      #   "com.apple.desktopservices" = {
-      #     # Avoid creating .DS_Store files on network or USB volumes
-      #     DSDontWriteNetworkStores = true;
-      #     DSDontWriteUSBStores = true;
-      #   };
-      #   "com.apple.spaces" = {
-      #     "spans-displays" = 0; # Display have seperate spaces
-      #   };
-      #   "com.apple.WindowManager" = {
-      #     EnableStandardClickToShowDesktop = 0; # Click wallpaper to reveal desktop
-      #     StandardHideDesktopIcons = 0; # Show items on desktop
-      #     HideDesktop = 0; # Do not hide items on desktop & stage manager
-      #     StageManagerHideWidgets = 0;
-      #     StandardHideWidgets = 0;
-      #   };
-      #   "com.apple.screensaver" = {
-      #     # Require password immediately after sleep or screen saver begins
-      #     askForPassword = 1;
-      #     askForPasswordDelay = 0;
-      #   };
-      #   "com.apple.screencapture" = {
-      #     location = "~/Desktop";
-      #     type = "png";
-      #   };
-      #   "com.apple.AdLib" = {
-      #     allowApplePersonalizedAdvertising = false;
-      #   };
-      #   # Prevent Photos from opening automatically when devices are plugged in
-      #   "com.apple.ImageCapture".disableHotPlug = true;
+        #   "com.apple.finder" = {
+        #     ShowExternalHardDrivesOnDesktop = true;
+        #     ShowHardDrivesOnDesktop = true;
+        #     ShowMountedServersOnDesktop = true;
+        #     ShowRemovableMediaOnDesktop = true;
+        #     _FXSortFoldersFirst = true;
+        #     # When performing a search, search the current folder by default
+        #     FXDefaultSearchScope = "SCcf";
+        #   };
+        #   "com.apple.desktopservices" = {
+        #     # Avoid creating .DS_Store files on network or USB volumes
+        #     DSDontWriteNetworkStores = true;
+        #     DSDontWriteUSBStores = true;
+        #   };
+        #   "com.apple.spaces" = {
+        #     "spans-displays" = 0; # Display have seperate spaces
+        #   };
+        #   "com.apple.WindowManager" = {
+        #     EnableStandardClickToShowDesktop = 0; # Click wallpaper to reveal desktop
+        #     StandardHideDesktopIcons = 0; # Show items on desktop
+        #     HideDesktop = 0; # Do not hide items on desktop & stage manager
+        #     StageManagerHideWidgets = 0;
+        #     StandardHideWidgets = 0;
+        #   };
+        #   "com.apple.screensaver" = {
+        #     # Require password immediately after sleep or screen saver begins
+        #     askForPassword = 1;
+        #     askForPasswordDelay = 0;
+        #   };
+        #   "com.apple.screencapture" = {
+        #     location = "~/Desktop";
+        #     type = "png";
+        #   };
+        #   "com.apple.AdLib" = {
+        #     allowApplePersonalizedAdvertising = false;
+        #   };
+        #   # Prevent Photos from opening automatically when devices are plugged in
+        #   "com.apple.ImageCapture".disableHotPlug = true;
       };
 
       # loginwindow = {
@@ -184,11 +184,11 @@ in
     #   remapCapsLockToControl = false;  # remap caps lock to control, useful for emac users
     #   remapCapsLockToEscape  = true;   # remap caps lock to escape, useful for vim users
     #
-    #   # swap left command and left alt 
+    #   # swap left command and left alt
     #   # so it matches common keyboard layout: `ctrl | command | alt`
     #   #
     #   # disabled, caused only problems!
-    #   swapLeftCommandAndLeftAlt = false;  
+    #   swapLeftCommandAndLeftAlt = false;
     # };
 
   };
