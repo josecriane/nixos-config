@@ -1,9 +1,9 @@
-{ pkgs, host, ... }:
+{ pkgs, machineOptions, ... }:
 {
   networking = {
-    hostName = "${host}";
-    computerName = "${host}";
+    hostName = "${machineOptions.hostname}";
+    computerName = "${machineOptions.hostname}";
   };
 
-  system.defaults.smb.NetBIOSName = "${host}";
+  system.defaults.smb.NetBIOSName = "${machineOptions.hostname}";
 }

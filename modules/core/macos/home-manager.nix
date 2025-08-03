@@ -1,7 +1,6 @@
 {
   pkgs,
   inputs,
-  host,
   machineOptions,
   self,
   ...
@@ -21,10 +20,10 @@ in
     extraSpecialArgs = {
       inherit
         inputs
-        host
         machineOptions
         self
         ;
+      host = machineOptions.hostname;
     };
 
     users.${username} = {

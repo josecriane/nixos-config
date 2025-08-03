@@ -60,7 +60,6 @@
             lanzaboote.nixosModules.lanzaboote
           ];
           specialArgs = {
-            host = "imre";
             inherit self inputs;
             machineOptions = loadMachineOptions "imre";
           };
@@ -75,9 +74,8 @@
             ./modules/core
           ];
           specialArgs = {
-            host = "MacBookAir10-1-jose-cribeiro";
             inherit self inputs;
-            machineOptions = loadMachineOptions "MacBookAir10-1-jose-cribeiro";
+            machineOptions = loadMachineOptions "macbook-air";
           };
         };
       };

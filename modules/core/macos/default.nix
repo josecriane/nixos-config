@@ -2,7 +2,6 @@
   inputs,
   nixpkgs,
   self,
-  host,
   machineOptions,
   ...
 }:

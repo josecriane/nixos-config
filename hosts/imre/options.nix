@@ -4,4 +4,5 @@
   wm = "plasma";
   os = "linux";
   username = "sito";
+  hostname = "imre";
 }

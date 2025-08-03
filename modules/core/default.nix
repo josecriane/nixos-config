@@ -3,7 +3,6 @@
   nixpkgs,
   lib,
   self,
-  host,
   machineOptions,
   ...
 }:

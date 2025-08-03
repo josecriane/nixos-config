@@ -1,7 +1,8 @@
 {
   desktop = true;
   develop = true;
-  wm = "darwin";
+  wm = null;
   os = "macos";
   username = "jose.cribeiro";
+  hostname = "MacBookAir10-1-jose-cribeiro";
 }
