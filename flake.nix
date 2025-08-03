@@ -4,6 +4,8 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
     lanzaboote.url = "github:nix-community/lanzaboote";
 
     home-manager = {
@@ -38,6 +40,7 @@
   outputs =
     {
       nixpkgs,
+      nixos-hardware,
       self,
       darwin,
       plasma-manager,
@@ -48,36 +51,42 @@
       ...
     }@inputs:
     let
-      loadMachineOptions = host: import (./hosts + "/${host}/options.nix");
+      mkLinuxSystem =
+        host:
+        nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            (./hosts + "/${host}")
+            ./modules/core
+          ];
+          specialArgs = {
+            inherit self inputs;
+            machineOptions = import (./hosts + "/${host}/options.nix");
+          };
+        };
+
+      mkDarwinSystem =
+        host:
+        darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          modules = [
+            (./hosts + "/${host}")
+            ./modules/core
+          ];
+          specialArgs = {
+            inherit self inputs;
+            machineOptions = import (./hosts + "/${host}/options.nix");
+          };
+        };
     in
     {
       nixosConfigurations = {
-        imre = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            ./hosts/imre
-            ./modules/core
-            lanzaboote.nixosModules.lanzaboote
-          ];
-          specialArgs = {
-            inherit self inputs;
-            machineOptions = loadMachineOptions "imre";
-          };
-        };
+        imre = mkLinuxSystem "imre";
+        newarre = mkLinuxSystem "newarre";
       };
 
       darwinConfigurations = {
-        MacBookAir10-1-jose-cribeiro = darwin.lib.darwinSystem {
-          system = "aarch64-darwin";
-          modules = [
-            ./hosts/MacBookAir10-1-jose-cribeiro
-            ./modules/core
-          ];
-          specialArgs = {
-            inherit self inputs;
-            machineOptions = loadMachineOptions "macbook-air";
-          };
-        };
+        MacBookAir10-1-jose-cribeiro = mkDarwinSystem "macbook-air";
       };
 
     };

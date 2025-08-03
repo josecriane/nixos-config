@@ -7,6 +7,7 @@
 }:
 {
   imports = [
+    inputs.lanzaboote.nixosModules.lanzaboote
     ./alias.nix
     ./boot.nix
     ./home-manager.nix

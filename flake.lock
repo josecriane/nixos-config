@@ -183,6 +183,22 @@
         "type": "github"
       }
     },
+    "nixos-hardware": {
+      "locked": {
+        "lastModified": 1754229794,
+        "narHash": "sha256-yOl7REX6O/1mh+tpscJPKgjK6nmXSMOB1xhmDNAMUZM=",
+        "owner": "NixOS",
+        "repo": "nixos-hardware",
+        "rev": "a872d985392ee5b19d8409bfcc3f106de2070070",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "master",
+        "repo": "nixos-hardware",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1753590935,
@@ -286,6 +302,7 @@
         "darwin": "darwin",
         "home-manager": "home-manager_2",
         "lanzaboote": "lanzaboote",
+        "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-darwin": "nixpkgs-darwin",
         "plasma-manager": "plasma-manager",
