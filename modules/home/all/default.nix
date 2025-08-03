@@ -11,7 +11,7 @@
     ./docker.nix
     ./git.nix
     ./gnugp.nix
-    ./paths.nix
+    ./wallpapers.nix
     ./zellij.nix
     ./zsh
   ];

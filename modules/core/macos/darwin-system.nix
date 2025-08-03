@@ -31,6 +31,14 @@ in
       /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
     '';
 
+    activationScripts.setWallpaper.text = ''
+      # Set wallpaper for all desktops
+      wallpaper_path="$HOME/docs/wallpapers/circle-gruvbox-inspired.webp"
+      if [ -f "$wallpaper_path" ]; then
+        /usr/bin/osascript -e "tell application \"Finder\" to set desktop picture to POSIX file \"$wallpaper_path\""
+      fi
+    '';
+
     defaults = {
       menuExtraClock.Show24Hour = false; # show 24 hour clock
 

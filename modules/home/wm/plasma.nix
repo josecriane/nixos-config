@@ -1,4 +1,9 @@
-{ pkgs, inputs, ... }:
+{
+  pkgs,
+  inputs,
+  config,
+  ...
+}:
 {
   imports = [
     inputs.plasma-manager.homeManagerModules.plasma-manager
@@ -337,6 +342,10 @@
 
     dataFile = {
 
+    };
+
+    workspace = {
+      wallpaper = "${config.home.homeDirectory}/docs/wallpapers/circle-gruvbox-inspired.webp";
     };
   };
 }

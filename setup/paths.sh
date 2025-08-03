@@ -22,5 +22,3 @@ for path in "${paths[@]}"; do
     echo "Create path: $path"
     mkdir -p "$path"
 done
-
-echo "Done"
