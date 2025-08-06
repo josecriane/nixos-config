@@ -30,18 +30,22 @@
   boot.extraModulePackages = [ ];
 
   # Placeholder - will be replaced when you run nixos-generate-config
-fileSystems."/" =
-    { device = "/dev/disk/by-uuid/54a7d45a-07cc-4395-97d7-2fc8be6168e5";
-      fsType = "ext4";
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/54a7d45a-07cc-4395-97d7-2fc8be6168e5";
+    fsType = "ext4";
+  };
 
-  boot.initrd.luks.devices."luks-4c1a499b-4fba-40d8-90a0-a803d588eff7".device = "/dev/disk/by-uuid/4c1a499b-4fba-40d8-90a0-a803d588eff7";
+  boot.initrd.luks.devices."luks-4c1a499b-4fba-40d8-90a0-a803d588eff7".device =
+    "/dev/disk/by-uuid/4c1a499b-4fba-40d8-90a0-a803d588eff7";
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/7057-66ED";
-      fsType = "vfat";
-      options = [ "fmask=0077" "dmask=0077" ];
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/7057-66ED";
+    fsType = "vfat";
+    options = [
+      "fmask=0077"
+      "dmask=0077"
+    ];
+  };
 
   swapDevices = [ ];
 

@@ -6,6 +6,9 @@
   username = "sito";
   hostname = "imre";
   keyboards = [
-    { layout = "us"; variant = "intl"; }
+    {
+      layout = "us";
+      variant = "intl";
+    }
   ];
 }

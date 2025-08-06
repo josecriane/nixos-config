@@ -308,14 +308,14 @@
       "kdeglobals"."WM"."inactiveBackground" = "42,46,50";
       "kdeglobals"."WM"."inactiveBlend" = "161,169,177";
       "kdeglobals"."WM"."inactiveForeground" = "161,169,177";
-      
+
       "kdeglobals"."General"."ColorScheme" = "BreezeDark";
       "kdeglobals"."General"."Name" = "Breeze Dark";
       "kdeglobals"."General"."shadeSortColumn" = true;
-      
+
       "kdeglobals"."KDE"."LookAndFeelPackage" = "org.kde.breezedark.desktop";
       "kdeglobals"."KDE"."contrast" = 4;
-      
+
       "kdeglobals"."Icons"."Theme" = "breeze-dark";
 
       "kiorc"."Confirmations"."ConfirmEmptyTrash" = true;
@@ -342,9 +342,23 @@
       "kwinrc"."Effect-overview"."BorderActivate" = 9;
       "kwinrc"."Effect-windowview"."BorderActivateAll" = 9;
 
-      "kxkbrc"."Layout"."LayoutList" = lib.concatMapStringsSep "," (kb: kb.layout) (machineOptions.keyboards or [ { layout = "us"; variant = "intl"; } ]);
+      "kxkbrc"."Layout"."LayoutList" = lib.concatMapStringsSep "," (kb: kb.layout) (
+        machineOptions.keyboards or [
+          {
+            layout = "us";
+            variant = "intl";
+          }
+        ]
+      );
       "kxkbrc"."Layout"."Use" = true;
-      "kxkbrc"."Layout"."VariantList" = lib.concatMapStringsSep "," (kb: kb.variant or "") (machineOptions.keyboards or [ { layout = "us"; variant = "intl"; } ]);
+      "kxkbrc"."Layout"."VariantList" = lib.concatMapStringsSep "," (kb: kb.variant or "") (
+        machineOptions.keyboards or [
+          {
+            layout = "us";
+            variant = "intl";
+          }
+        ]
+      );
 
       "plasma-localerc"."Formats"."LANG" = "en_US.UTF-8";
 
@@ -359,6 +373,9 @@
       {
         location = "top";
         height = 44;
+        floating = true;
+        alignment = "center";
+        lengthMode = "fit";
         widgets = [
           {
             kickoff = {
@@ -366,7 +383,7 @@
             };
           }
           "org.kde.plasma.pager"
-          "org.kde.plasma.panelspacer"
+          "org.kde.plasma.marginsseparator"
           {
             systemTray = {
               icons = {
