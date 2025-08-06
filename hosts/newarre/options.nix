@@ -5,4 +5,8 @@
   os = "linux";
   username = "sito";
   hostname = "newarre";
+  keyboards = [
+    { layout = "us"; variant = "intl"; }
+    { layout = "es"; variant = ""; }
+  ];
 }

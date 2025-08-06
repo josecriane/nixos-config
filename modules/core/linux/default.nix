@@ -9,6 +9,7 @@
   imports = [
     inputs.lanzaboote.nixosModules.lanzaboote
     ./alias.nix
+    ./bluetooth.nix
     ./boot.nix
     ./home-manager.nix
     ./i18n.nix

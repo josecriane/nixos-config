@@ -4,11 +4,19 @@
   machineOptions,
   ...
 }:
+let
+  keyboards = machineOptions.keyboards or [ { layout = "us"; variant = "intl"; } ];
+  layouts = lib.concatMapStringsSep "," (kb: kb.layout) keyboards;
+  variants = lib.concatMapStringsSep "," (kb: kb.variant or "") keyboards;
+in
 {
   services = {
     xserver = {
       enable = true;
-      xkb.layout = "us";
+      xkb = {
+        layout = layouts;
+        variant = variants;
+      };
     };
   };
 
