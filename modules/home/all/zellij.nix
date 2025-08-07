@@ -11,6 +11,9 @@
       show_startup_tips = false;
       simplified_ui = false;
       pane_frames = false;
+      session_serialization = true;
+      resurrect_dead_sessions = true;
+      pane_viewport_serialization = true;
     };
   };
 

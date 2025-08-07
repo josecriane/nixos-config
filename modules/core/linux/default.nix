@@ -19,6 +19,7 @@
     ./system.nix
     ./xserver.nix
     ./secrets.nix
+    ./virtualization.nix
   ];
 
   system.stateVersion = "25.05";

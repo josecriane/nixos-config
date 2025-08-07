@@ -337,7 +337,11 @@
         "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
       "kwinrc"."Windows"."RollOverDesktops" = false;
       "kwinrc"."Xwayland"."Scale" = 1;
-      
+
+      # Panel behavior with multiple screens
+      "plasmashellrc"."ScreenConnectors"."0" = "eDP-1";
+      "plasmashellrc"."ScreenMapping"."itemsOnDisabledScreens" = 0;
+
       # Session management - remember window positions and virtual desktops
       "ksmserverrc"."General"."loginMode" = "restoreSavedSession";
       "kwinrc"."Windows"."Placement" = "UnderMouse";
@@ -381,6 +385,7 @@
         floating = true;
         alignment = "center";
         lengthMode = "fit";
+        screen = 0;
         widgets = [
           {
             kickoff = {

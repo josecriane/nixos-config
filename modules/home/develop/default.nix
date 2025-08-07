@@ -10,6 +10,7 @@
     ./android.nix
     ./beam.nix
     ./claude.nix
+    ./postman.nix
     ./rust.nix
     ./tex.nix
   ]

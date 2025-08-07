@@ -6,6 +6,7 @@
     ./firefox.nix
     ./meld.nix
     ./telegram.nix
+    ./virtualization.nix
     ./vscode
   ];
 }
