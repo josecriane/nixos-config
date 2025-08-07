@@ -337,6 +337,11 @@
         "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
       "kwinrc"."Windows"."RollOverDesktops" = false;
       "kwinrc"."Xwayland"."Scale" = 1;
+      
+      # Session management - remember window positions and virtual desktops
+      "ksmserverrc"."General"."loginMode" = "restoreSavedSession";
+      "kwinrc"."Windows"."Placement" = "UnderMouse";
+      "kwinrc"."DontKeepAboveManaged"."Desktop" = true;
 
       # Desactivar hot corners
       "kwinrc"."Effect-overview"."BorderActivate" = 9;
@@ -383,6 +388,18 @@
             };
           }
           "org.kde.plasma.pager"
+          "org.kde.plasma.marginsseparator"
+          {
+            iconTasks = {
+              launchers = [ ];
+              behavior = {
+                grouping = {
+                  method = "byProgramName";
+                  clickAction = "showTooltips";
+                };
+              };
+            };
+          }
           "org.kde.plasma.marginsseparator"
           {
             systemTray = {
