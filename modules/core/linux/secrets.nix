@@ -36,6 +36,22 @@
         owner = machineOptions.username;
         group = "users";
       };
+
+      # OpenVPN configuration
+      "noma-ovpn-config" = {
+        file = "${inputs.secrets}/vpn/noma-ovpn-config.age";
+        mode = "600";
+        owner = "root";
+        group = "root";
+      };
+
+      # OpenVPN credentials
+      "noma-ovpn-aup" = {
+        file = "${inputs.secrets}/vpn/noma-ovpn-aup.age";
+        mode = "600";
+        owner = "root";
+        group = "root";
+      };
     };
 
     environment.systemPackages = [ inputs.agenix.packages.${pkgs.system}.default ];

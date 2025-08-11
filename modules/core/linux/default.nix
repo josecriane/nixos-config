@@ -14,6 +14,7 @@
     ./home-manager.nix
     ./i18n.nix
     ./networking.nix
+    ./openvpn.nix
     ./pipewire.nix
     ./security.nix
     ./ssh-agent.nix

@@ -333,11 +333,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1753630608,
-        "narHash": "sha256-4njt69UH3WGr/Ewir8KxpDHi/avUeR3O3bQgYBHUpEs=",
-        "ref": "main",
-        "rev": "810dfefe22c5559f15825e1bb0de5e87b350ae77",
-        "revCount": 3,
+        "lastModified": 1754918263,
+        "narHash": "sha256-ilDuVx8oVslYTYTynxMwgKta/zHF5SolxYAxqVWv2pM=",
+        "ref": "refs/heads/main",
+        "rev": "ed30b7cfbd79c60d6f63ef93071b0e2021da2735",
+        "revCount": 5,
         "type": "git",
         "url": "ssh://git@github.com/josecriane/nix-secrets.git"
       },
