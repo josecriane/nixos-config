@@ -16,6 +16,7 @@
     ./networking.nix
     ./pipewire.nix
     ./security.nix
+    ./ssh-agent.nix
     ./system.nix
     ./xserver.nix
     ./secrets.nix

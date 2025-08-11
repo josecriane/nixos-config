@@ -22,6 +22,7 @@ in
       xkb = {
         layout = layouts;
         variant = variants;
+        model = "pc105";
       };
     };
   };

@@ -7,12 +7,12 @@
   hostname = "newarre";
   keyboards = [
     {
-      layout = "us";
-      variant = "intl";
-    }
-    {
       layout = "es";
       variant = "";
+    }
+    {
+      layout = "us";
+      variant = "intl";
     }
   ];
 }

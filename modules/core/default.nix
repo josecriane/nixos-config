@@ -10,7 +10,6 @@
   imports = [
     ./alias.nix
     ./android.nix
-    ./paths.nix
     ./system.nix
     ./zsh.nix
   ]

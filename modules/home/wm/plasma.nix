@@ -11,6 +11,10 @@
     inputs.plasma-manager.homeManagerModules.plasma-manager
   ];
 
+  home.packages = with pkgs; [
+    wmctrl
+  ];
+
   programs.plasma = {
     enable = true;
     shortcuts = {
@@ -392,7 +396,13 @@
               icon = "nix-snowflake";
             };
           }
-          "org.kde.plasma.pager"
+          {
+            pager = {
+              general = {
+                showOnlyCurrentScreen = false;
+              };
+            };
+          }
           "org.kde.plasma.marginsseparator"
           {
             iconTasks = {

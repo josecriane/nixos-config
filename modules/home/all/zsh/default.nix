@@ -24,7 +24,7 @@
     '';
 
     initContent = ''
-      export PATH="$PATH:$HOME/nixos-config/scripts"
+      export PATH="$PATH:$HOME/nixos-config/scripts:$HOME/scripts"
 
       # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
       ${
@@ -72,6 +72,8 @@
       enable = true;
       plugins = [
         "git"
+        "ssh-agent"
+        "sudo"
         "colored-man-pages"
         "colorize"
       ];

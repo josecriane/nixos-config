@@ -1,0 +1,136 @@
+#!/usr/bin/env bash
+
+# Script para listar ventanas por escritorio virtual en KDE Plasma 6
+# O para abrir aplicaciones en nuevo escritorio a pantalla completa
+# Uso: 
+#   ./to                    - Lista ventanas por escritorio
+#   ./to comando [args]     - Abre comando en nuevo escritorio a pantalla completa
+# Requiere: wmctrl, qdbus
+
+# Función para verificar dependencias
+check_dependencies() {
+    if ! command -v wmctrl &> /dev/null; then
+        echo "Error: wmctrl no está instalado. Instálalo con: nix-shell -p wmctrl"
+        exit 1
+    fi
+}
+
+# Función para abrir aplicación en nuevo escritorio
+open_in_new_desktop() {
+    local command_to_run="$*"
+    
+    echo "Abriendo '$command_to_run' en nuevo escritorio..."
+    
+    # Obtener el nombre del directorio actual
+    local current_dir=$(basename "$PWD")
+    
+    # Obtener el escritorio actual antes de crear el nuevo
+    local original_desktop=$(wmctrl -d | grep '\*' | awk '{print $1}')
+    echo "DEBUG: Escritorio original: $original_desktop"
+    
+    # Obtener el número actual de escritorios
+    local current_desktops=$(qdbus org.kde.KWin /VirtualDesktopManager org.kde.KWin.VirtualDesktopManager.count)
+    
+    # Crear nuevo escritorio y usar método simple para tracking
+    echo "DEBUG: Creando escritorio '$current_dir' en posición $current_desktops"
+    
+    # Crear el escritorio
+    qdbus org.kde.KWin /VirtualDesktopManager org.kde.KWin.VirtualDesktopManager.createDesktop $current_desktops "$current_dir"
+    
+    # Guardar información para la eliminación posterior
+    local desktop_name="$current_dir"
+    local desktop_position=$current_desktops
+    
+    # Obtener el número del nuevo escritorio (será el último)
+    local total_desktops=$(qdbus org.kde.KWin /VirtualDesktopManager org.kde.KWin.VirtualDesktopManager.count)
+    
+    # Guardar lista de ventanas antes de ejecutar la aplicación
+    local windows_before=$(wmctrl -l | awk '{print $1}')
+    
+    # Ejecutar la aplicación en segundo plano
+    $command_to_run &
+    local app_pid=$!
+    
+    # Esperar a que aparezca la ventana y buscarla por diferencia
+    local window_id=""
+    local attempts=0
+    while [ -z "$window_id" ] && [ $attempts -lt 10 ]; do
+        sleep 1
+        local windows_after=$(wmctrl -l | awk '{print $1}')
+        window_id=$(comm -13 <(echo "$windows_before" | sort) <(echo "$windows_after" | sort) | head -n1)
+        attempts=$((attempts + 1))
+    done
+    
+    if [ ! -z "$window_id" ]; then
+        echo "Ventana detectada: $window_id"
+        
+        # Mover la ventana al nuevo escritorio
+        wmctrl -i -r "$window_id" -t $((total_desktops - 1))
+        
+        # Verificar que la ventana se movió correctamente
+        local window_desktop=$(wmctrl -l | grep "$window_id" | awk '{print $2}')
+        echo "Ventana movida al escritorio: $((window_desktop + 1))"
+        
+        # Cambiar al nuevo escritorio y maximizar inmediatamente
+        wmctrl -s $((total_desktops - 1))
+        wmctrl -i -r "$window_id" -b add,maximized_vert,maximized_horz
+        
+        echo "Aplicación lanzada en escritorio $total_desktops"
+        echo "Monitoreando cierre de ventana para limpiar escritorio..."
+        
+        # Monitorear la ventana en segundo plano
+        (
+            while kill -0 "$app_pid" 2>/dev/null || wmctrl -l | grep -q "$window_id"; do
+                sleep 0.5
+            done
+            
+            # La ventana se cerró, eliminar el escritorio inmediatamente
+            echo "Ventana cerrada, eliminando escritorio '$current_dir'..."
+            
+            # Cambiar al escritorio original y eliminar inmediatamente
+            wmctrl -s "$original_desktop"
+            
+            # Obtener UUID del escritorio y eliminarlo inmediatamente
+            local config_path="$HOME/.config/kwinrc"
+            if [ -f "$config_path" ]; then
+                local desktop_uuid=$(grep -A 10 "\[Desktops\]" "$config_path" | grep "Name.*=$desktop_name" -B 1 | head -1 | grep "Id" | cut -d'=' -f2)
+                if [ ! -z "$desktop_uuid" ]; then
+                    qdbus org.kde.KWin /VirtualDesktopManager org.kde.KWin.VirtualDesktopManager.removeDesktop "$desktop_uuid"
+                    echo "Escritorio '$desktop_name' eliminado"
+                    return
+                fi
+            fi
+            
+            # Fallback: eliminar último escritorio
+            qdbus org.kde.KWin /Scripting org.kde.kwin.Scripting.loadScript "
+                var allDesktops = workspace.desktops;
+                if (allDesktops > 1) {
+                    workspace.removeDesktop(workspace.desktops);
+                }
+            " 2>/dev/null
+            echo "Escritorio eliminado"
+        ) &
+        
+    else
+        echo "Error: No se pudo detectar la ventana de la aplicación"
+    fi
+}
+
+# Función principal
+main() {
+    check_dependencies
+    
+    # Si no hay argumentos, mostrar ayuda
+    if [ $# -eq 0 ]; then
+        echo "Uso: $0 comando [argumentos]"
+        echo "Ejemplo: $0 code ."
+        echo "Abre la aplicación en un nuevo escritorio virtual maximizada"
+        echo "El escritorio se elimina automáticamente al cerrar la aplicación"
+    else
+        # Si hay argumentos, abrir aplicación en nuevo escritorio
+        open_in_new_desktop "$@"
+    fi
+}
+
+# Ejecutar función principal con todos los argumentos
+main "$@"
