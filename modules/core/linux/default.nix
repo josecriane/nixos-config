@@ -1,6 +1,7 @@
 {
   inputs,
   nixpkgs,
+  lib,
   self,
   machineOptions,
   ...
@@ -22,7 +23,8 @@
     ./xserver.nix
     ./secrets.nix
     ./virtualization.nix
-  ];
+  ]
+  ++ (lib.optionals machineOptions.develop [ ./android.nix ]);
 
   system.stateVersion = "25.05";
 }

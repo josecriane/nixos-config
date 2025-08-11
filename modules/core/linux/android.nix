@@ -9,7 +9,7 @@ let
   username = machineOptions.username;
 in
 {
-  config = lib.mkIf (machineOptions.os == "linux" && machineOptions.develop) {
+  config = {
     services.udev.packages = [ pkgs.android-udev-rules ];
 
     users.users.${username} = {
