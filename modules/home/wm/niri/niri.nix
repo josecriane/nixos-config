@@ -33,6 +33,7 @@ in
     xdg-utils
     wayland
     xwayland
+    networkmanagerapplet
 
     # Herramientas gráficas Qt esenciales
     kdePackages.polkit-kde-agent-1 # Agente de autenticación
@@ -165,7 +166,7 @@ in
     spawn-at-startup "swaync"
     spawn-at-startup "sh" "-c" "~/.config/niri/monitor-setup"
     spawn-at-startup "/run/current-system/sw/libexec/polkit-kde-authentication-agent-1"
-    spawn-at-startup "plasma-nm"
+    spawn-at-startup "nm-applet --indicator"
     spawn-at-startup "bluedevil-applet"
     spawn-at-startup "kmix" "--keepvisibility"
     spawn-at-startup "swaybg" "-i" "${config.home.homeDirectory}/docs/wallpapers/circle-gruvbox-inspired.webp" "-m" "fill"
@@ -189,7 +190,7 @@ in
         Mod+Space { spawn "wofi"; }
         Mod+P { spawn "sh" "-c" "wofi-pass -s"; }
         Mod+E { spawn "wofi-emoji"; }
-        Mod+L { spawn "swaylock"; }
+        Mod+Shift+L { spawn "swaylock"; }
         Mod+C { spawn "sh" "-c" "~/.local/bin/wofi_calc"; }
         
         Mod+F { maximize-column; }
