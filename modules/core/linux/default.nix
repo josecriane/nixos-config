@@ -17,12 +17,12 @@
     ./networking.nix
     ./openvpn.nix
     ./pipewire.nix
+    ./secrets.nix
     ./security.nix
     ./ssh-agent.nix
     ./system.nix
-    ./xserver.nix
-    ./secrets.nix
     ./virtualization.nix
+    ./xserver.nix
   ]
   ++ (lib.optionals machineOptions.develop [ ./android.nix ]);
 

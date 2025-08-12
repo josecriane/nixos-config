@@ -41,6 +41,7 @@ in
     description = "${username}";
     extraGroups = [
       "networkmanager"
+      "docker"
       "wheel"
     ];
     shell = pkgs.zsh;
