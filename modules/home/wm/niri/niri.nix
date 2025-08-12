@@ -42,6 +42,8 @@ in
     kdePackages.plasma-pa # Control de audio
     kdePackages.kmix # Mezclador de audio KDE
     kdePackages.powerdevil # Gestor de energía y brillo
+    kdePackages.kscreen # Gestor de pantallas
+    wdisplays # Gestor de pantallas para Wayland
     kdePackages.dolphin # Gestor de archivos
     kdePackages.ark # Archivos comprimidos
     kdePackages.gwenview # Visor de imágenes
@@ -95,6 +97,7 @@ in
     output "eDP-1" {
         mode "2880x1800"
         scale 1.0
+        position x=0 y=1080
     }
 
     layout {
@@ -190,7 +193,7 @@ in
         Mod+Space { spawn "wofi"; }
         Mod+P { spawn "sh" "-c" "wofi-pass -s"; }
         Mod+E { spawn "wofi-emoji"; }
-        Mod+Shift+L { spawn "swaylock"; }
+        Mod+Alt+L { spawn "swaylock"; }
         Mod+C { spawn "sh" "-c" "~/.local/bin/wofi_calc"; }
         
         Mod+F { maximize-column; }
