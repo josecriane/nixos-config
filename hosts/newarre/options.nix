@@ -1,7 +1,7 @@
 {
   desktop = true;
   develop = true;
-  wm = "plasma";
+  wm = "niri";
   os = "linux";
   username = "sito";
   hostname = "newarre";
