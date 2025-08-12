@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
   programs.gpg = {
     enable = true;
@@ -11,7 +16,7 @@
   };
 
   # Import GPG keys from agenix secrets
-  home.activation.importGpgKeys = lib.hm.dag.entryAfter ["writeBoundary"] ''
+  home.activation.importGpgKeys = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     # Create GPG home directory if it doesn't exist
     export GNUPGHOME="$HOME/.gnupg"
     mkdir -p "$GNUPGHOME"

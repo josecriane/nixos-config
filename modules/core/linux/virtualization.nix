@@ -1,25 +1,26 @@
-{ config, pkgs, machineOptions, ... }:
+{
+  config,
+  pkgs,
+  machineOptions,
+  ...
+}:
 {
   virtualisation = {
     docker.enable = true;
 
-    virtualbox.host = {
+    libvirtd = {
       enable = true;
-      enableExtensionPack = true;
-      enableKvm = true;
-      addNetworkInterface = false;
+      qemu = {
+        ovmf.enable = true;
+        swtpm.enable = true;
+      };
     };
   };
 
-  users.extraGroups.vboxusers.members = [ machineOptions.username ];
+  environment.systemPackages = with pkgs; [
+    gnome-boxes
+  ];
 
-  # VirtualBox global configuration
-  environment.etc."vbox/VirtualBox.xml".text = ''
-    <?xml version="1.0"?>
-    <VirtualBox xmlns="http://www.virtualbox.org/" version="1.12-linux">
-      <Global>
-        <SystemProperties defaultMachineFolder="/home/${machineOptions.username}/docs/vm"/>
-      </Global>
-    </VirtualBox>
-  '';
+  users.extraGroups.libvirtd.members = [ machineOptions.username ];
+
 }
