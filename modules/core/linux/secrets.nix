@@ -52,6 +52,63 @@
         owner = "root";
         group = "root";
       };
+
+      # GPG private keys
+      "gpg-nomasystems" = {
+        file = "${inputs.secrets}/gpg/info_nomasystems_com_DB345B37ADEA4D2D/private-key.age";
+        path = "/run/agenix/gpg-nomasystems";
+        mode = "600";
+        owner = machineOptions.username;
+        group = "users";
+      };
+
+      "gpg-jose-cribeiro" = {
+        file = "${inputs.secrets}/gpg/jose_cribeiro_nomasystems_com_9C15882E63F2A25A/private-key.age";
+        path = "/run/agenix/gpg-jose-cribeiro";
+        mode = "600";
+        owner = machineOptions.username;
+        group = "users";
+      };
+
+      "gpg-jose-cribeiro-subkeys" = {
+        file = "${inputs.secrets}/gpg/jose_cribeiro_nomasystems_com_9C15882E63F2A25A/subkeys.age";
+        path = "/run/agenix/gpg-jose-cribeiro-subkeys";
+        mode = "600";
+        owner = machineOptions.username;
+        group = "users";
+      };
+
+      "gpg-inditex" = {
+        file = "${inputs.secrets}/gpg/josecan_ext_inditex_com_27220327E40C90A2/private-key.age";
+        path = "/run/agenix/gpg-inditex";
+        mode = "600";
+        owner = machineOptions.username;
+        group = "users";
+      };
+
+      "gpg-inditex-subkeys" = {
+        file = "${inputs.secrets}/gpg/josecan_ext_inditex_com_27220327E40C90A2/subkeys.age";
+        path = "/run/agenix/gpg-inditex-subkeys";
+        mode = "600";
+        owner = machineOptions.username;
+        group = "users";
+      };
+
+      "gpg-gmail" = {
+        file = "${inputs.secrets}/gpg/josecriane_gmail_com_7CBF06A1C0888DFC/private-key.age";
+        path = "/run/agenix/gpg-gmail";
+        mode = "600";
+        owner = machineOptions.username;
+        group = "users";
+      };
+
+      "gpg-trust-db" = {
+        file = "${inputs.secrets}/gpg/trust-db.age";
+        path = "/run/agenix/gpg-trust-db";
+        mode = "600";
+        owner = machineOptions.username;
+        group = "users";
+      };
     };
 
     environment.systemPackages = [ inputs.agenix.packages.${pkgs.system}.default ];
