@@ -26,6 +26,9 @@
     recursive = true;
   };
 
+  # VM directory for VirtualBox
+  home.file."docs/vm/.keep".text = "";
+
   home.sessionPath = [
     "$HOME/scripts"
   ];
