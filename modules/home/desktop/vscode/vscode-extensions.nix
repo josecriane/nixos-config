@@ -9,7 +9,7 @@ with pkgs.vscode-extensions;
   hediet.vscode-drawio
   ms-azuretools.vscode-docker
   redhat.vscode-yaml
-  rust-lang.rust-analyzer
+  # rust-lang.rust-analyzer # Temporarily disabled until PR #433196 is merged
   ryu1kn.partial-diff
 ]
 ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [

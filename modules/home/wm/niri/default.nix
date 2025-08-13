@@ -64,7 +64,7 @@ in
             click-method "clickfinger"
         }
         
-        focus-follows-mouse
+        focus-follows-mouse max-scroll-amount="0%"
     }
 
     output "DP-3" {

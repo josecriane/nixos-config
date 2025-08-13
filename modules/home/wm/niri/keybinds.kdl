@@ -12,10 +12,10 @@ Mod+Shift+C { screenshot; }
 Mod+Alt+C { screenshot-screen; }
 Mod+Ctrl+C { screenshot-window; }
 
-Mod+Left { focus-column-left; }
-Mod+Right { focus-column-right; }
-Mod+Up { focus-window-up; }
-Mod+Down { focus-window-down; }
+Mod+Left { focus-column-or-monitor-left; }
+Mod+Right { focus-column-or-monitor-right; }
+Mod+Up { focus-window-or-monitor-up; }
+Mod+Down { focus-window-or-monitor-down; }
 
 Mod+Ctrl+Up { focus-workspace-up; }
 Mod+Ctrl+Down { focus-workspace-down; }
