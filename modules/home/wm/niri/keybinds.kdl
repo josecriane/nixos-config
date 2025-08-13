@@ -1,4 +1,4 @@
-Mod+Space { spawn "wofi"; }
+Mod+Space  repeat=false { spawn "wofi"; }
 Mod+E { spawn "wofi-emoji"; }
 Mod+Alt+L { spawn "swaylock"; }
 Mod+C { spawn "sh" "-c" "~/.local/bin/wofi_calc"; }
