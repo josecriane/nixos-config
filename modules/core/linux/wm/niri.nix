@@ -11,9 +11,9 @@
   # Servicios esenciales para niri
   services = {
     # Display manager
-    displayManager.sddm = {
+    displayManager.gdm = {
       enable = true;
-      wayland.enable = true;
+      wayland = true;
     };
 
     # Session niri
@@ -45,8 +45,6 @@
   environment.systemPackages = with pkgs; [
     wayland
     xwayland
-    qt5.qtwayland
-    qt6.qtwayland
   ];
 
   # Políticas de seguridad

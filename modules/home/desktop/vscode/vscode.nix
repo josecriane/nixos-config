@@ -12,6 +12,8 @@
         "redhat.telemetry.enabled" = false;
         "editor.accessibilitySupport" = "off";
         "editor.fontSize" = 12;
+        "editor.fontFamily" = "'JetBrainsMono Nerd Font', 'MesloLGS NF', 'monospace'";
+        "terminal.integrated.fontFamily" = "'JetBrainsMono Nerd Font', 'MesloLGS NF', 'monospace'";
         "explorer.confirmDragAndDrop" = false;
         "[xml]" = {
           "editor.defaultFormatter" = "DotJoshJohnson.xml";
@@ -41,7 +43,16 @@
         "diffEditor.ignoreTrimWhitespace" = false;
         "diffEditor.renderSideBySide" = true;
         "editor.renderWhitespace" = "all";
+        
+        # Wayland configuration
+        "window.titleBarStyle" = "custom";
+        "window.commandCenter" = false;
       };
     };
+  };
+  
+  # Variables de entorno para VS Code en Wayland
+  home.sessionVariables = {
+    ELECTRON_OZONE_PLATFORM_HINT = "wayland";
   };
 }

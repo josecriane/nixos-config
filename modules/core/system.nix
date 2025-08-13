@@ -23,6 +23,11 @@
     options = lib.mkDefault "--delete-older-than 7d";
   };
 
+  # Fuentes del sistema
+  fonts.packages = with pkgs; [
+    # Instalar todas las nerd fonts
+  ] ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
+
   environment.systemPackages = with pkgs; [
     git
     vim
