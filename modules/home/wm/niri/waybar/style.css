@@ -1,0 +1,73 @@
+window#waybar {
+    border:        2px solid #efefef;
+    border-radius: 12px;
+    font-family:   "NotoSans Nerd Font";
+    font-size:     18px;
+    box-shadow:    none;
+    text-shadow:   none;
+    transition-duration: 0s;
+    color:      rgba(216, 216, 216, 1);
+    background: rgba(0, 0, 0, 0.67);
+}
+
+window#waybar.solo {
+    background: rgba(35, 31, 32, 0.67);
+    border-radius: 12px;
+}
+
+#workspaces {
+    margin: 0 5px;
+    padding: 0 5px;
+}
+
+#workspaces button {
+    padding:    0 5px;
+    color:      rgba(216, 216, 216, 0.4);
+}
+
+#workspaces button:hover {
+    box-shadow: inherit;
+    text-shadow: inherit;
+    padding: 5px 5px;
+    margin: 5px 5px;
+}
+
+#workspaces button.active {
+    padding:    0 5px;
+    color:      rgba(216, 216, 216, 0.8);
+}
+
+#workspaces button.visible {
+    color:      rgba(216, 216, 216, 1);
+}
+
+#workspaces button.urgent {
+    color:      rgba(238, 46, 36, 1);
+}
+
+#tray,
+#clock,
+#mode,
+#battery,
+#temperature,
+#cpu,
+#memory,
+#idle_inhibitor,
+#backlight,
+#custom-notification,
+#disk {
+    margin:     0px 8px 0px 8px;
+    padding: 0 4px;
+}
+
+#battery.warning {
+   color:       rgba(255, 210, 4, 1);
+}
+
+#battery.critical {
+    color:      rgba(238, 46, 36, 1);
+}
+
+#battery.charging {
+    color:      rgba(216, 216, 216, 1);
+}
