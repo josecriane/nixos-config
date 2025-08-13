@@ -72,12 +72,12 @@
           tooltip = false;
           on-click = "niri msg action spawn -- alacritty --class floating -e btop";
         };
-        
+
         memory = {
           format = "{}% ";
           on-click = "niri msg action spawn -- alacritty --class floating -e btop";
         };
-        
+
         disk = {
           format = "{}% ";
           on-click = "niri msg action spawn -- alacritty --class floating --hold -e dust ~/";
@@ -85,9 +85,15 @@
 
         battery = {
           format = "{icon} {capacity}% - {time}";
-          format-icons = ["" "" "" "" ""];
+          format-icons = [
+            ""
+            ""
+            ""
+            ""
+            ""
+          ];
           format-charging = " {icon} {capacity}% - {time}";
-          format-full =  " {icon} {capacity}% - Charged";
+          format-full = " {icon} {capacity}% - Charged";
           interval = 30;
           states = {
             warning = 25;
@@ -123,11 +129,14 @@
           format = "{icon}";
           format-alt = "{percent}% {icon}";
           format-alt-click = "click-right";
-          format-icons = ["󱠂" "󱠃"];
+          format-icons = [
+            "󱠂"
+            "󱠃"
+          ];
           on-scroll-down = "light -A 1";
           on-scroll-up = "light -U 1";
         };
-        
+
         temperature = {
           format = "  {temperatureC:3}°C";
           hwmon-path = "/sys/class/thermal/thermal_zone10/temp";
@@ -140,8 +149,18 @@
           format-alt-click = "click-right";
           format-muted = "";
           format-icons = {
-            phone = [" " " " " " " "];
-            default = ["" "" "" ""];
+            phone = [
+              " "
+              " "
+              " "
+              " "
+            ];
+            default = [
+              ""
+              ""
+              ""
+              ""
+            ];
           };
           scroll-step = 2;
           on-click = "pavucontrol";

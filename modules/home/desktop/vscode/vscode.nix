@@ -43,14 +43,14 @@
         "diffEditor.ignoreTrimWhitespace" = false;
         "diffEditor.renderSideBySide" = true;
         "editor.renderWhitespace" = "all";
-        
+
         # Wayland configuration
         "window.titleBarStyle" = "custom";
         "window.commandCenter" = false;
       };
     };
   };
-  
+
   # Variables de entorno para VS Code en Wayland
   home.sessionVariables = {
     ELECTRON_OZONE_PLATFORM_HINT = "wayland";
