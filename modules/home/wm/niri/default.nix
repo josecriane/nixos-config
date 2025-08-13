@@ -36,8 +36,6 @@ in
     grim
     slurp
     wl-clipboard
-    wayland
-    xwayland
   ];
 
   # Niri main configuration
@@ -154,13 +152,6 @@ in
     spawn-at-startup "swaybg" "-i" "${config.home.homeDirectory}/docs/wallpapers/circle-gruvbox-inspired.webp" "-m" "fill"
 
     environment {
-        QT_QPA_PLATFORM "wayland"
-        NIXOS_OZONE_WL "1"
-        MOZ_ENABLE_WAYLAND "1"
-        SDL_VIDEODRIVER "wayland"
-        _JAVA_AWT_WM_NONREPARENTING "1"
-        XDG_CURRENT_DESKTOP "niri"
-        XDG_SESSION_TYPE "wayland"
         QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
         QT_STYLE_OVERRIDE "adwaita-dark"
         QT_QPA_PLATFORMTHEME "gtk3"

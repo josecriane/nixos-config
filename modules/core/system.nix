@@ -23,11 +23,11 @@
     options = lib.mkDefault "--delete-older-than 7d";
   };
 
-  # Fuentes del sistema
+  # System fonts
   fonts.packages =
     with pkgs;
     [
-      # Instalar todas las nerd fonts
+      # Install all nerd fonts
     ]
     ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 

@@ -5,9 +5,9 @@
     imagemagick
     jq
     nixfmt-rfc-style
+    nixfmt-tree
     p7zip
     pandoc
     yq
-    nixfmt-tree
   ];
 }

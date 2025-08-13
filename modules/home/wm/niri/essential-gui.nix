@@ -21,12 +21,7 @@
     xdg-utils
     networkmanagerapplet
 
-    # GNOME Dark themes
-    adwaita-icon-theme
-    gnome-themes-extra
-
     # Qt/Wayland compatibility
     qt6.qtwayland
-    adwaita-qt
   ];
 }
