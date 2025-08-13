@@ -1,7 +1,6 @@
 Mod+Space  repeat=false { spawn "wofi"; }
 Mod+E { spawn "wofi-emoji"; }
 Mod+Alt+L { spawn "swaylock"; }
-Mod+C { spawn "sh" "-c" "~/.local/bin/wofi_calc"; }
 
 Mod+F { maximize-column; }
 Mod+Shift+F { fullscreen-window; }
@@ -29,14 +28,6 @@ Mod+Shift+Down { move-window-down; }
 Mod+Comma { consume-window-into-column; }
 Mod+Period { expel-window-from-column; }
 
-Mod+1 { focus-workspace 1; }
-Mod+2 { focus-workspace 2; }
-Mod+3 { focus-workspace 3; }
-
-Mod+Shift+1 { move-window-to-workspace 1; }
-Mod+Shift+2 { move-window-to-workspace 2; }
-Mod+Shift+3 { move-window-to-workspace 3; }
-
 Mod+R { switch-preset-column-width; }
 Mod+Minus { set-column-width "-10%"; }
 Mod+Equal { set-column-width "+10%"; }
@@ -45,6 +36,7 @@ Mod+Alt+Left { set-window-height "-10%"; }
 Mod+Alt+Right { set-window-height "+10%"; }
 
 Mod+Ctrl+K { spawn "sh" "-c" "~/.config/niri/switch-layout"; }
+Mod+Ctrl+Shift+Up { toggle-overview; }
 
 XF86AudioMute { spawn "pamixer" "-t"; }
 XF86AudioRaiseVolume { spawn "pamixer" "-i" "5"; }

@@ -103,6 +103,12 @@ in
         xcursor-size 24
     }
 
+    gestures {
+        hot-corners {
+            off
+        }
+    }
+
     prefer-no-csd
 
     screenshot-path "~/Pictures/scrn-%Y%m%d%H%M%S.png"
