@@ -100,7 +100,7 @@ in
 
     cursor {
         xcursor-theme "breeze_cursors"
-        xcursor-size 24
+        xcursor-size 20
     }
 
     gestures {
@@ -152,9 +152,7 @@ in
     spawn-at-startup "swaync"
     spawn-at-startup "sh" "-c" "~/.config/niri/monitor-setup"
     spawn-at-startup "/run/current-system/sw/libexec/polkit-gnome-authentication-agent-1"
-    spawn-at-startup "nm-applet --indicator"
-    spawn-at-startup "bluetooth-applet"
-    spawn-at-startup "pasystray"
+    spawn-at-startup "sh" "-c" "~/.config/niri/start-tray-apps"
     spawn-at-startup "swaybg" "-i" "${config.home.homeDirectory}/docs/wallpapers/circle-gruvbox-inspired.webp" "-m" "fill"
 
     environment {
@@ -168,42 +166,26 @@ in
     }
   '';
 
-  # Helper scripts
+  # Helper scripts - link to separate files
   xdg.configFile."niri/monitor-setup" = {
     executable = true;
-    text = ''
-      #!/usr/bin/env bash
-
-      sleep 1
-
-      if niri msg outputs | grep -q "DP-1"; then
-          niri msg action focus-monitor-left
-      fi
-    '';
+    source = ./niri-utils/monitor-setup.sh;
   };
 
-  # Script to switch keyboard layout
   xdg.configFile."niri/switch-layout" = {
     executable = true;
-    text = ''
-      #!/usr/bin/env bash
+    source = pkgs.replaceVars ./niri-utils/switch-layout.sh {
+      libnotify = "${pkgs.libnotify}/bin/notify-send";
+    };
+  };
 
-      current_layout_info=$(niri msg keyboard-layouts)
+  xdg.configFile."niri/start-tray-apps" = {
+    executable = true;
+    source = ./niri-utils/start-tray-apps.sh;
+  };
 
-      niri msg action switch-layout next
-
-      sleep 0.1
-
-      new_layout_info=$(niri msg keyboard-layouts)
-      if echo "$new_layout_info" | grep -q "^\s*\*.*Spanish"; then
-          new_layout="Español"
-      else
-          new_layout="English (US)"
-      fi
-
-      if [ -n "$DISPLAY" ] || [ -n "$WAYLAND_DISPLAY" ]; then
-          ${pkgs.libnotify}/bin/notify-send "Keyboard Layout" "Switched to $new_layout" -t 1500 2>/dev/null || true
-      fi
-    '';
+  xdg.configFile."niri/reload-niri" = {
+    executable = true;
+    source = ./niri-utils/reload-niri.sh;
   };
 }

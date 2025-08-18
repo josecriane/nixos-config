@@ -6,7 +6,7 @@ Mod+F { maximize-column; }
 Mod+Shift+F { fullscreen-window; }
 Mod+Q { close-window; }
 Mod+Ctrl+Q { quit skip-confirmation=true; }
-Mod+Ctrl+R { spawn "sh" "-c" "systemctl --user restart niri"; }
+Mod+Ctrl+R { spawn "sh" "-c" "~/.config/niri/reload-niri"; }
 
 Mod+Shift+C { screenshot; }
 Mod+Alt+C { screenshot-screen; }
