@@ -1,6 +1,6 @@
 Mod+Space  repeat=false { spawn "wofi"; }
 Mod+E { spawn "wofi-emoji"; }
-Mod+Alt+L { spawn "swaylock"; }
+Mod+L { spawn "swaylock"; }
 
 Mod+F { maximize-column; }
 Mod+Shift+F { fullscreen-window; }

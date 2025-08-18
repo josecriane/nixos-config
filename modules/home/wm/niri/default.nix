@@ -26,6 +26,7 @@ in
     ./waybar
     ./wofi
     ./swaync
+    ./swaylock.nix
   ];
 
   home.packages = with pkgs; [
@@ -153,7 +154,7 @@ in
     spawn-at-startup "sh" "-c" "~/.config/niri/monitor-setup"
     spawn-at-startup "/run/current-system/sw/libexec/polkit-gnome-authentication-agent-1"
     spawn-at-startup "sh" "-c" "~/.config/niri/start-tray-apps"
-    spawn-at-startup "swaybg" "-i" "${config.home.homeDirectory}/docs/wallpapers/circle-gruvbox-inspired.webp" "-m" "fill"
+    spawn-at-startup "swaybg" "-i" "${config.home.homeDirectory}/docs/wallpapers/default.png" "-m" "fill"
 
     environment {
         QT_WAYLAND_DISABLE_WINDOWDECORATION "1"

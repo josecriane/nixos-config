@@ -33,7 +33,7 @@ in
 
     activationScripts.setWallpaper.text = ''
       # Set wallpaper for all desktops
-      wallpaper_path="$HOME/docs/wallpapers/circle-gruvbox-inspired.webp"
+      wallpaper_path="$HOME/docs/wallpapers/default.png"
       if [ -f "$wallpaper_path" ]; then
         /usr/bin/osascript -e "tell application \"Finder\" to set desktop picture to POSIX file \"$wallpaper_path\""
       fi

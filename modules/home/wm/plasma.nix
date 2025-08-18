@@ -435,7 +435,7 @@
     ];
 
     workspace = {
-      wallpaper = "${config.home.homeDirectory}/docs/wallpapers/circle-gruvbox-inspired.webp";
+      wallpaper = "${config.home.homeDirectory}/docs/wallpapers/default.png";
       theme = "breeze-dark";
       colorScheme = "BreezeDark";
       lookAndFeel = "org.kde.breezedark.desktop";
