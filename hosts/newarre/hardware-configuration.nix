@@ -29,17 +29,16 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
-  # Placeholder - will be replaced when you run nixos-generate-config
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/54a7d45a-07cc-4395-97d7-2fc8be6168e5";
+    device = "/dev/disk/by-uuid/cd6631b2-fc6e-41ad-a05c-013a6d42c4f8";
     fsType = "ext4";
   };
 
-  boot.initrd.luks.devices."luks-4c1a499b-4fba-40d8-90a0-a803d588eff7".device =
-    "/dev/disk/by-uuid/4c1a499b-4fba-40d8-90a0-a803d588eff7";
+  boot.initrd.luks.devices."luks-ee40f3c8-b2b4-4071-b04a-b1b1ddc49113".device =
+    "/dev/disk/by-uuid/ee40f3c8-b2b4-4071-b04a-b1b1ddc49113";
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/7057-66ED";
+    device = "/dev/disk/by-uuid/E884-F9A2";
     fsType = "vfat";
     options = [
       "fmask=0077"
