@@ -38,6 +38,7 @@
     tree
     curl
     sshpass
+    gawk
   ];
 
   environment.variables.EDITOR = "vim";

@@ -3,9 +3,9 @@
   environment.shellAliases = {
     cdev = "_rcd dev";
     cdocs = "_rcd docs";
-    cder = "_rcd dev erlang";
     cdl = "_rcd libs";
     cdtmp = "_rcd tmp";
+    cdh = "_rcd .";
     cp = "cp -r";
     cdnix = "cd ~/nixos-config";
     nixgc = "sudo nix-env --delete-generations old; sudo nix-store --gc; sudo nix-collect-garbage -d";
@@ -19,10 +19,18 @@
       local base_dir="${"$"}{1:-dev}"
       local sub_dir="${"$"}{2}"
       
-      if [ -z "$sub_dir" ]; then
-        cd ~/"$base_dir"
+      if [ "$base_dir" = "." ]; then
+        if [ -z "$sub_dir" ]; then
+          cd ~
+        else
+          cd ~/"$sub_dir"
+        fi
       else
-        cd ~/"$base_dir"/"$sub_dir"
+        if [ -z "$sub_dir" ]; then
+          cd ~/"$base_dir"
+        else
+          cd ~/"$base_dir"/"$sub_dir"
+        fi
       fi
     }
   '';

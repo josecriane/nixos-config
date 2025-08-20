@@ -5,6 +5,7 @@
   os = "linux";
   username = "sito";
   hostname = "newarre";
+  fprint = true;
   keyboards = [
     {
       layout = "es";

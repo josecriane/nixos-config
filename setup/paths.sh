@@ -7,12 +7,8 @@ RED='\033[1;31m'
 NC='\033[0m'
 
 paths=(
-    "$HOME/bin"
     "$HOME/dev"
-    "$HOME/dev/erlang"
     "$HOME/docs"
-    "$HOME/docs/wallpapers"
-    "$HOME/libs"
     "$HOME/scripts"
     "$HOME/templates"
     "$HOME/tmp"

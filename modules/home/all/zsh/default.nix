@@ -38,7 +38,7 @@
       _rcd_complete() {
         local state
         _arguments \
-          '1:base directory:(dev docs libs tmp)' \
+          '1:base directory:()' \
           '2:subdirectory:_path_files -W "$HOME/$words[2]" -/'
       }
 

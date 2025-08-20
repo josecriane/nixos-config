@@ -20,6 +20,7 @@ let
 in
 {
   imports = [
+    ./automount.nix
     ./services.nix
     ./essential-gui.nix
     ./themes.nix

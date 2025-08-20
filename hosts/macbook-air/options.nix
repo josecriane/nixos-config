@@ -5,6 +5,7 @@
   os = "macos";
   username = "jose.cribeiro";
   hostname = "MacBookAir10-1-jose-cribeiro";
+  fprint = false;
   keyboards = [
     {
       layout = "us";
