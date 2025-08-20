@@ -101,8 +101,8 @@ in
     }
 
     cursor {
-        xcursor-theme "breeze_cursors"
-        xcursor-size 20
+        xcursor-theme "Adwaita"
+        xcursor-size 18
     }
 
     gestures {

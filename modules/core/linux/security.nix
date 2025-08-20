@@ -1,4 +1,9 @@
-{ pkgs, machineOptions, lib, ... }:
+{
+  pkgs,
+  machineOptions,
+  lib,
+  ...
+}:
 {
   security.rtkit.enable = true;
 
