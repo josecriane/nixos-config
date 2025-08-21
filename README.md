@@ -203,6 +203,14 @@ systemctl --user restart niri
 journalctl --user -u niri
 ```
 
+### Future Work:
+- [ ] Create a script to help the initial setup.
+- [ ] Configure Nautilus Panel links.
+- [ ] Recustomize waybar, swaync, wofi.
+- [ ] Add wofi commands like Restart, Shutdown, Lock.
+- [ ] Reorganize scripts. setup, scripts, assets/scripts. nix-mac.sh only to mac.
+- [ ] Search about, https://syncthing.net
+
 ## 📚 References
 
 ### NixOS Resources

@@ -44,6 +44,15 @@
         "diffEditor.renderSideBySide" = true;
         "editor.renderWhitespace" = "all";
 
+        # Excluir directorios de búsqueda
+        "search.exclude" = {
+          "**/_build" = true;
+          "**/.direnv" = true;
+          "**/.git" = true;
+          "**/node_modules" = true;
+          "**/target" = true;
+        };
+
         # Wayland configuration
         "window.titleBarStyle" = "custom";
         "window.commandCenter" = false;
