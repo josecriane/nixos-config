@@ -69,6 +69,10 @@ in
         focus-follows-mouse max-scroll-amount="0%"
     }
 
+    output "DP-2" {
+        position x=0 y=0
+    }
+
     output "DP-3" {
         position x=0 y=0
     }

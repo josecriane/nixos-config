@@ -1,5 +1,9 @@
 { pkgs, ... }:
 {
+  imports = [
+    ./nautilus.nix # file manager
+  ];
+
   home.packages = with pkgs; [
     # Essential GUI tools
     polkit_gnome # GNOME authentication agent
@@ -8,7 +12,6 @@
     pasystray # Audio system tray applet
     gnome-power-manager # GNOME power and brightness manager
     wdisplays # Display manager for Wayland
-    nautilus # GNOME file manager
     file-roller # GNOME archive manager
     eog # GNOME image viewer
     evince # GNOME PDF viewer
