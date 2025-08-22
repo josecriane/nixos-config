@@ -24,7 +24,7 @@
     '';
 
     initContent = ''
-      export PATH="$PATH:$HOME/nixos-config/scripts:$HOME/scripts"
+      export PATH="$PATH:$HOME/scripts"
 
       # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
       ${

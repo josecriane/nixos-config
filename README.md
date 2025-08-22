@@ -45,10 +45,9 @@ sudo nixos-rebuild switch --upgrade
 ### macOS (Darwin)
 ```bash
 # Using the helper script
-./scripts/nix-mac.sh -s  # Build and switch
-./scripts/nix-mac.sh -b  # Build only
-./scripts/nix-mac.sh -l  # List generations
-./scripts/nix-mac.sh -r  # Rollback
+./assets/scripts-mac/nix-mac -s  # Build and switch
+./assets/scripts-mac/nix-mac -l  # List generations
+./assets/scripts-mac/nix-mac -r  # Rollback
 
 # Or manually
 sudo darwin-rebuild switch --flake ~/nixos-config#MacBookAir10-1-jose-cribeiro
@@ -206,12 +205,12 @@ journalctl --user -u niri
 ### Future Work:
 - [ ] Recustomize waybar, swaync, wofi.
 - [ ] Add wofi commands like Restart, Shutdown, Lock.
-- [ ] Reorganize scripts. setup, scripts, assets/scripts. nix-mac.sh only to mac.
 - [ ] Take a look at:
   - [ ] https://syncthing.net
   - [ ] https://github.com/nix-community/stylix
 - [ ] Create a script to help the initial setup.
 - [ ] Remove built in bookmarks on nautilus (Starred, Recent)
+- [ ] Create move-window-or-to-monitor-up/down and move-column-or-monitor-right. See: [focus](https://github.com/YaLTeR/niri/commit/a56e4ff436cc4f36d7cda89e985d51e37f0b4f78)
 
 ## 📚 References
 
