@@ -194,4 +194,9 @@ in
     executable = true;
     source = ./niri-utils/reload-niri.sh;
   };
+
+  xdg.configFile."niri/toggle-wofi" = {
+    executable = true;
+    source = ./niri-utils/toggle-wofi.sh;
+  };
 }

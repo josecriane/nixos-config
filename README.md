@@ -204,11 +204,10 @@ journalctl --user -u niri
 
 ### Future Work:
 - [ ] Recustomize waybar, swaync, wofi.
-- [x] Add wofi commands like Restart, Shutdown, Lock.
 - [ ] Take a look at:
   - [ ] https://syncthing.net
   - [ ] https://github.com/nix-community/stylix
-- [ ] Create a script to help the initial setup.
+- [ ] Finish the initial setup script
 - [ ] Remove built in bookmarks on nautilus (Starred, Recent)
 - [ ] Create move-window-or-to-monitor-up/down and move-column-or-monitor-right. See: [focus](https://github.com/YaLTeR/niri/commit/a56e4ff436cc4f36d7cda89e985d51e37f0b4f78)
 
