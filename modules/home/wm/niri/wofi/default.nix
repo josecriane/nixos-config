@@ -1,5 +1,9 @@
 { pkgs, ... }:
 {
+  imports = [
+    ./commands.nix
+  ];
+
   programs.wofi = {
     enable = true;
     style = builtins.readFile ./style.css;
@@ -11,6 +15,8 @@
       allow_markup = true;
       parse_search = true;
       no_actions = true;
+      gtk_dark = true;
+      insensitive = true;
     };
   };
 

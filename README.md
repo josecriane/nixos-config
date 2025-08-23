@@ -204,7 +204,7 @@ journalctl --user -u niri
 
 ### Future Work:
 - [ ] Recustomize waybar, swaync, wofi.
-- [ ] Add wofi commands like Restart, Shutdown, Lock.
+- [x] Add wofi commands like Restart, Shutdown, Lock.
 - [ ] Take a look at:
   - [ ] https://syncthing.net
   - [ ] https://github.com/nix-community/stylix
