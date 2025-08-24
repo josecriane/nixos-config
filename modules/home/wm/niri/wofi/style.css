@@ -1,17 +1,17 @@
 window {
     margin: 0px;
-    border: 2px solid #efefef;
+    border: 2px solid @base05@;
     border-radius: 12px;
-    background-color: rgba(0, 0, 0, 0.67);
-    font-family: "NotoSans Nerd Font";
-    font-size: 18px;
+    background-color: rgba(@base00-rgba@, 0.85);
 }
 
 #input {
     margin: 5px;
     border: none;
-    color: #f8f8f2;
-    background-color: rgba(44, 44, 44, 0.5);
+    color: @base06@;
+    background-color: rgba(@base01-rgba@, 0.5);
+    border-radius: 6px;
+    padding: 8px;
 }
 
 #inner-box {
@@ -29,10 +29,14 @@ window {
 #text {
     margin: 5px;
     border: none;
-    color: #f8f8f2;
+    color: @base05@;
 }
 
 #entry:selected {
-    background-color: rgba(69, 69, 69, 0.7);
+    background-color: rgba(@base02-rgba@, 0.7);
     border-radius: 6px;
+}
+
+#entry:selected #text {
+    color: @base06@;
 }

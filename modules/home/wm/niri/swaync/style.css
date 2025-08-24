@@ -1,9 +1,11 @@
-@define-color bg rgba(0, 0, 0, 0.67);
-@define-color bg-hover rgba(0, 0, 0, 0.8);
-@define-color text rgba(216, 216, 216, 1);
-@define-color text-dim rgba(216, 216, 216, 0.4);
-@define-color border #efefef;
-@define-color red rgba(238, 46, 36, 1);
+@define-color bg rgba(@base00-rgba@, 0.8);
+@define-color bg-hover rgba(@base01-rgba@, 0.9);
+@define-color text @base05@;
+@define-color text-dim rgba(@base04-rgba@, 0.6);
+@define-color border @base05@;
+@define-color red @base08@;
+@define-color yellow @base0A@;
+@define-color green @base0B@;
 
 .notification-row {
   outline: none;
@@ -66,7 +68,6 @@
 
 .notification-default-action:hover,
 .notification-action:hover {
-  -gtk-icon-effect: none;
   background: @bg-hover;
 }
 
@@ -141,7 +142,7 @@
 }
 
 .blank-window {
-  background: alpha(black, 0.25);
+  background: rgba(@base00-rgba@, 0.25);
 }
 
 .widget-title {
