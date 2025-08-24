@@ -14,7 +14,7 @@
         };
       };
 
-      font = {
+      font = pkgs.lib.mkForce {
         size = 10;
         normal = {
           family = "MesloLGS NF";

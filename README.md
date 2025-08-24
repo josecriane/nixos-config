@@ -207,6 +207,7 @@ journalctl --user -u niri
 - [ ] Use directory name on zellij tab name
 - [ ] Fix discord or add alternative
 - [ ] Remove Electron alerts (as Vin VS Code)
+- [ ] Move automount to services
 - [ ] Install steam
 - [ ] Take a look at:
   - [ ] https://syncthing.net

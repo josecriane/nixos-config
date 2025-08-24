@@ -4,7 +4,7 @@
     enable = true;
     package = pkgs.swaylock-effects; # Using swaylock-effects for better aesthetics
 
-    settings = {
+    settings = pkgs.lib.mkForce {
       # Colors
       color = "00000000";
       bs-hl-color = "ee2e24ff";

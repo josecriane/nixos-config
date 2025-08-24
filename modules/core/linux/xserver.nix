@@ -29,9 +29,7 @@ in
 
   imports =
     [ ]
-    ++ (lib.optionals (machineOptions.wm == "plasma") [ ./wm/plasma.nix ])
-    ++ (lib.optionals (machineOptions.wm == "gnome") [ ./wm/gnome.nix ])
-    ++ (lib.optionals (machineOptions.wm == "niri") [ ./wm/niri.nix ]);
+    ++ (lib.optionals (machineOptions.wm != null)) [ ./wm ];
 
   systemd.settings.Manager.DefaultTimeoutStopSec = "10s";
 }

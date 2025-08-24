@@ -23,7 +23,6 @@ in
     ./automount.nix
     ./services.nix
     ./essential-gui.nix
-    ./themes.nix
     ./waybar
     ./wofi
     ./swaync
