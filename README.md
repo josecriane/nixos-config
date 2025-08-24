@@ -204,6 +204,10 @@ journalctl --user -u niri
 
 ### Future Work:
 - [ ] Recustomize waybar, swaync, wofi.
+- [ ] Use directory name on zellij tab name
+- [ ] Fix discord or add alternative
+- [ ] Remove Electron alerts (as Vin VS Code)
+- [ ] Install steam
 - [ ] Take a look at:
   - [ ] https://syncthing.net
   - [ ] https://github.com/nix-community/stylix
