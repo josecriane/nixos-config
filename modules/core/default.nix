@@ -8,6 +8,8 @@
 }:
 {
   imports = [
+    inputs.stylix.nixosModules.stylix
+    ./stylix
     ./alias.nix
     ./system.nix
     ./zsh.nix

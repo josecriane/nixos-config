@@ -11,9 +11,6 @@
         "explorer.confirmDelete" = false;
         "redhat.telemetry.enabled" = false;
         "editor.accessibilitySupport" = "off";
-        # "editor.fontSize" = pkgs.lib.mkForce 12;
-        # "editor.fontFamily" = pkgs.lib.mkForce "'JetBrainsMono Nerd Font', 'MesloLGS NF', 'monospace'";
-        # "terminal.integrated.fontFamily" = pkgs.lib.mkForce "'JetBrainsMono Nerd Font', 'MesloLGS NF', 'monospace'";
         "explorer.confirmDragAndDrop" = false;
         "[xml]" = {
           "editor.defaultFormatter" = "DotJoshJohnson.xml";

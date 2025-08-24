@@ -48,10 +48,6 @@
       grace-no-mouse = true;
       grace-no-touch = true;
 
-      # Layout
-      font = "SF Pro Display Bold";
-      font-size = 25;
-
       # Date and time format
       timestr = "%H:%M";
       datestr = "%A, %d %B";
