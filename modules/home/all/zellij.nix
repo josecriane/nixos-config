@@ -3,7 +3,6 @@
   programs.zellij = {
     enable = true;
     settings = {
-      theme = "default";
       default_shell = "zsh";
       copy_on_select = true;
       scrollback_editor = "${pkgs.neovim}/bin/nvim";
@@ -16,6 +15,8 @@
       pane_viewport_serialization = true;
     };
   };
+
+  stylix.targets.zellij.enable = true;
 
   home.shellAliases = {
     zj = "zellij";

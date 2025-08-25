@@ -67,4 +67,6 @@ in
   home.sessionVariables = {
     ELECTRON_OZONE_PLATFORM_HINT = "wayland";
   };
+
+  stylix.targets.vscode.enable = true;
 }

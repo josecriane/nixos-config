@@ -13,9 +13,8 @@
           shape = "Block";
         };
       };
-
-
-      general.import = [ "${pkgs.alacritty-theme}/alacritty_0_12.toml" ];
     };
   };
+
+  stylix.targets.alacritty.enable = true;
 }

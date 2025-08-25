@@ -2,14 +2,14 @@ window {
     margin: 0px;
     border: 2px solid @base05@;
     border-radius: 12px;
-    background-color: rgba(@base00-rgba@, 0.85);
+    background-color: alpha(@base01@, 0.95);
 }
 
 #input {
     margin: 5px;
     border: none;
     color: @base06@;
-    background-color: rgba(@base01-rgba@, 0.5);
+    background-color: alpha(@base02@, 0.80);
     border-radius: 6px;
     padding: 8px;
 }
@@ -32,11 +32,16 @@ window {
     color: @base05@;
 }
 
-#entry:selected {
-    background-color: rgba(@base02-rgba@, 0.7);
-    border-radius: 6px;
+#entry:nth-child(even) {
+    background-color: alpha(@base02@, 0.8);
 }
 
-#entry:selected #text {
+#entry:nth-child(odd) {
+    background-color: alpha(@base03@, 0.8);
+}
+
+#entry:selected {
+    background-color: @base02@;
+    border-radius: 6px;
     color: @base06@;
 }
