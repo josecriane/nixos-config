@@ -1,4 +1,7 @@
 { config, pkgs, ... }:
+let
+  colors = config.lib.stylix.colors;
+in
 {
   programs.vscode = {
     enable = true;
@@ -6,7 +9,10 @@
     profiles.default = {
       extensions = import ./vscode-extensions.nix { pkgs = pkgs; };
       userSettings = {
-        # "workbench.colorTheme" = pkgs.lib.mkForce "Atom One Dark";
+        "workbench.colorCustomizations" = {
+          "sideBar.background" = "#${colors.base00}";
+        };
+
         "security.workspace.trust.untrustedFiles" = "open";
         "explorer.confirmDelete" = false;
         "redhat.telemetry.enabled" = false;

@@ -14,18 +14,6 @@ with pkgs.vscode-extensions;
 ]
 ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
   {
-    name = "vscode-theme-onedark";
-    publisher = "akamud";
-    version = "2.3.0";
-    sha256 = "8GGv4L4poTYjdkDwZxgNYajuEmIB5XF1mhJMxO2Ho84=";
-  }
-  {
-    name = "back-n-forth";
-    publisher = "nick-rudenko";
-    version = "3.1.1";
-    sha256 = "yircrP2CjlTWd0thVYoOip/KPve24Ivr9f6HbJN0Haw=";
-  }
-  {
     name = "elixir-ls";
     publisher = "jakebecker";
     version = "0.26.4";
