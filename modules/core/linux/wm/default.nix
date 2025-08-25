@@ -1,4 +1,3 @@
-
 {
   inputs,
   nixpkgs,
@@ -8,7 +7,7 @@
   ...
 }:
 {
-imports = [
+  imports = [
   ]
   ++ (lib.optionals (machineOptions.wm == "plasma") [ ./plasma.nix ])
   ++ (lib.optionals (machineOptions.wm == "gnome") [ ./gnome.nix ])

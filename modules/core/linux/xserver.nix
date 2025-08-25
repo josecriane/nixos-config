@@ -27,9 +27,7 @@ in
     };
   };
 
-  imports =
-    [ ]
-    ++ (lib.optionals (machineOptions.wm != null)) [ ./wm ];
+  imports = [ ] ++ (lib.optionals (machineOptions.wm != null)) [ ./wm ];
 
   systemd.settings.Manager.DefaultTimeoutStopSec = "10s";
 }

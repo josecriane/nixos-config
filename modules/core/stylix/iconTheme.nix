@@ -2,10 +2,10 @@
 {
   stylix = {
     iconTheme = {
-      enable  = true;
+      enable = true;
       package = pkgs.adwaita-icon-theme;
-      dark    = "Adwaita";
-      light   = "Adwaita";
+      dark = "Adwaita";
+      light = "Adwaita";
     };
   };
 }

@@ -19,7 +19,7 @@
       base0E = "#b48ead";
       base0F = "#5e81ac";
     };
-    
+
     polarity = "dark";
 
     opacity = {
@@ -27,4 +27,3 @@
     };
   };
 }
-
