@@ -1,7 +1,7 @@
-@define-color bg rgba(@base00-rgba@, 0.8);
-@define-color bg-hover rgba(@base01-rgba@, 0.9);
+@define-color bg alpha(@base00@, 0.8);
+@define-color bg-hover alpha(@base01@, 0.9);
 @define-color text @base05@;
-@define-color text-dim rgba(@base04-rgba@, 0.6);
+@define-color text-dim alpha(@base04@, 0.6);
 @define-color border @base05@;
 @define-color red @base08@;
 @define-color yellow @base0A@;
@@ -142,7 +142,7 @@
 }
 
 .blank-window {
-  background: rgba(@base00-rgba@, 0.25);
+  background: alpha(@base00@, 0.25);
 }
 
 .widget-title {

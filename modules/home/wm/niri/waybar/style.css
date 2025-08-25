@@ -5,11 +5,11 @@ window#waybar {
     text-shadow:   none;
     transition-duration: 0s;
     color:      @base05@;
-    background: rgba(@base00-rgba@, 0.8);
+    background: alpha(@base00@, 0.8);
 }
 
 window#waybar.solo {
-    background: rgba(@base01-rgba@, 0.8);
+    background: alpha(@base01@, 0.8);
     border-radius: 12px;
 }
 
@@ -20,7 +20,7 @@ window#waybar.solo {
 
 #workspaces button {
     padding:    0 5px;
-    color:      rgba(@base04-rgba@, 0.4);
+    color:      alpha(@base04@, 0.4);
 }
 
 #workspaces button:hover {
@@ -32,7 +32,7 @@ window#waybar.solo {
 
 #workspaces button.active {
     padding:    0 5px;
-    color:      rgba(@base05-rgba@, 0.8);
+    color:      alpha(@base05@, 0.8);
 }
 
 #workspaces button.visible {
