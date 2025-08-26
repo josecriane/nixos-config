@@ -203,7 +203,8 @@ journalctl --user -u niri
 ```
 
 ### Future Work:
-- [ ] Recustomize waybar, swaync, wofi.
+- [ ] Recustomize waybar, swaync, wofi
+- [ ] Add zsh color stylix
 - [ ] Use directory name on zellij tab name
 - [ ] Fix discord or add alternative
 - [ ] Remove Electron alerts (as Vin VS Code)
