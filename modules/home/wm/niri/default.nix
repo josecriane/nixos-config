@@ -85,11 +85,7 @@ in
     }
 
     layout {
-        gaps 14
-        
-        border {
-            width 2
-        }
+        gaps 8
         
         preset-column-widths {
             proportion 0.3333
@@ -101,6 +97,10 @@ in
         default-column-width { proportion 0.5; }
         
         center-focused-column "never"
+        
+        focus-ring {
+            width 2
+        }
     }
 
     gestures {
