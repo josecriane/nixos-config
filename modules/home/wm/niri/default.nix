@@ -40,7 +40,9 @@ in
   ];
 
   # Niri main configuration
-  xdg.configFile."niri/config.kdl".text = ''
+  xdg.configFile."niri/config.kdl".text = let
+    colors = config.lib.stylix.colors.withHashtag;
+  in ''
     input {
         keyboard {
             xkb {
@@ -87,8 +89,6 @@ in
         
         border {
             width 2
-            active-color "#efefef"
-            inactive-color "#8F8F8F"
         }
         
         preset-column-widths {
@@ -101,11 +101,6 @@ in
         default-column-width { proportion 0.5; }
         
         center-focused-column "never"
-    }
-
-    cursor {
-        xcursor-theme "Adwaita"
-        xcursor-size 18
     }
 
     gestures {
@@ -159,12 +154,6 @@ in
     spawn-at-startup "/run/current-system/sw/libexec/polkit-gnome-authentication-agent-1"
     spawn-at-startup "sh" "-c" "~/.config/niri/start-tray-apps"
     spawn-at-startup "swaybg" "-i" "${config.home.homeDirectory}/docs/wallpapers/default.png" "-m" "fill"
-
-    environment {
-        QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
-        QT_STYLE_OVERRIDE "adwaita-dark"
-        QT_QPA_PLATFORMTHEME "gtk3"
-    }
 
     binds {
         ${builtins.readFile ./keybinds.kdl}

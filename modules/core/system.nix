@@ -34,6 +34,7 @@
     sshpass
     gawk
     gnumake
+    btop
   ];
 
   environment.variables.EDITOR = "vim";

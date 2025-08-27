@@ -4,7 +4,7 @@
     cursor = {
       package = pkgs.adwaita-icon-theme;
       name = "Adwaita";
-      size = 20;
+      size = 17;
     };
   };
 }

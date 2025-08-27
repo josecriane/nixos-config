@@ -14,5 +14,10 @@
 
   stylix = {
     enable = true;
+
+    targets = {
+      gtk.enable = true;
+      qt.enable = true;
+    };
   };
 }
