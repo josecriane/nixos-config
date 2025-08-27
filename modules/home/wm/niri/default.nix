@@ -116,7 +116,7 @@ in
 
     prefer-no-csd
 
-    screenshot-path "~/Pictures/scrn-%Y%m%d%H%M%S.png"
+    screenshot-path "~/tmp/scrn-%Y%m%d%H%M%S.png"
 
     animations {
         slowdown 1.0

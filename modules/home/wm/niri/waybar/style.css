@@ -20,7 +20,7 @@ window#waybar.solo {
 
 #workspaces button {
     padding:    0 5px;
-    color:      alpha(@base04@, 0.4);
+    color:      alpha(@base06@, 0.4);
 }
 
 #workspaces button:hover {

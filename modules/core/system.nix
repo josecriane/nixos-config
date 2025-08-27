@@ -33,6 +33,7 @@
     curl
     sshpass
     gawk
+    gnumake
   ];
 
   environment.variables.EDITOR = "vim";
