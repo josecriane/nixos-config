@@ -18,10 +18,10 @@
       base09 = "#ef9f76";
       base0A = "#e5c890";
       base0B = "#a6d189";
-      base0C = "#81c8be";
+      base0C = "#81c0c8";
       base0D = "#8caaee";
-      base0E = "#ca9ee6";
-      base0F = "#eebebe";
+      base0E = "#a57fbd";
+      base0F = "#ca9ee6";
     };
 
     polarity = "dark";
