@@ -23,13 +23,7 @@
     options = lib.mkDefault "--delete-older-than 7d";
   };
 
-  # System fonts
-  fonts.packages =
-    with pkgs;
-    [
-      # Install all nerd fonts
-    ]
-    ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
+  # System fonts - Stylix handles font configuration
 
   environment.systemPackages = with pkgs; [
     git
@@ -39,6 +33,7 @@
     curl
     sshpass
     gawk
+    btop
   ];
 
   environment.variables.EDITOR = "vim";

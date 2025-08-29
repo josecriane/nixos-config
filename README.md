@@ -203,10 +203,15 @@ journalctl --user -u niri
 ```
 
 ### Future Work:
-- [ ] Recustomize waybar, swaync, wofi.
+- [ ] Recustomize waybar, swaync, wofi
+- [ ] Fix zsh launch zellij
+- [ ] Use directory name on zellij tab name
+- [ ] Fix discord or add alternative
+- [ ] Remove Electron alerts (as VSCode)
+- [ ] Install steam
 - [ ] Take a look at:
   - [ ] https://syncthing.net
-  - [ ] https://github.com/nix-community/stylix
+  - [ ] https://quickshell.org/
 - [ ] Finish the initial setup script
 - [ ] Remove built in bookmarks on nautilus (Starred, Recent)
 - [ ] Create move-window-or-to-monitor-up/down and move-column-or-monitor-right. See: [focus](https://github.com/YaLTeR/niri/commit/a56e4ff436cc4f36d7cda89e985d51e37f0b4f78)

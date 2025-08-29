@@ -1,17 +1,15 @@
 window#waybar {
-    border:        2px solid #efefef;
+    border:        2px solid @base05@;
     border-radius: 12px;
-    font-family:   "NotoSans Nerd Font";
-    font-size:     18px;
     box-shadow:    none;
     text-shadow:   none;
     transition-duration: 0s;
-    color:      rgba(216, 216, 216, 1);
-    background: rgba(0, 0, 0, 0.67);
+    color:      @base05@;
+    background: alpha(@base00@, 0.8);
 }
 
 window#waybar.solo {
-    background: rgba(35, 31, 32, 0.67);
+    background: alpha(@base01@, 0.8);
     border-radius: 12px;
 }
 
@@ -22,7 +20,7 @@ window#waybar.solo {
 
 #workspaces button {
     padding:    0 5px;
-    color:      rgba(216, 216, 216, 0.4);
+    color:      alpha(@base06@, 0.4);
 }
 
 #workspaces button:hover {
@@ -34,15 +32,15 @@ window#waybar.solo {
 
 #workspaces button.active {
     padding:    0 5px;
-    color:      rgba(216, 216, 216, 0.8);
+    color:      alpha(@base05@, 0.8);
 }
 
 #workspaces button.visible {
-    color:      rgba(216, 216, 216, 1);
+    color:      @base05@;
 }
 
 #workspaces button.urgent {
-    color:      rgba(238, 46, 36, 1);
+    color:      @base08@;
 }
 
 #tray,
@@ -61,13 +59,13 @@ window#waybar.solo {
 }
 
 #battery.warning {
-   color:       rgba(255, 210, 4, 1);
+   color:       @base0A@;
 }
 
 #battery.critical {
-    color:      rgba(238, 46, 36, 1);
+    color:      @base08@;
 }
 
 #battery.charging {
-    color:      rgba(216, 216, 216, 1);
+    color:      @base0B@;
 }

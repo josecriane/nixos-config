@@ -1,40 +1,43 @@
 { pkgs, config, ... }:
+let
+  colors = config.lib.stylix.colors;
+in
 {
   programs.swaylock = {
     enable = true;
     package = pkgs.swaylock-effects; # Using swaylock-effects for better aesthetics
 
-    settings = {
-      # Colors
-      color = "00000000";
-      bs-hl-color = "ee2e24ff";
-      caps-lock-bs-hl-color = "ee2e24ff";
-      caps-lock-key-hl-color = "ffd204ff";
-      inside-color = "00000033";
-      inside-clear-color = "ffffff00";
-      inside-caps-lock-color = "ffffff00";
-      inside-ver-color = "ffffff00";
-      inside-wrong-color = "ffffff00";
-      key-hl-color = "00ff00ff";
+    settings = pkgs.lib.mkForce {
+      # Colors using Stylix scheme
+      color = "${colors.base00}00"; # Transparente
+      bs-hl-color = "${colors.base08}ff"; # Rojo para backspace
+      caps-lock-bs-hl-color = "${colors.base08}ff";
+      caps-lock-key-hl-color = "${colors.base0A}ff"; # Amarillo para caps lock
+      inside-color = "${colors.base00}33"; # Base con transparencia
+      inside-clear-color = "${colors.base0B}00"; # Verde transparente
+      inside-caps-lock-color = "${colors.base0A}00"; # Amarillo transparente
+      inside-ver-color = "${colors.base0D}00"; # Azul transparente
+      inside-wrong-color = "${colors.base08}00"; # Rojo transparente
+      key-hl-color = "${colors.base0B}ff"; # Verde para tecla resaltada
       layout-bg-color = "00000000";
       layout-border-color = "00000000";
-      layout-text-color = "ffffff60";
+      layout-text-color = "${colors.base05}60";
       line-color = "00000000";
-      line-clear-color = "ffffffFF";
-      line-caps-lock-color = "ffffffFF";
-      line-ver-color = "ffffffFF";
-      line-wrong-color = "ffffffFF";
-      ring-color = "64727d66";
-      ring-clear-color = "ffffff40";
-      ring-caps-lock-color = "ffffff40";
-      ring-ver-color = "ffffff40";
-      ring-wrong-color = "ffffff40";
+      line-clear-color = "${colors.base0B}ff"; # Verde
+      line-caps-lock-color = "${colors.base0A}ff"; # Amarillo
+      line-ver-color = "${colors.base0D}ff"; # Azul
+      line-wrong-color = "${colors.base08}ff"; # Rojo
+      ring-color = "${colors.base03}66"; # Gris con transparencia
+      ring-clear-color = "${colors.base0B}40"; # Verde con transparencia
+      ring-caps-lock-color = "${colors.base0A}40"; # Amarillo con transparencia
+      ring-ver-color = "${colors.base0D}40"; # Azul con transparencia
+      ring-wrong-color = "${colors.base08}40"; # Rojo con transparencia
       separator-color = "00000000";
-      text-color = "ffffffc8";
-      text-clear-color = "ffffff60";
-      text-caps-lock-color = "ffffff60";
-      text-ver-color = "ffffff60";
-      text-wrong-color = "ffffff60";
+      text-color = "${colors.base05}c8"; # Texto principal
+      text-clear-color = "${colors.base05}60";
+      text-caps-lock-color = "${colors.base0A}60";
+      text-ver-color = "${colors.base0D}60";
+      text-wrong-color = "${colors.base08}60";
 
       # Effects from swaylock-effects
       # screenshots = false;  # Comentado para usar imagen
@@ -47,10 +50,6 @@
       grace = 2;
       grace-no-mouse = true;
       grace-no-touch = true;
-
-      # Layout
-      font = "SF Pro Display Bold";
-      font-size = 25;
 
       # Date and time format
       timestr = "%H:%M";

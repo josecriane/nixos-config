@@ -2,16 +2,10 @@
   "$schema": "/etc/xdg/swaync/configSchema.json",
   "positionX": "right",
   "positionY": "top",
-  "layer": "overlay",
-  "control-center-layer": "top",
-  "layer-shell": true,
-  "cssPriority": "application",
-  "control-center-margin-top": 8,
-  "control-center-margin-bottom": 8,
-  "control-center-margin-right": 8,
-  "control-center-margin-left": 8,
-  "notification-2fa-action": true,
-  "notification-inline-replies": false,
+  "control-center-margin-top": 4,
+  "control-center-margin-bottom": 4,
+  "control-center-margin-right": 4,
+  "control-center-margin-left": 4,
   "notification-icon-size": 64,
   "notification-body-image-height": 100,
   "notification-body-image-width": 200,
@@ -28,19 +22,15 @@
   "hide-on-clear": false,
   "hide-on-action": true,
   "script-fail-notify": true,
-  "notification-visibility": {},
+  "scripts": {},
   "widgets": [
-    "inhibitors",
+    "menubar#label",
+    "volume",
     "title",
     "dnd",
     "notifications"
   ],
   "widget-config": {
-    "inhibitors": {
-      "text": "Inhibitors",
-      "button-text": "Clear All",
-      "clear-all-button": true
-    },
     "title": {
       "text": "Notifications",
       "clear-all-button": true,
@@ -48,6 +38,60 @@
     },
     "dnd": {
       "text": "Do Not Disturb"
+    },
+    "volume": {
+      "label": ""
+    },
+    "menubar#label": {
+      "menu#power-buttons": {
+        "label": "", 
+        "position": "right",
+        "actions": [ 
+          {
+            "label": " Reboot",
+            "command": "systemctl reboot"
+          },
+          {
+            "label": " Lock",
+            "command": "swaylock"
+          },
+          {
+            "label": " Logout",
+            "command": "niri msg action quit --skip-confirmation"
+          },
+          {
+            "label": " Shut down",
+            "command": "systemctl poweroff"
+          }
+        ]
+      },
+      "menu#powermode-buttons": {
+        "label": "󰌪", 
+        "position": "left",
+        "actions": [ 
+          {
+            "label": "Performance",
+            "command": "powerprofilesctl set performance"
+          },
+          {
+            "label": "Balanced",
+            "command": "powerprofilesctl set balanced"
+          },
+          {
+            "label": "Power-saver",
+            "command": "powerprofilesctl set power-saver"
+          }
+        ]
+      },
+      "buttons#topbar-buttons": {
+        "position": "left",
+        "actions": [
+          {
+            "label": "󰄀",
+            "command": "niri msg action screenshot"
+          }
+        ]
+      }
     }
   }
 }

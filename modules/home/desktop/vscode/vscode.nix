@@ -1,4 +1,7 @@
 { config, pkgs, ... }:
+let
+  colors = config.lib.stylix.colors;
+in
 {
   programs.vscode = {
     enable = true;
@@ -6,14 +9,14 @@
     profiles.default = {
       extensions = import ./vscode-extensions.nix { pkgs = pkgs; };
       userSettings = {
-        "workbench.colorTheme" = "Atom One Dark";
+        "workbench.colorCustomizations" = {
+          "sideBar.background" = "#${colors.base00}";
+        };
+
         "security.workspace.trust.untrustedFiles" = "open";
         "explorer.confirmDelete" = false;
         "redhat.telemetry.enabled" = false;
         "editor.accessibilitySupport" = "off";
-        "editor.fontSize" = 12;
-        "editor.fontFamily" = "'JetBrainsMono Nerd Font', 'MesloLGS NF', 'monospace'";
-        "terminal.integrated.fontFamily" = "'JetBrainsMono Nerd Font', 'MesloLGS NF', 'monospace'";
         "explorer.confirmDragAndDrop" = false;
         "[xml]" = {
           "editor.defaultFormatter" = "DotJoshJohnson.xml";
@@ -64,4 +67,6 @@
   home.sessionVariables = {
     ELECTRON_OZONE_PLATFORM_HINT = "wayland";
   };
+
+  stylix.targets.vscode.enable = true;
 }

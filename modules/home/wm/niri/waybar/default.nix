@@ -1,8 +1,11 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
+let
+  stylixCss = import ../niri-utils/stylix-css.nix { inherit config; };
+in
 {
   programs.waybar = {
     enable = true;
-    style = builtins.readFile ./style.css;
+    style = stylixCss.replaceStylixColors (builtins.readFile ./style.css);
 
     settings = [
       {
