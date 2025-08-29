@@ -204,7 +204,6 @@ journalctl --user -u niri
 
 ### Future Work:
 - [ ] Recustomize waybar, swaync, wofi
-- [ ] Fix zsh launch zellij
 - [ ] Use directory name on zellij tab name
 - [ ] Fix discord or add alternative
 - [ ] Remove Electron alerts (as VSCode)

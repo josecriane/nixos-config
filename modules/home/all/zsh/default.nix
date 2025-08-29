@@ -43,16 +43,6 @@
       }
 
       compdef _rcd_complete _rcd
-
-      # Auto-attach to zellij session if not already in one
-      # Only run in interactive shells and when not in SSH
-      if [[ -o interactive ]] && [[ -z "$ZELLIJ" ]] && [[ -z "$SSH_CONNECTION" ]]; then
-        # Check if we're in a terminal that supports zellij
-        if [[ -t 0 ]] && [[ -t 1 ]] && [[ -t 2 ]]; then
-          # Attach to "default" session or create it if it doesn't exist
-          zellij attach -c default
-        fi
-      fi
     '';
 
     plugins = [
