@@ -33,7 +33,6 @@
     curl
     sshpass
     gawk
-    gnumake
     btop
   ];
 
