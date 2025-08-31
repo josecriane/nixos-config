@@ -47,6 +47,7 @@
   environment.systemPackages = with pkgs; [
     wayland
     xwayland
+    xwayland-satellite
   ];
 
   # Políticas de seguridad

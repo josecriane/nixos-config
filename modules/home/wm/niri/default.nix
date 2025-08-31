@@ -150,6 +150,7 @@ in
 
       spawn-at-startup "systemctl" "--user" "import-environment" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
       spawn-at-startup "dbus-update-activation-environment" "--systemd" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
+      spawn-at-startup "xwayland-satellite"
       spawn-at-startup "waybar"
       spawn-at-startup "swaync"
       spawn-at-startup "sh" "-c" "~/.config/niri/monitor-setup"
