@@ -25,4 +25,10 @@ with pkgs.vscode-extensions;
     version = "0.0.46";
     sha256 = "HvQ0qv1wA+qSN1+8r9Z4iTq7DtpsCvOZ73bACeHZ9+o=";
   }
+  {
+    name = "qml";
+    publisher = "bbenoist";
+    version = "1.0.0";
+    sha256 = "tphnVlD5LA6Au+WDrLZkAxnMJeTCd3UTyTN1Jelditk=";
+  }
 ]
