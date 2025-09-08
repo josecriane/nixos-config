@@ -11,6 +11,7 @@
     inputs.stylix.nixosModules.stylix
     ./stylix
     ./alias.nix
+    ./essentials.nix
     ./system.nix
     ./zsh.nix
   ]

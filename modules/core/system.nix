@@ -23,19 +23,6 @@
     options = lib.mkDefault "--delete-older-than 7d";
   };
 
-  # System fonts - Stylix handles font configuration
-
-  environment.systemPackages = with pkgs; [
-    git
-    vim
-    wget
-    tree
-    curl
-    sshpass
-    gawk
-    btop
-  ];
-
   environment.variables.EDITOR = "vim";
 
   time.timeZone = "Europe/Madrid";
