@@ -14,17 +14,17 @@ StyledRect {
     id: root
 
     property color colour: Colours.palette.m3secondary
-    readonly property alias items: iconColumn
+    readonly property alias items: iconRow
 
     color: Colours.tPalette.m3surfaceContainer
     radius: Appearance.rounding.full
 
     clip: true
-    implicitWidth: Config.bar.sizes.innerWidth
-    implicitHeight: iconColumn.implicitHeight + Appearance.padding.normal * 2
+    implicitWidth: iconRow.implicitWidth + Appearance.padding.normal * 2
+    implicitHeight: Config.bar.sizes.innerWidth
 
-    ColumnLayout {
-        id: iconColumn
+    RowLayout {
+        id: iconRow
 
         anchors.centerIn: parent
         spacing: Appearance.spacing.smaller / 2
@@ -71,7 +71,7 @@ StyledRect {
             name: "bluetooth"
             active: Config.bar.status.showBluetooth
 
-            sourceComponent: ColumnLayout {
+            sourceComponent: RowLayout {
                 spacing: Appearance.spacing.smaller / 2
 
                 // Bluetooth icon
@@ -157,7 +157,7 @@ StyledRect {
         }
     }
 
-    Behavior on implicitHeight {
+    Behavior on implicitWidth {
         Anim {
             duration: Appearance.anim.durations.large
             easing.bezierCurve: Appearance.anim.curves.emphasized
@@ -167,7 +167,7 @@ StyledRect {
     component WrappedLoader: Loader {
         required property string name
 
-        Layout.alignment: Qt.AlignHCenter
+        Layout.alignment: Qt.AlignVCenter
         asynchronous: true
         visible: active
     }

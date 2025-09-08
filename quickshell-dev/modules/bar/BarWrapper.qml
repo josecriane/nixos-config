@@ -14,28 +14,28 @@ Item {
     required property BarPopouts.Wrapper popouts
 
     readonly property int padding: Math.max(Appearance.padding.smaller, Config.border.thickness)
-    readonly property int contentWidth: Config.bar.sizes.innerWidth + padding * 2
-    readonly property int exclusiveZone: Config.bar.persistent || visibilities.bar ? contentWidth : Config.border.thickness
+    readonly property int contentHeight: Config.bar.sizes.innerWidth + padding * 2
+    readonly property int exclusiveZone: Config.bar.persistent || visibilities.bar ? contentHeight : Config.border.thickness
     readonly property bool shouldBeVisible: Config.bar.persistent || visibilities.bar || isHovered
     property bool isHovered
 
-    function checkPopout(y: real): void {
-        content.item?.checkPopout(y);
+    function checkPopout(x: real): void {
+        content.item?.checkPopout(x);
     }
 
-    function handleWheel(y: real, angleDelta: point): void {
-        content.item?.handleWheel(y, angleDelta);
+    function handleWheel(x: real, angleDelta: point): void {
+        content.item?.handleWheel(x, angleDelta);
     }
 
-    visible: width > Config.border.thickness
-    implicitWidth: Config.border.thickness
+    visible: height > Config.border.thickness
+    implicitHeight: Config.border.thickness
 
     states: State {
         name: "visible"
         when: root.shouldBeVisible
 
         PropertyChanges {
-            root.implicitWidth: root.contentWidth
+            root.implicitHeight: root.contentHeight
         }
     }
 
@@ -46,7 +46,7 @@ Item {
 
             Anim {
                 target: root
-                property: "implicitWidth"
+                property: "implicitHeight"
                 duration: Appearance.anim.durations.expressiveDefaultSpatial
                 easing.bezierCurve: Appearance.anim.curves.expressiveDefaultSpatial
             }
@@ -57,7 +57,7 @@ Item {
 
             Anim {
                 target: root
-                property: "implicitWidth"
+                property: "implicitHeight"
                 easing.bezierCurve: Appearance.anim.curves.emphasized
             }
         }
@@ -66,14 +66,15 @@ Item {
     Loader {
         id: content
 
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
+        anchors.left: parent.left
         anchors.right: parent.right
+        anchors.top: parent.top
 
         active: root.shouldBeVisible || root.visible
 
         sourceComponent: Bar {
-            width: root.contentWidth
+            width: parent.width
+            height: root.contentHeight
             screen: root.screen
             visibilities: root.visibilities
             popouts: root.popouts

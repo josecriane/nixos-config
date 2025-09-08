@@ -9,55 +9,55 @@ import Quickshell
 import QtQuick
 import QtQuick.Layouts
 
-ColumnLayout {
+RowLayout {
     id: root
 
     required property ShellScreen screen
     required property PersistentProperties visibilities
     required property BarPopouts.Wrapper popouts
-    readonly property int vPadding: Appearance.padding.large
+    readonly property int hPadding: Appearance.padding.large
 
-    function checkPopout(y: real): void {
-        const ch = childAt(width / 2, y) as WrappedLoader;
+    function checkPopout(x: real): void {
+        const ch = childAt(x, height / 2) as WrappedLoader;
         if (!ch) {
             popouts.hasCurrent = false;
             return;
         }
 
         const id = ch.id;
-        const top = ch.y;
+        const left = ch.x;
         const item = ch.item;
-        const itemHeight = item.implicitHeight;
+        const itemWidth = item.implicitWidth;
 
         if (id === "statusIcons") {
             const items = item.items;
-            const icon = items.childAt(items.width / 2, mapToItem(items, 0, y).y);
+            const icon = items.childAt(mapToItem(items, x, 0).x, items.height / 2);
             if (icon) {
                 popouts.currentName = icon.name;
-                popouts.currentCenter = Qt.binding(() => icon.mapToItem(root, 0, icon.implicitHeight / 2).y);
+                popouts.currentCenter = Qt.binding(() => icon.mapToItem(root, icon.implicitWidth / 2, 0).x);
                 popouts.hasCurrent = true;
             }
         } else if (id === "tray") {
-            const index = Math.floor(((y - top) / itemHeight) * item.items.count);
+            const index = Math.floor(((x - left) / itemWidth) * item.items.count);
             const trayItem = item.items.itemAt(index);
             if (trayItem) {
                 popouts.currentName = `traymenu${index}`;
-                popouts.currentCenter = Qt.binding(() => trayItem.mapToItem(root, 0, trayItem.implicitHeight / 2).y);
+                popouts.currentCenter = Qt.binding(() => trayItem.mapToItem(root, trayItem.implicitWidth / 2, 0).x);
                 popouts.hasCurrent = true;
             }
         } else if (id === "activeWindow") {
             popouts.currentName = id.toLowerCase();
-            popouts.currentCenter = item.mapToItem(root, 0, itemHeight / 2).y;
+            popouts.currentCenter = item.mapToItem(root, itemWidth / 2, 0).x;
             popouts.hasCurrent = true;
         }
     }
 
-    function handleWheel(y: real, angleDelta: point): void {
-        const ch = childAt(width / 2, y) as WrappedLoader;
+    function handleWheel(x: real, angleDelta: point): void {
+        const ch = childAt(x, height / 2) as WrappedLoader;
         if (ch?.id === "workspaces") {
             // Workspace scroll - disabled for non-Hyprland
             console.log("Workspace scrolling disabled for current compositor");
-        } else if (y < screen.height / 2) {
+        } else if (x < screen.width / 2) {
             // Volume scroll on top half
             if (angleDelta.y > 0)
                 Audio.incrementVolume();
@@ -86,7 +86,7 @@ ColumnLayout {
             DelegateChoice {
                 roleValue: "spacer"
                 delegate: WrappedLoader {
-                    Layout.fillHeight: enabled
+                    Layout.fillWidth: enabled
                 }
             }
             DelegateChoice {
@@ -171,11 +171,11 @@ ColumnLayout {
             return null;
         }
 
-        Layout.alignment: Qt.AlignHCenter
+        Layout.alignment: Qt.AlignVCenter
 
         // Cursed ahh thing to add padding to first and last enabled components
-        Layout.topMargin: findFirstEnabled() === this ? root.vPadding : 0
-        Layout.bottomMargin: findLastEnabled() === this ? root.vPadding : 0
+        Layout.leftMargin: findFirstEnabled() === this ? root.hPadding : 0
+        Layout.rightMargin: findLastEnabled() === this ? root.hPadding : 0
 
         visible: enabled
         active: enabled
