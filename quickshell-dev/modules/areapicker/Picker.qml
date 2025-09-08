@@ -37,21 +37,7 @@ MouseArea {
     property real sw: Math.abs(sx - ex)
     property real sh: Math.abs(sy - ey)
 
-    property list<var> clients: {
-        const mon = Hypr.monitorFor(screen);
-        if (!mon)
-            return [];
-
-        const special = mon.lastIpcObject.specialWorkspace;
-        const wsId = special.name ? special.id : mon.activeWorkspace.id;
-
-        return Hypr.toplevels.values.filter(c => c.workspace?.id === wsId).sort((a, b) => {
-            // Pinned first, then fullscreen, then floating, then any other
-            const ac = a.lastIpcObject;
-            const bc = b.lastIpcObject;
-            return (bc.pinned - ac.pinned) || ((bc.fullscreen !== 0) - (ac.fullscreen !== 0)) || (bc.floating - ac.floating);
-        });
-    }
+    property list<var> clients: []  // No client info in niri
 
     function checkClientRects(x: real, y: real): void {
         for (const client of clients) {
@@ -97,21 +83,15 @@ MouseArea {
 
         opacity = 1;
 
-        const c = clients[0];
-        if (c) {
-            const cx = c.lastIpcObject.at[0] - screen.x;
-            const cy = c.lastIpcObject.at[1] - screen.y;
-            onClient = true;
-            sx = cx;
-            sy = cy;
-            ex = cx + c.lastIpcObject.size[0];
-            ey = cy + c.lastIpcObject.size[1];
-        } else {
-            sx = screen.width / 2 - 100;
-            sy = screen.height / 2 - 100;
-            ex = screen.width / 2 + 100;
-            ey = screen.height / 2 + 100;
-        }
+        // No clients in niri, use default selection area
+        sx = screen.width / 2 - 100;
+        sy = screen.height / 2 - 100;
+        ex = screen.width / 2 + 100;
+        ey = screen.height / 2 + 100;
+        
+        // Set default border values (previously from hyprctl)
+        borderWidth = 2;
+        rounding = 0;
     }
 
     onPressed: event => {
@@ -188,21 +168,7 @@ MouseArea {
         }
     }
 
-    Process {
-        running: true
-        command: ["hyprctl", "-j", "getoption", "general:border_size"]
-        stdout: StdioCollector {
-            onStreamFinished: root.borderWidth = JSON.parse(text).int
-        }
-    }
-
-    Process {
-        running: true
-        command: ["hyprctl", "-j", "getoption", "decoration:rounding"]
-        stdout: StdioCollector {
-            onStreamFinished: root.rounding = JSON.parse(text).int
-        }
-    }
+    // Hyprctl processes disabled for niri - values set in main Component.onCompleted
 
     Loader {
         id: screencopy

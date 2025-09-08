@@ -36,7 +36,7 @@ Loader {
             }
 
             Loader {
-                readonly property bool shouldBeActive: Config.background.visualiser.enabled && (!Config.background.visualiser.autoHide || Hypr.monitorFor(win.modelData).activeWorkspace.toplevels.values.every(t => t.lastIpcObject.floating)) ? 1 : 0
+                readonly property bool shouldBeActive: Config.background.visualiser.enabled && !Config.background.visualiser.autoHide ? 1 : 0  // Simplified for niri
                 property real offset: shouldBeActive ? 0 : win.modelData.height * 0.2
 
                 anchors.fill: parent

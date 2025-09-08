@@ -78,8 +78,8 @@ ColumnLayout {
 
                 Button {
                     required property int index
-                    readonly property int wsId: Math.floor((Hypr.activeWsId - 1) / 10) * 10 + index + 1
-                    readonly property bool isCurrent: root.client?.workspace.id === wsId
+                    readonly property int wsId: index + 1  // Simplified for niri
+                    readonly property bool isCurrent: false  // Disabled for niri
 
                     color: isCurrent ? Colours.tPalette.m3surfaceContainerHighest : Colours.palette.m3tertiaryContainer
                     onColor: isCurrent ? Colours.palette.m3onSurface : Colours.palette.m3onTertiaryContainer
@@ -87,7 +87,7 @@ ColumnLayout {
                     disabled: isCurrent
 
                     function onClicked(): void {
-                        Hypr.dispatch(`movetoworkspace ${wsId},address:0x${root.client?.address}`);
+                        console.log("Move to workspace disabled for niri compositor");
                     }
                 }
             }
@@ -104,20 +104,20 @@ ColumnLayout {
         Layout.rightMargin: Appearance.padding.large
         Layout.bottomMargin: Appearance.padding.large
 
-        spacing: root.client?.lastIpcObject.floating ? Appearance.spacing.normal : Appearance.spacing.small
+        spacing: Appearance.spacing.normal  // Simplified for niri
 
         Button {
             color: Colours.palette.m3secondaryContainer
             onColor: Colours.palette.m3onSecondaryContainer
-            text: root.client?.lastIpcObject.floating ? qsTr("Tile") : qsTr("Float")
+            text: qsTr("Float")  // Simplified for niri
 
             function onClicked(): void {
-                Hypr.dispatch(`togglefloating address:0x${root.client?.address}`);
+                console.log("Toggle floating disabled for niri compositor");
             }
         }
 
         Loader {
-            active: root.client?.lastIpcObject.floating
+            active: false  // Disabled for niri
             asynchronous: true
             Layout.fillWidth: active
             Layout.leftMargin: active ? 0 : -parent.spacing
@@ -126,10 +126,10 @@ ColumnLayout {
             sourceComponent: Button {
                 color: Colours.palette.m3secondaryContainer
                 onColor: Colours.palette.m3onSecondaryContainer
-                text: root.client?.lastIpcObject.pinned ? qsTr("Unpin") : qsTr("Pin")
+                text: qsTr("Pin")  // Simplified for niri
 
                 function onClicked(): void {
-                    Hypr.dispatch(`pin address:0x${root.client?.address}`);
+                    console.log("Pin/unpin disabled for niri compositor");
                 }
             }
         }
@@ -140,7 +140,7 @@ ColumnLayout {
             text: qsTr("Kill")
 
             function onClicked(): void {
-                Hypr.dispatch(`killwindow address:0x${root.client?.address}`);
+                console.log("Kill window disabled for niri compositor");
             }
         }
     }

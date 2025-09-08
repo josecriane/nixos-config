@@ -4,9 +4,7 @@ import qs.components
 import qs.components.filedialog
 import qs.config
 import qs.utils
-// import Caelestia // Removed Caelestia dependency
 import Quickshell
-import Quickshell.Hyprland
 import QtQuick
 
 Item {
@@ -66,13 +64,6 @@ Item {
             }
         }
     ]
-
-    // HyprlandFocusGrab disabled for non-Hyprland compositors  
-    // HyprlandFocusGrab {
-    //     active: !Config.dashboard.showOnHover && root.visibilities.dashboard && Config.dashboard.enabled
-    //     windows: [QsWindow.window]
-    //     onCleared: root.visibilities.dashboard = false
-    // }
 
     Loader {
         id: content

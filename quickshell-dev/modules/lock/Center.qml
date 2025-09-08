@@ -227,23 +227,7 @@ ColumnLayout {
             id: stateMessage
 
             readonly property string msg: {
-                if (Hypr.kbLayout !== Hypr.defaultKbLayout) {
-                    if (Hypr.capsLock && Hypr.numLock)
-                        return qsTr("Caps lock and Num lock are ON.\nKeyboard layout: %1").arg(Hypr.kbLayoutFull);
-                    if (Hypr.capsLock)
-                        return qsTr("Caps lock is ON. Kb layout: %1").arg(Hypr.kbLayoutFull);
-                    if (Hypr.numLock)
-                        return qsTr("Num lock is ON. Kb layout: %1").arg(Hypr.kbLayoutFull);
-                    return qsTr("Keyboard layout: %1").arg(Hypr.kbLayoutFull);
-                }
-
-                if (Hypr.capsLock && Hypr.numLock)
-                    return qsTr("Caps lock and Num lock are ON.");
-                if (Hypr.capsLock)
-                    return qsTr("Caps lock is ON.");
-                if (Hypr.numLock)
-                    return qsTr("Num lock is ON.");
-
+                // Simplified for niri - no keyboard layout or lock state detection
                 return "";
             }
 

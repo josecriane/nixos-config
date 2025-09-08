@@ -6,7 +6,6 @@ import qs.services
 import qs.utils
 import qs.config
 import Quickshell
-import Quickshell.Hyprland
 import QtQuick
 import QtQuick.Layouts
 
@@ -14,9 +13,7 @@ Item {
     id: root
 
     required property ShellScreen screen
-    readonly property HyprlandMonitor monitor: Hypr.monitorFor(screen)
-    readonly property string activeSpecial: (Config.bar.workspaces.perMonitorWorkspaces ? monitor : Hypr.focusedMonitor)?.lastIpcObject.specialWorkspace.name ?? ""
-
+    readonly property string activeSpecial: ""
     layer.enabled: true
     layer.effect: ShaderEffect {
         required property Item source
@@ -98,7 +95,7 @@ Item {
         onCurrentIndexChanged: currentIndex = Qt.binding(() => model.values.findIndex(w => w.name === root.activeSpecial))
 
         model: ScriptModel {
-            values: Hypr.workspaces.values.filter(w => w.name.startsWith("special:") && (!Config.bar.workspaces.perMonitorWorkspaces || w.monitor === root.monitor))
+            values: []  // Disabled - no special workspaces in niri
         }
 
         preferredHighlightBegin: 0
@@ -118,7 +115,7 @@ Item {
         delegate: ColumnLayout {
             id: ws
 
-            required property HyprlandWorkspace modelData
+            required property var modelData  // Changed from HyprlandWorkspace for niri compatibility
             readonly property int size: label.Layout.preferredHeight + (hasWindows ? windows.implicitHeight + Appearance.padding.small : 0)
             property int wsId
             property string icon
@@ -229,7 +226,7 @@ Item {
 
                     Repeater {
                         model: ScriptModel {
-                            values: Hypr.toplevels.values.filter(c => c.workspace?.id === ws.wsId)
+                            values: []  // Disabled - no Hyprland toplevels in niri
                         }
 
                         MaterialIcon {
@@ -352,14 +349,8 @@ Item {
         onPressed: event => startY = event.y
 
         onClicked: event => {
-            if (Math.abs(event.y - startY) > drag.threshold)
-                return;
-
-            const ws = view.itemAt(event.x, event.y);
-            if (ws?.modelData)
-                Hypr.dispatch(`togglespecialworkspace ${ws.modelData.name.slice(8)}`);
-            else
-                Hypr.dispatch("togglespecialworkspace special");
+            // Disabled - no Hyprland dispatch in niri
+            console.log("Special workspace click disabled for niri compositor");
         }
     }
 }

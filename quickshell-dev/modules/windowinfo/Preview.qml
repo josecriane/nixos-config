@@ -5,7 +5,7 @@ import qs.services
 import qs.config
 import Quickshell
 import Quickshell.Wayland
-import Quickshell.Hyprland
+// import Quickshell.Hyprland  // Disabled - using niri compositor
 import QtQuick
 import QtQuick.Layouts
 
@@ -13,7 +13,7 @@ Item {
     id: root
 
     required property ShellScreen screen
-    required property HyprlandToplevel client
+    required property var client  // Changed from HyprlandToplevel for niri compatibility
 
     Layout.preferredWidth: preview.implicitWidth + Appearance.padding.large * 2
     Layout.fillHeight: true
@@ -72,7 +72,7 @@ Item {
             captureSource: root.client?.wayland ?? null
             live: true
 
-            constraintSize.width: root.client ? parent.height * Math.min(root.screen.width / root.screen.height, root.client?.lastIpcObject.size[0] / root.client?.lastIpcObject.size[1]) : parent.height
+            constraintSize.width: root.client ? parent.height * Math.min(root.screen.width / root.screen.height, 16/9) : parent.height  // Simplified for niri
             constraintSize.height: parent.height
         }
     }
@@ -90,8 +90,8 @@ Item {
             if (!client)
                 return qsTr("No active client");
 
-            const mon = client.monitor;
-            return qsTr("%1 on monitor %2 at %3, %4").arg(client.title).arg(mon.name).arg(client.lastIpcObject.at[0]).arg(client.lastIpcObject.at[1]);
+            // Simplified for niri - no monitor or position info
+            return qsTr("%1").arg(client.title || "Unknown window");
         }
     }
 }

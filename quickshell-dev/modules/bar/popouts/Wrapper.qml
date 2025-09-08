@@ -7,7 +7,6 @@ import qs.modules.windowinfo
 import qs.modules.controlcenter
 import Quickshell
 import Quickshell.Wayland
-import Quickshell.Hyprland
 import QtQuick
 
 Item {
@@ -91,7 +90,7 @@ Item {
 
         sourceComponent: WindowInfo {
             screen: root.screen
-            client: Hypr.activeToplevel
+            client: null  // Disabled - no active toplevel in niri
         }
     }
 

@@ -48,7 +48,7 @@ StyledRect {
 
             sourceComponent: StyledText {
                 animate: true
-                text: Hypr.kbLayout
+                text: "US"  // Hardcoded for niri - no dynamic kb layout
                 color: root.colour
                 font.family: Appearance.font.family.mono
             }

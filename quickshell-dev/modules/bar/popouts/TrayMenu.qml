@@ -5,7 +5,6 @@ import qs.services
 import qs.config
 import Quickshell
 import Quickshell.Widgets
-import Quickshell.Hyprland
 import QtQuick
 import QtQuick.Controls
 
@@ -26,13 +25,6 @@ StackView {
     pushExit: NoAnim {}
     popEnter: NoAnim {}
     popExit: NoAnim {}
-
-    // HyprlandFocusGrab disabled for non-Hyprland compositors
-    // HyprlandFocusGrab {
-    //     active: true
-    //     windows: [QsWindow.window]
-    //     onCleared: root.popouts.hasCurrent = false
-    // }
 
     component NoAnim: Transition {
         NumberAnimation {
