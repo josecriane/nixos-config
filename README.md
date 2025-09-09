@@ -209,6 +209,7 @@ journalctl --user -u niri
   - [ ] Workspaces
   - [ ] Active Window & Window Info
   - [ ] Remove client references (Hypr stuffs)
+  - [ ] Fix touch on transparente popout background
 - [ ] Use directory name on zellij tab name
 - [ ] Fix discord or add alternative
 - [ ] Remove Electron alerts (as VSCode)
@@ -239,6 +240,11 @@ journalctl --user -u niri
 ### WM Configuration
 * [Plasma Manager Options](https://nix-community.github.io/plasma-manager/options.xhtml)
 * [Niri Configuration Guide](https://github.com/YaLTeR/niri/wiki/Configuration:-Introduction)
+
+### Quickshell
+* [Quickshell](https://quickshell.org/docs/v0.2.0/types/Quickshell.Hyprland/HyprlandWorkspace/)
+* [Caelestia-shell](https://github.com/caelestia-dots/shell)
+* [Shovel-shell](https://github.com/shovelwithasprout/shovel-shell)
 
 ## 📄 License
 

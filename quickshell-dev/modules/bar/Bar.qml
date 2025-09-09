@@ -4,7 +4,6 @@ import qs.services
 import qs.config
 import "popouts" as BarPopouts
 import "components"
-import "components/workspaces"
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
@@ -98,9 +97,9 @@ RowLayout {
             DelegateChoice {
                 roleValue: "workspaces"
                 delegate: WrappedLoader {
-                    // Disabled for non-Hyprland compositors
-                    enabled: false
-                    visible: false
+                    sourceComponent: Workspaces {
+                        screen: root.screen
+                    }
                 }
             }
             // DelegateChoice {
