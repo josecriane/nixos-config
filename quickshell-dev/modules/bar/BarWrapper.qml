@@ -15,7 +15,7 @@ Item {
 
     readonly property int padding: Math.max(Appearance.padding.smaller, Config.border.thickness)
     readonly property int contentHeight: Config.bar.sizes.innerWidth + padding * 2
-    readonly property int exclusiveZone: Config.bar.persistent || visibilities.bar ? contentHeight : Config.border.thickness
+    readonly property int exclusiveZone: Config.bar.persistent || visibilities.bar ? 0 : Config.border.thickness
     readonly property bool shouldBeVisible: Config.bar.persistent || visibilities.bar || isHovered
     property bool isHovered
 

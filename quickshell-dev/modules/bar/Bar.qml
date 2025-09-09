@@ -103,15 +103,15 @@ RowLayout {
                     visible: false
                 }
             }
-            DelegateChoice {
-                roleValue: "activeWindow"
-                delegate: WrappedLoader {
-                    sourceComponent: ActiveWindow {
-                        bar: root
-                        monitor: Brightness.getMonitorForScreen(root.screen)
-                    }
-                }
-            }
+            // DelegateChoice {
+            //     roleValue: "activeWindow"
+            //     delegate: WrappedLoader {
+            //         sourceComponent: ActiveWindow {
+            //             bar: root
+            //             monitor: Brightness.getMonitorForScreen(root.screen)
+            //         }
+            //     }
+            // }
             DelegateChoice {
                 roleValue: "tray"
                 delegate: WrappedLoader {
