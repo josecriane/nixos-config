@@ -9,7 +9,6 @@ Singleton {
 
     property alias appearance: adapter.appearance
     property alias general: adapter.general
-    property alias background: adapter.background
     property alias bar: adapter.bar
     property alias border: adapter.border
     property alias dashboard: adapter.dashboard
@@ -23,18 +22,11 @@ Singleton {
     property alias services: adapter.services
     property alias paths: adapter.paths
 
-    // FileView disabled to eliminate config file warnings
-    // FileView {
-    //     path: `${Paths.stringify(Paths.config)}/shell.json`
-    //     watchChanges: true
-    //     onFileChanged: reload()
-
         JsonAdapter {
             id: adapter
 
             property AppearanceConfig appearance: AppearanceConfig {}
             property GeneralConfig general: GeneralConfig {}
-            property BackgroundConfig background: BackgroundConfig {}
             property BarConfig bar: BarConfig {}
             property BorderConfig border: BorderConfig {}
             property DashboardConfig dashboard: DashboardConfig {}

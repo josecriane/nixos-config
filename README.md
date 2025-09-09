@@ -209,7 +209,7 @@ journalctl --user -u niri
   - [x] Workspaces
   - [ ] Active Window & Window Info
   - [ ] Remove client references (Hypr stuffs)
-  - [ ] Fix touch on transparente popout background
+  - [x] Fix touch on transparent popout background
 - [ ] Use directory name on zellij tab name
 - [ ] Fix discord or add alternative
 - [ ] Remove Electron alerts (as VSCode)
