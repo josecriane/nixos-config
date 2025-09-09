@@ -71,8 +71,7 @@ CustomMouseArea {
             if (!utilitiesShortcutActive)
                 visibilities.utilities = false;
 
-            if (!popouts.currentName.startsWith("traymenu"))
-                popouts.hasCurrent = false;
+            popouts.hasCurrent = false;
 
             if (Config.bar.showOnHover)
                 bar.isHovered = false;

@@ -28,7 +28,7 @@ ShapePath {
     property real topRightFactor: invertTopRight ? -1 : 1
 
     strokeWidth: -1
-    fillColor: Colours.palette.m3surface
+    fillColor: wrapper.hasCurrent ? Colours.palette.m3surface : "transparent"  
 
     // Top Left
     PathArc {
