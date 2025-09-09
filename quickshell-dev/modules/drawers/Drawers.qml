@@ -56,8 +56,8 @@ Variants {
 
                     x: modelData.x + Config.border.thickness
                     y: modelData.y + bar.implicitHeight
-                    width: modelData.width
-                    height: modelData.height
+                    width: modelData.visible ? modelData.width : 0
+                    height: modelData.visible ? modelData.height : 0
                     intersection: Intersection.Subtract
                 }
             }

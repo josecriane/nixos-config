@@ -206,7 +206,7 @@ journalctl --user -u niri
 - [ ] Recustomize waybar, swaync, wofi
 - [ ] Quickshell Redo:
   - [ ] KBlayout
-  - [ ] Workspaces
+  - [x] Workspaces
   - [ ] Active Window & Window Info
   - [ ] Remove client references (Hypr stuffs)
   - [ ] Fix touch on transparente popout background
