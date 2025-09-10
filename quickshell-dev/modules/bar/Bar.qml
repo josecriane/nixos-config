@@ -72,6 +72,15 @@ RowLayout {
         }
     }
 
+    ActiveWindow {
+        screen: root.screen
+        
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: parent.verticalCenter
+        
+        z: 10  // Above other elements
+    }
+
     spacing: Appearance.spacing.normal
 
     Repeater {
@@ -96,15 +105,6 @@ RowLayout {
                     }
                 }
             }
-            // DelegateChoice {
-            //     roleValue: "activeWindow"
-            //     delegate: WrappedLoader {
-            //         sourceComponent: ActiveWindow {
-            //             bar: root
-            //             monitor: Brightness.getMonitorForScreen(root.screen)
-            //         }
-            //     }
-            // }
             DelegateChoice {
                 roleValue: "tray"
                 delegate: WrappedLoader {

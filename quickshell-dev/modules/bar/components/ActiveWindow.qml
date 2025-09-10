@@ -9,30 +9,23 @@ import QtQuick
 Item {
     id: root
 
-    required property var bar
-    required property Brightness.Monitor monitor
+    required property var screen
     property color colour: Colours.palette.m3primary
 
-    readonly property int maxWidth: {
-        const otherModules = bar.children.filter(c => c.id && c.item !== this && c.id !== "spacer");
-        const otherWidth = otherModules.reduce((acc, curr) => acc + curr.width, 0);
-        // Length - 2 cause repeater counts as a child
-        return bar.width - otherWidth - bar.spacing * (bar.children.length - 1) - bar.hPadding * 2;
-    }
+    readonly property int maxWidth: screen.width / 3
     property Title current: text1
 
     clip: true
     implicitWidth: icon.implicitWidth + current.implicitWidth + current.anchors.leftMargin
     implicitHeight: Math.max(icon.implicitHeight, current.implicitHeight)
 
-    MaterialIcon {
+    Text {
         id: icon
-
-        anchors.verticalCenter: parent.verticalCenter
-
-        animate: true
-        text: Icons.getAppCategoryIcon("", "desktop_windows")
+        
+        text: Apps.getIcon(Niri.focusedWindowAppId)
         color: root.colour
+        font.family: Appearance.font.family.mono
+        font.pointSize: Appearance.font.size.normal
     }
 
     Title {
@@ -46,7 +39,7 @@ Item {
     TextMetrics {
         id: metrics
 
-        text: "Desktop"
+        text: Niri.focusedWindowTitle
         font.pointSize: Appearance.font.size.smaller
         font.family: Appearance.font.family.mono
         elide: Qt.ElideRight
@@ -77,8 +70,6 @@ Item {
         font.family: metrics.font.family
         color: root.colour
         opacity: root.current === this ? 1 : 0
-
-        // No rotation needed for horizontal layout
 
         Behavior on opacity {
             Anim {}

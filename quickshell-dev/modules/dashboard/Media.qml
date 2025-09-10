@@ -513,7 +513,7 @@ Item {
         id: loader
 
         required property MprisPlayer player
-        readonly property string icon: Icons.getAppIcon(player?.identity)
+        readonly property string icon: Apps.getIcon(player?.identity)
 
         Layout.fillHeight: true
         asynchronous: true

@@ -4,6 +4,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell
 import Quickshell.Io
+import qs.utils
 
 Singleton {
     id: root
@@ -16,13 +17,17 @@ Singleton {
 
     // Reactive property for focused window title
     property string focusedWindowTitle: "(No active window)"
+    property string focusedWindowAppId: ""
 
     // Update the focusedWindowTitle whenever relevant properties change
     function updateFocusedWindowTitle() {
         if (focusedWindowIndex >= 0 && focusedWindowIndex < windows.length) {
-            focusedWindowTitle = windows[focusedWindowIndex].title || "(Unnamed window)";
+            const rawTitle = windows[focusedWindowIndex].title || "";
+            focusedWindowTitle = Apps.cleanTitle(rawTitle);
+            focusedWindowAppId = windows[focusedWindowIndex].app_id || "";
         } else {
-            focusedWindowTitle = "(No active window)";
+            focusedWindowTitle = "";
+            focusedWindowAppId = "";
         }
     }
 

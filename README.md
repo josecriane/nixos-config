@@ -246,6 +246,9 @@ journalctl --user -u niri
 * [Caelestia-shell](https://github.com/caelestia-dots/shell)
 * [Shovel-shell](https://github.com/shovelwithasprout/shovel-shell)
 
+### NerdFonts Search
+* [NerdFonts Cheatsheet](https://www.nerdfonts.com/cheat-sheet)
+
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

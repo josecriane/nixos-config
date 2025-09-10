@@ -19,10 +19,6 @@ JsonObject {
             enabled: true
         },
         {
-            id: "activeWindow",
-            enabled: true
-        },
-        {
             id: "spacer",
             enabled: true
         },
@@ -54,8 +50,8 @@ JsonObject {
     }
 
     component Status: JsonObject {
-        property bool showAudio: false
-        property bool showKbLayout: false
+        property bool showAudio: true
+        property bool showKbLayout: true
         property bool showNetwork: true
         property bool showBluetooth: true
         property bool showBattery: true

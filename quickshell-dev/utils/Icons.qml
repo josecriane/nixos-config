@@ -7,112 +7,55 @@ Singleton {
     id: root
 
     readonly property var weatherIcons: ({
-            "113": "clear_day",
-            "116": "partly_cloudy_day",
-            "119": "cloud",
-            "122": "cloud",
-            "143": "foggy",
-            "176": "rainy",
-            "179": "rainy",
-            "182": "rainy",
-            "185": "rainy",
-            "200": "thunderstorm",
-            "227": "cloudy_snowing",
-            "230": "snowing_heavy",
-            "248": "foggy",
-            "260": "foggy",
-            "263": "rainy",
-            "266": "rainy",
-            "281": "rainy",
-            "284": "rainy",
-            "293": "rainy",
-            "296": "rainy",
-            "299": "rainy",
-            "302": "weather_hail",
-            "305": "rainy",
-            "308": "weather_hail",
-            "311": "rainy",
-            "314": "rainy",
-            "317": "rainy",
-            "320": "cloudy_snowing",
-            "323": "cloudy_snowing",
-            "326": "cloudy_snowing",
-            "329": "snowing_heavy",
-            "332": "snowing_heavy",
-            "335": "snowing",
-            "338": "snowing_heavy",
-            "350": "rainy",
-            "353": "rainy",
-            "356": "rainy",
-            "359": "weather_hail",
-            "362": "rainy",
-            "365": "rainy",
-            "368": "cloudy_snowing",
-            "371": "snowing",
-            "374": "rainy",
-            "377": "rainy",
-            "386": "thunderstorm",
-            "389": "thunderstorm",
-            "392": "thunderstorm",
-            "395": "snowing"
-        })
-
-    readonly property var categoryIcons: ({
-            WebBrowser: "web",
-            Printing: "print",
-            Security: "security",
-            Network: "chat",
-            Archiving: "archive",
-            Compression: "archive",
-            Development: "code",
-            IDE: "code",
-            TextEditor: "edit_note",
-            Audio: "music_note",
-            Music: "music_note",
-            Player: "music_note",
-            Recorder: "mic",
-            Game: "sports_esports",
-            FileTools: "files",
-            FileManager: "files",
-            Filesystem: "files",
-            FileTransfer: "files",
-            Settings: "settings",
-            DesktopSettings: "settings",
-            HardwareSettings: "settings",
-            TerminalEmulator: "terminal",
-            ConsoleOnly: "terminal",
-            Utility: "build",
-            Monitor: "monitor_heart",
-            Midi: "graphic_eq",
-            Mixer: "graphic_eq",
-            AudioVideoEditing: "video_settings",
-            AudioVideo: "music_video",
-            Video: "videocam",
-            Building: "construction",
-            Graphics: "photo_library",
-            "2DGraphics": "photo_library",
-            RasterGraphics: "photo_library",
-            TV: "tv",
-            System: "host",
-            Office: "content_paste"
-        })
-
-    function getAppIcon(name: string, fallback: string): string {
-        const icon = DesktopEntries.heuristicLookup(name)?.icon;
-        if (fallback !== "undefined")
-            return Quickshell.iconPath(icon, fallback);
-        return Quickshell.iconPath(icon);
-    }
-
-    function getAppCategoryIcon(name: string, fallback: string): string {
-        const categories = DesktopEntries.heuristicLookup(name)?.categories;
-
-        if (categories)
-            for (const [key, value] of Object.entries(categoryIcons))
-                if (categories.includes(key))
-                    return value;
-        return fallback;
-    }
+        "113": "clear_day",
+        "116": "partly_cloudy_day",
+        "119": "cloud",
+        "122": "cloud",
+        "143": "foggy",
+        "176": "rainy",
+        "179": "rainy",
+        "182": "rainy",
+        "185": "rainy",
+        "200": "thunderstorm",
+        "227": "cloudy_snowing",
+        "230": "snowing_heavy",
+        "248": "foggy",
+        "260": "foggy",
+        "263": "rainy",
+        "266": "rainy",
+        "281": "rainy",
+        "284": "rainy",
+        "293": "rainy",
+        "296": "rainy",
+        "299": "rainy",
+        "302": "weather_hail",
+        "305": "rainy",
+        "308": "weather_hail",
+        "311": "rainy",
+        "314": "rainy",
+        "317": "rainy",
+        "320": "cloudy_snowing",
+        "323": "cloudy_snowing",
+        "326": "cloudy_snowing",
+        "329": "snowing_heavy",
+        "332": "snowing_heavy",
+        "335": "snowing",
+        "338": "snowing_heavy",
+        "350": "rainy",
+        "353": "rainy",
+        "356": "rainy",
+        "359": "weather_hail",
+        "362": "rainy",
+        "365": "rainy",
+        "368": "cloudy_snowing",
+        "371": "snowing",
+        "374": "rainy",
+        "377": "rainy",
+        "386": "thunderstorm",
+        "389": "thunderstorm",
+        "392": "thunderstorm",
+        "395": "snowing"
+    })
 
     function getNetworkIcon(strength: int): string {
         if (strength >= 80)
