@@ -20,7 +20,8 @@ Singleton {
         "alacritty": "",
         "discord": "",
         "telegram": "",
-        "vlc": "󰕼"
+        "vlc": "󰕼",
+        "teams-for-linux": "󰊻"
     })
 
     // Common app name suffixes to remove from window titles
@@ -35,7 +36,8 @@ Singleton {
         " — Slack",
         " - Spotify",
         " — VLC media player",
-        " - Alacritty"
+        " - Alacritty",
+        " | Microsoft Teams"
     ]
 
     // Get icon for an app based on its app_id

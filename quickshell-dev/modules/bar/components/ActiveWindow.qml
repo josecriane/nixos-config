@@ -5,6 +5,7 @@ import qs.services
 import qs.utils
 import qs.config
 import QtQuick
+import Quickshell.Wayland
 
 Item {
     id: root
@@ -14,6 +15,9 @@ Item {
 
     readonly property int maxWidth: screen.width / 2
     property Title current: text1
+    
+    readonly property string activeTitle: ToplevelManager.activeToplevel?.title ?? ""
+    readonly property string activeAppId: ToplevelManager.activeToplevel?.appId ?? ""
 
     anchors.fill: parent
     
@@ -27,7 +31,7 @@ Item {
         FontIcon {
             id: icon
             
-            text: Apps.getIcon(Niri.focusedWindowAppId)
+            text: Apps.getIcon(root.activeAppId)
         }
 
         Title {
@@ -42,7 +46,7 @@ Item {
     TextMetrics {
         id: metrics
 
-        text: Apps.cleanTitle(Niri.focusedWindowTitle)
+        text: Apps.cleanTitle(root.activeTitle)
         font.pointSize: Appearance.font.size.smaller
         font.family: Appearance.font.family.mono
         elide: Qt.ElideRight
