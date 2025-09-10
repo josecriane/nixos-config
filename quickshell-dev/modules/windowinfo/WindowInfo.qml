@@ -9,7 +9,6 @@ Item {
     id: root
 
     required property ShellScreen screen
-    required property var client  // Changed from HyprlandToplevel for niri compatibility
 
     implicitWidth: child.implicitWidth
     implicitHeight: screen.height * Config.winfo.sizes.heightMult
@@ -24,7 +23,6 @@ Item {
 
         Preview {
             screen: root.screen
-            client: root.client
         }
 
         ColumnLayout {
@@ -41,7 +39,6 @@ Item {
                 radius: Appearance.rounding.normal
 
                 Details {
-                    client: root.client
                 }
             }
 
@@ -54,8 +51,6 @@ Item {
 
                 Buttons {
                     id: buttons
-
-                    client: root.client
                 }
             }
         }

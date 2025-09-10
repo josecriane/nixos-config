@@ -8,15 +8,13 @@ import QtQuick.Layouts
 ColumnLayout {
     id: root
 
-    required property var client  // Changed from HyprlandToplevel for niri compatibility
-
     anchors.fill: parent
     spacing: Appearance.spacing.small
 
     Label {
         Layout.topMargin: Appearance.padding.large * 2
 
-        text: root.client?.title ?? qsTr("No active client")
+        text: qsTr("No active window")
         wrapMode: Text.WrapAtWordBoundaryOrAnywhere
 
         font.pointSize: Appearance.font.size.large
@@ -24,7 +22,7 @@ ColumnLayout {
     }
 
     Label {
-        text: root.client?.class ?? qsTr("No active client")  // Simplified for niri
+        text: qsTr("No window class")
         color: Colours.palette.m3tertiary
 
         font.pointSize: Appearance.font.size.larger

@@ -90,7 +90,6 @@ Item {
 
         sourceComponent: WindowInfo {
             screen: root.screen
-            client: null  // Disabled - no active toplevel in niri
         }
     }
 

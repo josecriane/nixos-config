@@ -8,7 +8,6 @@ import QtQuick.Layouts
 ColumnLayout {
     id: root
 
-    required property var client
     property bool moveToWsExpanded
 
     anchors.fill: parent

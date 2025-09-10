@@ -13,7 +13,6 @@ Item {
     id: root
 
     required property ShellScreen screen
-    required property var client  // Changed from HyprlandToplevel for niri compatibility
 
     Layout.preferredWidth: preview.implicitWidth + Appearance.padding.large * 2
     Layout.fillHeight: true
@@ -34,7 +33,7 @@ Item {
 
         Loader {
             anchors.centerIn: parent
-            active: !root.client
+            active: true
             asynchronous: true
 
             sourceComponent: ColumnLayout {
@@ -49,7 +48,7 @@ Item {
 
                 StyledText {
                     Layout.alignment: Qt.AlignHCenter
-                    text: qsTr("No active client")
+                    text: qsTr("No active window")
                     color: Colours.palette.m3outline
                     font.pointSize: Appearance.font.size.extraLarge
                     font.weight: 500
@@ -69,10 +68,10 @@ Item {
 
             anchors.centerIn: parent
 
-            captureSource: root.client?.wayland ?? null
+            captureSource: null
             live: true
 
-            constraintSize.width: root.client ? parent.height * Math.min(root.screen.width / root.screen.height, 16/9) : parent.height  // Simplified for niri
+            constraintSize.width: parent.height * Math.min(root.screen.width / root.screen.height, 16/9)
             constraintSize.height: parent.height
         }
     }
@@ -85,13 +84,6 @@ Item {
         anchors.bottomMargin: Appearance.padding.large
 
         animate: true
-        text: {
-            const client = root.client;
-            if (!client)
-                return qsTr("No active client");
-
-            // Simplified for niri - no monitor or position info
-            return qsTr("%1").arg(client.title || "Unknown window");
-        }
+        text: qsTr("No active window")
     }
 }

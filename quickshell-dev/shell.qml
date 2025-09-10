@@ -3,14 +3,10 @@
 
 import "modules"
 import "modules/drawers"
-import "modules/areapicker"
-import "modules/lock"
 import Quickshell
 
 ShellRoot {
     Drawers {}
-    AreaPicker {}
-    Lock {}
 
     Shortcuts {}
 }
