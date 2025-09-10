@@ -8,7 +8,7 @@ import Quickshell
 import QtQuick
 import QtQuick.Layouts
 
-RowLayout {
+Item {
     id: root
 
     required property ShellScreen screen
@@ -17,7 +17,7 @@ RowLayout {
     readonly property int hPadding: Appearance.padding.large
 
     function checkPopout(x: real): void {
-        const ch = childAt(x, height / 2) as WrappedLoader;
+        const ch = mainLayout.childAt(x, height / 2) as WrappedLoader;
         if (!ch) {
             popouts.hasCurrent = false;
             return;
@@ -44,10 +44,6 @@ RowLayout {
                 popouts.currentCenter = Qt.binding(() => trayItem.mapToItem(root, trayItem.implicitWidth / 2, 0).x);
                 popouts.hasCurrent = true;
             }
-        } else if (id === "activeWindow") {
-            popouts.currentName = id.toLowerCase();
-            popouts.currentCenter = item.mapToItem(root, itemWidth / 2, 0).x;
-            popouts.hasCurrent = true;
         }
     }
 
@@ -72,18 +68,12 @@ RowLayout {
         }
     }
 
-    ActiveWindow {
-        screen: root.screen
-        
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.verticalCenter: parent.verticalCenter
-        
-        z: 10  // Above other elements
-    }
+    RowLayout {
+        id: mainLayout
+        anchors.fill: parent
+        spacing: Appearance.spacing.normal
 
-    spacing: Appearance.spacing.normal
-
-    Repeater {
+        Repeater {
         id: repeater
 
         model: Config.bar.entries
@@ -139,6 +129,16 @@ RowLayout {
             }
         }
     }
+    }
+
+    ActiveWindow {
+        screen: root.screen
+        
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: parent.verticalCenter
+        
+        z: 10
+    }
 
     component WrappedLoader: Loader {
         required property bool enabled
@@ -146,9 +146,9 @@ RowLayout {
         required property int index
 
         function findFirstEnabled(): Item {
-            const count = repeater.count;
+            const count = mainLayout.children[0].count; // repeater is first child of mainLayout
             for (let i = 0; i < count; i++) {
-                const item = repeater.itemAt(i);
+                const item = mainLayout.children[0].itemAt(i);
                 if (item?.enabled)
                     return item;
             }
@@ -156,8 +156,9 @@ RowLayout {
         }
 
         function findLastEnabled(): Item {
-            for (let i = repeater.count - 1; i >= 0; i--) {
-                const item = repeater.itemAt(i);
+            const repeaterRef = mainLayout.children[0];
+            for (let i = repeaterRef.count - 1; i >= 0; i--) {
+                const item = repeaterRef.itemAt(i);
                 if (item?.enabled)
                     return item;
             }

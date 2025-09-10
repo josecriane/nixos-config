@@ -23,13 +23,6 @@ Item {
         anchors.margins: Appearance.padding.large
 
         Popout {
-            name: "activewindow"
-            sourceComponent: ActiveWindow {
-                wrapper: root.wrapper
-            }
-        }
-
-        Popout {
             name: "network"
             sourceComponent: Network {}
         }

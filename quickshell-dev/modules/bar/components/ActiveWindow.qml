@@ -12,34 +12,37 @@ Item {
     required property var screen
     property color colour: Colours.palette.m3primary
 
-    readonly property int maxWidth: screen.width / 3
+    readonly property int maxWidth: screen.width / 2
     property Title current: text1
 
+    anchors.fill: parent
+    
     clip: true
-    implicitWidth: icon.implicitWidth + current.implicitWidth + current.anchors.leftMargin
-    implicitHeight: Math.max(icon.implicitHeight, current.implicitHeight)
 
-    Text {
-        id: icon
+    Item {
+        anchors.centerIn: parent
+        width: icon.implicitWidth + current.implicitWidth + Appearance.spacing.small
+        height: Math.max(icon.implicitHeight, current.implicitHeight)
         
-        text: Apps.getIcon(Niri.focusedWindowAppId)
-        color: root.colour
-        font.family: Appearance.font.family.mono
-        font.pointSize: Appearance.font.size.normal
-    }
+        FontIcon {
+            id: icon
+            
+            text: Apps.getIcon(Niri.focusedWindowAppId)
+        }
 
-    Title {
-        id: text1
-    }
+        Title {
+            id: text1
+        }
 
-    Title {
-        id: text2
+        Title {
+            id: text2
+        }
     }
 
     TextMetrics {
         id: metrics
 
-        text: Niri.focusedWindowTitle
+        text: Apps.cleanTitle(Niri.focusedWindowTitle)
         font.pointSize: Appearance.font.size.smaller
         font.family: Appearance.font.family.mono
         elide: Qt.ElideRight
@@ -74,5 +77,12 @@ Item {
         Behavior on opacity {
             Anim {}
         }
+    }
+
+    component FontIcon: Text {
+        anchors.verticalCenter: parent.verticalCenter
+        color: root.colour
+        font.family: Appearance.font.family.mono
+        font.pointSize: Appearance.font.size.normal
     }
 }
