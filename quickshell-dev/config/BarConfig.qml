@@ -4,7 +4,6 @@ JsonObject {
     property bool persistent: true
     property bool showOnHover: true
     property int dragThreshold: 20
-    property Workspaces workspaces: Workspaces {}
     property Tray tray: Tray {}
     property Status status: Status {}
     property Clock clock: Clock {}
@@ -36,6 +35,10 @@ JsonObject {
             enabled: true
         },
         {
+            id: "idleInhibitor",
+            enabled: true
+        },
+        {
             id: "clock",
             enabled: true
         },
@@ -46,24 +49,8 @@ JsonObject {
         {
             id: "power",
             enabled: true
-        },
-        {
-            id: "idleInhibitor",
-            enabled: false
         }
     ]
-
-    component Workspaces: JsonObject {
-        property int shown: 5
-        property bool activeIndicator: true
-        property bool occupiedBg: false
-        property bool showWindows: true
-        property bool activeTrail: false
-        property bool perMonitorWorkspaces: true
-        property string label: "  "
-        property string occupiedLabel: "󰮯"
-        property string activeLabel: "󰮯"
-    }
 
     component Tray: JsonObject {
         property bool background: false

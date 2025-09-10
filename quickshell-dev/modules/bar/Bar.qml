@@ -118,6 +118,12 @@ RowLayout {
                 }
             }
             DelegateChoice {
+                roleValue: "idleInhibitor"
+                delegate: WrappedLoader {
+                    sourceComponent: IdleInhibitor {}
+                }
+            }
+            DelegateChoice {
                 roleValue: "clock"
                 delegate: WrappedLoader {
                     sourceComponent: Clock {}
@@ -135,12 +141,6 @@ RowLayout {
                     sourceComponent: Power {
                         visibilities: root.visibilities
                     }
-                }
-            }
-            DelegateChoice {
-                roleValue: "idleInhibitor"
-                delegate: WrappedLoader {
-                    sourceComponent: IdleInhibitor {}
                 }
             }
         }
