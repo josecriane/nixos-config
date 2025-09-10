@@ -70,15 +70,18 @@ Item {
         workspaces.clear()
         for (let i = 0; i < newList.length; i++) {
             const ws = newList[i]
-            workspaces.append({
-                id: ws.id,
-                idx: ws.idx,
-                name: ws.name || "",
-                output: ws.output,
-                isActive: ws.is_active,
-                isFocused: ws.is_focused,
-                isUrgent: ws.is_urgent
-            })
+            // Only show workspaces for this screen/monitor
+            if (ws.output === root.screen.name) {
+                workspaces.append({
+                    id: ws.id,
+                    idx: ws.idx,
+                    name: ws.name || "",
+                    output: ws.output,
+                    isActive: ws.is_active,
+                    isFocused: ws.is_focused,
+                    isUrgent: ws.is_urgent
+                })
+            }
         }
         updateWorkspaceFocus()
     }
