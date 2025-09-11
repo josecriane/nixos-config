@@ -13,7 +13,7 @@ StyledRect {
     visible: width > 0 && height > 0 // To avoid warnings about being visible with no size
 
     implicitWidth: layout.implicitWidth + Appearance.padding.small * 2
-    implicitHeight: Config.bar.sizes.innerWidth
+    implicitHeight: height
 
     color: "transparent"
     radius: Appearance.rounding.full

@@ -14,6 +14,7 @@ Item {
     required property ShellScreen screen
     required property PersistentProperties visibilities
     required property BarPopouts.Wrapper popouts
+    required property int innerHeight
     readonly property int hPadding: Appearance.padding.large
 
     function checkPopout(x: real): void {
@@ -91,7 +92,9 @@ Item {
         // Right side items
         WrappedLoader {
             id: tray
-            sourceComponent: Tray {}
+            sourceComponent: Tray {
+                height: root.innerHeight
+            }
         }
         
         WrappedLoader {
@@ -101,7 +104,9 @@ Item {
         
         WrappedLoader {
             id: statusIcons
-            sourceComponent: StatusIcons {}
+            sourceComponent: StatusIcons {
+                height: root.innerHeight
+            }
         }
 
         WrappedLoader {

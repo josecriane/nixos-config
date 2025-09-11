@@ -72,7 +72,7 @@ StackView {
 
                 required property QsMenuEntry modelData
 
-                implicitWidth: children.implicitWidth
+                implicitWidth: 300
                 implicitHeight: modelData.isSeparator ? 1 : children.implicitHeight
 
                 radius: Appearance.rounding.full

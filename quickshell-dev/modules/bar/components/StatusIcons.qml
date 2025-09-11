@@ -21,7 +21,7 @@ StyledRect {
 
     clip: true
     implicitWidth: iconRow.implicitWidth + Appearance.padding.normal * 2
-    implicitHeight: Config.bar.sizes.innerWidth
+    implicitHeight: height
 
     RowLayout {
         id: iconRow

@@ -13,10 +13,11 @@ Item {
     required property PersistentProperties visibilities
     required property BarPopouts.Wrapper popouts
 
+    readonly property int innerHeight: 30
     readonly property int padding: Math.max(Appearance.padding.smaller, Config.border.thickness)
-    readonly property int contentHeight: Config.bar.sizes.innerWidth + padding * 2
-    readonly property int exclusiveZone: Config.bar.persistent || visibilities.bar ? 0 : Config.border.thickness
-    readonly property bool shouldBeVisible: Config.bar.persistent || visibilities.bar || isHovered
+    readonly property int contentHeight: innerHeight + padding * 2
+    readonly property int exclusiveZone: 0
+    readonly property bool shouldBeVisible: true
     property bool isHovered
 
     function checkPopout(x: real): void {
@@ -78,6 +79,7 @@ Item {
             screen: root.screen
             visibilities: root.visibilities
             popouts: root.popouts
+            innerHeight: root.innerHeight
         }
     }
 }

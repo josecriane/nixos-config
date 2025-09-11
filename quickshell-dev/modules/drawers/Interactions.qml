@@ -73,8 +73,6 @@ CustomMouseArea {
 
             popouts.hasCurrent = false;
 
-            if (Config.bar.showOnHover)
-                bar.isHovered = false;
         }
     }
 
@@ -85,16 +83,14 @@ CustomMouseArea {
         const x = event.x;
         const y = event.y;
 
-        // Show bar in non-exclusive mode on hover
-        if (!visibilities.bar && Config.bar.showOnHover && y < bar.implicitHeight)
-            bar.isHovered = true;
+        let dragThreshold = 20
 
         // Show/hide bar on drag
         if (pressed && dragStart.y < bar.implicitHeight) {
             const dragY = y - dragStart.y;
-            if (dragY > Config.bar.dragThreshold)
+            if (dragY > dragThreshold)
                 visibilities.bar = true;
-            else if (dragY < -Config.bar.dragThreshold)
+            else if (dragY < -dragThreshold)
                 visibilities.bar = false;
         }
 
