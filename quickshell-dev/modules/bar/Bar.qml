@@ -100,6 +100,13 @@ Item {
                 height: root.innerHeight
             }
         }
+
+        WrappedLoader {
+            id: resources
+            sourceComponent: SystemTray {
+                height: root.innerHeight
+            }
+        }
         
         WrappedLoader {
             id: idleInhibitor

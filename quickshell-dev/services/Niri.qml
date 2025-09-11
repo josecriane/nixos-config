@@ -92,6 +92,17 @@ Singleton {
         }
     }
     
+    function spawn(command: string): void {
+        spawnProcess.command = ["niri", "msg", "action", "spawn", "--"].concat(command.split(" "));
+        spawnProcess.running = false;
+        spawnProcess.running = true;
+    }
+    
+    Process {
+        id: spawnProcess
+        running: false
+    }
+    
     Component.onCompleted: {
         layoutsInitProcess.running = true;
     }
