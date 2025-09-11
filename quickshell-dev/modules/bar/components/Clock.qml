@@ -12,26 +12,13 @@ Row {
 
     spacing: Appearance.spacing.small
 
-    Loader {
-        anchors.verticalCenter: parent.verticalCenter
-
-        active: Config.bar.clock.showIcon
-        visible: active
-        asynchronous: true
-
-        sourceComponent: MaterialIcon {
-            text: "calendar_month"
-            color: root.colour
-        }
-    }
-
     StyledText {
         id: text
 
         anchors.verticalCenter: parent.verticalCenter
 
         horizontalAlignment: StyledText.AlignHCenter
-        text: Time.format(Config.services.useTwelveHourClock ? "hh:mm A" : "hh:mm")
+        text: Time.format("ddd dd MMM  HH:mm")
         font.pointSize: Appearance.font.size.smaller
         font.family: Appearance.font.family.mono
         color: root.colour

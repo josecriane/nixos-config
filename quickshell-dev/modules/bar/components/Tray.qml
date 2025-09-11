@@ -12,10 +12,10 @@ StyledRect {
     clip: true
     visible: width > 0 && height > 0 // To avoid warnings about being visible with no size
 
-    implicitWidth: layout.implicitWidth + (Config.bar.tray.background ? Appearance.padding.normal : Appearance.padding.small) * 2
+    implicitWidth: layout.implicitWidth + Appearance.padding.small * 2
     implicitHeight: Config.bar.sizes.innerWidth
 
-    color: Qt.alpha(Colours.tPalette.m3surfaceContainer, Config.bar.tray.background ? Colours.tPalette.m3surfaceContainer.a : 0)
+    color: "transparent"
     radius: Appearance.rounding.full
 
     Row {

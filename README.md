@@ -205,6 +205,16 @@ journalctl --user -u niri
 ### Future Work:
 - [ ] Recustomize waybar, swaync, wofi
 - [ ] Quickshell Redo
+  - [ ] Popout calendar
+  - [ ] Maybe disk,cpu and ram, with performance, and click open btop
+  - [ ] Refactored in DS
+  - [ ] Use stylix colors
+  - [ ] Control panels open in new window always
+  - [ ] Open launcher from top
+  - [ ] Removes dashboard
+  - [ ] Maybe weather?
+  - [ ] Maybe media?
+  - [ ] Adds date to topbar
 - [ ] Use directory name on zellij tab name
 - [ ] Fix discord or add alternative
 - [ ] Remove Electron alerts (as VSCode)

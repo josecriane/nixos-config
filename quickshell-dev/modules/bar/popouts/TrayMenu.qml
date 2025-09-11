@@ -72,7 +72,7 @@ StackView {
 
                 required property QsMenuEntry modelData
 
-                implicitWidth: Config.bar.sizes.trayMenuWidth
+                implicitWidth: children.implicitWidth
                 implicitHeight: modelData.isSeparator ? 1 : children.implicitHeight
 
                 radius: Appearance.rounding.full
@@ -145,7 +145,7 @@ StackView {
                             font.family: label.font.family
 
                             elide: Text.ElideRight
-                            elideWidth: Config.bar.sizes.trayMenuWidth - (icon.active ? icon.implicitWidth + label.anchors.leftMargin : 0) - (expand.active ? expand.implicitWidth + Appearance.spacing.normal : 0)
+                            elideWidth: item.implicitWidth - (icon.active ? icon.implicitWidth + label.anchors.leftMargin : 0) - (expand.active ? expand.implicitWidth + Appearance.spacing.normal : 0)
                         }
 
                         Loader {

@@ -15,7 +15,7 @@ ColumnLayout {
     property string connectingToSsid: ""
 
     spacing: Appearance.spacing.small
-    width: Config.bar.sizes.networkWidth
+    width: Math.max(320, implicitWidth)
 
     StyledText {
         Layout.topMargin: Appearance.padding.normal

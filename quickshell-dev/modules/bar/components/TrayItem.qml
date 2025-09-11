@@ -35,6 +35,6 @@ MouseArea {
             return icon;
         }
         colour: Colours.palette.m3secondary
-        layer.enabled: Config.bar.tray.recolour
+        layer.enabled: false
     }
 }

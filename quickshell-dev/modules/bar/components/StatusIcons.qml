@@ -32,7 +32,6 @@ StyledRect {
         // Audio icon
         WrappedLoader {
             name: "audio"
-            active: Config.bar.status.showAudio
 
             sourceComponent: MaterialIcon {
                 animate: true
@@ -44,7 +43,6 @@ StyledRect {
         // Keyboard layout icon
         WrappedLoader {
             name: "kblayout"
-            active: Config.bar.status.showKbLayout
 
             sourceComponent: StyledText {
                 animate: true
@@ -65,7 +63,6 @@ StyledRect {
         // Network icon
         WrappedLoader {
             name: "network"
-            active: Config.bar.status.showNetwork
 
             sourceComponent: MaterialIcon {
                 animate: true
@@ -77,7 +74,6 @@ StyledRect {
         // Bluetooth section
         WrappedLoader {
             name: "bluetooth"
-            active: Config.bar.status.showBluetooth
 
             sourceComponent: RowLayout {
                 spacing: Appearance.spacing.smaller / 2
@@ -137,7 +133,6 @@ StyledRect {
         // Battery icon
         WrappedLoader {
             name: "battery"
-            active: Config.bar.status.showBattery
 
             sourceComponent: MaterialIcon {
                 animate: true

@@ -73,62 +73,49 @@ Item {
         anchors.fill: parent
         spacing: Appearance.spacing.normal
 
-        Repeater {
-        id: repeater
-
-        model: Config.bar.entries
-
-        DelegateChooser {
-            role: "id"
-
-            DelegateChoice {
-                roleValue: "spacer"
-                delegate: WrappedLoader {
-                    Layout.fillWidth: enabled
-                }
-            }
-            DelegateChoice {
-                roleValue: "workspaces"
-                delegate: WrappedLoader {
-                    sourceComponent: Workspaces {
-                        screen: root.screen
-                    }
-                }
-            }
-            DelegateChoice {
-                roleValue: "tray"
-                delegate: WrappedLoader {
-                    sourceComponent: Tray {}
-                }
-            }
-            DelegateChoice {
-                roleValue: "idleInhibitor"
-                delegate: WrappedLoader {
-                    sourceComponent: IdleInhibitor {}
-                }
-            }
-            DelegateChoice {
-                roleValue: "clock"
-                delegate: WrappedLoader {
-                    sourceComponent: Clock {}
-                }
-            }
-            DelegateChoice {
-                roleValue: "statusIcons"
-                delegate: WrappedLoader {
-                    sourceComponent: StatusIcons {}
-                }
-            }
-            DelegateChoice {
-                roleValue: "power"
-                delegate: WrappedLoader {
-                    sourceComponent: Power {
-                        visibilities: root.visibilities
-                    }
-                }
+        // Left side
+        WrappedLoader {
+            id: workspaces
+            Layout.leftMargin: root.hPadding
+            sourceComponent: Workspaces {
+                screen: root.screen
             }
         }
-    }
+        
+        // Center spacer
+        WrappedLoader {
+            id: spacer
+            Layout.fillWidth: true
+        }
+        
+        // Right side items
+        WrappedLoader {
+            id: tray
+            sourceComponent: Tray {}
+        }
+        
+        WrappedLoader {
+            id: idleInhibitor
+            sourceComponent: IdleInhibitor {}
+        }
+        
+        WrappedLoader {
+            id: statusIcons
+            sourceComponent: StatusIcons {}
+        }
+
+        WrappedLoader {
+            id: clock
+            sourceComponent: Clock {}
+        }
+        
+        WrappedLoader {
+            id: power
+            Layout.rightMargin: root.hPadding
+            sourceComponent: Power {
+                visibilities: root.visibilities
+            }
+        }
     }
 
     ActiveWindow {
@@ -141,37 +128,10 @@ Item {
     }
 
     component WrappedLoader: Loader {
-        required property bool enabled
-        required property string id
-        required property int index
-
-        function findFirstEnabled(): Item {
-            const count = mainLayout.children[0].count; // repeater is first child of mainLayout
-            for (let i = 0; i < count; i++) {
-                const item = mainLayout.children[0].itemAt(i);
-                if (item?.enabled)
-                    return item;
-            }
-            return null;
-        }
-
-        function findLastEnabled(): Item {
-            const repeaterRef = mainLayout.children[0];
-            for (let i = repeaterRef.count - 1; i >= 0; i--) {
-                const item = repeaterRef.itemAt(i);
-                if (item?.enabled)
-                    return item;
-            }
-            return null;
-        }
+        property string id
 
         Layout.alignment: Qt.AlignVCenter
-
-        // Cursed ahh thing to add padding to first and last enabled components
-        Layout.leftMargin: findFirstEnabled() === this ? root.hPadding : 0
-        Layout.rightMargin: findLastEnabled() === this ? root.hPadding : 0
-
-        visible: enabled
-        active: enabled
+        visible: true
+        active: true
     }
 }
