@@ -115,7 +115,7 @@ Item {
 
         WrappedLoader {
             id: clock
-            sourceComponent: Clock {}
+            sourceComponent: Date {}
         }
         
         WrappedLoader {
