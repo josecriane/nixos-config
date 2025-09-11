@@ -204,12 +204,7 @@ journalctl --user -u niri
 
 ### Future Work:
 - [ ] Recustomize waybar, swaync, wofi
-- [ ] Quickshell Redo:
-  - [ ] KBlayout
-  - [x] Workspaces
-  - [x] Active Window & Window Info
-  - [ ] Remove client references (Hypr stuffs)
-  - [x] Fix touch on transparent popout background
+- [ ] Quickshell Redo
 - [ ] Use directory name on zellij tab name
 - [ ] Fix discord or add alternative
 - [ ] Remove Electron alerts (as VSCode)

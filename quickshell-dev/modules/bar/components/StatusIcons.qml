@@ -48,7 +48,15 @@ StyledRect {
 
             sourceComponent: StyledText {
                 animate: true
-                text: "US"  // Hardcoded for niri - no dynamic kb layout
+                text: {
+                    const fullName = Niri.currentKbLayoutName();
+                    if (!fullName) return "??";
+                    
+                    if (fullName.includes("Spanish")) return "ES";
+                    if (fullName.includes("English")) return "US";
+                    
+                    return "??";
+                }
                 color: root.colour
                 font.family: Appearance.font.family.mono
             }
