@@ -207,7 +207,7 @@ journalctl --user -u niri
 - [ ] Quickshell Redo:
   - [ ] KBlayout
   - [x] Workspaces
-  - [ ] Active Window & Window Info
+  - [x] Active Window & Window Info
   - [ ] Remove client references (Hypr stuffs)
   - [x] Fix touch on transparent popout background
 - [ ] Use directory name on zellij tab name

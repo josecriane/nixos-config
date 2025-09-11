@@ -3,7 +3,6 @@ pragma ComponentBehavior: Bound
 import qs.components
 import qs.services
 import qs.config
-import qs.modules.windowinfo
 import qs.modules.controlcenter
 import Quickshell
 import Quickshell.Wayland
@@ -30,12 +29,8 @@ Item {
 
     function detach(mode: string): void {
         animLength = Appearance.anim.durations.large;
-        if (mode === "winfo") {
-            detachedMode = mode;
-        } else {
-            detachedMode = "any";
-            queuedMode = mode;
-        }
+        detachedMode = "any";
+        queuedMode = mode;
         focus = true;
     }
 
@@ -80,16 +75,6 @@ Item {
 
         sourceComponent: Content {
             wrapper: root
-        }
-    }
-
-    Comp {
-        shouldBeActive: root.detachedMode === "winfo"
-        asynchronous: true
-        anchors.centerIn: parent
-
-        sourceComponent: WindowInfo {
-            screen: root.screen
         }
     }
 

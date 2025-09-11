@@ -17,7 +17,6 @@ Singleton {
     property alias notifs: adapter.notifs
     property alias osd: adapter.osd
     property alias session: adapter.session
-    property alias winfo: adapter.winfo
     property alias services: adapter.services
     property alias paths: adapter.paths
 
@@ -34,7 +33,6 @@ Singleton {
             property NotifsConfig notifs: NotifsConfig {}
             property OsdConfig osd: OsdConfig {}
             property SessionConfig session: SessionConfig {}
-            property WInfoConfig winfo: WInfoConfig {}
             property ServiceConfig services: ServiceConfig {}
             property UserPaths paths: UserPaths {}
         }
