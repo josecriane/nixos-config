@@ -51,6 +51,11 @@ Item {
             source: "KbLayout.qml"
         }
 
+        Popout {
+            name: "clock"
+            source: "Calendar.qml"
+        }
+
         Repeater {
             model: ScriptModel {
                 values: [...SystemTray.items.values]
