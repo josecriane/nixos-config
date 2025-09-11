@@ -3,7 +3,6 @@ import qs.modules.osd as Osd
 import qs.modules.notifications as Notifications
 import qs.modules.session as Session
 import qs.modules.launcher as Launcher
-import qs.modules.dashboard as Dashboard
 import qs.modules.bar.popouts as BarPopouts
 import qs.modules.utilities as Utilities
 import Quickshell
@@ -20,7 +19,6 @@ Item {
     readonly property Notifications.Wrapper notifications: notifications
     readonly property Session.Wrapper session: session
     readonly property Launcher.Wrapper launcher: launcher
-    readonly property Dashboard.Wrapper dashboard: dashboard
     readonly property BarPopouts.Wrapper popouts: popouts
     readonly property Utilities.Wrapper utilities: utilities
 
@@ -69,14 +67,6 @@ Item {
         anchors.bottom: parent.bottom
     }
 
-    Dashboard.Wrapper {
-        id: dashboard
-
-        visibilities: root.visibilities
-
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: parent.top
-    }
 
     BarPopouts.Wrapper {
         id: popouts

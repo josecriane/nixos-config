@@ -211,8 +211,9 @@ journalctl --user -u niri
   - [ ] Use stylix colors
   - [ ] Control panels open in new window always
   - [ ] Open launcher from top
-  - [ ] Removes dashboard
+  - [x] Removes dashboard
   - [x] Adds date to topbar
+  - [ ] Open sound settings when click in open panel
 - [ ] Use directory name on zellij tab name
 - [ ] Fix discord or add alternative
 - [ ] Remove Electron alerts (as VSCode)

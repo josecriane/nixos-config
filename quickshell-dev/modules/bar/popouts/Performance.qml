@@ -88,15 +88,15 @@ RowLayout {
         property bool primary
         readonly property real primaryMult: primary ? 1.2 : 1
 
-        readonly property real thickness: Config.dashboard.sizes.resourceProgessThickness * primaryMult
+        readonly property real thickness: 10 * primaryMult
 
         property color fg1: Colours.palette.m3primary
         property color fg2: Colours.palette.m3secondary
         property color bg1: Colours.palette.m3primaryContainer
         property color bg2: Colours.palette.m3secondaryContainer
 
-        implicitWidth: Config.dashboard.sizes.resourceSize * primaryMult
-        implicitHeight: Config.dashboard.sizes.resourceSize * primaryMult
+        implicitWidth: 200 * primaryMult
+        implicitHeight: 200 * primaryMult
 
         onValue1Changed: canvas.requestPaint()
         onValue2Changed: canvas.requestPaint()

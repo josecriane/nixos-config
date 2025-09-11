@@ -4,7 +4,6 @@ import qs.modules.osd as Osd
 import qs.modules.notifications as Notifications
 import qs.modules.session as Session
 import qs.modules.launcher as Launcher
-import qs.modules.dashboard as Dashboard
 import qs.modules.bar.popouts as BarPopouts
 import qs.modules.utilities as Utilities
 import QtQuick
@@ -49,12 +48,6 @@ Shape {
         startY: root.height
     }
 
-    Dashboard.Background {
-        wrapper: root.panels.dashboard
-
-        startX: (root.width - wrapper.width) / 2 - rounding
-        startY: 0
-    }
 
     BarPopouts.Background {
         wrapper: root.panels.popouts

@@ -17,7 +17,6 @@ CustomMouseArea {
 
     property bool osdHovered
     property point dragStart
-    property bool dashboardShortcutActive
     property bool osdShortcutActive
     property bool utilitiesShortcutActive
 
@@ -65,8 +64,6 @@ CustomMouseArea {
                 osdHovered = false;
             }
 
-            if (!dashboardShortcutActive)
-                visibilities.dashboard = false;
 
             if (!utilitiesShortcutActive)
                 visibilities.utilities = false;
@@ -127,25 +124,6 @@ CustomMouseArea {
                 visibilities.launcher = false;
         }
 
-        // Show dashboard on hover
-        const showDashboard = Config.dashboard.showOnHover && inTopPanel(panels.dashboard, x, y);
-
-        // Always update visibility based on hover if not in shortcut mode
-        if (!dashboardShortcutActive) {
-            visibilities.dashboard = showDashboard;
-        } else if (showDashboard) {
-            // If hovering over dashboard area while in shortcut mode, transition to hover control
-            dashboardShortcutActive = false;
-        }
-
-        // Show/hide dashboard on drag (for touchscreen devices)
-        if (pressed && inTopPanel(panels.dashboard, dragStart.x, dragStart.y) && withinPanelWidth(panels.dashboard, x, y)) {
-            const dragY = y - dragStart.y;
-            if (dragY > Config.dashboard.dragThreshold)
-                visibilities.dashboard = true;
-            else if (dragY < -Config.dashboard.dragThreshold)
-                visibilities.dashboard = false;
-        }
 
         // Show utilities on hover
         const showUtilities = inBottomPanel(panels.utilities, x, y);
@@ -170,19 +148,14 @@ CustomMouseArea {
         target: root.visibilities
 
         function onLauncherChanged() {
-            // If launcher is hidden, clear shortcut flags for dashboard and OSD
+            // If launcher is hidden, clear shortcut flags for OSD
             if (!root.visibilities.launcher) {
-                root.dashboardShortcutActive = false;
                 root.osdShortcutActive = false;
                 root.utilitiesShortcutActive = false;
 
-                // Also hide dashboard and OSD if they're not being hovered
-                const inDashboardArea = root.inTopPanel(root.panels.dashboard, root.mouseX, root.mouseY);
+                // Also hide OSD if they're not being hovered
                 const inOsdArea = root.inRightPanel(root.panels.osd, root.mouseX, root.mouseY);
 
-                if (!inDashboardArea) {
-                    root.visibilities.dashboard = false;
-                }
                 if (!inOsdArea) {
                     root.visibilities.osd = false;
                     root.osdHovered = false;
@@ -190,18 +163,6 @@ CustomMouseArea {
             }
         }
 
-        function onDashboardChanged() {
-            if (root.visibilities.dashboard) {
-                // Dashboard became visible, immediately check if this should be shortcut mode
-                const inDashboardArea = root.inTopPanel(root.panels.dashboard, root.mouseX, root.mouseY);
-                if (!inDashboardArea) {
-                    root.dashboardShortcutActive = true;
-                }
-            } else {
-                // Dashboard hidden, clear shortcut flag
-                root.dashboardShortcutActive = false;
-            }
-        }
 
         function onOsdChanged() {
             if (root.visibilities.osd) {
