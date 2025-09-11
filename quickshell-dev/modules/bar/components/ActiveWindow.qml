@@ -13,7 +13,7 @@ Item {
     required property var screen
     property color colour: Colours.palette.m3primary
 
-    readonly property int maxWidth: screen.width / 2
+    readonly property int maxWidth: screen.width / 3
     property Title current: text1
 
     property Toplevel activeToplevel: ToplevelManager.activeToplevel
@@ -47,11 +47,11 @@ Item {
         });
     }
 
-    anchors.fill: parent
-    
     clip: true
+    implicitWidth: Math.min(contentItem.width, maxWidth)
 
     Item {
+        id: contentItem
         anchors.centerIn: parent
         width: icon.implicitWidth + current.implicitWidth + Appearance.spacing.small
         height: Math.max(icon.implicitHeight, current.implicitHeight)
@@ -78,7 +78,7 @@ Item {
         font.pointSize: Appearance.font.size.smaller
         font.family: Appearance.font.family.mono
         elide: Qt.ElideRight
-        elideWidth: root.maxWidth - icon.width
+        elideWidth: root.maxWidth - icon.implicitWidth - Appearance.spacing.small
 
         onTextChanged: {
             const next = root.current === text1 ? text2 : text1;

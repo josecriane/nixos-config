@@ -18,6 +18,16 @@ Item {
     readonly property int hPadding: Appearance.padding.large
 
     function checkPopout(x: real): void {
+        // Check if hovering over the centered Date component
+        const dateLeft = date.x;
+        const dateRight = date.x + date.width;
+        if (x >= dateLeft && x <= dateRight) {
+            popouts.currentName = "calendar";
+            popouts.currentCenter = Qt.binding(() => date.mapToItem(root, date.width / 2, 0).x);
+            popouts.hasCurrent = true;
+            return;
+        }
+
         const ch = mainLayout.childAt(x, height / 2) as WrappedLoader;
         if (!ch) {
             popouts.hasCurrent = false;
@@ -45,10 +55,6 @@ Item {
                 popouts.currentCenter = Qt.binding(() => trayItem.mapToItem(root, trayItem.implicitWidth / 2, 0).x);
                 popouts.hasCurrent = true;
             }
-        } else if (id === "clock") {
-            popouts.currentName = "clock";
-            popouts.currentCenter = Qt.binding(() => item.mapToItem(root, item.implicitWidth / 2, 0).x);
-            popouts.hasCurrent = true;
         } else if (id === "resources") {
             popouts.currentName = "systemtray";
             popouts.currentCenter = Qt.binding(() => item.mapToItem(root, item.implicitWidth / 2, 0).x);
@@ -91,6 +97,14 @@ Item {
             }
         }
         
+        WrappedLoader {
+            id: activeWindow
+            sourceComponent: ActiveWindow {
+                screen: root.screen
+                height: root.innerHeight
+            }
+        }
+        
         // Center spacer
         WrappedLoader {
             id: spacer
@@ -113,11 +127,6 @@ Item {
         }
         
         WrappedLoader {
-            id: idleInhibitor
-            sourceComponent: IdleInhibitor {}
-        }
-        
-        WrappedLoader {
             id: statusIcons
             sourceComponent: StatusIcons {
                 height: root.innerHeight
@@ -125,8 +134,8 @@ Item {
         }
 
         WrappedLoader {
-            id: clock
-            sourceComponent: Date {}
+            id: idleInhibitor
+            sourceComponent: IdleInhibitor {}
         }
         
         WrappedLoader {
@@ -138,9 +147,9 @@ Item {
         }
     }
 
-    ActiveWindow {
-        screen: root.screen
-        
+    Date {
+        id: date
+
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
         

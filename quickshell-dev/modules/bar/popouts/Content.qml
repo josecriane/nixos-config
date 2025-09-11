@@ -52,7 +52,7 @@ Item {
         }
 
         Popout {
-            name: "clock"
+            name: "calendar"
             source: "Calendar.qml"
         }
 
