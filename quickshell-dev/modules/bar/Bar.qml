@@ -49,6 +49,10 @@ Item {
             popouts.currentName = "clock";
             popouts.currentCenter = Qt.binding(() => item.mapToItem(root, item.implicitWidth / 2, 0).x);
             popouts.hasCurrent = true;
+        } else if (id === "resources") {
+            popouts.currentName = "systemtray";
+            popouts.currentCenter = Qt.binding(() => item.mapToItem(root, item.implicitWidth / 2, 0).x);
+            popouts.hasCurrent = true;
         }
     }
 

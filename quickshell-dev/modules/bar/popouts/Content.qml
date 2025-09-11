@@ -56,6 +56,11 @@ Item {
             source: "Calendar.qml"
         }
 
+        Popout {
+            name: "systemtray"
+            source: "Performance.qml"
+        }
+
         Repeater {
             model: ScriptModel {
                 values: [...SystemTray.items.values]
