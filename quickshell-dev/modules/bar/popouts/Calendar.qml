@@ -87,7 +87,7 @@ Column {
         month: root.currentMonth.getMonth()
         year: root.currentMonth.getFullYear()
         spacing: 3
-        height: implicitHeight
+        height: Math.max(200, implicitHeight)
 
         delegate: Item {
             id: day
