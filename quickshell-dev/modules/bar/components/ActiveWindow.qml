@@ -15,9 +15,37 @@ Item {
 
     readonly property int maxWidth: screen.width / 2
     property Title current: text1
+
+    property Toplevel activeToplevel: ToplevelManager.activeToplevel
     
-    readonly property string activeTitle: ToplevelManager.activeToplevel?.title ?? ""
-    readonly property string activeAppId: ToplevelManager.activeToplevel?.appId ?? ""
+    // Propiedades que se actualizarán con binding
+    property string activeTitle: activeToplevel?.title ?? ""
+    property string activeAppId: activeToplevel?.appId ?? ""
+    
+    Component.onCompleted: {
+        activeToplevel = Qt.binding(() => {
+            const trigger = ToplevelManager.activeToplevel;
+            const toplevels = ToplevelManager.toplevels.values
+
+            if (!toplevels || !toplevels.length) {
+                return activeToplevel;
+            }
+            
+            for (let i = 0; i < toplevels.length; i++) {
+                const toplevel = toplevels[i];
+                if (toplevel && toplevel.activated) {
+                    if (toplevel.screens && toplevel.screens.length > 0) {
+                        const toplevelScreen = toplevel.screens[0];
+                        if (screen.name === toplevelScreen.name) {
+                            return toplevel;
+                        }
+                    }
+                }
+            }
+            
+            return activeToplevel;
+        });
+    }
 
     anchors.fill: parent
     
