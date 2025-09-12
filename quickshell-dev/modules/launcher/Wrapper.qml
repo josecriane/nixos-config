@@ -9,7 +9,9 @@ Item {
     required property PersistentProperties visibilities
     required property var panels
 
-    readonly property bool hasCurrent: height > 0
+    readonly property bool hasCurrent: root.visibilities.launcher
+    readonly property real nonAnimWidth: hasCurrent ? content.implicitWidth : 0
+    readonly property real nonAnimHeight: hasCurrent ? content.implicitHeight : 0
 
     property int animLength: Appearance.anim.durations.normal
     property list<real> animCurve: Appearance.anim.curves.standard
@@ -17,8 +19,8 @@ Item {
     visible: height > 0
     clip: true
 
-    implicitWidth: content.implicitWidth
-    implicitHeight: root.visibilities.launcher && Config.launcher.enabled ? content.implicitHeight : 0
+    implicitWidth: nonAnimWidth
+    implicitHeight: nonAnimHeight
 
     Behavior on implicitHeight {
         Anim {
@@ -34,7 +36,7 @@ Item {
         visibilities: root.visibilities
         panels: root.panels
 
-        opacity: root.visibilities.launcher && Config.launcher.enabled ? 1 : 0
+        opacity: root.visibilities.launcher ? 1 : 0
 
         Behavior on opacity {
             Anim {
