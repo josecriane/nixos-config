@@ -121,7 +121,7 @@ Item {
 
                 function onClicked(): void {
                     root.wrapper.hasCurrent = false;
-                    Quickshell.execDetached(["app2unit", "--", ...Config.general.apps.audio]);
+                    Quickshell.execDetached(["pavucontrol"]);
                 }
             }
 
