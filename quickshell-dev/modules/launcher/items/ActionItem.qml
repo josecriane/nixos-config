@@ -10,7 +10,8 @@ Item {
     required property Actions.Action modelData
     required property var list
 
-    implicitHeight: Config.launcher.sizes.itemHeight
+    property int itemHeight: 57
+    implicitHeight: itemHeight
 
     anchors.left: parent?.left
     anchors.right: parent?.right

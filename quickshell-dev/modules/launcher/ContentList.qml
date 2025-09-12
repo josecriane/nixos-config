@@ -20,6 +20,9 @@ Item {
 
     // Removed wallpaper functionality
     readonly property Item currentList: appList.item
+    
+    property int itemWidth: 600
+    property int itemHeight: 57
 
     anchors.horizontalCenter: parent.horizontalCenter
     anchors.bottom: parent.bottom
@@ -32,7 +35,7 @@ Item {
             name: "apps"
 
             PropertyChanges {
-                root.implicitWidth: Config.launcher.sizes.itemWidth
+                root.implicitWidth: root.itemWidth
                 root.implicitHeight: root.currentList?.count > 0 ? appList.implicitHeight : empty.implicitHeight
                 appList.active: true
             }
@@ -85,7 +88,7 @@ Item {
         opacity: root.currentList?.count === 0 ? 1 : 0
         scale: root.currentList?.count === 0 ? 1 : 0.5
 
-        implicitHeight: Config.launcher.sizes.itemHeight * 4
+        implicitHeight: root.itemHeight * 4
         anchors.left: parent.left
         anchors.right: parent.right
 

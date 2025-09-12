@@ -85,14 +85,14 @@ Item {
             topPadding: Appearance.padding.larger
             bottomPadding: Appearance.padding.larger
 
-            placeholderText: qsTr("Type \"%1\" for commands").arg(Config.launcher.actionPrefix)
+            placeholderText: "Type \">\" for commands"
 
             onAccepted: {
                 const currentItem = list.currentList?.currentItem;
                 if (currentItem) {
                     // Removed wallpaper handling
-                    if (text.startsWith(Config.launcher.actionPrefix)) {
-                        if (text.startsWith(`${Config.launcher.actionPrefix}calc `))
+                    if (text.startsWith(">")) {
+                        if (text.startsWith(">calc "))
                             currentItem.onClicked();
                         else
                             currentItem.modelData.onClicked(list.currentList);
@@ -108,26 +108,6 @@ Item {
 
             Keys.onEscapePressed: root.visibilities.launcher = false
 
-            Keys.onPressed: event => {
-                if (!Config.launcher.vimKeybinds)
-                    return;
-
-                if (event.modifiers & Qt.ControlModifier) {
-                    if (event.key === Qt.Key_J) {
-                        list.currentList?.incrementCurrentIndex();
-                        event.accepted = true;
-                    } else if (event.key === Qt.Key_K) {
-                        list.currentList?.decrementCurrentIndex();
-                        event.accepted = true;
-                    }
-                } else if (event.key === Qt.Key_Tab) {
-                    list.currentList?.incrementCurrentIndex();
-                    event.accepted = true;
-                } else if (event.key === Qt.Key_Backtab || (event.key === Qt.Key_Tab && (event.modifiers & Qt.ShiftModifier))) {
-                    list.currentList?.decrementCurrentIndex();
-                    event.accepted = true;
-                }
-            }
 
             Timer {
                 id: focusTimer

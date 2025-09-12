@@ -12,7 +12,8 @@ Item {
     required property DesktopEntry modelData
     required property PersistentProperties visibilities
 
-    implicitHeight: Config.launcher.sizes.itemHeight
+    property int itemHeight: 57
+    implicitHeight: itemHeight
 
     anchors.left: parent?.left
     anchors.right: parent?.right

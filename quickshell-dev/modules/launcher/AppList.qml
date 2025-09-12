@@ -26,7 +26,11 @@ StyledListView {
     spacing: Appearance.spacing.small
     orientation: Qt.Vertical
     bottomMargin: Appearance.padding.normal
-    implicitHeight: (Config.launcher.sizes.itemHeight + spacing) * Math.min(Config.launcher.maxShown, count) - spacing + bottomMargin
+    property int maxShown: 8
+    
+    property int itemHeight: 57
+    
+    implicitHeight: (itemHeight + spacing) * Math.min(maxShown, count) - spacing + bottomMargin
 
     highlightMoveDuration: Appearance.anim.durations.normal
     highlightResizeDuration: 0
@@ -39,7 +43,7 @@ StyledListView {
 
     state: {
         const text = search.text;
-        const prefix = Config.launcher.actionPrefix;
+        const prefix = ">";
         if (text.startsWith(prefix)) {
             for (const action of ["calc"])
                 if (text.startsWith(`${prefix}${action} `))

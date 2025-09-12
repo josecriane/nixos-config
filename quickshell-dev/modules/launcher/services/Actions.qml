@@ -10,6 +10,8 @@ import QtQuick
 Searcher {
     id: root
 
+    property string actionPrefix: ">"
+
     readonly property list<Action> actions: [
         Action {
             name: qsTr("Calculator")
@@ -73,15 +75,15 @@ Searcher {
     ]
 
     function transformSearch(search: string): string {
-        return search.slice(Config.launcher.actionPrefix.length);
+        return search.slice(actionPrefix.length);
     }
 
     function autocomplete(list: AppList, text: string): void {
-        list.search.text = `${Config.launcher.actionPrefix}${text} `;
+        list.search.text = `${actionPrefix}${text} `;
     }
 
     list: actions.filter(a => !a.disabled)
-    useFuzzy: Config.launcher.useFuzzy.actions
+    useFuzzy: false
 
     component Action: QtObject {
         required property string name

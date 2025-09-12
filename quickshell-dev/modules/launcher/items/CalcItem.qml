@@ -10,14 +10,15 @@ Item {
     id: root
 
     required property var list
-    readonly property string math: list.search.text.slice(`${Config.launcher.actionPrefix}calc `.length)
+    readonly property string math: list.search.text.slice(">calc ".length)
 
     function onClicked(): void {
         Quickshell.execDetached(["sh", "-c", `qalc -t -m 100 '${root.math}' | wl-copy`]);
         root.list.visibilities.launcher = false;
     }
 
-    implicitHeight: Config.launcher.sizes.itemHeight
+    property int itemHeight: 57
+    implicitHeight: itemHeight
 
     anchors.left: parent?.left
     anchors.right: parent?.right
@@ -111,7 +112,7 @@ Item {
                 color: Colours.palette.m3onTertiary
 
                 function onClicked(): void {
-                    Quickshell.execDetached(["app2unit", "--", ...Config.general.apps.terminal, "fish", "-C", `exec qalc -i '${root.math}'`]);
+                    Niri.spawn([...Config.general.apps.terminal, "fish", "-C", `exec qalc -i '${root.math}'`].join(" "));
                     root.list.visibilities.launcher = false;
                 }
             }

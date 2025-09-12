@@ -77,16 +77,6 @@ CustomMouseArea {
         const x = event.x;
         const y = event.y;
 
-        let dragThreshold = 20
-
-        // Show/hide bar on drag
-        if (pressed && dragStart.y < bar.implicitHeight) {
-            const dragY = y - dragStart.y;
-            if (dragY > dragThreshold)
-                visibilities.bar = true;
-            else if (dragY < -dragThreshold)
-                visibilities.bar = false;
-        }
 
         // Show osd on hover
         const showOsd = inRightPanel(panels.osd, x, y);
@@ -101,25 +91,7 @@ CustomMouseArea {
             osdHovered = true;
         }
 
-        // Show/hide session on drag
-        if (pressed && inRightPanel(panels.session, dragStart.x, dragStart.y) && withinPanelHeight(panels.session, x, y)) {
-            const dragX = x - dragStart.x;
-            if (dragX < -Config.session.dragThreshold)
-                visibilities.session = true;
-            else if (dragX > Config.session.dragThreshold)
-                visibilities.session = false;
-        }
 
-        // Show launcher on hover, or show/hide on drag if hover is disabled
-        if (Config.launcher.showOnHover) {
-            visibilities.launcher = inBottomPanel(panels.launcher, x, y);
-        } else if (pressed && inBottomPanel(panels.launcher, dragStart.x, dragStart.y) && withinPanelWidth(panels.launcher, x, y)) {
-            const dragY = y - dragStart.y;
-            if (dragY < -Config.launcher.dragThreshold)
-                visibilities.launcher = true;
-            else if (dragY > Config.launcher.dragThreshold)
-                visibilities.launcher = false;
-        }
 
 
         // Show utilities on hover
