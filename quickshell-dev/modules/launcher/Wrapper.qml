@@ -9,6 +9,8 @@ Item {
     required property PersistentProperties visibilities
     required property var panels
 
+    readonly property bool hasCurrent: height > 0
+
     visible: height > 0
     implicitHeight: 0
     implicitWidth: content.implicitWidth

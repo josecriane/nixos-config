@@ -14,6 +14,7 @@ Singleton {
     property bool inOverview: false
     property list<string> kbLayouts: []
     property int currentKbLayoutIndex: 0
+    property string focusedOutput: ""
 
     Process {
         command: ["niri", "msg", "-j", "event-stream"]
@@ -47,6 +48,11 @@ Singleton {
                     }
                 } else if (event.KeyboardLayoutSwitched) {
                     root.currentKbLayoutIndex = event.KeyboardLayoutSwitched.idx;
+                }
+                
+                // Update focused output on any event that might change focus
+                if (event.WorkspaceActivated || event.WindowFocusChanged || event.WindowOpenedOrClosed) {
+                    root.updateFocusedOutput();
                 }
             }
         }
@@ -103,7 +109,31 @@ Singleton {
         running: false
     }
     
+    // ToDo Review:
+    Process {
+        id: focusedOutputProcess
+        command: ["niri", "msg", "focused-output"]
+        running: false
+        
+        stdout: StdioCollector {
+            onStreamFinished: {
+                // Extract the output name from the first line
+                const firstLine = text.split("\n")[0];
+                const match = firstLine.match(/\(([^)]+)\)/);
+                if (match) {
+                    root.focusedOutput = match[1];
+                }
+            }
+        }
+    }
+    
+    function updateFocusedOutput(): void {
+        focusedOutputProcess.running = false;
+        focusedOutputProcess.running = true;
+    }
+    
     Component.onCompleted: {
         layoutsInitProcess.running = true;
+        updateFocusedOutput();
     }
 }
