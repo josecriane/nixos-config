@@ -1,5 +1,4 @@
 import qs.components.misc
-import qs.modules.controlcenter
 import qs.services
 import Quickshell
 import Quickshell.Io
@@ -8,12 +7,6 @@ Scope {
     id: root
 
     property bool launcherInterrupted
-
-    CustomShortcut {
-        name: "controlCenter"
-        description: "Open control center"
-        onPressed: WindowFactory.create()
-    }
 
     CustomShortcut {
         name: "showall"
@@ -70,11 +63,4 @@ Scope {
         }
     }
 
-    IpcHandler {
-        target: "controlCenter"
-
-        function open(): void {
-            WindowFactory.create();
-        }
-    }
 }

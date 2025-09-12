@@ -164,41 +164,6 @@ ColumnLayout {
         }
     }
 
-    StyledRect {
-        Layout.topMargin: Appearance.spacing.small
-        implicitWidth: expandBtn.implicitWidth + Appearance.padding.normal * 2
-        implicitHeight: expandBtn.implicitHeight + Appearance.padding.small
-
-        radius: Appearance.rounding.normal
-        color: Colours.palette.m3primaryContainer
-
-        StateLayer {
-            color: Colours.palette.m3onPrimaryContainer
-
-            function onClicked(): void {
-                root.wrapper.detach("bluetooth");
-            }
-        }
-
-        RowLayout {
-            id: expandBtn
-
-            anchors.centerIn: parent
-            spacing: Appearance.spacing.small
-
-            StyledText {
-                Layout.leftMargin: Appearance.padding.smaller
-                text: qsTr("Open panel")
-                color: Colours.palette.m3onPrimaryContainer
-            }
-
-            MaterialIcon {
-                text: "chevron_right"
-                color: Colours.palette.m3onPrimaryContainer
-                font.pointSize: Appearance.font.size.large
-            }
-        }
-    }
 
     component Toggle: RowLayout {
         required property string label

@@ -3,7 +3,6 @@ pragma ComponentBehavior: Bound
 import qs.components
 import qs.services
 import qs.config
-import qs.modules.controlcenter
 import Quickshell
 import Quickshell.Wayland
 import QtQuick
@@ -13,34 +12,15 @@ Item {
 
     required property ShellScreen screen
 
-    readonly property real nonAnimWidth: hasCurrent || isDetached ? (children.find(c => c.shouldBeActive)?.implicitWidth ?? content.implicitWidth) : 0
-    readonly property real nonAnimHeight: hasCurrent || isDetached ? (children.find(c => c.shouldBeActive)?.implicitHeight ?? content.implicitHeight) : 0
+    readonly property real nonAnimWidth: hasCurrent ? (children.find(c => c.shouldBeActive)?.implicitWidth ?? content.implicitWidth) : 0
+    readonly property real nonAnimHeight: hasCurrent ? (children.find(c => c.shouldBeActive)?.implicitHeight ?? content.implicitHeight) : 0
 
     property string currentName
     property real currentCenter
     property bool hasCurrent
 
-    property string detachedMode
-    property string queuedMode
-    readonly property bool isDetached: detachedMode.length > 0
-
     property int animLength: Appearance.anim.durations.normal
     property list<real> animCurve: Appearance.anim.curves.emphasized
-
-    function detach(mode: string): void {
-        animLength = Appearance.anim.durations.large;
-        detachedMode = "any";
-        queuedMode = mode;
-        focus = true;
-    }
-
-    function close(): void {
-        hasCurrent = false;
-        animCurve = Appearance.anim.curves.emphasizedAccel;
-        animLength = Appearance.anim.durations.normal;
-        detachedMode = "";
-        animCurve = Appearance.anim.curves.emphasized;
-    }
 
     visible: width > 0 && height > 0
     clip: true
@@ -48,27 +28,10 @@ Item {
     implicitWidth: nonAnimWidth
     implicitHeight: nonAnimHeight
 
-    Keys.onEscapePressed: close()
-
-    // HyprlandFocusGrab disabled for non-Hyprland compositors
-    // HyprlandFocusGrab {
-    //     active: root.isDetached
-    //     windows: [QsWindow.window]
-    //     onCleared: root.close()
-    // }
-
-    Binding {
-        when: root.isDetached
-
-        target: QsWindow.window
-        property: "WlrLayershell.keyboardFocus"
-        value: WlrKeyboardFocus.OnDemand
-    }
-
     Comp {
         id: content
 
-        shouldBeActive: root.hasCurrent && !root.detachedMode
+        shouldBeActive: root.hasCurrent
         asynchronous: true
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
@@ -78,20 +41,6 @@ Item {
         }
     }
 
-    Comp {
-        shouldBeActive: root.detachedMode === "any"
-        asynchronous: true
-        anchors.centerIn: parent
-
-        sourceComponent: ControlCenter {
-            screen: root.screen
-            active: root.queuedMode
-
-            function close(): void {
-                root.close();
-            }
-        }
-    }
 
     Behavior on x {
         Anim {
