@@ -33,7 +33,7 @@ Item {
 
             PropertyChanges {
                 root.implicitWidth: Config.launcher.sizes.itemWidth
-                root.implicitHeight: appList.implicitHeight > 0 ? appList.implicitHeight : empty.implicitHeight
+                root.implicitHeight: root.currentList?.count > 0 ? appList.implicitHeight : empty.implicitHeight
                 appList.active: true
             }
 
@@ -79,17 +79,21 @@ Item {
         }
     }
 
-    Row {
+    Item {
         id: empty
 
         opacity: root.currentList?.count === 0 ? 1 : 0
         scale: root.currentList?.count === 0 ? 1 : 0.5
 
-        spacing: Appearance.spacing.normal
-        padding: Appearance.padding.large
+        implicitHeight: Config.launcher.sizes.itemHeight * 4
+        anchors.left: parent.left
+        anchors.right: parent.right
 
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.verticalCenter: parent.verticalCenter
+        Row {
+            spacing: Appearance.spacing.normal
+            
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
 
         MaterialIcon {
             text: "manage_search"
@@ -115,6 +119,7 @@ Item {
                 font.pointSize: Appearance.font.size.normal
             }
         }
+        }
 
         Behavior on opacity {
             Anim {}
@@ -135,11 +140,6 @@ Item {
     }
 
     Behavior on implicitHeight {
-        enabled: root.visibilities.launcher
-
-        Anim {
-            duration: Appearance.anim.durations.large
-            easing.bezierCurve: Appearance.anim.curves.emphasizedDecel
-        }
+        enabled: false
     }
 }

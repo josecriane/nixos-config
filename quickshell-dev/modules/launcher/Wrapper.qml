@@ -11,42 +11,21 @@ Item {
 
     readonly property bool hasCurrent: height > 0
 
+    property int animLength: Appearance.anim.durations.normal
+    property list<real> animCurve: Appearance.anim.curves.standard
+
     visible: height > 0
-    implicitHeight: 0
+    clip: true
+
     implicitWidth: content.implicitWidth
+    implicitHeight: root.visibilities.launcher && Config.launcher.enabled ? content.implicitHeight : 0
 
-    states: State {
-        name: "visible"
-        when: root.visibilities.launcher && Config.launcher.enabled
-
-        PropertyChanges {
-            root.implicitHeight: content.implicitHeight
+    Behavior on implicitHeight {
+        Anim {
+            duration: root.animLength
+            easing.bezierCurve: root.animCurve
         }
     }
-
-    transitions: [
-        Transition {
-            from: ""
-            to: "visible"
-
-            Anim {
-                target: root
-                property: "implicitHeight"
-                duration: Appearance.anim.durations.expressiveDefaultSpatial
-                easing.bezierCurve: Appearance.anim.curves.expressiveDefaultSpatial
-            }
-        },
-        Transition {
-            from: "visible"
-            to: ""
-
-            Anim {
-                target: root
-                property: "implicitHeight"
-                easing.bezierCurve: Appearance.anim.curves.emphasized
-            }
-        }
-    ]
 
     Content {
         id: content
@@ -54,5 +33,14 @@ Item {
         wrapper: root
         visibilities: root.visibilities
         panels: root.panels
+
+        opacity: root.visibilities.launcher && Config.launcher.enabled ? 1 : 0
+
+        Behavior on opacity {
+            Anim {
+                duration: root.animLength * 0.6
+                easing.bezierCurve: root.animCurve
+            }
+        }
     }
 }

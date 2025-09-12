@@ -29,7 +29,7 @@ Variants {
             screen: scope.modelData
             name: "drawers"
             WlrLayershell.exclusionMode: ExclusionMode.Ignore
-            WlrLayershell.keyboardFocus: visibilities.launcher || visibilities.session ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
+            WlrLayershell.keyboardFocus: visibilities.launcher || visibilities.session ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
 
             mask: Region {
                 x: Config.border.thickness
@@ -61,16 +61,6 @@ Variants {
                     intersection: Intersection.Subtract
                 }
             }
-
-            // HyprlandFocusGrab disabled for non-Hyprland compositors
-            // HyprlandFocusGrab {
-            //     active: (visibilities.launcher && Config.launcher.enabled) || (visibilities.session && Config.session.enabled)
-            //     windows: [win]
-            //     onCleared: {
-            //         visibilities.launcher = false;
-            //         visibilities.session = false;
-            //     }
-            // }
 
             StyledRect {
                 anchors.fill: parent

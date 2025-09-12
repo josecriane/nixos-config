@@ -202,18 +202,23 @@ systemctl --user restart niri
 journalctl --user -u niri
 ```
 
+R
+
 ### Future Work:
 - [ ] Recustomize waybar, swaync, wofi
 - [ ] Quickshell Redo
   - [x] Popout calendar
   - [x] Maybe disk,cpu and ram, with performance, and click open btop
   - [ ] Refactored in DS
+    - [ ] Create a popout background and wrapper inteface
   - [ ] Use stylix colors
-  - [ ] Control panels open in new window always
+  - [x] Remove control panel
   - [ ] Open launcher from top
   - [x] Removes dashboard
   - [x] Adds date to topbar
-  - [ ] Open sound settings when click in open panel
+  - [x] Open sound settings when click in open panel
+  - [ ] Add mic icon to the audio tray
+  - [ ] Define commands with a yml or a json
 - [ ] Use directory name on zellij tab name
 - [ ] Fix discord or add alternative
 - [ ] Remove Electron alerts (as VSCode)

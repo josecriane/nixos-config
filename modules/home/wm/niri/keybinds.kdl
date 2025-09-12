@@ -1,4 +1,5 @@
 Mod+Space  repeat=false { spawn "sh" "-c" "~/.config/niri/toggle-wofi"; }
+Mod+M { spawn "quickshell" "-p" "/home/sito/nixos-config/quickshell-dev" "ipc" "call" "drawers" "toggle" "launcher"; }
 Mod+E { spawn "wofi-emoji"; }
 Mod+L { spawn "swaylock"; }
 

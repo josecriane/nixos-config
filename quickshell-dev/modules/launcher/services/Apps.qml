@@ -2,6 +2,7 @@ pragma Singleton
 
 import qs.config
 import qs.utils
+import qs.services
 import Quickshell
 import QtQuick
 
@@ -9,16 +10,12 @@ Searcher {
     id: root
 
     function launch(entry: DesktopEntry): void {
-        if (entry.runInTerminal)
-            Quickshell.execDetached({
-                command: ["app2unit", "--", ...Config.general.apps.terminal, `${Quickshell.shellDir}/assets/wrap_term_launch.sh`, ...entry.command],
-                workingDirectory: entry.workingDirectory
-            });
-        else
-            Quickshell.execDetached({
-                command: ["app2unit", "--", ...entry.command],
-                workingDirectory: entry.workingDirectory
-            });
+        if (entry.runInTerminal) {
+            const terminalCommand = Config.general.apps.terminal.concat([entry.command.join(" ")]).join(" ");
+            Niri.spawn(terminalCommand);
+        } else {
+            Niri.spawn(entry.command.join(" "));
+        }
     }
 
     function search(search: string): list<var> {

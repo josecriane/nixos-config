@@ -21,6 +21,10 @@ Item {
     implicitWidth: listWrapper.width + padding * 2
     implicitHeight: searchWrapper.height + listWrapper.height + padding * 2
 
+    Behavior on implicitHeight {
+        enabled: false
+    }
+
     anchors.top: parent.top
     anchors.horizontalCenter: parent.horizontalCenter
 
@@ -31,8 +35,8 @@ Item {
         implicitHeight: list.height + root.padding
 
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottom: searchWrapper.top
-        anchors.bottomMargin: root.padding
+        anchors.top: searchWrapper.bottom
+        anchors.topMargin: root.padding
 
         ContentList {
             id: list
@@ -54,7 +58,7 @@ Item {
 
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.bottom: parent.bottom
+        anchors.top: parent.top
         anchors.margins: root.padding
 
         implicitHeight: Math.max(searchIcon.implicitHeight, search.implicitHeight, clearIcon.implicitHeight)
@@ -125,13 +129,27 @@ Item {
                 }
             }
 
+            Timer {
+                id: focusTimer
+                interval: 1
+                repeat: true
+                onTriggered: {
+                    if (search.visible && root.visibilities.launcher) {
+                        search.forceActiveFocus();
+                        search.focus = true;
+                        stop();
+                    }
+                }
+            }
+
             Connections {
                 target: root.visibilities
 
                 function onLauncherChanged(): void {
-                    if (root.visibilities.launcher)
-                        search.focus = true;
-                    else {
+                    if (root.visibilities.launcher) {
+                        focusTimer.start();
+                    } else {
+                        focusTimer.stop();
                         search.text = "";
                         const current = list.currentList;
                         if (current)
@@ -141,7 +159,7 @@ Item {
 
                 function onSessionChanged(): void {
                     if (root.visibilities.launcher && !root.visibilities.session)
-                        search.focus = true;
+                        focusTimer.start();
                 }
             }
         }

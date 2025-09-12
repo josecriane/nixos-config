@@ -21,20 +21,9 @@ Searcher {
             }
         },
         Action {
-            name: qsTr("Transparency")
-            desc: qsTr("Change shell transparency")
-            icon: "opacity"
-            disabled: true
-
-            function onClicked(list: AppList): void {
-                root.autocomplete(list, "transparency");
-            }
-        },
-        Action {
             name: qsTr("Shutdown")
             desc: qsTr("Shutdown the system")
             icon: "power_settings_new"
-            disabled: !Config.launcher.enableDangerousActions
 
             function onClicked(list: AppList): void {
                 list.visibilities.launcher = false;
@@ -45,7 +34,6 @@ Searcher {
             name: qsTr("Reboot")
             desc: qsTr("Reboot the system")
             icon: "cached"
-            disabled: !Config.launcher.enableDangerousActions
 
             function onClicked(list: AppList): void {
                 list.visibilities.launcher = false;
@@ -56,7 +44,6 @@ Searcher {
             name: qsTr("Logout")
             desc: qsTr("Log out of the current session")
             icon: "exit_to_app"
-            disabled: !Config.launcher.enableDangerousActions
 
             function onClicked(list: AppList): void {
                 list.visibilities.launcher = false;
