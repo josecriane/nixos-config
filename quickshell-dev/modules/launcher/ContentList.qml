@@ -79,8 +79,6 @@ Item {
         }
     }
 
-    // Removed wallpaper list loader
-
     Row {
         id: empty
 

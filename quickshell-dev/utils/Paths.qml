@@ -10,14 +10,6 @@ Singleton {
     readonly property url home: StandardPaths.standardLocations(StandardPaths.HomeLocation)[0]
     readonly property url pictures: StandardPaths.standardLocations(StandardPaths.PicturesLocation)[0]
 
-    readonly property url data: `${StandardPaths.standardLocations(StandardPaths.GenericDataLocation)[0]}/caelestia`
-    readonly property url state: `${StandardPaths.standardLocations(StandardPaths.GenericStateLocation)[0]}/caelestia`
-    readonly property url cache: `${StandardPaths.standardLocations(StandardPaths.GenericCacheLocation)[0]}/caelestia`
-    readonly property url config: `${StandardPaths.standardLocations(StandardPaths.GenericConfigLocation)[0]}/caelestia`
-
-    readonly property url imagecache: `${cache}/imagecache`
-    readonly property string libdir: Quickshell.env("CAELESTIA_LIB_DIR") || "/usr/lib/caelestia"
-
     function stringify(path: url): string {
         let str = path.toString();
         if (str.startsWith("root:/"))

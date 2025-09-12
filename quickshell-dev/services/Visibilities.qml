@@ -11,7 +11,6 @@ Singleton {
     }
 
     function getForActive(): PersistentProperties {
-        // Return first screen's visibilities as fallback
         return screens.values().next().value;
     }
 }

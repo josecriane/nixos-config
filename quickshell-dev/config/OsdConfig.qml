@@ -4,7 +4,7 @@ JsonObject {
     property bool enabled: true
     property int hideDelay: 2000
     property bool enableBrightness: true
-    property bool enableMicrophone: false
+    property bool enableMicrophone: true
     property Sizes sizes: Sizes {}
 
     component Sizes: JsonObject {

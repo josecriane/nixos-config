@@ -74,17 +74,6 @@ Singleton {
         }
     }
 
-    function setMode(mode: string): void {
-        Quickshell.execDetached(["caelestia", "scheme", "set", "--notify", "-m", mode]);
-    }
-
-    // FileView disabled to eliminate scheme file warnings
-    // FileView {
-    //     path: `${Paths.stringify(Paths.state)}/scheme.json`
-    //     watchChanges: true
-    //     onFileChanged: reload()
-    //     onLoaded: root.load(text(), false)
-    // }
 
     // Removed wallpaper luminance calculation (Caelestia dependency)
     // Using default luminance value

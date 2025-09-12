@@ -40,7 +40,7 @@ StyledListView {
         const text = search.text;
         const prefix = Config.launcher.actionPrefix;
         if (text.startsWith(prefix)) {
-            for (const action of ["calc", "scheme", "variant"])
+            for (const action of ["calc"])
                 if (text.startsWith(`${prefix}${action} `))
                     return action;
 
@@ -50,10 +50,6 @@ StyledListView {
         return "apps";
     }
 
-    onStateChanged: {
-        if (state === "scheme" || state === "variant")
-            Schemes.reload();
-    }
 
     states: [
         State {
@@ -78,22 +74,6 @@ StyledListView {
             PropertyChanges {
                 model.values: [0]
                 root.delegate: calcItem
-            }
-        },
-        State {
-            name: "scheme"
-
-            PropertyChanges {
-                model.values: Schemes.query(search.text)
-                root.delegate: schemeItem
-            }
-        },
-        State {
-            name: "variant"
-
-            PropertyChanges {
-                model.values: M3Variants.query(search.text)
-                root.delegate: variantItem
             }
         }
     ]
@@ -225,19 +205,5 @@ StyledListView {
         }
     }
 
-    Component {
-        id: schemeItem
 
-        SchemeItem {
-            list: root
-        }
-    }
-
-    Component {
-        id: variantItem
-
-        VariantItem {
-            list: root
-        }
-    }
 }
