@@ -99,7 +99,6 @@ Variants {
                 property bool osd
                 property bool session
                 property bool launcher
-                property bool utilities
 
                 Component.onCompleted: Visibilities.load(scope.modelData, this)
             }

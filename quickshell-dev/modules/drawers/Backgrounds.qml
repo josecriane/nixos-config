@@ -5,7 +5,6 @@ import qs.modules.notifications as Notifications
 import qs.modules.session as Session
 import qs.modules.launcher as Launcher
 import qs.modules.bar.popouts as BarPopouts
-import qs.modules.utilities as Utilities
 import QtQuick
 import QtQuick.Shapes
 
@@ -54,12 +53,5 @@ Shape {
 
         startX: wrapper.x - rounding
         startY: 0
-    }
-
-    Utilities.Background {
-        wrapper: root.panels.utilities
-
-        startX: root.width
-        startY: root.height
     }
 }

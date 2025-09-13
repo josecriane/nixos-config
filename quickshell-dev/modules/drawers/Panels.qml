@@ -4,7 +4,6 @@ import qs.modules.notifications as Notifications
 import qs.modules.session as Session
 import qs.modules.launcher as Launcher
 import qs.modules.bar.popouts as BarPopouts
-import qs.modules.utilities as Utilities
 import Quickshell
 import QtQuick
 
@@ -20,7 +19,6 @@ Item {
     readonly property Session.Wrapper session: session
     readonly property Launcher.Wrapper launcher: launcher
     readonly property BarPopouts.Wrapper popouts: popouts
-    readonly property Utilities.Wrapper utilities: utilities
 
     anchors.fill: parent
     anchors.margins: Config.border.thickness
@@ -81,14 +79,5 @@ Item {
             return Math.max(off, 0);
         }
         y: 0
-    }
-
-    Utilities.Wrapper {
-        id: utilities
-
-        visibility: root.visibilities.utilities
-
-        anchors.bottom: parent.bottom
-        anchors.right: parent.right
     }
 }
