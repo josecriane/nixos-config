@@ -5,6 +5,7 @@ import qs.components.controls
 import qs.services
 import qs.config
 import qs.utils
+import qs.ds.list as Lists
 import Quickshell
 import Quickshell.Bluetooth
 import QtQuick
@@ -16,6 +17,8 @@ ColumnLayout {
     required property Item wrapper
 
     spacing: Appearance.spacing.small
+
+    width: Math.max(320, implicitWidth)
 
     StyledText {
         Layout.topMargin: Appearance.padding.normal
@@ -64,102 +67,28 @@ ColumnLayout {
             values: [...Bluetooth.devices.values].sort((a, b) => (b.connected - a.connected) || (b.paired - a.paired)).slice(0, 5)
         }
 
-        RowLayout {
-            id: device
-
+        Lists.ListItem {
             required property BluetoothDevice modelData
             readonly property bool loading: modelData.state === BluetoothDeviceState.Connecting || modelData.state === BluetoothDeviceState.Disconnecting
+            
+            leftIcon: Icons.getBluetoothIcon(modelData.icon)
+            text: modelData.name
+            selected: modelData.connected
+            
+            primaryActionIcon: modelData.connected ? "link_off" : "link"
+            primaryActionActive: modelData.connected
+            primaryActionLoading: loading
+            
+            secondaryActionIcon: modelData.bonded ? "delete" : ""
+            secondaryActionActive: !modelData.bonded
 
-            Layout.fillWidth: true
-            Layout.rightMargin: Appearance.padding.small
-            spacing: Appearance.spacing.small
-
-            opacity: 0
-            scale: 0.7
-
-            Component.onCompleted: {
-                opacity = 1;
-                scale = 1;
+            
+            onPrimaryActionClicked: {
+                modelData.connected = !modelData.connected;
             }
-
-            Behavior on opacity {
-                Anim {}
-            }
-
-            Behavior on scale {
-                Anim {}
-            }
-
-            MaterialIcon {
-                text: Icons.getBluetoothIcon(device.modelData.icon)
-            }
-
-            StyledText {
-                Layout.leftMargin: Appearance.spacing.small / 2
-                Layout.rightMargin: Appearance.spacing.small / 2
-                Layout.fillWidth: true
-                text: device.modelData.name
-            }
-
-            StyledRect {
-                id: connectBtn
-
-                implicitWidth: implicitHeight
-                implicitHeight: connectIcon.implicitHeight + Appearance.padding.small
-
-                radius: Appearance.rounding.full
-                color: Qt.alpha(Colours.palette.m3primary, device.modelData.state === BluetoothDeviceState.Connected ? 1 : 0)
-
-                StyledBusyIndicator {
-                    anchors.fill: parent
-                    running: device.loading
-                }
-
-                StateLayer {
-                    color: device.modelData.state === BluetoothDeviceState.Connected ? Colours.palette.m3onPrimary : Colours.palette.m3onSurface
-                    disabled: device.loading
-
-                    function onClicked(): void {
-                        device.modelData.connected = !device.modelData.connected;
-                    }
-                }
-
-                MaterialIcon {
-                    id: connectIcon
-
-                    anchors.centerIn: parent
-                    animate: true
-                    text: device.modelData.connected ? "link_off" : "link"
-                    color: device.modelData.state === BluetoothDeviceState.Connected ? Colours.palette.m3onPrimary : Colours.palette.m3onSurface
-
-                    opacity: device.loading ? 0 : 1
-
-                    Behavior on opacity {
-                        Anim {}
-                    }
-                }
-            }
-
-            Loader {
-                asynchronous: true
-                active: device.modelData.bonded
-                sourceComponent: Item {
-                    implicitWidth: connectBtn.implicitWidth
-                    implicitHeight: connectBtn.implicitHeight
-
-                    StateLayer {
-                        radius: Appearance.rounding.full
-
-                        function onClicked(): void {
-                            device.modelData.forget();
-                        }
-                    }
-
-                    MaterialIcon {
-                        anchors.centerIn: parent
-                        text: "delete"
-                    }
-                }
+            
+            onSecondaryActionClicked: {
+                modelData.forget();
             }
         }
     }
