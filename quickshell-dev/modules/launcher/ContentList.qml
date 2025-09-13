@@ -3,7 +3,6 @@ pragma ComponentBehavior: Bound
 import qs.components
 import qs.services
 import qs.config
-import qs.utils
 import Quickshell
 import QtQuick
 import QtQuick.Controls
@@ -18,7 +17,6 @@ Item {
     required property int padding
     required property int rounding
 
-    // Removed wallpaper functionality
     readonly property Item currentList: appList.item
     
     property int itemWidth: 600
@@ -28,7 +26,7 @@ Item {
     anchors.bottom: parent.bottom
 
     clip: true
-    state: "apps" // Only apps, no wallpapers
+    state: "apps"
 
     states: [
         State {
@@ -76,7 +74,7 @@ Item {
         anchors.left: parent.left
         anchors.right: parent.right
 
-        sourceComponent: AppList {
+        sourceComponent: LauncherList {
             search: root.search
             visibilities: root.visibilities
         }

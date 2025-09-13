@@ -1,8 +1,10 @@
 pragma Singleton
 
+import ".."
 import qs.config
-import qs.utils
 import qs.services
+import qs.components
+import qs.utils
 import Quickshell
 import QtQuick
 
@@ -11,7 +13,8 @@ Searcher {
 
     function launch(entry: DesktopEntry): void {
         if (entry.runInTerminal) {
-            const terminalCommand = Config.general.apps.terminal.concat([entry.command.join(" ")]).join(" ");
+            const terminal = "alacritty";
+            const terminalCommand = `${terminal} -e ${entry.command.join(" ")}`;
             Niri.spawn(terminalCommand);
         } else {
             Niri.spawn(entry.command.join(" "));
@@ -24,10 +27,26 @@ Searcher {
         return query(search);
     }
 
-    function selector(item: var): string {
-        return item.name;
-    }
 
-    list: [...DesktopEntries.applications.values].sort((a, b) => a.name.localeCompare(b.name))
+    list: variants.instances
     useFuzzy: false
+    
+    Variants {
+        id: variants
+        
+        model: [...DesktopEntries.applications.values].sort((a, b) => a.name.localeCompare(b.name))
+        
+        delegate: LauncherItemModel {
+            required property DesktopEntry modelData
+            
+            name: modelData.name ?? ""
+            subtitle: modelData.comment || modelData.genericName || modelData.name || ""
+            isApp: true
+            appIcon: modelData.icon ?? ""
+            originalData: modelData
+            onActivate: function() {
+                root.launch(originalData);
+            }
+        }
+    }
 }

@@ -112,7 +112,6 @@ Item {
                 color: Colours.palette.m3onTertiary
 
                 function onClicked(): void {
-                    Niri.spawn([...Config.general.apps.terminal, "fish", "-C", `exec qalc -i '${root.math}'`].join(" "));
                     root.list.visibilities.launcher = false;
                 }
             }

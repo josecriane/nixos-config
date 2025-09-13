@@ -90,16 +90,7 @@ Item {
             onAccepted: {
                 const currentItem = list.currentList?.currentItem;
                 if (currentItem) {
-                    // Removed wallpaper handling
-                    if (text.startsWith(">")) {
-                        if (text.startsWith(">calc "))
-                            currentItem.onClicked();
-                        else
-                            currentItem.modelData.onClicked(list.currentList);
-                    } else {
-                        Apps.launch(currentItem.modelData);
-                        root.visibilities.launcher = false;
-                    }
+                    currentItem.activate();
                 }
             }
 

@@ -3,6 +3,7 @@ pragma Singleton
 import ".."
 import qs.services
 import qs.config
+import qs.components
 import qs.utils
 import Quickshell
 import QtQuick
@@ -12,64 +13,60 @@ Searcher {
 
     property string actionPrefix: ">"
 
-    readonly property list<Action> actions: [
-        Action {
+    readonly property list<LauncherItemModel> actions: [
+        LauncherItemModel {
             name: qsTr("Calculator")
-            desc: qsTr("Do simple math equations (powered by Qalc)")
-            icon: "calculate"
-
-            function onClicked(list: AppList): void {
+            subtitle: qsTr("Do simple math equations (powered by Qalc)")
+            isAction: true
+            actionIcon: "calculate"
+            closeLauncher: false
+            onActivate: function(list) {
                 root.autocomplete(list, "calc");
             }
         },
-        Action {
+        LauncherItemModel {
             name: qsTr("Shutdown")
-            desc: qsTr("Shutdown the system")
-            icon: "power_settings_new"
-
-            function onClicked(list: AppList): void {
-                list.visibilities.launcher = false;
-                Quickshell.execDetached(["systemctl", "poweroff"]);
+            subtitle: qsTr("Shutdown the system")
+            isAction: true
+            actionIcon: "power_settings_new"
+            onActivate: function() {
+                Niri.spawn("systemctl poweroff");
             }
         },
-        Action {
+        LauncherItemModel {
             name: qsTr("Reboot")
-            desc: qsTr("Reboot the system")
-            icon: "cached"
-
-            function onClicked(list: AppList): void {
-                list.visibilities.launcher = false;
-                Quickshell.execDetached(["systemctl", "reboot"]);
+            subtitle: qsTr("Reboot the system")
+            isAction: true
+            actionIcon: "cached"
+            onActivate: function() {
+                Niri.spawn("systemctl reboot");
             }
         },
-        Action {
+        LauncherItemModel {
             name: qsTr("Logout")
-            desc: qsTr("Log out of the current session")
-            icon: "exit_to_app"
-
-            function onClicked(list: AppList): void {
-                list.visibilities.launcher = false;
-                Quickshell.execDetached(["loginctl", "terminate-user", ""]);
+            subtitle: qsTr("Log out of the current session")
+            isAction: true
+            actionIcon: "exit_to_app"
+            onActivate: function() {
+                Niri.spawn("loginctl terminate-user");
             }
         },
-        Action {
+        LauncherItemModel {
             name: qsTr("Lock")
-            desc: qsTr("Lock the current session")
-            icon: "lock"
-
-            function onClicked(list: AppList): void {
-                list.visibilities.launcher = false;
-                Quickshell.execDetached(["loginctl", "lock-session"]);
+            subtitle: qsTr("Lock the current session")
+            isAction: true
+            actionIcon: "lock"
+            onActivate: function() {
+                Niri.spawn("loginctl lock-session");
             }
         },
-        Action {
+        LauncherItemModel {
             name: qsTr("Sleep")
-            desc: qsTr("Suspend then hibernate")
-            icon: "bedtime"
-
-            function onClicked(list: AppList): void {
-                list.visibilities.launcher = false;
-                Quickshell.execDetached(["systemctl", "suspend-then-hibernate"]);
+            subtitle: qsTr("Suspend then hibernate")
+            isAction: true
+            actionIcon: "bedtime"
+            onActivate: function() {
+                Niri.spawn("systemctl suspend-then-hibernate");
             }
         }
     ]
@@ -78,20 +75,15 @@ Searcher {
         return search.slice(actionPrefix.length);
     }
 
-    function autocomplete(list: AppList, text: string): void {
+    function autocomplete(list: LauncherList, text: string): void {
         list.search.text = `${actionPrefix}${text} `;
     }
+    
+    function search(search: string): list<var> {
+        return query(search);
+    }
 
-    list: actions.filter(a => !a.disabled)
+    list: actions
     useFuzzy: false
 
-    component Action: QtObject {
-        required property string name
-        required property string desc
-        required property string icon
-        property bool disabled
-
-        function onClicked(list: AppList): void {
-        }
-    }
 }

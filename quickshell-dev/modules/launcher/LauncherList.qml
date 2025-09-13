@@ -1,6 +1,5 @@
 pragma ComponentBehavior: Bound
 
-import "items"
 import "services"
 import qs.components
 import qs.components.controls
@@ -126,7 +125,7 @@ StyledListView {
                 }
             }
             PropertyAction {
-                targets: [root.add, root.remove]
+                target: root
                 property: "enabled"
                 value: true
             }
@@ -189,7 +188,7 @@ StyledListView {
     Component {
         id: appItem
 
-        AppItem {
+        LauncherItem {
             visibilities: root.visibilities
         }
     }
@@ -197,7 +196,8 @@ StyledListView {
     Component {
         id: actionItem
 
-        ActionItem {
+        LauncherItem {
+            visibilities: root.visibilities
             list: root
         }
     }
@@ -209,6 +209,4 @@ StyledListView {
             list: root
         }
     }
-
-
 }
