@@ -2,6 +2,7 @@ import "services"
 import qs.components
 import qs.services
 import qs.config
+import qs.ds.text as DsText
 import Quickshell
 import Quickshell.Widgets
 import QtQuick
@@ -76,27 +77,26 @@ Item {
 
             height: name.height + subtitle.height
 
-            StyledText {
+            DsText.BodyM {
                 id: name
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.top: parent.top
 
                 text: root.modelData?.name ?? ""
-                font.pointSize: Appearance.font.size.normal
                 elide: Text.ElideRight
             }
 
-            StyledText {
+            DsText.BodyS {
                 id: subtitle
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.top: name.bottom
 
                 text: root.modelData?.subtitle ?? ""
-                font.pointSize: Appearance.font.size.small
-                color: Colours.palette.m3outline
+
                 elide: Text.ElideRight
+                disabled: true
             }
         }
     }

@@ -3,6 +3,7 @@ pragma ComponentBehavior: Bound
 import qs.components
 import qs.services
 import qs.config
+import qs.ds.text as DsText
 import Quickshell
 import QtQuick
 import QtQuick.Controls
@@ -107,17 +108,13 @@ Item {
         Column {
             anchors.verticalCenter: parent.verticalCenter
 
-            StyledText {
+            DsText.HeadingM {
                 text: qsTr("No results")
-                color: Colours.palette.m3onSurfaceVariant
-                font.pointSize: Appearance.font.size.larger
-                font.weight: 500
             }
 
-            StyledText {
+            DsText.BodyM {
                 text: qsTr("Try searching for something else")
-                color: Colours.palette.m3onSurfaceVariant
-                font.pointSize: Appearance.font.size.normal
+                disabled: true
             }
         }
         }

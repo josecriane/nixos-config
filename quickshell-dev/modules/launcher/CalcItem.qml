@@ -1,6 +1,7 @@
 import qs.components
 import qs.services
 import qs.config
+import qs.ds.text as DsText
 import Quickshell
 import Quickshell.Io
 import QtQuick
@@ -68,7 +69,7 @@ Item {
             Layout.alignment: Qt.AlignVCenter
         }
 
-        StyledText {
+        DsText.BodyM {
             id: result
 
             color: {
@@ -80,7 +81,6 @@ Item {
             }
 
             text: metrics.elidedText
-            font.pointSize: Appearance.font.size.normal
 
             Layout.fillWidth: true
             Layout.alignment: Qt.AlignVCenter
@@ -116,7 +116,7 @@ Item {
                 }
             }
 
-            StyledText {
+            DsText.BodyM {
                 id: label
 
                 anchors.verticalCenter: parent.verticalCenter
@@ -124,10 +124,6 @@ Item {
                 anchors.rightMargin: Appearance.spacing.small
 
                 text: qsTr("Open in calculator")
-                color: Colours.palette.m3onTertiary
-                font.pointSize: Appearance.font.size.normal
-
-                opacity: stateLayer.containsMouse ? 1 : 0
 
                 Behavior on opacity {
                     Anim {}

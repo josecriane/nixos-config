@@ -3,7 +3,7 @@ pragma ComponentBehavior: Bound
 import qs.components
 import qs.services
 import qs.config
-import qs.ds.text as Text
+import qs.ds.text as DsText
 import Quickshell
 import Quickshell.Widgets
 import QtQuick
@@ -128,7 +128,7 @@ StackView {
                             }
                         }
 
-                        Text.BodyS {
+                        DsText.BodyS {
                             id: label
 
                             anchors.left: icon.right
@@ -211,7 +211,7 @@ StackView {
                             color: Colours.palette.m3onSecondaryContainer
                         }
 
-                        Text.BodyS {
+                        DsText.BodyS {
                             anchors.verticalCenter: parent.verticalCenter
                             text: qsTr("Back")
                             color: Colours.palette.m3onSecondaryContainer
