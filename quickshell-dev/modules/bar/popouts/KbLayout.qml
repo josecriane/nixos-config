@@ -1,43 +1,56 @@
 import qs.components
-import qs.components.controls
 import qs.services
 import qs.config
+import qs.ds.list as Lists
+import qs.ds.text as Text
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 
-Item {
-    implicitWidth: layout.implicitWidth + Appearance.padding.normal * 2
-    implicitHeight: layout.implicitHeight + Appearance.padding.normal * 2
+ColumnLayout {
+    id: root
 
+    spacing: Appearance.spacing.small
+    width: Math.max(320, implicitWidth)
+    
     ButtonGroup {
-        id: layouts
+        id: layoutGroup
     }
 
-    ColumnLayout {
-        id: layout
+    Text.HeadingS {
+        Layout.topMargin: Appearance.padding.normal
+        Layout.rightMargin: Appearance.padding.small
+        text: qsTr("Keyboard Layout")
+    }
 
-        anchors.left: parent.left
-        anchors.verticalCenter: parent.verticalCenter
-        spacing: 0
+    Repeater {
+        id: layoutRepeater
+        model: Niri.kbLayouts
 
-        StyledText {
-            Layout.bottomMargin: Appearance.spacing.small / 2
-            text: qsTr("Keyboard Layout")
-            font.weight: 500
+        Lists.ListItem {
+            required property string modelData
+            required property int index
+            
+            text: modelData
+            selected: index === Niri.currentKbLayoutIndex
+            buttonGroup: layoutGroup
+            
+            onClicked: {
+                Niri.switchKbLayout(index);
+            }
         }
-
-        Repeater {
-            model: Niri.kbLayouts
-
-            StyledRadioButton {
-                required property string modelData
-                required property int index
-
-                ButtonGroup.group: layouts
-                checked: index === Niri.currentKbLayoutIndex
-                onClicked: Niri.switchKbLayout(index)
-                text: modelData
+    }
+    
+    // Update selection when layout changes externally
+    Connections {
+        target: Niri
+        
+        function onCurrentKbLayoutIndexChanged() {
+            for (let i = 0; i < layoutRepeater.count; i++) {
+                let item = layoutRepeater.itemAt(i);
+                if (item) {
+                    item.selected = (i === Niri.currentKbLayoutIndex);
+                }
             }
         }
     }

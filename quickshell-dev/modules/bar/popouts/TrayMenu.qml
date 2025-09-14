@@ -3,6 +3,7 @@ pragma ComponentBehavior: Bound
 import qs.components
 import qs.services
 import qs.config
+import qs.ds.text as Text
 import Quickshell
 import Quickshell.Widgets
 import QtQuick
@@ -127,7 +128,7 @@ StackView {
                             }
                         }
 
-                        StyledText {
+                        Text.BodyS {
                             id: label
 
                             anchors.left: icon.right
@@ -210,7 +211,7 @@ StackView {
                             color: Colours.palette.m3onSecondaryContainer
                         }
 
-                        StyledText {
+                        Text.BodyS {
                             anchors.verticalCenter: parent.verticalCenter
                             text: qsTr("Back")
                             color: Colours.palette.m3onSecondaryContainer

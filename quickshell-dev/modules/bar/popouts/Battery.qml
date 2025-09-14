@@ -3,6 +3,7 @@ pragma ComponentBehavior: Bound
 import qs.components
 import qs.services
 import qs.config
+import qs.ds.text as Text
 import Quickshell.Services.UPower
 import QtQuick
 
@@ -11,11 +12,11 @@ Column {
 
     spacing: Appearance.spacing.normal
 
-    StyledText {
+    Text.BodyM {
         text: UPower.displayDevice.isLaptopBattery ? qsTr("Remaining: %1%").arg(Math.round(UPower.displayDevice.percentage * 100)) : qsTr("No battery detected")
     }
 
-    StyledText {
+    Text.BodyS {
         function formatSeconds(s: int, fallback: string): string {
             const day = Math.floor(s / 86400);
             const hr = Math.floor(s / 3600) % 60;
@@ -67,12 +68,11 @@ Column {
                         color: Colours.palette.m3onError
                     }
 
-                    StyledText {
+                    Text.HeadingS {
                         anchors.verticalCenter: parent.verticalCenter
                         text: qsTr("Performance Degraded")
                         color: Colours.palette.m3onError
                         font.family: Appearance.font.family.mono
-                        font.weight: 500
                     }
 
                     MaterialIcon {
@@ -84,7 +84,7 @@ Column {
                     }
                 }
 
-                StyledText {
+                Text.BodyM {
                     anchors.horizontalCenter: parent.horizontalCenter
 
                     text: qsTr("Reason: %1").arg(PerformanceDegradationReason.toString(PowerProfiles.degradationReason))

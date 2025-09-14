@@ -6,6 +6,7 @@ import qs.services
 import qs.config
 import qs.utils
 import qs.ds.list as Lists
+import qs.ds.text as Text
 import Quickshell
 import Quickshell.Bluetooth
 import QtQuick
@@ -20,11 +21,10 @@ ColumnLayout {
 
     width: Math.max(320, implicitWidth)
 
-    StyledText {
+    Text.HeadingS {
         Layout.topMargin: Appearance.padding.normal
         Layout.rightMargin: Appearance.padding.small
         text: qsTr("Bluetooth %1").arg(BluetoothAdapterState.toString(Bluetooth.defaultAdapter?.state).toLowerCase())
-        font.weight: 500
     }
 
     Toggle {
@@ -47,7 +47,7 @@ ColumnLayout {
         }
     }
 
-    StyledText {
+    Text.BodyS {
         Layout.topMargin: Appearance.spacing.small
         Layout.rightMargin: Appearance.padding.small
         text: {
@@ -58,8 +58,7 @@ ColumnLayout {
                 available += qsTr(" (%1 connected)").arg(connected);
             return available;
         }
-        color: Colours.palette.m3onSurfaceVariant
-        font.pointSize: Appearance.font.size.small
+        disabled: true
     }
 
     Repeater {
@@ -103,7 +102,7 @@ ColumnLayout {
         Layout.rightMargin: Appearance.padding.small
         spacing: Appearance.spacing.normal
 
-        StyledText {
+        Text.BodyM {
             Layout.fillWidth: true
             text: parent.label
         }

@@ -1,8 +1,8 @@
 pragma ComponentBehavior: Bound
 
-import qs.components
 import qs.services
-import qs.config
+import qs.ds
+import qs.ds.text as Text
 import QtQuick
 
 Row {
@@ -10,17 +10,14 @@ Row {
 
     property color colour: Colours.palette.m3tertiary
 
-    spacing: Appearance.spacing.small
+    spacing: Foundations.spacing.s
 
-    StyledText {
+    Text.BodyM {
         id: text
 
         anchors.verticalCenter: parent.verticalCenter
 
-        horizontalAlignment: StyledText.AlignHCenter
         text: Time.format("ddd dd MMM  HH:mm")
-        font.pointSize: Appearance.font.size.smaller
-        font.family: Appearance.font.family.mono
-        color: root.colour
+        font.family: Foundations.font.family.mono
     }
 }

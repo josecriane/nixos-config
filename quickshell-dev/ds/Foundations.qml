@@ -6,10 +6,29 @@ import Quickshell
 Singleton {
     id: root
 
-    property Spacing spacing: Spacing {}
-    property Radius radius: Radius {}
     property Font font: Font {}
+    property Radius radius: Radius {}
+    property Spacing spacing: Spacing {}
 
+    component Font: QtObject {
+        property FontFamily family: FontFamily {}
+        property FontSize size: FontSize {}
+    }
+
+    component FontFamily: QtObject {
+        property string sans: "Rubik"
+        property string mono: "CaskaydiaCove NF"
+        property string material: "Material Symbols Rounded"
+        property string clock: "Rubik"
+    }
+
+    component FontSize: QtObject {
+        property int xs: 10
+        property int s: 12
+        property int m: 14
+        property int l: 18
+        property int xl: 20
+    }
 
     component Radius: QtObject {
         property int xxs: 4
@@ -27,13 +46,5 @@ Singleton {
         property int m: 12
         property int l: 15
         property int xl: 20
-    }
-    
-    component Font: QtObject {
-        property int xs: 10
-        property int s: 12
-        property int m: 14
-        property int l: 16
-        property int xl: 18
     }
 }

@@ -1,12 +1,15 @@
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Controls
 import qs.components
 import qs.components.controls
 import qs.ds
 import qs.ds.buttons.circularButtons as CircularButtons
+import qs.ds.buttons as DsButtons
+import qs.ds.text as DsText
 import qs.services
 
-RowLayout {
+Item {
     id: root
     
     // Public properties
@@ -28,17 +31,21 @@ RowLayout {
     
     property bool disabled: false
     property bool selected: false
+    property ButtonGroup buttonGroup: null
     
     property color foregroundColor: disabled ? disabledForegroundColor : (selected ? selectedForegroundColor : defaultForegroundColor)
 
     // Signals
+    signal clicked()
     signal primaryActionClicked()
     signal secondaryActionClicked()
     
-    // Layout
+    // Layout properties for when used in a Layout
     Layout.fillWidth: true
     Layout.rightMargin: Foundations.spacing.s
-    spacing: Foundations.spacing.s
+    
+    implicitHeight: content.implicitHeight
+    implicitWidth: content.implicitWidth
     
     // Entry animation
     opacity: 0
@@ -54,54 +61,92 @@ RowLayout {
         }
     }
     
-    // Left icon
-    MaterialIcon {
-        visible: root.leftIcon !== ""
-        text: root.leftIcon
-        color: root.foregroundColor
-    }
-    
-    // Secondary icon (like lock icon)
-    MaterialIcon {
-        visible: root.secondaryIcon !== ""
-        text: root.secondaryIcon
-        color: root.foregroundColor
-    }
-    
-    // Main text
-    StyledText {
-        Layout.leftMargin: Foundations.spacing.xs
-        Layout.rightMargin: Foundations.spacing.xs
-        Layout.fillWidth: true
-        text: root.text
-        elide: Text.ElideRight
-        font.weight: root.selected ? 500 : root.textWeight
-        color: root.foregroundColor
-    }
-    
-    // Primary action button
-    CircularButtons.CircularButton {
-        visible: root.primaryActionIcon !== ""
-        icon: root.primaryActionIcon
-        foregroundColor: root.selectedForegroundColor
-        activeBackgroundColor: root.selectedForegroundColor
-        active: root.primaryActionActive
-        disabled: root.disabled
-        loading: root.primaryActionLoading
+    // MouseArea for clickable items
+    MouseArea {
+        anchors.fill: parent
+        enabled: !root.disabled
+        z: 1  // Above content but below action buttons
         
-        onClicked: root.primaryActionClicked()
+        onClicked: {
+            if (root.buttonGroup) {
+                root.selected = true;
+            }
+            root.clicked();
+        }
     }
     
-    // Secondary action button
-    CircularButtons.CircularButton {
-        visible: root.secondaryActionIcon !== ""
-        icon: root.secondaryActionIcon
-        foregroundColor: root.selectedForegroundColor
-        activeBackgroundColor: root.selectedForegroundColor
-        active: root.secondaryActionActive
-        disabled: root.disabled
-        loading: root.secondaryActionLoading
+    RowLayout {
+        id: content
+        anchors.fill: parent
+        spacing: Foundations.spacing.s
         
-        onClicked: root.secondaryActionClicked()
+        // Radio button (if buttonGroup is set)
+        DsButtons.RadioButton {
+            visible: root.buttonGroup !== null
+            checked: root.selected
+            enabled: !root.disabled
+            ButtonGroup.group: root.buttonGroup
+            disabledColor: root.disabledForegroundColor
+            defaultColor: root.defaultForegroundColor
+            focusColor: root.selectedForegroundColor
+            
+            onClicked: {
+                root.selected = true;
+                root.clicked();
+            }
+        }
+        
+        // Left icon (if no buttonGroup)
+        MaterialIcon {
+            visible: root.leftIcon !== "" && root.buttonGroup === null
+            text: root.leftIcon
+            color: root.foregroundColor
+        }
+        
+        // Secondary icon (like lock icon)
+        MaterialIcon {
+            visible: root.secondaryIcon !== ""
+            text: root.secondaryIcon
+            color: root.foregroundColor
+        }
+        
+        // Main text
+        DsText.BodyM {
+            Layout.leftMargin: Foundations.spacing.xs
+            Layout.rightMargin: Foundations.spacing.xs
+            Layout.fillWidth: true
+            text: root.text
+            elide: Text.ElideRight
+            font.weight: root.selected ? 500 : root.textWeight
+            color: root.foregroundColor
+        }
+        
+        // Primary action button
+        CircularButtons.CircularButton {
+            visible: root.primaryActionIcon !== ""
+            icon: root.primaryActionIcon
+            foregroundColor: root.selectedForegroundColor
+            activeBackgroundColor: root.selectedForegroundColor
+            active: root.primaryActionActive
+            disabled: root.disabled
+            loading: root.primaryActionLoading
+            z: 2  // Above MouseArea
+            
+            onClicked: root.primaryActionClicked()
+        }
+        
+        // Secondary action button
+        CircularButtons.CircularButton {
+            visible: root.secondaryActionIcon !== ""
+            icon: root.secondaryActionIcon
+            foregroundColor: root.selectedForegroundColor
+            activeBackgroundColor: root.selectedForegroundColor
+            active: root.secondaryActionActive
+            disabled: root.disabled
+            loading: root.secondaryActionLoading
+            z: 2  // Above MouseArea
+            
+            onClicked: root.secondaryActionClicked()
+        }
     }
 }

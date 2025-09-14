@@ -5,6 +5,8 @@ import qs.components.controls
 import qs.services
 import qs.config
 import qs.ds.buttons as Buttons
+import qs.ds.list as Lists
+import qs.ds.text as Text
 import Quickshell
 import Quickshell.Services.Pipewire
 import QtQuick
@@ -34,52 +36,55 @@ Item {
         anchors.verticalCenter: parent.verticalCenter
         spacing: 0
 
-        StyledText {
+        Text.HeadingS {
             Layout.bottomMargin: Appearance.spacing.small / 2
             text: qsTr("Output device")
-            font.weight: 500
         }
 
         Repeater {
+            id: sinksRepeater
             model: Audio.sinks
 
-            StyledRadioButton {
-                id: control
-
+            Lists.ListItem {
                 required property PwNode modelData
 
-                ButtonGroup.group: sinks
-                checked: Audio.sink?.id === modelData.id
-                onClicked: Audio.setAudioSink(modelData)
                 text: modelData.description
+                selected: Audio.sink?.id === modelData.id
+                buttonGroup: sinks
+                
+                onClicked: {
+                    Audio.setAudioSink(modelData);
+                }
             }
         }
 
-        StyledText {
+        Text.HeadingS {
             Layout.topMargin: Appearance.spacing.normal
             Layout.bottomMargin: Appearance.spacing.small / 2
             text: qsTr("Input device")
-            font.weight: 500
         }
 
         Repeater {
+            id: sourcesRepeater
             model: Audio.sources
 
-            StyledRadioButton {
+            Lists.ListItem {
                 required property PwNode modelData
 
-                ButtonGroup.group: sources
-                checked: Audio.source?.id === modelData.id
-                onClicked: Audio.setAudioSource(modelData)
                 text: modelData.description
+                selected: Audio.source?.id === modelData.id
+                buttonGroup: sources
+                
+                onClicked: {
+                    Audio.setAudioSource(modelData);
+                }
             }
         }
 
-        StyledText {
+        Text.HeadingS {
             Layout.topMargin: Appearance.spacing.normal
             Layout.bottomMargin: Appearance.spacing.small / 2
             text: qsTr("Volume (%1)").arg(Audio.muted ? qsTr("Muted") : `${Math.round(Audio.volume * 100)}%`)
-            font.weight: 500
         }
 
         CustomMouseArea {
@@ -117,6 +122,29 @@ Item {
             onClicked: {
                 root.wrapper.hasCurrent = false;
                 Quickshell.execDetached(["pavucontrol"]);
+            }
+        }
+    }
+    
+    // Update selection when audio devices change externally
+    Connections {
+        target: Audio
+        
+        function onSinkChanged() {
+            for (let i = 0; i < sinksRepeater.count; i++) {
+                let item = sinksRepeater.itemAt(i);
+                if (item) {
+                    item.selected = (Audio.sink?.id === item.modelData.id);
+                }
+            }
+        }
+        
+        function onSourceChanged() {
+            for (let i = 0; i < sourcesRepeater.count; i++) {
+                let item = sourcesRepeater.itemAt(i);
+                if (item) {
+                    item.selected = (Audio.source?.id === item.modelData.id);
+                }
             }
         }
     }

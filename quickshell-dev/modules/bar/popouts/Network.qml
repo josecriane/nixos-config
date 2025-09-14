@@ -7,6 +7,7 @@ import qs.config
 import qs.utils
 import qs.ds.buttons as Buttons
 import qs.ds.list as Lists
+import qs.ds.text as Text
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
@@ -18,13 +19,13 @@ ColumnLayout {
 
     spacing: Appearance.spacing.small
     width: Math.max(320, implicitWidth)
-
-    StyledText {
+    
+    Text.HeadingS {
         Layout.topMargin: Appearance.padding.normal
         Layout.rightMargin: Appearance.padding.small
         text: qsTr("Wifi %1").arg(Network.wifiEnabled ? "enabled" : "disabled")
-        font.weight: 500
     }
+
 
     Toggle {
         label: qsTr("Enabled")
@@ -32,12 +33,11 @@ ColumnLayout {
         toggle.onToggled: Network.enableWifi(checked)
     }
 
-    StyledText {
+    Text.BodyS {
         Layout.topMargin: Appearance.spacing.small
         Layout.rightMargin: Appearance.padding.small
         text: qsTr("%1 networks available").arg(Network.networks.length)
-        color: Colours.palette.m3onSurfaceVariant
-        font.pointSize: Appearance.font.size.small
+        disabled: true
     }
 
     Repeater {
@@ -105,7 +105,7 @@ ColumnLayout {
         Layout.rightMargin: Appearance.padding.small
         spacing: Appearance.spacing.normal
 
-        StyledText {
+        Text.BodyM {
             Layout.fillWidth: true
             text: parent.label
         }

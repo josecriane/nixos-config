@@ -3,6 +3,7 @@ import QtQuick.Layouts
 import qs.components
 import qs.components.controls
 import qs.ds
+import qs.ds.text as Text
 import qs.services
 
 StyledRect {
@@ -51,7 +52,7 @@ StyledRect {
             animate: true
         }
         
-        StyledText {
+        Text.BodyM {
             visible: root.text !== ""
             text: root.text
             color: root.foregroundColor

@@ -209,12 +209,14 @@ R
 - [ ] Quickshell Redo
   - [ ] Refactored in DS
     - [ ] Create a popout background and wrapper inteface
+    - [ ] Add animate to Text changed
   - [ ] Use stylix colors
   - [ ] Add mic icon to the audio tray
   - [ ] Refactor notifications
+  - [ ] Remove traymenu, submenu, hasChild
   - [ ] Launcher
     - [ ] Fix calc
-    - [ ] Filter .destop
+    - [ ] Filter .desktop apps
     - [ ] Return true/false on onActivate to knows if close launcher
     - [ ] Define commands with a yml or a json
 

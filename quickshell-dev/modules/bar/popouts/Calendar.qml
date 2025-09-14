@@ -1,6 +1,7 @@
 import qs.components
 import qs.services
 import qs.config
+import qs.ds.text as DSText
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -36,11 +37,9 @@ Column {
             }
         }
         
-        StyledText {
+        DSText.HeadingM {
             Layout.fillWidth: true
             text: Qt.formatDate(root.currentMonth, "MMMM yyyy")
-            font.pointSize: Appearance.font.size.large
-            font.weight: 600
             horizontalAlignment: Text.AlignHCenter
         }
         
@@ -67,13 +66,11 @@ Column {
         anchors.right: parent.right
         anchors.margins: parent.padding
 
-        delegate: StyledText {
+        delegate: DSText.HeadingS {
             required property var model
 
             horizontalAlignment: Text.AlignHCenter
             text: model.shortName
-            font.family: Appearance.font.family.sans
-            font.weight: 500
         }
     }
 
@@ -106,7 +103,7 @@ Column {
                 radius: Appearance.rounding.full
                 color: Qt.alpha(Colours.palette.m3primary, day.model.today ? 1 : 0)
 
-                StyledText {
+                DSText.BodyM {
                     id: text
 
                     anchors.centerIn: parent

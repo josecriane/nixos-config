@@ -2,6 +2,7 @@ import qs.components
 import qs.components.misc
 import qs.services
 import qs.config
+import qs.ds.text as Text
 import QtQuick
 import QtQuick.Layouts
 
@@ -108,19 +109,16 @@ RowLayout {
         Column {
             anchors.centerIn: parent
 
-            StyledText {
+            Text.HeadingL {
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 text: res.label1
-                font.pointSize: Appearance.font.size.extraLarge * res.primaryMult
             }
 
-            StyledText {
+            Text.HeadingS {
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 text: res.sublabel1
-                color: Colours.palette.m3onSurfaceVariant
-                font.pointSize: Appearance.font.size.smaller * res.primaryMult
             }
         }
 
@@ -130,19 +128,16 @@ RowLayout {
             anchors.horizontalCenterOffset: -res.thickness / 2
             anchors.topMargin: res.thickness / 2 + Appearance.spacing.small
 
-            StyledText {
+            Text.HeadingS {
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 text: res.label2
-                font.pointSize: Appearance.font.size.smaller * res.primaryMult
             }
 
-            StyledText {
+            Text.BodyS {
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 text: res.sublabel2
-                color: Colours.palette.m3onSurfaceVariant
-                font.pointSize: Appearance.font.size.small * res.primaryMult
             }
         }
 

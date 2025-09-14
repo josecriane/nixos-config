@@ -4,6 +4,7 @@ import qs.components
 import qs.services
 import qs.utils
 import qs.config
+import qs.ds.text as Text
 import QtQuick
 import Quickshell.Wayland
 
@@ -94,16 +95,14 @@ Item {
         }
     }
 
-    component Title: StyledText {
+    component Title: Text.BodyM {
         id: text
 
         anchors.verticalCenter: icon.verticalCenter
         anchors.left: icon.right
         anchors.leftMargin: Appearance.spacing.small
 
-        font.pointSize: metrics.font.pointSize
-        font.family: metrics.font.family
-        color: root.colour
+        primary: true
         opacity: root.current === this ? 1 : 0
 
         Behavior on opacity {
@@ -111,10 +110,8 @@ Item {
         }
     }
 
-    component FontIcon: Text {
+    component FontIcon: Text.BodyM {
         anchors.verticalCenter: parent.verticalCenter
-        color: root.colour
-        font.family: Appearance.font.family.mono
-        font.pointSize: Appearance.font.size.normal
+        primary: true
     }
 }

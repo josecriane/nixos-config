@@ -3,6 +3,7 @@ pragma ComponentBehavior: Bound
 import qs.components
 import qs.services
 import qs.config
+import qs.ds.text as Text
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
@@ -70,17 +71,15 @@ StyledRect {
 
         spacing: 2
 
-        StyledText {
+        Text.BodyS {
             text: Math.round(parent.value * 100) + "%"
             color: parent.colour
-            font.family: Appearance.font.family.sans
-            font.pointSize: Appearance.font.size.small
         }
 
         MaterialIcon {
             text: parent.icon
             color: parent.colour
-            font.pointSize: Appearance.font.size.normal
+            font.pointSize: Appearance.font.size.small
         }
 
         Behavior on value {

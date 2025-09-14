@@ -4,6 +4,7 @@ import qs.components
 import qs.services
 import qs.utils
 import qs.config
+import qs.ds.text as Text
 import Quickshell
 import Quickshell.Bluetooth
 import Quickshell.Services.UPower
@@ -44,8 +45,7 @@ StyledRect {
         WrappedLoader {
             name: "kblayout"
 
-            sourceComponent: StyledText {
-                animate: true
+            sourceComponent: Text.BodyM {
                 text: {
                     const fullName = Niri.currentKbLayoutName();
                     if (!fullName) return "??";
