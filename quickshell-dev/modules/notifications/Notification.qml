@@ -11,7 +11,7 @@ import Quickshell.Services.Notifications
 import QtQuick
 import QtQuick.Layouts
 
-StyledRect {
+Rectangle {
     id: root
 
     required property Notifs.Notif modelData
@@ -143,7 +143,7 @@ StyledRect {
                 anchors.right: root.hasImage ? image.right : undefined
                 anchors.bottom: root.hasImage ? image.bottom : undefined
 
-                sourceComponent: StyledRect {
+                sourceComponent: Rectangle {
                     radius: Appearance.rounding.full
                     color: root.modelData.urgency === NotificationUrgency.Critical ? Colours.palette.m3error : root.modelData.urgency === NotificationUrgency.Low ? Colours.layer(Colours.palette.m3surfaceContainerHighest, 2) : Colours.palette.m3secondaryContainer
                     implicitWidth: root.hasImage ? Config.notifs.sizes.badge : Config.notifs.sizes.image
@@ -438,7 +438,7 @@ StyledRect {
         }
     }
 
-    component Action: StyledRect {
+    component Action: Rectangle {
         id: action
 
         required property var modelData

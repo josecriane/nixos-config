@@ -18,7 +18,7 @@ TextField {
 
     background: null
 
-    cursorDelegate: StyledRect {
+    cursorDelegate: Rectangle {
         id: cursor
 
         property bool disableBlink

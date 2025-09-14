@@ -3,6 +3,7 @@ pragma ComponentBehavior: Bound
 import qs.components.containers
 import qs.config
 import Quickshell
+import Quickshell.Wayland
 import QtQuick
 
 Scope {
@@ -28,12 +29,14 @@ Scope {
         anchors.bottom: true
     }
 
-    component ExclusionZone: StyledWindow {
+    component ExclusionZone: PanelWindow {
         screen: root.screen
-        name: "border-exclusion"
+        color: "transparent"
         exclusiveZone: Config.border.thickness
         mask: Region {}
         implicitWidth: 1
         implicitHeight: 1
+
+        WlrLayershell.namespace: `quickshell-border-exclusion`
     }
 }

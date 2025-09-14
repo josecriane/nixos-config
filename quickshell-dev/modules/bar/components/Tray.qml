@@ -4,7 +4,7 @@ import qs.config
 import Quickshell.Services.SystemTray
 import QtQuick
 
-StyledRect {
+Rectangle {
     id: root
 
     readonly property alias items: items

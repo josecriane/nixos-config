@@ -27,14 +27,14 @@ RowLayout {
         leftPadding: Appearance.padding.normal
         rightPadding: Appearance.padding.normal
 
-        background: StyledRect {
+        background: Rectangle {
             implicitWidth: 100
             radius: Appearance.rounding.small
             color: Colours.tPalette.m3surfaceContainerHigh
         }
     }
 
-    StyledRect {
+    Rectangle {
         radius: Appearance.rounding.small
         color: Colours.palette.m3primary
 
@@ -63,7 +63,7 @@ RowLayout {
         }
     }
 
-    StyledRect {
+    Rectangle {
         radius: Appearance.rounding.small
         color: Colours.palette.m3primary
 

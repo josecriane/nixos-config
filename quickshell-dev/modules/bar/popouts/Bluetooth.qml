@@ -7,6 +7,7 @@ import qs.config
 import qs.utils
 import qs.ds.list as Lists
 import qs.ds.text as Text
+import qs.ds as Ds
 import Quickshell
 import Quickshell.Bluetooth
 import QtQuick
@@ -107,7 +108,7 @@ ColumnLayout {
             text: parent.label
         }
 
-        StyledSwitch {
+        Ds.Switch {
             id: toggle
         }
     }

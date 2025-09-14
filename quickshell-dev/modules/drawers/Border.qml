@@ -13,7 +13,7 @@ Item {
 
     anchors.fill: parent
 
-    StyledRect {
+    Rectangle {
         anchors.fill: parent
         color: Colours.palette.m3surface
 

@@ -51,11 +51,19 @@ Item {
         color: "transparent"
         radius: Appearance.rounding.normal
 
-        StyledListView {
+        ListView {
             id: list
 
             model: ScriptModel {
                 values: [...Notifs.popups].reverse()
+            }
+
+            rebound: Transition {
+                NumberAnimation {
+                    duration: 400
+                    easing.type: Easing.BezierSpline
+                    properties: "x,y"
+                }
             }
 
             anchors.fill: parent

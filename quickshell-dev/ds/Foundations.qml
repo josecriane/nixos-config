@@ -31,6 +31,7 @@ Singleton {
     }
 
     component Radius: QtObject {
+        property int zero: 0
         property int xxs: 4
         property int xs: 8
         property int s: 12

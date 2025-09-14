@@ -4,7 +4,7 @@ import qs.components.controls
 import qs.services
 import qs.ds
 
-StyledRect {
+Rectangle {
     id: root
     
     // Public properties

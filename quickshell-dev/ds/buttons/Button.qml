@@ -6,7 +6,7 @@ import qs.ds
 import qs.ds.text as Text
 import qs.services
 
-StyledRect {
+Rectangle {
     id: root
     
     property string text: ""

@@ -6,11 +6,12 @@ import qs.components.controls
 import qs.components.containers
 import qs.services
 import qs.config
+import qs.ds.list as List
 import Quickshell
 import QtQuick
 import QtQuick.Controls
 
-StyledListView {
+ListView {
     id: root
 
     required property TextField search
@@ -20,6 +21,14 @@ StyledListView {
         id: model
 
         onValuesChanged: root.currentIndex = 0
+    }
+
+    rebound: Transition {
+        NumberAnimation {
+            duration: 400
+            easing.type: Easing.BezierSpline
+            properties: "x,y"
+        }
     }
 
     spacing: Appearance.spacing.small
@@ -34,7 +43,7 @@ StyledListView {
     highlightMoveDuration: Appearance.anim.durations.normal
     highlightResizeDuration: 0
 
-    highlight: StyledRect {
+    highlight: Rectangle {
         radius: Appearance.rounding.full
         color: Colours.palette.m3onSurface
         opacity: 0.08
@@ -132,7 +141,7 @@ StyledListView {
         }
     }
 
-    ScrollBar.vertical: StyledScrollBar {}
+    ScrollBar.vertical: List.ScrollBar {}
 
     add: Transition {
         enabled: !root.state

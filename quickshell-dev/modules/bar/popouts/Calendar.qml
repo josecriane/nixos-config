@@ -94,7 +94,7 @@ Column {
             implicitWidth: implicitHeight
             implicitHeight: text.implicitHeight + Appearance.padding.small * 2
 
-            StyledRect {
+            Rectangle {
                 anchors.centerIn: parent
 
                 implicitWidth: parent.implicitHeight

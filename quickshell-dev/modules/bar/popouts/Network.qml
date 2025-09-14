@@ -8,6 +8,7 @@ import qs.utils
 import qs.ds.buttons as Buttons
 import qs.ds.list as Lists
 import qs.ds.text as Text
+import qs.ds as Ds
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
@@ -110,7 +111,7 @@ ColumnLayout {
             text: parent.label
         }
 
-        StyledSwitch {
+        Ds.Switch {
             id: toggle
         }
     }

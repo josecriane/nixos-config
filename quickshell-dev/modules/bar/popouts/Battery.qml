@@ -44,7 +44,7 @@ Column {
 
         height: active ? (item?.implicitHeight ?? 0) : 0
 
-        sourceComponent: StyledRect {
+        sourceComponent: Rectangle {
             implicitWidth: child.implicitWidth + Appearance.padding.normal * 2
             implicitHeight: child.implicitHeight + Appearance.padding.smaller * 2
 
@@ -94,7 +94,7 @@ Column {
         }
     }
 
-    StyledRect {
+    Rectangle {
         id: profiles
 
         property string current: {
@@ -114,7 +114,7 @@ Column {
         color: Colours.tPalette.m3surfaceContainer
         radius: Appearance.rounding.full
 
-        StyledRect {
+        Rectangle {
             id: indicator
 
             color: Colours.palette.m3primary

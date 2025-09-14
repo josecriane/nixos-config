@@ -96,7 +96,7 @@ Item {
             }
         }
 
-        StyledRect {
+        Rectangle {
             color: Colours.palette.m3tertiary
             radius: Appearance.rounding.normal
             clip: true

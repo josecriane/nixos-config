@@ -77,7 +77,7 @@ MouseArea {
         color: Qt.alpha(root.color, root.disabled ? 0 : root.pressed ? 0.1 : root.containsMouse ? 0.08 : 0)
         radius: root.radius
 
-        StyledRect {
+        Rectangle {
             id: ripple
 
             radius: Appearance.rounding.full

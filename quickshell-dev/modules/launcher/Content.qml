@@ -5,6 +5,7 @@ import qs.components
 import qs.components.controls
 import qs.services
 import qs.config
+import qs.ds as Ds
 import Quickshell
 import QtQuick
 
@@ -50,7 +51,7 @@ Item {
         }
     }
 
-    StyledRect {
+    Rectangle {
         id: searchWrapper
 
         color: Colours.tPalette.m3surfaceContainer
@@ -74,7 +75,7 @@ Item {
             color: Colours.palette.m3onSurfaceVariant
         }
 
-        StyledTextField {
+        Ds.TextField {
             id: search
 
             anchors.left: searchIcon.right
@@ -84,6 +85,10 @@ Item {
 
             topPadding: Appearance.padding.larger
             bottomPadding: Appearance.padding.larger
+            
+            background: null
+            backgroundColor: "transparent"
+            borderWidth: 0
 
             placeholderText: "Type \">\" for commands"
 

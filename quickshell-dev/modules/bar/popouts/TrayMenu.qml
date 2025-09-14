@@ -68,7 +68,7 @@ StackView {
         Repeater {
             model: menuOpener.children
 
-            StyledRect {
+            Rectangle {
                 id: item
 
                 required property QsMenuEntry modelData
@@ -181,7 +181,7 @@ StackView {
                     implicitWidth: back.implicitWidth
                     implicitHeight: back.implicitHeight
 
-                    StyledRect {
+                    Rectangle {
                         anchors.fill: parent
                         anchors.margins: -Appearance.padding.small / 2
                         anchors.leftMargin: -Appearance.padding.smaller

@@ -4,7 +4,7 @@ import qs.services
 import qs.config
 import QtQuick
 
-StyledRect {
+Rectangle {
     required property int extra
 
     anchors.right: parent.right

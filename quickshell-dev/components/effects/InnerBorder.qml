@@ -6,7 +6,7 @@ import qs.config
 import QtQuick
 import QtQuick.Effects
 
-StyledRect {
+Rectangle {
     property alias innerRadius: maskInner.radius
     property alias thickness: maskInner.anchors.margins
     property alias leftThickness: maskInner.anchors.leftMargin

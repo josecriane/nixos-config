@@ -13,11 +13,11 @@ Slider {
 
     orientation: Qt.Vertical
 
-    background: StyledRect {
+    background: Rectangle {
         color: Colours.tPalette.m3surfaceContainer
         radius: Appearance.rounding.full
 
-        StyledRect {
+        Rectangle {
             anchors.left: parent.left
             anchors.right: parent.right
 
@@ -44,7 +44,7 @@ Slider {
             level: handleInteraction.containsMouse ? 2 : 1
         }
 
-        StyledRect {
+        Rectangle {
             id: rect
 
             anchors.fill: parent

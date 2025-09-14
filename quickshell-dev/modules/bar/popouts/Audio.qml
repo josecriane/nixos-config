@@ -7,6 +7,7 @@ import qs.config
 import qs.ds.buttons as Buttons
 import qs.ds.list as Lists
 import qs.ds.text as Text
+import qs.ds as Ds
 import Quickshell
 import Quickshell.Services.Pipewire
 import QtQuick
@@ -98,7 +99,7 @@ Item {
                     Audio.decrementVolume();
             }
 
-            StyledSlider {
+            Ds.Slider {
                 anchors.left: parent.left
                 anchors.right: parent.right
                 implicitHeight: parent.implicitHeight

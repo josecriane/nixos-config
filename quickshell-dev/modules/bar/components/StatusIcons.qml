@@ -11,7 +11,7 @@ import Quickshell.Services.UPower
 import QtQuick
 import QtQuick.Layouts
 
-StyledRect {
+Rectangle {
     id: root
 
     property color colour: Colours.palette.m3secondary

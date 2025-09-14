@@ -71,7 +71,7 @@ Column {
         KeyNavigation.up: hibernate
     }
 
-    component SessionButton: StyledRect {
+    component SessionButton: Rectangle {
         id: button
 
         required property string icon

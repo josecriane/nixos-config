@@ -23,13 +23,15 @@ Variants {
             bar: bar
         }
 
-        StyledWindow {
+        PanelWindow {
             id: win
 
             screen: scope.modelData
-            name: "drawers"
+            color: "transparent"
+
             WlrLayershell.exclusionMode: ExclusionMode.Ignore
             WlrLayershell.keyboardFocus: visibilities.launcher || visibilities.session ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
+            WlrLayershell.namespace: `quickshell-drawers`
 
             mask: Region {
                 x: Config.border.thickness
@@ -62,7 +64,7 @@ Variants {
                 }
             }
 
-            StyledRect {
+            Rectangle {
                 anchors.fill: parent
                 opacity: visibilities.session && Config.session.enabled ? 0.5 : 0
                 color: Colours.palette.m3scrim
