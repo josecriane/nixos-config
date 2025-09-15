@@ -215,7 +215,6 @@ R
     - [ ] Add mic muted on osd
   - [ ] Refactor notifications
   - [ ] Launcher
-    - [ ] Close other popouts when the launcher open
     - [ ] Fix calc
     - [ ] Filter .desktop apps
     - [ ] Return true/false on onActivate to knows if close launcher

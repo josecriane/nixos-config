@@ -71,6 +71,10 @@ MouseArea {
         const x = event.x;
         const y = event.y;
 
+        // Don't show other panels if launcher is open
+        if (visibilities.launcher) {
+            return;
+        }
 
         // Show osd on hover
         const showOsd = inRightPanel(panels.osd, x, y);
@@ -97,8 +101,16 @@ MouseArea {
         target: root.visibilities
 
         function onLauncherChanged() {
-            // If launcher is hidden, clear shortcut flags for OSD
-            if (!root.visibilities.launcher) {
+            if (root.visibilities.launcher) {
+                // Launcher opened - close all other panels
+                root.visibilities.osd = false;
+                root.visibilities.session = false;
+                root.visibilities.bar = false;
+                root.popouts.hasCurrent = false;
+                root.osdShortcutActive = false;
+                root.osdHovered = false;
+            } else {
+                // If launcher is hidden, clear shortcut flags for OSD
                 root.osdShortcutActive = false;
 
                 // Also hide OSD if they're not being hovered
