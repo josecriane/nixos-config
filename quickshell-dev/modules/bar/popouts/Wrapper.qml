@@ -1,5 +1,6 @@
 pragma ComponentBehavior: Bound
 
+import qs.modules.drawers
 import qs.services
 import qs.config
 import Quickshell
@@ -7,7 +8,7 @@ import Quickshell.Wayland
 import QtQuick
 import qs.ds.animations
 
-Item {
+BackgroundWrapper {
     id: root
 
     required property ShellScreen screen

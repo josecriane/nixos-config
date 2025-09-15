@@ -1,10 +1,8 @@
+import "."
 import qs.services
 import qs.config
-import qs.modules.osd as Osd
 import qs.modules.notifications as Notifications
-import qs.modules.session as Session
 import qs.modules.launcher as Launcher
-import qs.modules.bar.popouts as BarPopouts
 import QtQuick
 import QtQuick.Shapes
 
@@ -19,11 +17,11 @@ Shape {
     anchors.topMargin: bar.implicitHeight
     preferredRendererType: Shape.CurveRenderer
 
-    Osd.Background {
+    Background {
         wrapper: root.panels.osd
 
-        startX: root.width - root.panels.session.width
-        startY: (root.height - wrapper.height) / 2 - rounding
+        startX: wrapper.x + Config.border.rounding
+        startY: wrapper.y
     }
 
     Notifications.Background {
@@ -33,25 +31,25 @@ Shape {
         startY: 0
     }
 
-    Session.Background {
+    Background {
         wrapper: root.panels.session
 
-        startX: root.width
-        startY: (root.height - wrapper.height) / 2 - rounding
+        startX: wrapper.x + Config.border.rounding
+        startY: wrapper.y
     }
 
-    BarPopouts.Background {
+    Background {
         wrapper: root.panels.launcher
 
-        startX: (root.width - wrapper.width) / 2 - rounding
+        startX: (root.width - wrapper.width) / 2 - Config.border.rounding
         startY: 0
     }
 
 
-    BarPopouts.Background {
+    Background {
         wrapper: root.panels.popouts
 
-        startX: wrapper.x - rounding
+        startX: wrapper.x - Config.border.rounding
         startY: 0
     }
 }

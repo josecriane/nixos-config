@@ -2,8 +2,9 @@ import qs.config
 import Quickshell
 import QtQuick
 import qs.ds.animations
+import qs.modules.drawers
 
-Item {
+BackgroundWrapper {
     id: root
 
     required property PersistentProperties visibilities

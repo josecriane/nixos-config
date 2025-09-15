@@ -3,12 +3,15 @@ import qs.config
 import Quickshell
 import QtQuick
 import qs.ds.animations
+import qs.modules.drawers
 
-Item {
+BackgroundWrapper {
     id: root
 
     required property ShellScreen screen
     required property var visibilities
+    
+    readonly property bool hasCurrent: visibilities.osd && Config.osd.enabled
 
     visible: width > 0
     implicitWidth: 0
