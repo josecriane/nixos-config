@@ -3,7 +3,6 @@ pragma Singleton
 import ".."
 import qs.services
 import qs.config
-import qs.components
 import qs.utils as Utils
 import Quickshell
 import QtQuick

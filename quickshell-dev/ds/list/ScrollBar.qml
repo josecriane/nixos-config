@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Controls
-import qs.components
 import qs.ds
 import qs.ds.animations
 import qs.services

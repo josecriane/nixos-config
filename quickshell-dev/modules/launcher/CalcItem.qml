@@ -1,4 +1,3 @@
-import qs.components
 import qs.services
 import qs.config
 import qs.ds.text as DsText
@@ -8,6 +7,7 @@ import Quickshell.Io
 import QtQuick
 import QtQuick.Layouts
 import qs.ds.animations
+import qs.ds.buttons as Buttons
 
 Item {
     id: root
@@ -33,7 +33,7 @@ Item {
         }
     }
 
-    StateLayer {
+    Buttons.ButtonAnimation {
         radius: Appearance.rounding.full
 
         function onClicked(): void {
@@ -103,13 +103,13 @@ Item {
             radius: Appearance.rounding.normal
             clip: true
 
-            implicitWidth: (stateLayer.containsMouse ? label.implicitWidth + label.anchors.rightMargin : 0) + icon.implicitWidth + Appearance.padding.normal * 2
+            implicitWidth: (buttonAnimation.containsMouse ? label.implicitWidth + label.anchors.rightMargin : 0) + icon.implicitWidth + Appearance.padding.normal * 2
             implicitHeight: Math.max(label.implicitHeight, icon.implicitHeight) + Appearance.padding.small * 2
 
             Layout.alignment: Qt.AlignVCenter
 
-            StateLayer {
-                id: stateLayer
+            Buttons.ButtonAnimation {
+                id: buttonAnimation
 
                 color: Colours.palette.m3onTertiary
 

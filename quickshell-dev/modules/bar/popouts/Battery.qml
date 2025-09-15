@@ -1,6 +1,5 @@
 pragma ComponentBehavior: Bound
 
-import qs.components
 import qs.services
 import qs.config
 import qs.ds.text as Text
@@ -8,6 +7,7 @@ import qs.ds.icons as Icons
 import Quickshell.Services.UPower
 import QtQuick
 import qs.ds.animations
+import qs.ds.buttons.circularButtons as CircularButtons
 
 Column {
     id: root
@@ -156,35 +156,53 @@ Column {
             }
         }
 
-        Profile {
+        CircularButtons.L {
             id: saver
 
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
             anchors.leftMargin: Appearance.padding.small
 
-            profile: PowerProfile.PowerSaver
             icon: "energy_savings_leaf"
+
+            active: profiles.current === icon
+            activeForegroundColor: Colours.palette.m3onPrimary
+
+            onClicked: {
+                PowerProfiles.profile = PowerProfile.PowerSaver;
+            }
         }
 
-        Profile {
+        CircularButtons.L {
             id: balance
 
             anchors.centerIn: parent
 
-            profile: PowerProfile.Balanced
             icon: "balance"
+
+            active: profiles.current === icon
+            activeForegroundColor: Colours.palette.m3onPrimary
+
+            onClicked: {
+                PowerProfiles.profile = PowerProfile.Balanced;
+            }
         }
 
-        Profile {
+        CircularButtons.L {
             id: perf
 
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.right
             anchors.rightMargin: Appearance.padding.small
 
-            profile: PowerProfile.Performance
             icon: "rocket_launch"
+
+            active: profiles.current === icon
+            activeForegroundColor: Colours.palette.m3onPrimary
+
+            onClicked: {
+                PowerProfiles.profile = PowerProfile.Performance;
+            }
         }
     }
 
@@ -196,32 +214,5 @@ Column {
         anchors.right: item.right
         anchors.top: item.top
         anchors.bottom: item.bottom
-    }
-
-    component Profile: Item {
-        required property string icon
-        required property int profile
-
-        implicitWidth: icon.implicitHeight + Appearance.padding.small * 2
-        implicitHeight: icon.implicitHeight + Appearance.padding.small * 2
-
-        StateLayer {
-            radius: Appearance.rounding.full
-            color: profiles.current === parent.icon ? Colours.palette.m3onPrimary : Colours.palette.m3onSurface
-
-            function onClicked(): void {
-                PowerProfiles.profile = parent.profile;
-            }
-        }
-
-        Icons.MaterialFontIcon {
-            id: icon
-
-            anchors.centerIn: parent
-
-            text: parent.icon
-            font.pointSize: Appearance.font.size.large
-            color: profiles.current === text ? Colours.palette.m3onPrimary : Colours.palette.m3onSurface
-        }
     }
 }

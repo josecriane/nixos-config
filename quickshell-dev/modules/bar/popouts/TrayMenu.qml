@@ -1,6 +1,5 @@
 pragma ComponentBehavior: Bound
 
-import qs.components
 import qs.services
 import qs.config
 import qs.ds.text as DsText
@@ -10,6 +9,7 @@ import Quickshell.Widgets
 import QtQuick
 import QtQuick.Controls
 import qs.ds.animations
+import qs.ds.buttons
 
 StackView {
     id: root
@@ -93,7 +93,7 @@ StackView {
                     sourceComponent: Item {
                         implicitHeight: label.implicitHeight
 
-                        StateLayer {
+                        ButtonAnimation {
                             anchors.margins: -Appearance.padding.small / 2
                             anchors.leftMargin: -Appearance.padding.smaller
                             anchors.rightMargin: -Appearance.padding.smaller
@@ -192,7 +192,7 @@ StackView {
                         radius: Appearance.rounding.full
                         color: Colours.palette.m3secondaryContainer
 
-                        StateLayer {
+                        ButtonAnimation {
                             radius: parent.radius
                             color: Colours.palette.m3onSecondaryContainer
 

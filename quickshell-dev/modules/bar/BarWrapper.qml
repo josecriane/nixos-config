@@ -1,6 +1,5 @@
 pragma ComponentBehavior: Bound
 
-import qs.components
 import qs.config
 import "popouts" as BarPopouts
 import Quickshell

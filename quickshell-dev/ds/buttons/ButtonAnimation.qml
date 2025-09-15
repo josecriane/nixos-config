@@ -11,17 +11,17 @@ MouseArea {
     property color color: Colours.palette.m3onSurface
     property real radius: parent?.radius ?? 0
 
-    function onClicked(): void {
-    }
+    function onClicked(): void { }
 
     anchors.fill: parent
 
     enabled: !disabled
-    cursorShape: disabled ? undefined : Qt.PointingHandCursor
-    hoverEnabled: true
+
+    cursorShape: enabled ? Qt.PointingHandCursor : undefined
+    hoverEnabled: enabled
 
     onPressed: event => {
-        if (disabled)
+        if (!enabled)
             return;
 
         rippleAnim.x = event.x;
@@ -33,42 +33,12 @@ MouseArea {
         rippleAnim.restart();
     }
 
-    onClicked: event => !disabled && onClicked(event)
+    onClicked: event => enabled && onClicked(event)
 
-    SequentialAnimation {
+    RippleAnimation {
         id: rippleAnim
 
-        property real x
-        property real y
-        property real radius
-
-        PropertyAction {
-            target: ripple
-            property: "x"
-            value: rippleAnim.x
-        }
-        PropertyAction {
-            target: ripple
-            property: "y"
-            value: rippleAnim.y
-        }
-        PropertyAction {
-            target: ripple
-            property: "opacity"
-            value: 0.08
-        }
-        BasicNumberAnimation {
-            target: ripple
-            properties: "implicitWidth,implicitHeight"
-            from: 0
-            to: rippleAnim.radius * 2
-            easing.bezierCurve: Appearance.anim.curves.standardDecel
-        }
-        BasicNumberAnimation {
-            target: ripple
-            property: "opacity"
-            to: 0
-        }
+        rippleItem: ripple
     }
 
     ClippingRectangle {

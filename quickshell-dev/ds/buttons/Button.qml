@@ -1,6 +1,6 @@
+import "."
 import QtQuick
 import QtQuick.Layouts
-import qs.components
 import qs.ds.progress
 import qs.ds
 import qs.ds.text as Text
@@ -29,7 +29,7 @@ Rectangle {
     radius: Foundations.radius.xs
     color: backgroundColor
     
-    StateLayer {
+    ButtonAnimation {
         color: foregroundColor
         disabled: root.disabled || root.loading
         

@@ -1,9 +1,9 @@
 import "services"
-import qs.components
 import qs.services
 import qs.config
 import qs.ds.text as DsText
 import qs.ds.icons as Icons
+import qs.ds.buttons as Buttons
 import Quickshell
 import Quickshell.Widgets
 import QtQuick
@@ -35,7 +35,7 @@ Item {
         }
     }
 
-    StateLayer {
+    Buttons.ButtonAnimation {
         radius: Appearance.rounding.full
 
         function onClicked(): void {

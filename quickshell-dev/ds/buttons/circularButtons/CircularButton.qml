@@ -1,5 +1,5 @@
+import ".."
 import QtQuick
-import qs.components
 import qs.ds.progress
 import qs.services
 import qs.ds
@@ -35,8 +35,7 @@ Rectangle {
         strokeWidth: 2
     }
     
-    // Interaction layer
-    StateLayer {
+    ButtonAnimation {
         color: root.active ? root.activeForegroundColor : root.foregroundColor
         disabled: root.disabled || root.loading
         

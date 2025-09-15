@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
-import qs.components
 import qs.ds
 import qs.ds.buttons.circularButtons as CircularButtons
 import qs.ds.buttons as DsButtons

@@ -213,7 +213,7 @@ R
   - [ ] Add mic icon to the audio tray
   - [ ] Add mic muted on osd
   - [ ] Refactor notifications
-  - [ ] Refactor all StateLayer use must be a Button
+  - [ ] Refactor all StateLayer use must be a Button, and review the other MouseArea
   - [ ] Check traymenu, submenu, hasChild
   - [ ] Use popout background in all elements drawers/Backgrounds
   - [ ] Launcher

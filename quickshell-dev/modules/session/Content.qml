@@ -1,9 +1,9 @@
 pragma ComponentBehavior: Bound
 
-import qs.components
 import qs.services
 import qs.config
 import qs.ds.icons as Icons
+import qs.ds.buttons as Buttons
 import Quickshell
 import QtQuick
 
@@ -109,7 +109,7 @@ Column {
             }
         }
 
-        StateLayer {
+        Buttons.ButtonAnimation {
             radius: parent.radius
             color: button.activeFocus ? Colours.palette.m3onSecondaryContainer : Colours.palette.m3onSurface
 
