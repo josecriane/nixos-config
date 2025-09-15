@@ -4,6 +4,7 @@ import qs.services
 import qs.config
 import qs.ds.text as Text
 import qs.ds.icons as Icons
+import qs.ds
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
@@ -20,10 +21,10 @@ Rectangle {
     clip: true
     implicitWidth: iconRow.implicitWidth + Appearance.padding.normal * 2
 
-    MouseArea {
-        anchors.fill: parent
-        cursorShape: Qt.PointingHandCursor
-        onClicked: {
+    InteractiveArea {
+        radius: parent.radius
+        
+        function onClicked(): void {
             Niri.spawn("alacritty --class floating -e btop");
         }
     }
