@@ -13,13 +13,15 @@ Item {
 
     required property LauncherItemModel modelData
     property PersistentProperties visibilities
-    property var list  // For actions that need access to the list
+    property var list
     
     property int itemHeight: 57
     implicitHeight: itemHeight
 
     anchors.left: parent?.left
     anchors.right: parent?.right
+    
+    default property alias customContent: textContainer.data
     
     function activate(): void {
         if (root.modelData.onActivate) {
@@ -36,7 +38,7 @@ Item {
     }
 
     InteractiveArea {
-        radius: Appearance.rounding.full
+        radius: Foundations.radius.xs
 
         function onClicked(): void {
             root.activate();

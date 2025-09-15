@@ -5,6 +5,7 @@ import qs.services
 import qs.config
 import qs.ds as Ds
 import qs.ds.icons as Icons
+import qs.ds.buttons.circularButtons as CircularButtons
 import Quickshell
 import QtQuick
 import qs.ds.animations
@@ -140,42 +141,18 @@ Item {
             }
         }
 
-        Icons.MaterialFontIcon {
+        CircularButtons.M {
             id: clearIcon
 
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.right
             anchors.rightMargin: root.padding
 
-            width: search.text ? implicitWidth : implicitWidth / 2
-            opacity: {
-                if (!search.text)
-                    return 0;
-                if (mouse.pressed)
-                    return 0.7;
-                if (mouse.containsMouse)
-                    return 0.8;
-                return 1;
-            }
+            icon: "close"
+            opacity: search.text ? 1 : 0
+            visible: search.text
 
-            text: "close"
-            color: Colours.palette.m3onSurfaceVariant
-
-            MouseArea {
-                id: mouse
-
-                anchors.fill: parent
-                hoverEnabled: true
-                cursorShape: search.text ? Qt.PointingHandCursor : undefined
-
-                onClicked: search.text = ""
-            }
-
-            Behavior on width {
-                BasicNumberAnimation {
-                    duration: Appearance.anim.durations.small
-                }
-            }
+            onClicked: search.text = ""
 
             Behavior on opacity {
                 BasicNumberAnimation {

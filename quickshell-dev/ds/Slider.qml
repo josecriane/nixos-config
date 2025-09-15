@@ -10,6 +10,36 @@ Slider {
     property color inactiveColor: Colours.palette.m3surfaceContainer
     property color handleColor: Colours.palette.m3primary
     
+    // Expose hover state for child components
+    readonly property alias handleHovered: mainInteraction.overHandle
+    
+    signal wheelUp()
+    signal wheelDown()
+    
+    MouseArea {
+        id: mainInteraction
+        anchors.fill: parent
+        acceptedButtons: Qt.NoButton
+        hoverEnabled: true
+        
+        property bool overHandle: {
+            if (!containsMouse) return false;
+            const handleX = root.handle.x;
+            const handleWidth = root.handle.width;
+            const localX = mouseX;
+            return localX >= handleX && localX <= (handleX + handleWidth);
+        }
+        
+        cursorShape: overHandle ? Qt.PointingHandCursor : Qt.ArrowCursor
+        
+        onWheel: event => {
+            if (event.angleDelta.y > 0)
+                root.wheelUp();
+            else if (event.angleDelta.y < 0)
+                root.wheelDown();
+        }
+    }
+    
     background: Item {
         Rectangle {
             id: leftSide
@@ -63,12 +93,6 @@ Slider {
                 duration: 150
                 easing.type: Easing.InOutQuad
             }
-        }
-        
-        MouseArea {
-            anchors.fill: parent
-            acceptedButtons: Qt.NoButton
-            cursorShape: Qt.PointingHandCursor
         }
     }
 }

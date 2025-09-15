@@ -3,6 +3,7 @@ pragma ComponentBehavior: Bound
 import qs.services
 import qs.config
 import qs.ds.icons as Icons
+import qs.ds.buttons as DsButtons
 import qs.ds
 import Quickshell
 import QtQuick
@@ -71,17 +72,12 @@ Column {
         KeyNavigation.up: hibernate
     }
 
-    component SessionButton: Rectangle {
+    component SessionButton: DsButtons.IconButton {
         id: button
 
-        required property string icon
         required property list<string> command
 
-        implicitWidth: Config.session.sizes.button
-        implicitHeight: Config.session.sizes.button
-
-        radius: Appearance.rounding.large
-        color: button.activeFocus ? Colours.palette.m3secondaryContainer : Colours.tPalette.m3surfaceContainer
+        buttonSize: Config.session.sizes.button
 
         Keys.onEnterPressed: Quickshell.execDetached(button.command)
         Keys.onReturnPressed: Quickshell.execDetached(button.command)
@@ -109,22 +105,8 @@ Column {
             }
         }
 
-        InteractiveArea {
-            radius: parent.radius
-            color: button.activeFocus ? Colours.palette.m3onSecondaryContainer : Colours.palette.m3onSurface
-
-            function onClicked(): void {
-                Quickshell.execDetached(button.command);
-            }
-        }
-
-        Icons.MaterialFontIcon {
-            anchors.centerIn: parent
-
-            text: button.icon
-            color: button.activeFocus ? Colours.palette.m3onSecondaryContainer : Colours.palette.m3onSurface
-            font.pointSize: Appearance.font.size.extraLarge
-            font.weight: 500
+        onClicked: {
+            Quickshell.execDetached(button.command);
         }
     }
 }

@@ -3,6 +3,7 @@ import qs.config
 import Quickshell.Services.SystemTray
 import QtQuick
 import qs.ds.animations
+import qs.ds.buttons
 
 Rectangle {
     id: root
@@ -49,7 +50,35 @@ Rectangle {
 
             model: SystemTray.items
 
-            TrayItem {}
+            IconButton {
+                id: iconButton
+
+                required property SystemTrayItem modelData
+
+                buttonSize: Appearance.font.size.small * 2
+                buttonColor: "transparent"
+                focusColor: "transparent"
+                iconColor: "transparent"
+
+                
+                // Process the icon to extract the path
+                iconPath: {
+                    let icon = iconButton.modelData.icon;
+                    if (icon.includes("?path=")) {
+                        const [name, path] = icon.split("?path=");
+                        return `file://${path}/${name.slice(name.lastIndexOf("/") + 1)}`;
+                    }
+                    return icon;
+                }
+
+                onClicked: {
+                    iconButton.modelData.activate();
+                }
+                
+                onHovered: {
+                    iconButton.modelData.secondaryActivate();
+                }
+            }
         }
     }
 

@@ -1,7 +1,8 @@
+import "services"
 import qs.services
 import qs.config
 import qs.ds.text as DsText
-import qs.ds.icons as Icons
+import qs.ds.buttons as DsButtons
 import Quickshell
 import Quickshell.Io
 import QtQuick
@@ -9,22 +10,26 @@ import QtQuick.Layouts
 import qs.ds.animations
 import qs.ds
 
-Item {
+LauncherItem {
     id: root
 
     required property var list
     readonly property string math: list.search.text.slice(">calc ".length)
+    
+    visibilities: list.visibilities
 
-    function onClicked(): void {
-        Quickshell.execDetached(["sh", "-c", `qalc -t -m 100 '${root.math}' | wl-copy`]);
-        root.list.visibilities.launcher = false;
+    // Override LauncherItem properties
+    modelData: LauncherItemModel {
+        name: ""
+        subtitle: ""
+        isAction: true
+        actionIcon: "function"
+        closeLauncher: true
+        
+        function onActivate() {
+            Quickshell.execDetached(["sh", "-c", `qalc -t -m 100 '${root.math}' | wl-copy`]);
+        }
     }
-
-    property int itemHeight: 57
-    implicitHeight: itemHeight
-
-    anchors.left: parent?.left
-    anchors.right: parent?.right
 
     onMathChanged: {
         if (math) {
@@ -33,17 +38,8 @@ Item {
         }
     }
 
-    InteractiveArea {
-        radius: Appearance.rounding.full
-
-        function onClicked(): void {
-            root.onClicked();
-        }
-    }
-
     Binding {
         id: binding
-
         when: root.math.length > 0
         target: metrics
         property: "text"
@@ -51,29 +47,25 @@ Item {
 
     Process {
         id: qalcProc
-
         stdout: StdioCollector {
             onStreamFinished: binding.value = text.trim()
         }
     }
 
+    TextMetrics {
+        id: metrics
+        text: qsTr("Type an expression to calculate")
+        elide: Text.ElideRight
+        elideWidth: 300
+    }
+
     RowLayout {
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.margins: Appearance.padding.larger
-
-        spacing: Appearance.spacing.normal
-
-        Icons.MaterialFontIcon {
-            text: "function"
-            font.pointSize: Appearance.font.size.extraLarge
-            Layout.alignment: Qt.AlignVCenter
-        }
+        anchors.fill: parent
+        spacing: Foundations.spacing.m
 
         DsText.BodyM {
             id: result
-
+            
             color: {
                 if (metrics.text.includes("error: "))
                     return Colours.palette.m3error;
@@ -83,71 +75,19 @@ Item {
             }
 
             text: metrics.elidedText
-
             Layout.fillWidth: true
             Layout.alignment: Qt.AlignVCenter
-
-            TextMetrics {
-                id: metrics
-
-                text: qsTr("Type an expression to calculate")
-                font.family: result.font.family
-                font.pointSize: result.font.pointSize
-                elide: Text.ElideRight
-                elideWidth: result.width
-            }
+            verticalAlignment: Text.AlignVCenter
         }
 
-        Rectangle {
-            color: Colours.palette.m3tertiary
-            radius: Appearance.rounding.normal
-            clip: true
-
-            implicitWidth: (buttonAnimation.containsMouse ? label.implicitWidth + label.anchors.rightMargin : 0) + icon.implicitWidth + Appearance.padding.normal * 2
-            implicitHeight: Math.max(label.implicitHeight, icon.implicitHeight) + Appearance.padding.small * 2
-
+        DsButtons.HintButton {
             Layout.alignment: Qt.AlignVCenter
-
-            InteractiveArea {
-                id: buttonAnimation
-
-                color: Colours.palette.m3onTertiary
-
-                function onClicked(): void {
-                    root.list.visibilities.launcher = false;
-                }
-            }
-
-            DsText.BodyM {
-                id: label
-
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.right: icon.left
-                anchors.rightMargin: Appearance.spacing.small
-
-                text: qsTr("Open in calculator")
-
-                Behavior on opacity {
-                    BasicNumberAnimation {}
-                }
-            }
-
-            Icons.MaterialFontIcon {
-                id: icon
-
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.right: parent.right
-                anchors.rightMargin: Appearance.padding.normal
-
-                text: "open_in_new"
-                color: Colours.palette.m3onTertiary
-                font.pointSize: Appearance.font.size.large
-            }
-
-            Behavior on implicitWidth {
-                BasicNumberAnimation {
-                    easing.bezierCurve: Appearance.anim.curves.emphasized
-                }
+            
+            icon: "open_in_new"
+            hint: qsTr("Open in calculator")
+            
+            onClicked: {
+                root.list.visibilities.launcher = false;
             }
         }
     }

@@ -4,6 +4,7 @@ import qs.services
 import qs.config
 import qs.ds.text as DsText
 import qs.ds.icons as Icons
+import qs.ds.list as Lists
 import Quickshell
 import Quickshell.Widgets
 import QtQuick
@@ -11,47 +12,72 @@ import QtQuick.Controls
 import qs.ds.animations
 import qs.ds
 
-StackView {
+Item {
     id: root
 
     required property Item popouts
     required property QsMenuHandle trayItem
+    
+    function calculateTotalWidth(menu) {
+        if (!menu) return 0;
+        let width = menu.implicitWidth || menu.width || 0;
+        if (menu.activeSubMenu) {
+            width += calculateTotalWidth(menu.activeSubMenu) - 10;
+        }
+        return width;
+    }
+    
+    function calculateMaxHeight(menu) {
+        if (!menu) return 0;
+        let height = menu.implicitHeight || menu.height || 0;
+        if (menu.activeSubMenu) {
+            height = Math.max(height, calculateMaxHeight(menu.activeSubMenu));
+        }
+        return height;
+    }
+    
+    property real totalWidth: calculateTotalWidth(mainMenu)
+    property real totalHeight: calculateMaxHeight(mainMenu)
 
-    implicitWidth: currentItem.implicitWidth
-    implicitHeight: currentItem.implicitHeight
-
-    initialItem: SubMenu {
-        handle: root.trayItem
+    implicitWidth: totalWidth
+    implicitHeight: totalHeight
+    
+    Behavior on implicitWidth {
+        BasicNumberAnimation {
+            duration: Foundations.duration.xs
+        }
+    }
+    
+    Behavior on implicitHeight {
+        BasicNumberAnimation {
+            duration: Foundations.duration.xs
+        }
     }
 
-    pushEnter: NoAnim {}
-    pushExit: NoAnim {}
-    popEnter: NoAnim {}
-    popExit: NoAnim {}
-
-    component NoAnim: Transition {
-        NumberAnimation {
-            duration: 0
-        }
+    SubMenu {
+        id: mainMenu
+        anchors.left: parent.left
+        anchors.top: parent.top
+        handle: root.trayItem
+        level: 0
     }
 
     component SubMenu: Column {
         id: menu
 
         required property QsMenuHandle handle
-        property bool isSubMenu
-        property bool shown
+        required property int level
+        property bool shown: false
+        property var activeSubMenu: null
+        property int hoveredIndex: -1
 
         padding: Appearance.padding.smaller
-        spacing: Appearance.spacing.small
+        spacing: Foundations.spacing.xxs
 
         opacity: shown ? 1 : 0
         scale: shown ? 1 : 0.8
 
         Component.onCompleted: shown = true
-        StackView.onActivating: shown = true
-        StackView.onDeactivating: shown = false
-        StackView.onRemoved: destroy()
 
         Behavior on opacity {
             BasicNumberAnimation {}
@@ -61,6 +87,25 @@ StackView {
             BasicNumberAnimation {}
         }
 
+        // Show submenu at specific position
+        function showSubMenu(menuHandle, itemY, itemHeight, index) {
+            if (activeSubMenu) {
+                activeSubMenu.destroy();
+                activeSubMenu = null;
+            }
+
+            hoveredIndex = -1;
+            hoveredIndex = index;
+            
+            activeSubMenu = subMenuComponent.createObject(root, {
+                "handle": menuHandle,
+                "level": menu.level + 1,
+                "shown": true,
+                "x": menu.x + menu.width - 10, // Slight overlap
+                "y": Math.max(0, Math.min(menu.y + itemY, root.height - 200)) // Ensure it fits
+            });
+        }
+
         QsMenuOpener {
             id: menuOpener
 
@@ -68,165 +113,71 @@ StackView {
         }
 
         Repeater {
+            id: repeater
             model: menuOpener.children
 
-            Rectangle {
-                id: item
-
+            delegate: Item {
                 required property QsMenuEntry modelData
-
+                required property int index
+                
                 implicitWidth: 300
-                implicitHeight: modelData.isSeparator ? 1 : children.implicitHeight
-
-                radius: Appearance.rounding.full
-                color: modelData.isSeparator ? Colours.palette.m3outlineVariant : "transparent"
-
-                Loader {
-                    id: children
-
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-
-                    active: !item.modelData.isSeparator
-                    asynchronous: true
-
-                    sourceComponent: Item {
-                        implicitHeight: label.implicitHeight
-
-                        InteractiveArea {
-                            anchors.margins: -Appearance.padding.small / 2
-                            anchors.leftMargin: -Appearance.padding.smaller
-                            anchors.rightMargin: -Appearance.padding.smaller
-
-                            radius: item.radius
-                            disabled: !item.modelData.enabled
-
-                            function onClicked(): void {
-                                const entry = item.modelData;
-                                if (entry.hasChildren)
-                                    root.push(subMenuComp.createObject(null, {
-                                        handle: entry,
-                                        isSubMenu: true
-                                    }));
-                                else {
-                                    item.modelData.triggered();
-                                    root.popouts.hasCurrent = false;
-                                }
-                            }
-                        }
-
-                        Loader {
-                            id: icon
-
-                            anchors.left: parent.left
-
-                            active: item.modelData.icon !== ""
-                            asynchronous: true
-
-                            sourceComponent: IconImage {
-                                implicitSize: label.implicitHeight
-
-                                source: item.modelData.icon
-                            }
-                        }
-
-                        DsText.BodyS {
-                            id: label
-
-                            anchors.left: icon.right
-                            anchors.leftMargin: icon.active ? Appearance.spacing.smaller : 0
-
-                            text: labelMetrics.elidedText
-                            color: item.modelData.enabled ? Colours.palette.m3onSurface : Colours.palette.m3outline
-                        }
-
-                        TextMetrics {
-                            id: labelMetrics
-
-                            text: item.modelData.text
-                            font.pointSize: label.font.pointSize
-                            font.family: label.font.family
-
-                            elide: Text.ElideRight
-                            elideWidth: item.implicitWidth - (icon.active ? icon.implicitWidth + label.anchors.leftMargin : 0) - (expand.active ? expand.implicitWidth + Appearance.spacing.normal : 0)
-                        }
-
-                        Loader {
-                            id: expand
-
-                            anchors.verticalCenter: parent.verticalCenter
-                            anchors.right: parent.right
-
-                            active: item.modelData.hasChildren
-                            asynchronous: true
-
-                            sourceComponent: Icons.MaterialFontIcon {
-                                text: "chevron_right"
-                                color: item.modelData.enabled ? Colours.palette.m3onSurface : Colours.palette.m3outline
-                            }
+                implicitHeight: {
+                    if (modelData.isSeparator) return 1;
+                    if (!modelData.enabled) return headingText.implicitHeight;
+                    return listItem.implicitHeight;
+                }
+                
+                // Separator
+                Rectangle {
+                    visible: modelData.isSeparator
+                    anchors.fill: parent
+                    color: Colours.palette.m3outlineVariant
+                }
+                
+                // Header for disabled items
+                DsText.HeadingS {
+                    id: headingText
+                    visible: !modelData.isSeparator && !modelData.enabled
+                    anchors.fill: parent
+                    anchors.leftMargin: Foundations.spacing.m
+                    anchors.rightMargin: Foundations.spacing.m
+                    
+                    text: modelData.text
+                    verticalAlignment: Text.AlignVCenter
+                }
+                
+                // List item for enabled items
+                Lists.ListItem {
+                    id: listItem
+                    
+                    visible: !modelData.isSeparator && modelData.enabled
+                    anchors.fill: parent
+                    
+                    clickable: true
+                    keepEmptySpace: true
+                    selected: menu.hoveredIndex === index && modelData.hasChildren
+                    
+                    imageIcon: modelData.icon
+                    text: modelData.text
+                    minimumHeight: 25
+                    rightIcon: modelData.hasChildren ? "chevron_right" : ""
+                    
+                    onClicked: {
+                        if (modelData.hasChildren) {
+                            menu.showSubMenu(modelData, listItem.y, listItem.height, index);
+                        } else {
+                            modelData.triggered();
+                            root.popouts.hasCurrent = false;
                         }
                     }
                 }
             }
         }
 
-        Loader {
-            active: menu.isSubMenu
-            asynchronous: true
-
-            sourceComponent: Item {
-                implicitWidth: back.implicitWidth
-                implicitHeight: back.implicitHeight + Appearance.spacing.small / 2
-
-                Item {
-                    anchors.bottom: parent.bottom
-                    implicitWidth: back.implicitWidth
-                    implicitHeight: back.implicitHeight
-
-                    Rectangle {
-                        anchors.fill: parent
-                        anchors.margins: -Appearance.padding.small / 2
-                        anchors.leftMargin: -Appearance.padding.smaller
-                        anchors.rightMargin: -Appearance.padding.smaller * 2
-
-                        radius: Appearance.rounding.full
-                        color: Colours.palette.m3secondaryContainer
-
-                        InteractiveArea {
-                            radius: parent.radius
-                            color: Colours.palette.m3onSecondaryContainer
-
-                            function onClicked(): void {
-                                root.pop();
-                            }
-                        }
-                    }
-
-                    Row {
-                        id: back
-
-                        anchors.verticalCenter: parent.verticalCenter
-
-                        Icons.MaterialFontIcon {
-                            anchors.verticalCenter: parent.verticalCenter
-                            text: "chevron_left"
-                            color: Colours.palette.m3onSecondaryContainer
-                        }
-
-                        DsText.BodyS {
-                            anchors.verticalCenter: parent.verticalCenter
-                            text: qsTr("Back")
-                            color: Colours.palette.m3onSecondaryContainer
-                        }
-                    }
-                }
-            }
-        }
     }
 
     Component {
-        id: subMenuComp
-
+        id: subMenuComponent
         SubMenu {}
     }
 }

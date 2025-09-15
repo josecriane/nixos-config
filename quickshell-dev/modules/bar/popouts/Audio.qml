@@ -87,28 +87,17 @@ Item {
             text: qsTr("Volume (%1)").arg(Audio.muted ? qsTr("Muted") : `${Math.round(Audio.volume * 100)}%`)
         }
 
-        MouseArea {
+        Ds.Slider {
             Layout.fillWidth: true
             implicitHeight: Appearance.padding.normal * 3
 
-            onWheel: event => {
-                if (event.angleDelta.y > 0)
-                    Audio.incrementVolume();
-                else if (event.angleDelta.y < 0)
-                    Audio.decrementVolume();
-            }
+            value: Audio.volume
+            onMoved: Audio.setVolume(value)
+            onWheelUp: Audio.incrementVolume()
+            onWheelDown: Audio.decrementVolume()
 
-            Ds.Slider {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                implicitHeight: parent.implicitHeight
-
-                value: Audio.volume
-                onMoved: Audio.setVolume(value)
-
-                Behavior on value {
-                    BasicNumberAnimation {}
-                }
+            Behavior on value {
+                BasicNumberAnimation {}
             }
         }
 

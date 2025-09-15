@@ -61,7 +61,7 @@ Slider {
         ElevationToken {
             anchors.fill: parent
             radius: rect.radius
-            spread: handleInteraction.containsMouse ? 2 : 1
+            spread: root.handleHovered ? 3 : 1
         }
 
         Rectangle {
@@ -71,15 +71,6 @@ Slider {
 
             color: Colours.palette.m3inverseSurface
             radius: Appearance.rounding.full
-
-            MouseArea {
-                id: handleInteraction
-
-                anchors.fill: parent
-                hoverEnabled: true
-                cursorShape: Qt.PointingHandCursor
-                acceptedButtons: Qt.NoButton
-            }
 
             Icons.MaterialFontIcon {
                 id: icon
@@ -123,6 +114,7 @@ Slider {
                 }
             }
         }
+        
     }
 
     onPressedChanged: handle.moving = pressed

@@ -26,68 +26,44 @@ Item {
         spacing: Appearance.spacing.normal
 
         // Speaker volume
-        MouseArea {
+        Slider {
             implicitWidth: Config.osd.sizes.sliderWidth
             implicitHeight: Config.osd.sizes.sliderHeight
 
-            onWheel: event => {
-                if (event.angleDelta.y > 0)
-                    Audio.incrementVolume();
-                else if (event.angleDelta.y < 0)
-                    Audio.decrementVolume();
-            }
-
-            Slider {
-                anchors.fill: parent
-
-                icon: Utils.Icons.getVolumeIcon(value, Audio.muted)
-                value: Audio.volume
-                onMoved: Audio.setVolume(value)
-            }
+            icon: Utils.Icons.getVolumeIcon(value, Audio.muted)
+            value: Audio.volume
+            onMoved: Audio.setVolume(value)
+            onWheelUp: Audio.incrementVolume()
+            onWheelDown: Audio.decrementVolume()
         }
 
         // Microphone volume
-        MouseArea {
+        Slider {
             implicitWidth: Config.osd.sizes.sliderWidth
             implicitHeight: Config.osd.sizes.sliderHeight
 
-            onWheel: event => {
-                if (event.angleDelta.y > 0)
-                    Audio.incrementSourceVolume();
-                else if (event.angleDelta.y < 0)
-                    Audio.decrementSourceVolume();
-            }
-
-            Slider {
-                anchors.fill: parent
-
-                icon: Utils.Icons.getMicVolumeIcon(value, Audio.sourceMuted)
-                value: Audio.sourceVolume
-                onMoved: Audio.setSourceVolume(value)
-            }
+            icon: Utils.Icons.getMicVolumeIcon(value, Audio.sourceMuted)
+            value: Audio.sourceVolume
+            onMoved: Audio.setSourceVolume(value)
+            onWheelUp: Audio.incrementSourceVolume()
+            onWheelDown: Audio.decrementSourceVolume()
         }
 
         // Brightness
-        MouseArea {
+        Slider {
             implicitWidth: Config.osd.sizes.sliderWidth
             implicitHeight: Config.osd.sizes.sliderHeight
 
-            onWheel: event => {
+            icon: `brightness_${(Math.round(value * 6) + 1)}`
+            value: root.monitor?.brightness ?? 0
+            onMoved: root.monitor?.setBrightness(value)
+            onWheelUp: {
                 const monitor = root.monitor;
-                if (!monitor)
-                    return;
-                if (event.angleDelta.y > 0)
-                    monitor.setBrightness(monitor.brightness + 0.1);
-                else if (event.angleDelta.y < 0)
-                    monitor.setBrightness(monitor.brightness - 0.1);
+                if (monitor) monitor.setBrightness(monitor.brightness + 0.1);
             }
-
-            Slider {
-                anchors.fill: parent
-
-                icon: `brightness_${(Math.round(value * 6) + 1)}`
-                value: root.monitor?.brightness ?? 0
-                onMoved: root.monitor?.setBrightness(value)
+            onWheelDown: {
+                const monitor = root.monitor;
+                if (monitor) monitor.setBrightness(monitor.brightness - 0.1);
             }
         }
     }

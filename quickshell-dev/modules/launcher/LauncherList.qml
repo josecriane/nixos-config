@@ -5,6 +5,7 @@ import qs.services
 import qs.config
 import qs.ds.list as List
 import qs.ds.animations
+import qs.ds
 import Quickshell
 import QtQuick
 import QtQuick.Controls
@@ -40,7 +41,7 @@ ListView {
     highlightResizeDuration: 0
 
     highlight: Rectangle {
-        radius: Appearance.rounding.full
+        radius: Foundations.radius.xs
         color: Colours.palette.m3onSurface
         opacity: 0.08
     }

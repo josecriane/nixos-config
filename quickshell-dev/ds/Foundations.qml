@@ -6,9 +6,19 @@ import Quickshell
 Singleton {
     id: root
 
+    property Duration duration: Duration {}
     property Font font: Font {}
     property Radius radius: Radius {}
     property Spacing spacing: Spacing {}
+
+    component Duration: QtObject {
+        property int zero: 0
+        property int xs: 50
+        property int s: 200
+        property int m: 400
+        property int l: 800
+        property int xl: 1200
+    }
 
     component Font: QtObject {
         property FontFamily family: FontFamily {}
@@ -42,6 +52,8 @@ Singleton {
     }
 
     component Spacing: QtObject {
+        property int zero: 0
+        property int xxs: 2
         property int xs: 7
         property int s: 10
         property int m: 12

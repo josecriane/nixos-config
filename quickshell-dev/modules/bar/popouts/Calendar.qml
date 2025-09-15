@@ -2,6 +2,7 @@ import qs.services
 import qs.config
 import qs.ds.text as DSText
 import qs.ds.icons as Icons
+import qs.ds.buttons.circularButtons as CircularButtons
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -22,18 +23,13 @@ Column {
         Layout.leftMargin: Appearance.padding.large
         Layout.rightMargin: Appearance.padding.large
         
-        Icons.MaterialFontIcon {
-            text: "chevron_left"
-            color: Colours.palette.m3onSurface
+        CircularButtons.M {
+            icon: "chevron_left"
             
-            MouseArea {
-                anchors.fill: parent
-                cursorShape: Qt.PointingHandCursor
-                onClicked: {
-                    let newDate = new Date(root.currentMonth);
-                    newDate.setMonth(newDate.getMonth() - 1);
-                    root.currentMonth = newDate;
-                }
+            onClicked: {
+                let newDate = new Date(root.currentMonth);
+                newDate.setMonth(newDate.getMonth() - 1);
+                root.currentMonth = newDate;
             }
         }
         
@@ -43,18 +39,13 @@ Column {
             horizontalAlignment: Text.AlignHCenter
         }
         
-        Icons.MaterialFontIcon {
-            text: "chevron_right"
-            color: Colours.palette.m3onSurface
+        CircularButtons.M {
+            icon: "chevron_right"
             
-            MouseArea {
-                anchors.fill: parent
-                cursorShape: Qt.PointingHandCursor
-                onClicked: {
-                    let newDate = new Date(root.currentMonth);
-                    newDate.setMonth(newDate.getMonth() + 1);
-                    root.currentMonth = newDate;
-                }
+            onClicked: {
+                let newDate = new Date(root.currentMonth);
+                newDate.setMonth(newDate.getMonth() + 1);
+                root.currentMonth = newDate;
             }
         }
     }

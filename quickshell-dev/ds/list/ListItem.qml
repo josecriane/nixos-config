@@ -15,7 +15,9 @@ Item {
     
     // Public properties
     property string leftIcon: ""
+    property string imageIcon: ""  // For image-based icons (alternative to leftIcon)
     property string secondaryIcon: ""
+    property string rightIcon: ""  // Font icon on the far right
     property string text: ""
     property color disabledForegroundColor: Colours.palette.m3onSurfaceVariant
     property color defaultForegroundColor: Colours.palette.m3onSurface
@@ -33,6 +35,8 @@ Item {
     property bool disabled: false
     property bool selected: false
     property bool clickable: false
+    property bool keepEmptySpace: false  // Keep space for icons even if not present
+    property real minimumHeight: 0  // Minimum height for the list item
     property ButtonGroup buttonGroup: null
     
     property color foregroundColor: disabled ? disabledForegroundColor : (selected ? selectedForegroundColor : defaultForegroundColor)
@@ -47,7 +51,7 @@ Item {
     Layout.fillWidth: true
     Layout.rightMargin: Foundations.spacing.s
     
-    implicitHeight: content.implicitHeight
+    implicitHeight: Math.max(content.implicitHeight, minimumHeight)
     implicitWidth: content.implicitWidth
     
     // Entry animation
@@ -94,7 +98,9 @@ Item {
     
     RowLayout {
         id: content
-        anchors.fill: parent
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.verticalCenter: parent.verticalCenter
         anchors.leftMargin: Foundations.spacing.m
         spacing: Foundations.spacing.s
         
@@ -115,10 +121,41 @@ Item {
         }
         
         // Left icon (if no buttonGroup)
-        Icons.MaterialFontIcon {
-            visible: root.leftIcon !== "" && root.buttonGroup === null
-            text: root.leftIcon
-            color: root.foregroundColor
+        Loader {
+            active: (root.leftIcon !== "" || root.imageIcon !== "" || root.keepEmptySpace) && root.buttonGroup === null
+            
+            sourceComponent: {
+                if (root.imageIcon !== "") return imageIconComponent;
+                if (root.leftIcon !== "") return fontIconComponent;
+                if (root.keepEmptySpace) return emptySpaceComponent;
+                return null;
+            }
+        }
+        
+        Component {
+            id: fontIconComponent
+            Icons.MaterialFontIcon {
+                text: root.leftIcon
+                color: root.foregroundColor
+            }
+        }
+        
+        Component {
+            id: imageIconComponent
+            IconImage {
+                source: root.imageIcon
+                implicitWidth: Foundations.font.size.m
+                implicitHeight: Foundations.font.size.m
+                asynchronous: true
+            }
+        }
+        
+        Component {
+            id: emptySpaceComponent
+            Item {
+                implicitWidth: Foundations.font.size.m
+                implicitHeight: Foundations.font.size.m
+            }
         }
         
         // Secondary icon (like lock icon)
@@ -174,6 +211,13 @@ Item {
             loading: root.secondaryActionLoading
             
             onClicked: root.secondaryActionClicked()
+        }
+        
+        // Right icon (font icon on far right)
+        Icons.MaterialFontIcon {
+            visible: root.rightIcon !== ""
+            text: root.rightIcon
+            color: root.foregroundColor
         }
     }
 }
