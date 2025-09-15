@@ -3,6 +3,7 @@ import qs.services
 import qs.config
 import Quickshell.Services.SystemTray
 import QtQuick
+import qs.ds.animations
 
 Rectangle {
     id: root
@@ -25,7 +26,7 @@ Rectangle {
         spacing: Appearance.spacing.small
 
         add: Transition {
-            Anim {
+            BasicNumberAnimation {
                 properties: "scale"
                 from: 0
                 to: 1
@@ -34,12 +35,12 @@ Rectangle {
         }
 
         move: Transition {
-            Anim {
+            BasicNumberAnimation {
                 properties: "scale"
                 to: 1
                 easing.bezierCurve: Appearance.anim.curves.standardDecel
             }
-            Anim {
+            BasicNumberAnimation {
                 properties: "x,y"
             }
         }
@@ -54,13 +55,13 @@ Rectangle {
     }
 
     Behavior on implicitWidth {
-        Anim {
+        BasicNumberAnimation {
             easing.bezierCurve: Appearance.anim.curves.emphasized
         }
     }
 
     Behavior on implicitHeight {
-        Anim {
+        BasicNumberAnimation {
             easing.bezierCurve: Appearance.anim.curves.emphasized
         }
     }

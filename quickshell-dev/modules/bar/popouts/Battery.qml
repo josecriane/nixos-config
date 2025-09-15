@@ -4,8 +4,10 @@ import qs.components
 import qs.services
 import qs.config
 import qs.ds.text as Text
+import qs.ds.icons as Icons
 import Quickshell.Services.UPower
 import QtQuick
+import qs.ds.animations
 
 Column {
     id: root
@@ -60,7 +62,7 @@ Column {
                     anchors.horizontalCenter: parent.horizontalCenter
                     spacing: Appearance.spacing.small
 
-                    MaterialIcon {
+                    Icons.MaterialFontIcon {
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.verticalCenterOffset: -font.pointSize / 10
 
@@ -75,7 +77,7 @@ Column {
                         font.family: Appearance.font.family.mono
                     }
 
-                    MaterialIcon {
+                    Icons.MaterialFontIcon {
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.verticalCenterOffset: -font.pointSize / 10
 
@@ -212,7 +214,7 @@ Column {
             }
         }
 
-        MaterialIcon {
+        Icons.MaterialFontIcon {
             id: icon
 
             anchors.centerIn: parent
@@ -220,11 +222,6 @@ Column {
             text: parent.icon
             font.pointSize: Appearance.font.size.large
             color: profiles.current === text ? Colours.palette.m3onPrimary : Colours.palette.m3onSurface
-            fill: profiles.current === text ? 1 : 0
-
-            Behavior on fill {
-                Anim {}
-            }
         }
     }
 }

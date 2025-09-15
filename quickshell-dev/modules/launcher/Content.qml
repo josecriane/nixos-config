@@ -2,12 +2,13 @@ pragma ComponentBehavior: Bound
 
 import "services"
 import qs.components
-import qs.components.controls
 import qs.services
 import qs.config
 import qs.ds as Ds
+import qs.ds.icons as Icons
 import Quickshell
 import QtQuick
+import qs.ds.animations
 
 Item {
     id: root
@@ -64,7 +65,7 @@ Item {
 
         implicitHeight: Math.max(searchIcon.implicitHeight, search.implicitHeight, clearIcon.implicitHeight)
 
-        MaterialIcon {
+        Icons.MaterialFontIcon {
             id: searchIcon
 
             anchors.verticalCenter: parent.verticalCenter
@@ -140,7 +141,7 @@ Item {
             }
         }
 
-        MaterialIcon {
+        Icons.MaterialFontIcon {
             id: clearIcon
 
             anchors.verticalCenter: parent.verticalCenter
@@ -172,13 +173,13 @@ Item {
             }
 
             Behavior on width {
-                Anim {
+                BasicNumberAnimation {
                     duration: Appearance.anim.durations.small
                 }
             }
 
             Behavior on opacity {
-                Anim {
+                BasicNumberAnimation {
                     duration: Appearance.anim.durations.small
                 }
             }

@@ -1,7 +1,7 @@
-import qs.components.containers
-import qs.components.widgets
+import "."
 import qs.services
 import qs.config
+import qs.ds.animations
 import Quickshell
 import Quickshell.Widgets
 import QtQuick
@@ -59,9 +59,7 @@ Item {
             }
 
             rebound: Transition {
-                NumberAnimation {
-                    duration: 400
-                    easing.type: Easing.BezierSpline
+                BasicNumberAnimation {
                     properties: "x,y"
                 }
             }

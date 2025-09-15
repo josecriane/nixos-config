@@ -53,7 +53,7 @@ Singleton {
     }
 
     Timer {
-        running: root.refCount > 0
+        running: true
         interval: 3000
         repeat: true
         triggeredOnStart: true

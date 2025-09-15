@@ -2,10 +2,12 @@ import qs.components
 import qs.services
 import qs.config
 import qs.ds.text as DsText
+import qs.ds.icons as Icons
 import Quickshell
 import Quickshell.Io
 import QtQuick
 import QtQuick.Layouts
+import qs.ds.animations
 
 Item {
     id: root
@@ -63,7 +65,7 @@ Item {
 
         spacing: Appearance.spacing.normal
 
-        MaterialIcon {
+        Icons.MaterialFontIcon {
             text: "function"
             font.pointSize: Appearance.font.size.extraLarge
             Layout.alignment: Qt.AlignVCenter
@@ -126,11 +128,11 @@ Item {
                 text: qsTr("Open in calculator")
 
                 Behavior on opacity {
-                    Anim {}
+                    BasicNumberAnimation {}
                 }
             }
 
-            MaterialIcon {
+            Icons.MaterialFontIcon {
                 id: icon
 
                 anchors.verticalCenter: parent.verticalCenter
@@ -143,7 +145,7 @@ Item {
             }
 
             Behavior on implicitWidth {
-                Anim {
+                BasicNumberAnimation {
                     easing.bezierCurve: Appearance.anim.curves.emphasized
                 }
             }

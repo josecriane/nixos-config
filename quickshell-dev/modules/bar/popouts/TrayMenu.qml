@@ -4,10 +4,12 @@ import qs.components
 import qs.services
 import qs.config
 import qs.ds.text as DsText
+import qs.ds.icons as Icons
 import Quickshell
 import Quickshell.Widgets
 import QtQuick
 import QtQuick.Controls
+import qs.ds.animations
 
 StackView {
     id: root
@@ -52,11 +54,11 @@ StackView {
         StackView.onRemoved: destroy()
 
         Behavior on opacity {
-            Anim {}
+            BasicNumberAnimation {}
         }
 
         Behavior on scale {
-            Anim {}
+            BasicNumberAnimation {}
         }
 
         QsMenuOpener {
@@ -158,7 +160,7 @@ StackView {
                             active: item.modelData.hasChildren
                             asynchronous: true
 
-                            sourceComponent: MaterialIcon {
+                            sourceComponent: Icons.MaterialFontIcon {
                                 text: "chevron_right"
                                 color: item.modelData.enabled ? Colours.palette.m3onSurface : Colours.palette.m3outline
                             }
@@ -205,7 +207,7 @@ StackView {
 
                         anchors.verticalCenter: parent.verticalCenter
 
-                        MaterialIcon {
+                        Icons.MaterialFontIcon {
                             anchors.verticalCenter: parent.verticalCenter
                             text: "chevron_left"
                             color: Colours.palette.m3onSecondaryContainer

@@ -2,11 +2,11 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import qs.components
-import qs.components.controls
 import qs.ds
 import qs.ds.buttons.circularButtons as CircularButtons
 import qs.ds.buttons as DsButtons
 import qs.ds.text as DsText
+import qs.ds.icons as Icons
 import qs.services
 
 Item {
@@ -61,19 +61,6 @@ Item {
         }
     }
     
-    // MouseArea for clickable items
-    MouseArea {
-        anchors.fill: parent
-        enabled: !root.disabled
-        z: 1  // Above content but below action buttons
-        
-        onClicked: {
-            if (root.buttonGroup) {
-                root.selected = true;
-            }
-            root.clicked();
-        }
-    }
     
     RowLayout {
         id: content
@@ -97,28 +84,51 @@ Item {
         }
         
         // Left icon (if no buttonGroup)
-        MaterialIcon {
+        Icons.MaterialFontIcon {
             visible: root.leftIcon !== "" && root.buttonGroup === null
             text: root.leftIcon
             color: root.foregroundColor
         }
         
         // Secondary icon (like lock icon)
-        MaterialIcon {
+        Icons.MaterialFontIcon {
             visible: root.secondaryIcon !== ""
             text: root.secondaryIcon
             color: root.foregroundColor
         }
         
-        // Main text
-        DsText.BodyM {
+        // Main text with click area
+        Item {
             Layout.leftMargin: Foundations.spacing.xs
             Layout.rightMargin: Foundations.spacing.xs
             Layout.fillWidth: true
-            text: root.text
-            elide: Text.ElideRight
-            font.weight: root.selected ? 500 : root.textWeight
-            color: root.foregroundColor
+            implicitHeight: textLabel.implicitHeight
+            implicitWidth: textLabel.implicitWidth
+            
+            DsText.BodyS {
+                id: textLabel
+
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.verticalCenter: parent.verticalCenter
+                
+                text: root.text
+                elide: Text.ElideRight
+                font.weight: root.selected ? 500 : root.textWeight
+                color: root.foregroundColor
+            }
+            
+            MouseArea {
+                anchors.fill: parent
+                enabled: !root.disabled
+                
+                onClicked: {
+                    if (root.buttonGroup) {
+                        root.selected = true;
+                    }
+                    root.clicked();
+                }
+            }
         }
         
         // Primary action button
@@ -130,7 +140,6 @@ Item {
             active: root.primaryActionActive
             disabled: root.disabled
             loading: root.primaryActionLoading
-            z: 2  // Above MouseArea
             
             onClicked: root.primaryActionClicked()
         }
@@ -144,7 +153,6 @@ Item {
             active: root.secondaryActionActive
             disabled: root.disabled
             loading: root.secondaryActionLoading
-            z: 2  // Above MouseArea
             
             onClicked: root.secondaryActionClicked()
         }

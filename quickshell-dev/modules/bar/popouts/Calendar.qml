@@ -2,6 +2,7 @@ import qs.components
 import qs.services
 import qs.config
 import qs.ds.text as DSText
+import qs.ds.icons as Icons
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -22,7 +23,7 @@ Column {
         Layout.leftMargin: Appearance.padding.large
         Layout.rightMargin: Appearance.padding.large
         
-        MaterialIcon {
+        Icons.MaterialFontIcon {
             text: "chevron_left"
             color: Colours.palette.m3onSurface
             
@@ -43,7 +44,7 @@ Column {
             horizontalAlignment: Text.AlignHCenter
         }
         
-        MaterialIcon {
+        Icons.MaterialFontIcon {
             text: "chevron_right"
             color: Colours.palette.m3onSurface
             

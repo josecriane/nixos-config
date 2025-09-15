@@ -1,10 +1,9 @@
 pragma ComponentBehavior: Bound
 
 import qs.components
-import qs.components.controls
 import qs.services
 import qs.config
-import qs.utils
+import qs.utils as Utils
 import qs.ds.list as Lists
 import qs.ds.text as Text
 import qs.ds as Ds
@@ -71,7 +70,7 @@ ColumnLayout {
             required property BluetoothDevice modelData
             readonly property bool loading: modelData.state === BluetoothDeviceState.Connecting || modelData.state === BluetoothDeviceState.Disconnecting
             
-            leftIcon: Icons.getBluetoothIcon(modelData.icon)
+            leftIcon: Utils.Icons.getBluetoothIcon(modelData.icon)
             text: modelData.name
             selected: modelData.connected
             

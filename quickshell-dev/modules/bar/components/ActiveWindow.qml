@@ -2,10 +2,11 @@ pragma ComponentBehavior: Bound
 
 import qs.components
 import qs.services
-import qs.utils
+import qs.utils as Utils
 import qs.config
 import qs.ds.text as Text
 import QtQuick
+import qs.ds.animations
 import Quickshell.Wayland
 
 Item {
@@ -60,7 +61,7 @@ Item {
         FontIcon {
             id: icon
             
-            text: Apps.getIcon(root.activeAppId)
+            text: Utils.Apps.getIcon(root.activeAppId)
         }
 
         Title {
@@ -75,7 +76,7 @@ Item {
     TextMetrics {
         id: metrics
 
-        text: Apps.cleanTitle(root.activeTitle)
+        text: Utils.Apps.cleanTitle(root.activeTitle)
         font.pointSize: Appearance.font.size.smaller
         font.family: Appearance.font.family.mono
         elide: Qt.ElideRight
@@ -90,7 +91,7 @@ Item {
     }
 
     Behavior on implicitWidth {
-        Anim {
+        BasicNumberAnimation {
             easing.bezierCurve: Appearance.anim.curves.emphasized
         }
     }
@@ -106,7 +107,7 @@ Item {
         opacity: root.current === this ? 1 : 0
 
         Behavior on opacity {
-            Anim {}
+            BasicNumberAnimation {}
         }
     }
 

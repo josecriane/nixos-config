@@ -4,9 +4,11 @@ import qs.components
 import qs.services
 import qs.config
 import qs.ds.text as DsText
+import qs.ds.icons as Icons
 import Quickshell
 import QtQuick
 import QtQuick.Controls
+import qs.ds.animations
 
 Item {
     id: root
@@ -48,7 +50,7 @@ Item {
 
     Behavior on state {
         SequentialAnimation {
-            Anim {
+            BasicNumberAnimation {
                 target: root
                 property: "opacity"
                 from: 1
@@ -56,7 +58,7 @@ Item {
                 duration: Appearance.anim.durations.small
             }
             PropertyAction {}
-            Anim {
+            BasicNumberAnimation {
                 target: root
                 property: "opacity"
                 from: 0
@@ -97,7 +99,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
 
-        MaterialIcon {
+        Icons.MaterialFontIcon {
             text: "manage_search"
             color: Colours.palette.m3onSurfaceVariant
             font.pointSize: Appearance.font.size.extraLarge
@@ -120,18 +122,18 @@ Item {
         }
 
         Behavior on opacity {
-            Anim {}
+            BasicNumberAnimation {}
         }
 
         Behavior on scale {
-            Anim {}
+            BasicNumberAnimation {}
         }
     }
 
     Behavior on implicitWidth {
         enabled: root.visibilities.launcher
 
-        Anim {
+        BasicNumberAnimation {
             duration: Appearance.anim.durations.large
             easing.bezierCurve: Appearance.anim.curves.emphasizedDecel
         }

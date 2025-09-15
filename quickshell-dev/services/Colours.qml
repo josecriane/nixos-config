@@ -2,8 +2,6 @@ pragma Singleton
 pragma ComponentBehavior: Bound
 
 import qs.config
-import qs.utils
-// import Caelestia // Removed Caelestia dependency
 import Quickshell
 import Quickshell.Io
 import QtQuick

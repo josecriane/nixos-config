@@ -4,9 +4,11 @@ import qs.components
 import qs.services
 import qs.config
 import qs.ds.text as Text
+import qs.ds.icons as Icons
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
+import qs.ds.animations
 
 Rectangle {
     id: root
@@ -58,7 +60,7 @@ Rectangle {
     }
 
     Behavior on implicitWidth {
-        Anim {
+        BasicNumberAnimation {
             duration: Appearance.anim.durations.large
             easing.bezierCurve: Appearance.anim.curves.emphasized
         }
@@ -76,14 +78,14 @@ Rectangle {
             color: parent.colour
         }
 
-        MaterialIcon {
+        Icons.MaterialFontIcon {
             text: parent.icon
             color: parent.colour
             font.pointSize: Appearance.font.size.small
         }
 
         Behavior on value {
-            Anim {
+            BasicNumberAnimation {
                 duration: Appearance.anim.durations.large
             }
         }

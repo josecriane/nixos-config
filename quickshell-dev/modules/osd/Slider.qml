@@ -1,9 +1,10 @@
-import ".."
-import "../effects"
 import qs.services
 import qs.config
+import qs.ds.icons as Icons
 import QtQuick
 import QtQuick.Controls
+import qs.ds.animations
+import qs.ds
 
 Slider {
     id: root
@@ -14,17 +15,36 @@ Slider {
     orientation: Qt.Vertical
 
     background: Rectangle {
-        color: Colours.tPalette.m3surfaceContainer
+        color: "transparent"// Colours.tPalette.m3surfaceContainer
         radius: Appearance.rounding.full
 
         Rectangle {
+            id: topSide
+
             anchors.left: parent.left
             anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.leftMargin: 2
+            anchors.rightMargin: 2
+
+            implicitHeight: root.handle.y + root.handle.implicitWidth / 2
+
+            color: Colours.tPalette.m3surfaceContainer
+            radius: parent.radius
+        }
+
+        Rectangle {
+            id: bottomSide
+
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.leftMargin: 2
+            anchors.rightMargin: 2
 
             y: root.handle.y
             implicitHeight: parent.height - y
 
-            color: Colours.palette.m3secondary
+            color: Colours.palette.m3primary
             radius: parent.radius
         }
     }
@@ -38,10 +58,10 @@ Slider {
         implicitWidth: root.width
         implicitHeight: root.width
 
-        Elevation {
+        ElevationToken {
             anchors.fill: parent
             radius: rect.radius
-            level: handleInteraction.containsMouse ? 2 : 1
+            spread: handleInteraction.containsMouse ? 2 : 1
         }
 
         Rectangle {
@@ -61,7 +81,7 @@ Slider {
                 acceptedButtons: Qt.NoButton
             }
 
-            MaterialIcon {
+            Icons.MaterialFontIcon {
                 id: icon
 
                 property bool moving: handle.moving
@@ -80,7 +100,7 @@ Slider {
 
                 Behavior on moving {
                     SequentialAnimation {
-                        Anim {
+                        BasicNumberAnimation {
                             target: icon
                             property: "scale"
                             from: 1
@@ -91,7 +111,7 @@ Slider {
                         ScriptAction {
                             script: icon.update()
                         }
-                        Anim {
+                        BasicNumberAnimation {
                             target: icon
                             property: "scale"
                             from: 0
@@ -126,7 +146,7 @@ Slider {
     }
 
     Behavior on value {
-        Anim {
+        BasicNumberAnimation {
             duration: Appearance.anim.durations.large
         }
     }

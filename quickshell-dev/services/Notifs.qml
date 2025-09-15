@@ -1,7 +1,7 @@
 pragma Singleton
 pragma ComponentBehavior: Bound
 
-import qs.components.misc
+import qs.modules.shortcuts as Shortcuts
 import qs.config
 import Quickshell
 import Quickshell.Io
@@ -34,7 +34,7 @@ Singleton {
         }
     }
 
-    CustomShortcut {
+    Shortcuts.Shortcut {
         name: "clearNotifs"
         description: "Clear all notifications"
         onPressed: {

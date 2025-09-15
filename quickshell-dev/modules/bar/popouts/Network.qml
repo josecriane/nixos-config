@@ -1,10 +1,9 @@
 pragma ComponentBehavior: Bound
 
 import qs.components
-import qs.components.controls
 import qs.services
 import qs.config
-import qs.utils
+import qs.utils as Utils
 import qs.ds.buttons as Buttons
 import qs.ds.list as Lists
 import qs.ds.text as Text
@@ -54,7 +53,7 @@ ColumnLayout {
             required property Network.AccessPoint modelData
             readonly property bool isConnecting: root.connectingToSsid === modelData.ssid
             
-            leftIcon: Icons.getNetworkIcon(modelData.strength)
+            leftIcon: Utils.Icons.getNetworkIcon(modelData.strength)
             secondaryIcon: modelData.isSecure ? "lock" : ""
             text: modelData.ssid
             selected: modelData.active

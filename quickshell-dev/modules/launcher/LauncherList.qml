@@ -2,11 +2,10 @@ pragma ComponentBehavior: Bound
 
 import "services"
 import qs.components
-import qs.components.controls
-import qs.components.containers
 import qs.services
 import qs.config
 import qs.ds.list as List
+import qs.ds.animations
 import Quickshell
 import QtQuick
 import QtQuick.Controls
@@ -24,9 +23,7 @@ ListView {
     }
 
     rebound: Transition {
-        NumberAnimation {
-            duration: 400
-            easing.type: Easing.BezierSpline
+        BasicNumberAnimation {
             properties: "x,y"
         }
     }
@@ -94,7 +91,7 @@ ListView {
     transitions: Transition {
         SequentialAnimation {
             ParallelAnimation {
-                Anim {
+                BasicNumberAnimation {
                     target: root
                     property: "opacity"
                     from: 1
@@ -102,7 +99,7 @@ ListView {
                     duration: Appearance.anim.durations.small
                     easing.bezierCurve: Appearance.anim.curves.standardAccel
                 }
-                Anim {
+                BasicNumberAnimation {
                     target: root
                     property: "scale"
                     from: 1
@@ -116,7 +113,7 @@ ListView {
                 properties: "values,delegate"
             }
             ParallelAnimation {
-                Anim {
+                BasicNumberAnimation {
                     target: root
                     property: "opacity"
                     from: 0
@@ -124,7 +121,7 @@ ListView {
                     duration: Appearance.anim.durations.small
                     easing.bezierCurve: Appearance.anim.curves.standardDecel
                 }
-                Anim {
+                BasicNumberAnimation {
                     target: root
                     property: "scale"
                     from: 0.9
@@ -146,7 +143,7 @@ ListView {
     add: Transition {
         enabled: !root.state
 
-        Anim {
+        BasicNumberAnimation {
             properties: "opacity,scale"
             from: 0
             to: 1
@@ -156,7 +153,7 @@ ListView {
     remove: Transition {
         enabled: !root.state
 
-        Anim {
+        BasicNumberAnimation {
             properties: "opacity,scale"
             from: 1
             to: 0
@@ -164,31 +161,31 @@ ListView {
     }
 
     move: Transition {
-        Anim {
+        BasicNumberAnimation {
             property: "y"
         }
-        Anim {
+        BasicNumberAnimation {
             properties: "opacity,scale"
             to: 1
         }
     }
 
     addDisplaced: Transition {
-        Anim {
+        BasicNumberAnimation {
             property: "y"
             duration: Appearance.anim.durations.small
         }
-        Anim {
+        BasicNumberAnimation {
             properties: "opacity,scale"
             to: 1
         }
     }
 
     displaced: Transition {
-        Anim {
+        BasicNumberAnimation {
             property: "y"
         }
-        Anim {
+        BasicNumberAnimation {
             properties: "opacity,scale"
             to: 1
         }

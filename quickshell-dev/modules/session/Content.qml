@@ -3,7 +3,7 @@ pragma ComponentBehavior: Bound
 import qs.components
 import qs.services
 import qs.config
-import qs.utils
+import qs.ds.icons as Icons
 import Quickshell
 import QtQuick
 
@@ -118,7 +118,7 @@ Column {
             }
         }
 
-        MaterialIcon {
+        Icons.MaterialFontIcon {
             anchors.centerIn: parent
 
             text: button.icon

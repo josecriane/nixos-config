@@ -6,6 +6,7 @@ import qs.config
 import Quickshell
 import Quickshell.Wayland
 import QtQuick
+import qs.ds.animations
 
 Item {
     id: root
@@ -43,7 +44,7 @@ Item {
 
 
     Behavior on x {
-        Anim {
+        BasicNumberAnimation {
             duration: root.animLength
             easing.bezierCurve: root.animCurve
         }
@@ -52,14 +53,14 @@ Item {
     Behavior on y {
         enabled: root.implicitWidth > 0
 
-        Anim {
+        BasicNumberAnimation {
             duration: root.animLength
             easing.bezierCurve: root.animCurve
         }
     }
 
     Behavior on implicitWidth {
-        Anim {
+        BasicNumberAnimation {
             duration: root.animLength
             easing.bezierCurve: root.animCurve
         }
@@ -68,7 +69,7 @@ Item {
     Behavior on implicitHeight {
         enabled: root.implicitWidth > 0
 
-        Anim {
+        BasicNumberAnimation {
             duration: root.animLength
             easing.bezierCurve: root.animCurve
         }
@@ -102,7 +103,7 @@ Item {
                     PropertyAction {
                         property: "active"
                     }
-                    Anim {
+                    BasicNumberAnimation {
                         property: "opacity"
                     }
                 }
@@ -112,7 +113,7 @@ Item {
                 to: ""
 
                 SequentialAnimation {
-                    Anim {
+                    BasicNumberAnimation {
                         property: "opacity"
                     }
                     PropertyAction {

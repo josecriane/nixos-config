@@ -1,7 +1,6 @@
 pragma ComponentBehavior: Bound
 
 import qs.components
-import qs.components.controls
 import qs.services
 import qs.config
 import qs.ds.buttons as Buttons
@@ -13,6 +12,7 @@ import Quickshell.Services.Pipewire
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
+import qs.ds.animations
 
 Item {
     id: root
@@ -88,7 +88,7 @@ Item {
             text: qsTr("Volume (%1)").arg(Audio.muted ? qsTr("Muted") : `${Math.round(Audio.volume * 100)}%`)
         }
 
-        CustomMouseArea {
+        MouseArea {
             Layout.fillWidth: true
             implicitHeight: Appearance.padding.normal * 3
 
@@ -108,7 +108,7 @@ Item {
                 onMoved: Audio.setVolume(value)
 
                 Behavior on value {
-                    Anim {}
+                    BasicNumberAnimation {}
                 }
             }
         }

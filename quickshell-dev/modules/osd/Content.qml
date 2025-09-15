@@ -1,12 +1,12 @@
 pragma ComponentBehavior: Bound
 
 import qs.components
-import qs.components.controls
 import qs.services
 import qs.config
-import qs.utils
+import qs.utils as Utils
 import QtQuick
 import QtQuick.Layouts
+import qs.ds.animations
 
 Item {
     id: root
@@ -27,97 +27,69 @@ Item {
         spacing: Appearance.spacing.normal
 
         // Speaker volume
-        CustomMouseArea {
+        MouseArea {
             implicitWidth: Config.osd.sizes.sliderWidth
             implicitHeight: Config.osd.sizes.sliderHeight
 
-            function onWheel(event: WheelEvent) {
+            onWheel: event => {
                 if (event.angleDelta.y > 0)
                     Audio.incrementVolume();
                 else if (event.angleDelta.y < 0)
                     Audio.decrementVolume();
             }
 
-            FilledSlider {
+            Slider {
                 anchors.fill: parent
 
-                icon: Icons.getVolumeIcon(value, Audio.muted)
+                icon: Utils.Icons.getVolumeIcon(value, Audio.muted)
                 value: Audio.volume
                 onMoved: Audio.setVolume(value)
             }
         }
 
         // Microphone volume
-        WrappedLoader {
-            shouldBeActive: Config.osd.enableMicrophone && (!Config.osd.enableBrightness || !root.visibilities.session)
+        MouseArea {
+            implicitWidth: Config.osd.sizes.sliderWidth
+            implicitHeight: Config.osd.sizes.sliderHeight
 
-            sourceComponent: CustomMouseArea {
-                implicitWidth: Config.osd.sizes.sliderWidth
-                implicitHeight: Config.osd.sizes.sliderHeight
+            onWheel: event => {
+                if (event.angleDelta.y > 0)
+                    Audio.incrementSourceVolume();
+                else if (event.angleDelta.y < 0)
+                    Audio.decrementSourceVolume();
+            }
 
-                function onWheel(event: WheelEvent) {
-                    if (event.angleDelta.y > 0)
-                        Audio.incrementSourceVolume();
-                    else if (event.angleDelta.y < 0)
-                        Audio.decrementSourceVolume();
-                }
+            Slider {
+                anchors.fill: parent
 
-                FilledSlider {
-                    anchors.fill: parent
-
-                    icon: Icons.getMicVolumeIcon(value, Audio.sourceMuted)
-                    value: Audio.sourceVolume
-                    onMoved: Audio.setSourceVolume(value)
-                }
+                icon: Utils.Icons.getMicVolumeIcon(value, Audio.sourceMuted)
+                value: Audio.sourceVolume
+                onMoved: Audio.setSourceVolume(value)
             }
         }
 
         // Brightness
-        WrappedLoader {
-            shouldBeActive: Config.osd.enableBrightness
+        MouseArea {
+            implicitWidth: Config.osd.sizes.sliderWidth
+            implicitHeight: Config.osd.sizes.sliderHeight
 
-            sourceComponent: CustomMouseArea {
-                implicitWidth: Config.osd.sizes.sliderWidth
-                implicitHeight: Config.osd.sizes.sliderHeight
-
-                function onWheel(event: WheelEvent) {
-                    const monitor = root.monitor;
-                    if (!monitor)
-                        return;
-                    if (event.angleDelta.y > 0)
-                        monitor.setBrightness(monitor.brightness + 0.1);
-                    else if (event.angleDelta.y < 0)
-                        monitor.setBrightness(monitor.brightness - 0.1);
-                }
-
-                FilledSlider {
-                    anchors.fill: parent
-
-                    icon: `brightness_${(Math.round(value * 6) + 1)}`
-                    value: root.monitor?.brightness ?? 0
-                    onMoved: root.monitor?.setBrightness(value)
-                }
+            onWheel: event => {
+                const monitor = root.monitor;
+                if (!monitor)
+                    return;
+                if (event.angleDelta.y > 0)
+                    monitor.setBrightness(monitor.brightness + 0.1);
+                else if (event.angleDelta.y < 0)
+                    monitor.setBrightness(monitor.brightness - 0.1);
             }
-        }
-    }
 
-    component WrappedLoader: Loader {
-        required property bool shouldBeActive
+            Slider {
+                anchors.fill: parent
 
-        Layout.preferredHeight: shouldBeActive ? Config.osd.sizes.sliderHeight : 0
-        opacity: shouldBeActive ? 1 : 0
-        active: opacity > 0
-        asynchronous: true
-        visible: active
-
-        Behavior on Layout.preferredHeight {
-            Anim {
-                easing.bezierCurve: Appearance.anim.curves.emphasized
+                icon: `brightness_${(Math.round(value * 6) + 1)}`
+                value: root.monitor?.brightness ?? 0
+                onMoved: root.monitor?.setBrightness(value)
             }
-        }
-
-        Behavior on opacity {
-            Anim {}
         }
     }
 }

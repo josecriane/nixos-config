@@ -3,6 +3,7 @@ import qs.services
 import qs.config
 import Quickshell
 import QtQuick
+import qs.ds.animations
 
 Item {
     id: root
@@ -28,7 +29,7 @@ Item {
             from: ""
             to: "visible"
 
-            Anim {
+            BasicNumberAnimation {
                 target: root
                 property: "implicitWidth"
                 easing.bezierCurve: Appearance.anim.curves.expressiveDefaultSpatial
@@ -38,7 +39,7 @@ Item {
             from: "visible"
             to: ""
 
-            Anim {
+            BasicNumberAnimation {
                 target: root
                 property: "implicitWidth"
                 easing.bezierCurve: Appearance.anim.curves.emphasized

@@ -1,10 +1,10 @@
 import qs.components
-import qs.components.misc
 import qs.services
 import qs.config
 import qs.ds.text as Text
 import QtQuick
 import QtQuick.Layouts
+import qs.ds.animations
 
 RowLayout {
     id: root
@@ -16,10 +16,6 @@ RowLayout {
     }
 
     spacing: Appearance.spacing.large * 3
-
-    Ref {
-        service: SystemUsage
-    }
 
     Resource {
         Layout.alignment: Qt.AlignVCenter
@@ -196,27 +192,27 @@ RowLayout {
         }
 
         Behavior on value1 {
-            Anim {}
+            BasicNumberAnimation {}
         }
 
         Behavior on value2 {
-            Anim {}
+            BasicNumberAnimation {}
         }
 
         Behavior on fg1 {
-            CAnim {}
+            BasicColorAnimation {}
         }
 
         Behavior on fg2 {
-            CAnim {}
+            BasicColorAnimation {}
         }
 
         Behavior on bg1 {
-            CAnim {}
+            BasicColorAnimation {}
         }
 
         Behavior on bg2 {
-            CAnim {}
+            BasicColorAnimation {}
         }
     }
 }

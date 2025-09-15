@@ -1,7 +1,6 @@
 pragma ComponentBehavior: Bound
 
 import qs.components
-import qs.components.containers
 import qs.services
 import qs.config
 import qs.modules.bar
@@ -9,6 +8,7 @@ import Quickshell
 import Quickshell.Wayland
 import QtQuick
 import QtQuick.Effects
+import qs.ds.animations
 
 Variants {
     model: Quickshell.screens
@@ -70,7 +70,7 @@ Variants {
                 color: Colours.palette.m3scrim
 
                 Behavior on opacity {
-                    Anim {}
+                    BasicNumberAnimation {}
                 }
             }
 

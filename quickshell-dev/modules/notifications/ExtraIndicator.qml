@@ -1,8 +1,9 @@
-import ".."
-import "../effects"
 import qs.services
 import qs.config
 import QtQuick
+import qs.ds.animations
+import qs.ds.text as Text
+import qs.ds
 
 Rectangle {
     required property int extra
@@ -19,31 +20,30 @@ Rectangle {
     opacity: extra > 0 ? 1 : 0
     scale: extra > 0 ? 1 : 0.5
 
-    Elevation {
+    ElevationToken {
         anchors.fill: parent
         radius: parent.radius
         opacity: parent.opacity
         z: -1
-        level: 2
+        spread: 2
     }
 
-    StyledText {
+    Text.BodyS {
         id: count
 
         anchors.centerIn: parent
-        animate: parent.opacity > 0
         text: qsTr("+%1").arg(parent.extra)
         color: Colours.palette.m3onTertiary
     }
 
     Behavior on opacity {
-        Anim {
+        BasicNumberAnimation {
             duration: Appearance.anim.durations.expressiveFastSpatial
         }
     }
 
     Behavior on scale {
-        Anim {
+        BasicNumberAnimation {
             duration: Appearance.anim.durations.expressiveFastSpatial
             easing.bezierCurve: Appearance.anim.curves.expressiveFastSpatial
         }

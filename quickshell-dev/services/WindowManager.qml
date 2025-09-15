@@ -1,6 +1,5 @@
 pragma Singleton
 
-import qs.components.misc
 import Quickshell
 import Quickshell.Wayland as Wayland
 import QtQuick

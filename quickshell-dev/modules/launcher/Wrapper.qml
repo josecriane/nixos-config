@@ -2,6 +2,7 @@ import qs.components
 import qs.config
 import Quickshell
 import QtQuick
+import qs.ds.animations
 
 Item {
     id: root
@@ -23,7 +24,7 @@ Item {
     implicitHeight: nonAnimHeight
 
     Behavior on implicitHeight {
-        Anim {
+        BasicNumberAnimation {
             duration: root.animLength
             easing.bezierCurve: root.animCurve
         }
@@ -39,7 +40,7 @@ Item {
         opacity: root.visibilities.launcher ? 1 : 0
 
         Behavior on opacity {
-            Anim {
+            BasicNumberAnimation {
                 duration: root.animLength * 0.6
                 easing.bezierCurve: root.animCurve
             }

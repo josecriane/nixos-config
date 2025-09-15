@@ -1,6 +1,8 @@
 import qs.services
 import qs.config
 import QtQuick
+import Quickshell.Widgets
+import qs.ds.animations
 
 MouseArea {
     id: root
@@ -55,21 +57,21 @@ MouseArea {
             property: "opacity"
             value: 0.08
         }
-        Anim {
+        BasicNumberAnimation {
             target: ripple
             properties: "implicitWidth,implicitHeight"
             from: 0
             to: rippleAnim.radius * 2
             easing.bezierCurve: Appearance.anim.curves.standardDecel
         }
-        Anim {
+        BasicNumberAnimation {
             target: ripple
             property: "opacity"
             to: 0
         }
     }
 
-    StyledClippingRect {
+    ClippingRectangle {
         id: hoverLayer
 
         anchors.fill: parent
@@ -88,6 +90,10 @@ MouseArea {
                 x: -ripple.width / 2
                 y: -ripple.height / 2
             }
+        }
+
+        Behavior on color {
+            BasicColorAnimation {}
         }
     }
 }

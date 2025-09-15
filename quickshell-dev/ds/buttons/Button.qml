@@ -1,9 +1,10 @@
 import QtQuick
 import QtQuick.Layouts
 import qs.components
-import qs.components.controls
+import qs.ds.progress
 import qs.ds
 import qs.ds.text as Text
+import qs.ds.icons as Icons
 import qs.services
 
 Rectangle {
@@ -45,7 +46,7 @@ Rectangle {
         spacing: Foundations.spacing.xs
         opacity: root.loading ? 0 : 1
         
-        MaterialIcon {
+        Icons.MaterialFontIcon {
             visible: root.leftIcon !== ""
             text: root.leftIcon
             color: root.foregroundColor
@@ -58,7 +59,7 @@ Rectangle {
             color: root.foregroundColor
         }
 
-        MaterialIcon {
+        Icons.MaterialFontIcon {
             visible: root.rightIcon !== ""
             text: root.rightIcon
             color: root.foregroundColor
@@ -73,12 +74,10 @@ Rectangle {
         }
     }
     
-    // ToDo: Create a progress indicator
-    StyledBusyIndicator {
+    CircularProgressIndicator {
         visible: root.loading
         anchors.centerIn: parent
         strokeWidth:  2
-        bgColour: "transparent"
         implicitHeight: parent.implicitHeight - 20
         running: root.loading
     }

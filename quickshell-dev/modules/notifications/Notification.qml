@@ -1,15 +1,17 @@
 pragma ComponentBehavior: Bound
 
 import qs.components
-import qs.components.effects
 import qs.services
 import qs.config
-import qs.utils
+import qs.utils as Utils
+import qs.ds.icons as Icons
 import Quickshell
 import Quickshell.Widgets
 import Quickshell.Services.Notifications
 import QtQuick
 import QtQuick.Layouts
+import qs.ds.animations
+import qs.ds.text as DsText
 
 Rectangle {
     id: root
@@ -29,7 +31,7 @@ Rectangle {
     Component.onCompleted: x = 0
 
     Behavior on x {
-        Anim {
+        BasicNumberAnimation {
             easing.bezierCurve: Appearance.anim.curves.emphasizedDecel
         }
     }
@@ -99,7 +101,7 @@ Rectangle {
             implicitHeight: root.nonAnimHeight
 
             Behavior on implicitHeight {
-                Anim {
+                BasicNumberAnimation {
                     duration: Appearance.anim.durations.expressiveDefaultSpatial
                     easing.bezierCurve: Appearance.anim.curves.expressiveDefaultSpatial
                 }
@@ -160,11 +162,10 @@ Rectangle {
                         width: Math.round(parent.width * 0.6)
                         height: Math.round(parent.width * 0.6)
 
-                        sourceComponent: ColouredIcon {
+                        sourceComponent: IconImage {
                             anchors.fill: parent
                             source: Quickshell.iconPath(root.modelData.appIcon)
-                            colour: root.modelData.urgency === NotificationUrgency.Critical ? Colours.palette.m3onError : root.modelData.urgency === NotificationUrgency.Low ? Colours.palette.m3onSurface : Colours.palette.m3onSecondaryContainer
-                            layer.enabled: root.modelData.appIcon.endsWith("symbolic")
+                            asynchronous: true
                         }
                     }
 
@@ -175,8 +176,8 @@ Rectangle {
                         anchors.horizontalCenterOffset: -Appearance.font.size.large * 0.02
                         anchors.verticalCenterOffset: Appearance.font.size.large * 0.02
 
-                        sourceComponent: MaterialIcon {
-                            text: Icons.getNotifIcon(root.modelData.summary, root.modelData.urgency)
+                        sourceComponent: Icons.MaterialFontIcon {
+                            text: Utils.Icons.getNotifIcon(root.modelData.summary, root.modelData.urgency)
 
                             color: root.modelData.urgency === NotificationUrgency.Critical ? Colours.palette.m3onError : root.modelData.urgency === NotificationUrgency.Low ? Colours.palette.m3onSurface : Colours.palette.m3onSecondaryContainer
                             font.pointSize: Appearance.font.size.large
@@ -185,23 +186,21 @@ Rectangle {
                 }
             }
 
-            StyledText {
+            DsText.BodyS {
                 id: appName
 
                 anchors.top: parent.top
                 anchors.left: image.right
                 anchors.leftMargin: Appearance.spacing.smaller
 
-                animate: true
                 text: appNameMetrics.elidedText
                 maximumLineCount: 1
                 color: Colours.palette.m3onSurfaceVariant
-                font.pointSize: Appearance.font.size.small
 
                 opacity: root.expanded ? 1 : 0
 
                 Behavior on opacity {
-                    Anim {}
+                    BasicNumberAnimation {}
                 }
             }
 
@@ -215,14 +214,13 @@ Rectangle {
                 elideWidth: expandBtn.x - time.width - timeSep.width - summary.x - Appearance.spacing.small * 3
             }
 
-            StyledText {
+            DsText.BodyM {
                 id: summary
 
                 anchors.top: parent.top
                 anchors.left: image.right
                 anchors.leftMargin: Appearance.spacing.smaller
 
-                animate: true
                 text: summaryMetrics.elidedText
                 maximumLineCount: 1
                 height: implicitHeight
@@ -254,7 +252,7 @@ Rectangle {
                 }
 
                 Behavior on height {
-                    Anim {}
+                    BasicNumberAnimation {}
                 }
             }
 
@@ -268,7 +266,7 @@ Rectangle {
                 elideWidth: expandBtn.x - time.width - timeSep.width - summary.x - Appearance.spacing.small * 3
             }
 
-            StyledText {
+            DsText.BodyS {
                 id: timeSep
 
                 anchors.top: parent.top
@@ -277,7 +275,6 @@ Rectangle {
 
                 text: "•"
                 color: Colours.palette.m3onSurfaceVariant
-                font.pointSize: Appearance.font.size.small
 
                 states: State {
                     name: "expanded"
@@ -298,18 +295,16 @@ Rectangle {
                 }
             }
 
-            StyledText {
+            DsText.BodyS {
                 id: time
 
                 anchors.top: parent.top
                 anchors.left: timeSep.right
                 anchors.leftMargin: Appearance.spacing.small
 
-                animate: true
                 horizontalAlignment: Text.AlignLeft
                 text: root.modelData.timeStr
                 color: Colours.palette.m3onSurfaceVariant
-                font.pointSize: Appearance.font.size.small
             }
 
             Item {
@@ -330,7 +325,7 @@ Rectangle {
                     }
                 }
 
-                MaterialIcon {
+                Icons.MaterialFontIcon {
                     id: expandIcon
 
                     anchors.centerIn: parent
@@ -341,7 +336,7 @@ Rectangle {
                 }
             }
 
-            StyledText {
+            DsText.BodyS {
                 id: bodyPreview
 
                 anchors.left: summary.left
@@ -349,16 +344,14 @@ Rectangle {
                 anchors.top: summary.bottom
                 anchors.rightMargin: Appearance.spacing.small
 
-                animate: true
                 textFormat: Text.MarkdownText
                 text: bodyPreviewMetrics.elidedText
                 color: Colours.palette.m3onSurfaceVariant
-                font.pointSize: Appearance.font.size.small
 
                 opacity: root.expanded ? 0 : 1
 
                 Behavior on opacity {
-                    Anim {}
+                    BasicNumberAnimation {}
                 }
             }
 
@@ -372,7 +365,7 @@ Rectangle {
                 elideWidth: bodyPreview.width
             }
 
-            StyledText {
+            DsText.BodyS {
                 id: body
 
                 anchors.left: summary.left
@@ -380,11 +373,9 @@ Rectangle {
                 anchors.top: summary.bottom
                 anchors.rightMargin: Appearance.spacing.small
 
-                animate: true
                 textFormat: Text.MarkdownText
                 text: root.modelData.body
                 color: Colours.palette.m3onSurfaceVariant
-                font.pointSize: Appearance.font.size.small
                 wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                 height: text ? implicitHeight : 0
 
@@ -399,7 +390,7 @@ Rectangle {
                 opacity: root.expanded ? 1 : 0
 
                 Behavior on opacity {
-                    Anim {}
+                    BasicNumberAnimation {}
                 }
             }
 
@@ -415,7 +406,7 @@ Rectangle {
                 opacity: root.expanded ? 1 : 0
 
                 Behavior on opacity {
-                    Anim {}
+                    BasicNumberAnimation {}
                 }
 
                 Action {
@@ -460,13 +451,12 @@ Rectangle {
             }
         }
 
-        StyledText {
+        DsText.BodyS {
             id: actionText
 
             anchors.centerIn: parent
             text: actionTextMetrics.elidedText
             color: root.modelData.urgency === NotificationUrgency.Critical ? Colours.palette.m3onSecondary : Colours.palette.m3onSurfaceVariant
-            font.pointSize: Appearance.font.size.small
         }
 
         TextMetrics {

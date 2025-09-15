@@ -12,7 +12,7 @@ Slider {
     
     background: Item {
         Rectangle {
-            id: leftSize
+            id: leftSide
 
             anchors.top: parent.top
             anchors.bottom: parent.bottom
@@ -34,7 +34,7 @@ Slider {
             anchors.topMargin: 11
             anchors.bottomMargin: 11
             
-            implicitWidth: parent.width - leftSize.implicitWidth
+            implicitWidth: parent.width - leftSide.implicitWidth
 
             color: root.inactiveColor
             radius: Foundations.radius.all

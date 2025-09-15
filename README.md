@@ -206,15 +206,18 @@ R
 
 ### Future Work:
 - [ ] Remove waybar, swaync, wofi
+
 - [ ] Quickshell Redo
   - [ ] Refactored in DS
-    - [ ] Create a popout background and wrapper inteface
-    - [ ] Add animate to Text changed
   - [ ] Use stylix colors
   - [ ] Add mic icon to the audio tray
+  - [ ] Add mic muted on osd
   - [ ] Refactor notifications
-  - [ ] Remove traymenu, submenu, hasChild
+  - [ ] Refactor all StateLayer use must be a Button
+  - [ ] Check traymenu, submenu, hasChild
+  - [ ] Use popout background in all elements drawers/Backgrounds
   - [ ] Launcher
+    - [ ] Close other popouts when the launcher open
     - [ ] Fix calc
     - [ ] Filter .desktop apps
     - [ ] Return true/false on onActivate to knows if close launcher

@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import qs.components
 import qs.ds
+import qs.ds.animations
 import qs.services
 
 ScrollBar {
@@ -19,10 +20,7 @@ ScrollBar {
         color: root.scrollbarColor
         
         Behavior on opacity {
-            NumberAnimation {
-                duration: 300
-                easing.type: Easing.BezierSpline
-            }
+            BasicNumberAnimation {}
         }
     }
 

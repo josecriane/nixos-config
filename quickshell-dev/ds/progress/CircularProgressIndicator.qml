@@ -1,14 +1,16 @@
-import ".."
+import "."
 import qs.services
 import qs.config
+import qs.ds
 import QtQuick
 import QtQuick.Controls
+import qs.ds.animations
 
 BusyIndicator {
     id: root
 
-    property real implicitSize: Appearance.font.size.normal * 3
-    property real strokeWidth: Appearance.padding.small
+    property real implicitSize: Foundations.font.size.m * 3
+    property real strokeWidth: Foundations.spacing.s
     property color fgColour: Colours.palette.m3primary
     property color bgColour: Colours.palette.m3secondaryContainer
 
@@ -40,7 +42,7 @@ BusyIndicator {
     }
 
     transitions: Transition {
-        Anim {
+        BasicNumberAnimation {
             properties: "opacity,internalStrokeWidth"
             duration: updater.completeEndDuration
         }
@@ -52,8 +54,6 @@ BusyIndicator {
         anchors.fill: parent
         strokeWidth: root.internalStrokeWidth
         fgColour: root.fgColour
-        bgColour: root.bgColour
-        padding: root.padding
         startAngle: updater.startFraction * 360
         value: updater.endFraction - updater.startFraction
     }
@@ -86,15 +86,15 @@ BusyIndicator {
     }
 
     component Updater: QtObject {
-        readonly property int duration: 5400 * Appearance.anim.durations.scale
-        readonly property int expandDuration: 667 * Appearance.anim.durations.scale
-        readonly property int collapseDuration: 667 * Appearance.anim.durations.scale
-        readonly property int completeEndDuration: 333 * Appearance.anim.durations.scale
+        readonly property int duration: 5400
+        readonly property int expandDuration: 667
+        readonly property int collapseDuration: 667
+        readonly property int completeEndDuration: 333
         readonly property int tailDegOffset: -20
         readonly property int extraDegPerCycle: 250
         readonly property int constantRotDeg: 1520
-        readonly property list<int> expandDelay: [0, 1350, 2700, 4050].map(d => d * Appearance.anim.durations.scale)
-        readonly property list<int> collapseDelay: [667, 2017, 3367, 4717].map(d => d * Appearance.anim.durations.scale)
+        readonly property list<int> expandDelay: [0, 1350, 2700, 4050]
+        readonly property list<int> collapseDelay: [667, 2017, 3367, 4717]
 
         property real progress: 0
         property real startFraction: 0

@@ -3,6 +3,7 @@ import qs.components
 import qs.services
 import qs.config
 import qs.ds.text as DsText
+import qs.ds.icons as Icons
 import Quickshell
 import Quickshell.Widgets
 import QtQuick
@@ -59,7 +60,7 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
         }
 
-        MaterialIcon {
+        Icons.MaterialFontIcon {
             id: actionIcon
             visible: root.modelData?.isAction ?? false
             text: visible ? (root.modelData?.actionIcon ?? "") : ""

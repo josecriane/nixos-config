@@ -1,8 +1,8 @@
-import qs.config
 import QtQuick
+import qs.config
 
-ColorAnimation {
-    duration: Appearance.anim.durations.normal
+NumberAnimation {
+    duration: 400
     easing.type: Easing.BezierSpline
     easing.bezierCurve: Appearance.anim.curves.standard
 }

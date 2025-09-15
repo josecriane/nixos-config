@@ -1,10 +1,12 @@
 pragma ComponentBehavior: Bound
 
-import qs.components.effects
 import qs.services
 import qs.config
+import Quickshell
 import Quickshell.Services.SystemTray
 import QtQuick
+import Quickshell.Widgets
+
 
 MouseArea {
     id: root
@@ -22,7 +24,7 @@ MouseArea {
             modelData.secondaryActivate();
     }
 
-    ColouredIcon {
+    IconImage {
         id: icon
 
         anchors.fill: parent
@@ -34,7 +36,6 @@ MouseArea {
             }
             return icon;
         }
-        colour: Colours.palette.m3secondary
-        layer.enabled: false
+        asynchronous: true
     }
 }

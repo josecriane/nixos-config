@@ -2,14 +2,16 @@ pragma ComponentBehavior: Bound
 
 import qs.components
 import qs.services
-import qs.utils
+import qs.utils as Utils
 import qs.config
 import qs.ds.text as Text
+import qs.ds.icons as Icons
 import Quickshell
 import Quickshell.Bluetooth
 import Quickshell.Services.UPower
 import QtQuick
 import QtQuick.Layouts
+import qs.ds.animations
 
 Rectangle {
     id: root
@@ -34,9 +36,9 @@ Rectangle {
         WrappedLoader {
             name: "audio"
 
-            sourceComponent: MaterialIcon {
+            sourceComponent: Icons.MaterialFontIcon {
                 animate: true
-                text: Icons.getVolumeIcon(Audio.volume, Audio.muted)
+                text: Utils.Icons.getVolumeIcon(Audio.volume, Audio.muted)
                 color: root.colour
             }
         }
@@ -64,9 +66,9 @@ Rectangle {
         WrappedLoader {
             name: "network"
 
-            sourceComponent: MaterialIcon {
+            sourceComponent: Icons.MaterialFontIcon {
                 animate: true
-                text: Network.active ? Icons.getNetworkIcon(Network.active.strength ?? 0) : "wifi_off"
+                text: Network.active ? Utils.Icons.getNetworkIcon(Network.active.strength ?? 0) : "wifi_off"
                 color: root.colour
             }
         }
@@ -79,7 +81,7 @@ Rectangle {
                 spacing: Appearance.spacing.smaller / 2
 
                 // Bluetooth icon
-                MaterialIcon {
+                Icons.MaterialFontIcon {
                     animate: true
                     text: {
                         if (!Bluetooth.defaultAdapter?.enabled)
@@ -97,28 +99,27 @@ Rectangle {
                         values: Bluetooth.devices.values.filter(d => d.state !== BluetoothDeviceState.Disconnected)
                     }
 
-                    MaterialIcon {
+                    Icons.MaterialFontIcon {
                         id: device
 
                         required property BluetoothDevice modelData
 
                         animate: true
-                        text: Icons.getBluetoothIcon(modelData.icon)
+                        text: Utils.Icons.getBluetoothIcon(modelData.icon)
                         color: root.colour
-                        fill: 1
 
                         SequentialAnimation on opacity {
                             running: device.modelData.state !== BluetoothDeviceState.Connected
                             alwaysRunToEnd: true
                             loops: Animation.Infinite
 
-                            Anim {
+                            BasicNumberAnimation {
                                 from: 1
                                 to: 0
                                 duration: Appearance.anim.durations.large
                                 easing.bezierCurve: Appearance.anim.curves.standardAccel
                             }
-                            Anim {
+                            BasicNumberAnimation {
                                 from: 0
                                 to: 1
                                 duration: Appearance.anim.durations.large
@@ -134,7 +135,7 @@ Rectangle {
         WrappedLoader {
             name: "battery"
 
-            sourceComponent: MaterialIcon {
+            sourceComponent: Icons.MaterialFontIcon {
                 animate: true
                 text: {
                     if (!UPower.displayDevice.isLaptopBattery) {
@@ -155,13 +156,12 @@ Rectangle {
                     return charging ? `battery_charging_${(level + 3) * 10}` : `battery_${level}_bar`;
                 }
                 color: !UPower.onBattery || UPower.displayDevice.percentage > 0.2 ? root.colour : Colours.palette.m3error
-                fill: 1
             }
         }
     }
 
     Behavior on implicitWidth {
-        Anim {
+        BasicNumberAnimation {
             duration: Appearance.anim.durations.large
             easing.bezierCurve: Appearance.anim.curves.emphasized
         }
@@ -171,7 +171,7 @@ Rectangle {
         required property string name
 
         Layout.alignment: Qt.AlignVCenter
-        asynchronous: true
+        // asynchronous: true
         visible: active
     }
 }

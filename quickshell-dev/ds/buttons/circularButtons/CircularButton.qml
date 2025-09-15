@@ -1,8 +1,9 @@
 import QtQuick
 import qs.components
-import qs.components.controls
+import qs.ds.progress
 import qs.services
 import qs.ds
+import qs.ds.icons as Icons
 
 Rectangle {
     id: root
@@ -27,13 +28,11 @@ Rectangle {
     radius: Foundations.radius.all
     color: root.active ? root.activeBackgroundColor : root.backgroundColor
     
-    // Loading indicator
-    StyledBusyIndicator {
+    CircularProgressIndicator {
         visible: root.loading
         anchors.fill: parent
         running: root.loading
         strokeWidth: 2
-        bgColour: "transparent"
     }
     
     // Interaction layer
@@ -47,7 +46,7 @@ Rectangle {
     }
     
     // Icon
-    MaterialIcon {
+    Icons.MaterialFontIcon {
         anchors.centerIn: parent
         animate: true
         text: root.icon

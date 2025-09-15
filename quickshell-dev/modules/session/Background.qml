@@ -3,6 +3,7 @@ import qs.services
 import qs.config
 import QtQuick
 import QtQuick.Shapes
+import qs.ds.animations
 
 ShapePath {
     id: root
@@ -55,6 +56,6 @@ ShapePath {
     }
 
     Behavior on fillColor {
-        CAnim {}
+        BasicColorAnimation {}
     }
 }

@@ -4,11 +4,11 @@ import ".."
 import qs.config
 import qs.services
 import qs.components
-import qs.utils
+import qs.utils as Utils
 import Quickshell
 import QtQuick
 
-Searcher {
+Utils.Searcher {
     id: root
 
     function launch(entry: DesktopEntry): void {

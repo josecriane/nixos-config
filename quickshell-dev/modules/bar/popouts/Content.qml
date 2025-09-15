@@ -5,6 +5,7 @@ import qs.config
 import Quickshell
 import Quickshell.Services.SystemTray
 import QtQuick
+import qs.ds.animations
 
 Item {
     id: root
@@ -129,7 +130,7 @@ Item {
                 to: ""
 
                 SequentialAnimation {
-                    Anim {
+                    BasicNumberAnimation {
                         properties: "opacity,scale"
                         duration: Appearance.anim.durations.small
                     }
@@ -148,7 +149,7 @@ Item {
                         target: popout
                         property: "active"
                     }
-                    Anim {
+                    BasicNumberAnimation {
                         properties: "opacity,scale"
                     }
                 }

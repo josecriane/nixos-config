@@ -5,6 +5,7 @@ import qs.config
 import "popouts" as BarPopouts
 import Quickshell
 import QtQuick
+import qs.ds.animations
 
 Item {
     id: root
@@ -45,7 +46,7 @@ Item {
             from: ""
             to: "visible"
 
-            Anim {
+            BasicNumberAnimation {
                 target: root
                 property: "implicitHeight"
                 duration: Appearance.anim.durations.expressiveDefaultSpatial
@@ -56,7 +57,7 @@ Item {
             from: "visible"
             to: ""
 
-            Anim {
+            BasicNumberAnimation {
                 target: root
                 property: "implicitHeight"
                 easing.bezierCurve: Appearance.anim.curves.emphasized
