@@ -208,16 +208,12 @@ R
 - [ ] Remove waybar, swaync, wofi
 
 - [ ] Quickshell Redo
-  - [ ] Refactored in DS
   - [ ] Use stylix colors
   - [ ] Add mic icon to the audio tray
   - [ ] OSD
     - [ ] Fix right osd border with session
     - [ ] Add mic muted on osd
   - [ ] Refactor notifications
-  - [ ] Refactor all StateLayer use must be a Button, and review the other MouseArea
-  - [ ] Check new traymenu, submenu, hasChild
-  - [ ] Use popout background in all elements drawers/Backgrounds
   - [ ] Launcher
     - [ ] Close other popouts when the launcher open
     - [ ] Fix calc
@@ -231,7 +227,6 @@ R
 - [ ] Install steam
 - [ ] Take a look at:
   - [ ] https://syncthing.net
-  - [ ] https://quickshell.org/
 - [ ] Finish the initial setup script
 - [ ] Remove built in bookmarks on nautilus (Starred, Recent)
 - [ ] Create move-window-or-to-monitor-up/down and move-column-or-monitor-right. See: [focus](https://github.com/YaLTeR/niri/commit/a56e4ff436cc4f36d7cda89e985d51e37f0b4f78)

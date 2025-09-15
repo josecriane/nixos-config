@@ -62,192 +62,143 @@ ShapePath {
     strokeWidth: -1
     fillColor: wrapper.hasCurrent ? Colours.palette.m3surface : "transparent"  
 
-    // Top Left
-    PathArc {
+    CornerPathArc {
+        cornerType: topLeftCorner
+    }
+
+    VerticalPathLine {
+        startCornerType: topLeftCorner
+        endCornerType: bottomLeftCorner
+
+        upToDown: true
+    }
+
+    CornerPathArc {
+        cornerType: bottomLeftCorner
+    }
+
+    HorizontalPathLine {
+        startCornerType: bottomLeftCorner
+        endCornerType: bottomRightCorner
+    }
+
+    CornerPathArc {
+        cornerType: bottomRightCorner
+    }
+
+    VerticalPathLine {
+        startCornerType: bottomRightCorner
+        endCornerType: topRightCorner
+
+        upToDown: false
+    }
+
+    CornerPathArc {
+        cornerType: topRightCorner
+    }
+
+    // Components
+    component CornerPathArc: PathArc {
+        required property int cornerType
+
         relativeX: {
-            switch (topLeftCorner) {
+            switch (cornerType) {
                 case Background.CornerType.InvertedTopLeft: return rounding
-                // case Background.CornerType.InvertedBottomRight: return rounding
+                case Background.CornerType.InvertedBottomLeft: return -rounding
+                case Background.CornerType.InvertedBottomRight: return -rounding
+                case Background.CornerType.InvertedTopRight: return rounding
                 case Background.CornerType.TopLeft: return -rounding
+                case Background.CornerType.BottomLeft: return rounding
+                case Background.CornerType.BottomRight: return rounding
+                case Background.CornerType.TopRight: return -rounding
                 default: return 0
             }
         }
+
         relativeY: {
-            switch (topLeftCorner) {
+            switch (cornerType) {
                 case Background.CornerType.InvertedTopLeft: return rounding
-                // case Background.CornerType.InvertedBottomRight: return rounding
+                case Background.CornerType.InvertedBottomLeft: return rounding
+                case Background.CornerType.InvertedBottomRight: return -rounding
+                case Background.CornerType.InvertedTopRight: return -rounding
                 case Background.CornerType.TopLeft: return rounding
+                case Background.CornerType.BottomLeft: return rounding
+                case Background.CornerType.BottomRight: return -rounding
+                case Background.CornerType.TopRight: return -rounding
                 default: return 0
             }
         }
-        radiusX: topLeftCorner === Background.CornerType.NoShape ? 0 : rounding
-        radiusY: topLeftCorner === Background.CornerType.NoShape ? 0 : rounding
+
+        radiusX: cornerType === Background.CornerType.NoShape ? 0 : rounding
+        radiusY: cornerType === Background.CornerType.NoShape ? 0 : rounding
+
         direction: {
-            switch (topLeftCorner) {
+            switch (cornerType) {
                 case Background.CornerType.InvertedTopLeft: return outside
-                // case Background.CornerType.InvertedBottomRight: return inside
+                case Background.CornerType.InvertedBottomLeft: return outside
+                case Background.CornerType.InvertedBottomRight: return outside
+                case Background.CornerType.InvertedTopRight: return outside
                 case Background.CornerType.TopLeft: return inside
-                default: return inside
-            }
-        }
-    }
-
-    PathLine {
-        relativeX: 0
-        relativeY: {
-            let topLeftY = 0
-            switch (topLeftCorner) {
-                case Background.CornerType.InvertedTopLeft: topLeftY = -rounding; break
-                // case Background.CornerType.InvertedBottomRight: topLeftY = -rounding; break
-                case Background.CornerType.TopLeft: topLeftY = -rounding; break
-                default: topLeftY = 0; break
-            }
-
-            let bottomLeftY = 0
-            switch (bottomLeftCorner) {
-                // case Background.CornerType.InvertedBottomLeft: bottomLeftY = -rounding; break
-                // case Background.CornerType.InvertedTopRight: bottomLeftY = rounding; break
-                case Background.CornerType.BottomLeft: bottomLeftY = -rounding; break
-                default: bottomLeftY = 0; break
-            }
-
-            return root.wrapper.height + topLeftY + bottomLeftY
-        }
-    }
-
-    // Bottom Left
-    PathArc {
-        relativeX: {
-            switch (bottomLeftCorner) {
-                // case Background.CornerType.InvertedBottomLeft: return rounding
-                // case Background.CornerType.InvertedTopRight: return -rounding
-                case Background.CornerType.BottomLeft: return rounding
-                default: return 0
-            }
-        }
-        relativeY: {
-            switch (bottomLeftCorner) {
-                // case Background.CornerType.InvertedBottomLeft: return -rounding
-                // case Background.CornerType.InvertedTopRight: return rounding
-                case Background.CornerType.BottomLeft: return rounding
-                default: return 0
-            }
-        }
-        radiusX: bottomLeftCorner === Background.CornerType.NoShape ? 0 : rounding
-        radiusY: bottomLeftCorner === Background.CornerType.NoShape ? 0 : rounding
-        direction: {
-            switch (bottomLeftCorner) {
-                // case Background.CornerType.InvertedBottomLeft: return outside
-                // case Background.CornerType.InvertedTopRight: return inside
                 case Background.CornerType.BottomLeft: return inside
+                case Background.CornerType.BottomRight: return inside
+                case Background.CornerType.TopRight: return inside
                 default: return outside
             }
         }
     }
 
-    PathLine {
+    component HorizontalPathLine: PathLine {
+        required property int startCornerType
+        required property int endCornerType
+
         relativeX: {
-            let bottomLeftX = 0
-            switch (bottomLeftCorner) {
-                // case Background.CornerType.InvertedBottomLeft: bottomLeftX = rounding; break
-                // case Background.CornerType.InvertedTopRight: bottomLeftX = -rounding; break
-                case Background.CornerType.BottomLeft: bottomLeftX = -rounding; break
-                default: bottomLeftX = 0; break
+            function relativeX(cornerType) {
+                switch (startCornerType) {
+                    case Background.CornerType.InvertedTopLeft: return -rounding
+                    // case Background.CornerType.InvertedBottomLeft: return -rounding
+                    // case Background.CornerType.InvertedBottomRight: return rounding
+                    // case Background.CornerType.InvertedTopRight: return rounding
+                    // case Background.CornerType.TopLeft: return -rounding
+                    case Background.CornerType.BottomLeft: return -rounding
+                    case Background.CornerType.BottomRight: return rounding
+                    // case Background.CornerType.TopRight: return rounding
+                    default: return 0
+                }
             }
+            let startX = relativeX(startCornerType)
+            let endX = relativeX(endCornerType)
 
-            let bottomRightX = 0
-            switch (bottomRightCorner) {
-                // case Background.CornerType.InvertedBottomRight: bottomRightX = rounding; break
-                case Background.CornerType.InvertedTopLeft: bottomRightX = -rounding; break
-                case Background.CornerType.BottomRight: bottomRightX = -rounding; break
-                default: bottomRightX = 0; break
-            }
-
-            return root.wrapper.width + bottomLeftX + bottomRightX
+            return root.wrapper.width + startX + endX
         }
         relativeY: 0
     }
 
-    // Bottom Right
-    PathArc {
-        relativeX: {
-            switch (bottomRightCorner) {
-                // case Background.CornerType.InvertedBottomRight: return rounding
-                case Background.CornerType.InvertedTopLeft: return rounding
-                case Background.CornerType.BottomRight: return rounding
-                default: return 0
-            }
-        }
-        relativeY: {
-            switch (bottomRightCorner) {
-                // case Background.CornerType.InvertedBottomRight: return rounding
-                case Background.CornerType.InvertedTopLeft: return rounding
-                case Background.CornerType.BottomRight: return -rounding
-                default: return 0
-            }
-        }
-        radiusX: bottomRightCorner === Background.CornerType.NoShape ? 0 : rounding
-        radiusY: bottomRightCorner === Background.CornerType.NoShape ? 0 : rounding
-        direction: {
-            switch (bottomRightCorner) {
-                // case Background.CornerType.InvertedBottomRight: return outside
-                case Background.CornerType.InvertedTopLeft: return outside
-                case Background.CornerType.BottomRight: return inside
-                default: return outside
-            }
-        }
-    }
+    component VerticalPathLine: PathLine {
+        required property int startCornerType
+        required property int endCornerType
+        required property bool upToDown
+        
+        readonly property int direction: upToDown ? 1 : -1
 
-    PathLine {
         relativeX: 0
         relativeY: {
-            let bottomRightY = 0
-            switch (bottomRightCorner) {
-                // case Background.CornerType.InvertedBottomRight: bottomRightY = rounding; break
-                case Background.CornerType.InvertedTopLeft: bottomRightY = -rounding; break
-                case Background.CornerType.BottomRight: bottomRightY = rounding; break
-                default: bottomRightY = 0; break
+            function relativeY(cornerType) {
+                switch (startCornerType) {
+                    case Background.CornerType.InvertedTopLeft: return -rounding
+                    case Background.CornerType.InvertedBottomLeft: return -rounding
+                    case Background.CornerType.InvertedBottomRight: return rounding
+                    case Background.CornerType.InvertedTopRight: return rounding
+                    case Background.CornerType.TopLeft: return -rounding
+                    case Background.CornerType.BottomLeft: return -rounding
+                    case Background.CornerType.BottomRight: return rounding
+                    case Background.CornerType.TopRight: return rounding
+                    default: return 0
+                }
             }
+            let startY = relativeY(startCornerType)
+            let endY = relativeY(endCornerType)
 
-            let topRightY = 0
-            switch (topRightCorner) {
-                case Background.CornerType.InvertedTopRight: topRightY = rounding; break
-                case Background.CornerType.InvertedBottomLeft: topRightY = -rounding; break
-                case Background.CornerType.TopRight: topRightY = rounding; break
-                default: topRightY = 0; break
-            }
-
-            return -root.wrapper.height + bottomRightY + topRightY
-        }
-    }
-
-    // Top Right
-    PathArc {
-        relativeX: {
-            switch (topRightCorner) {
-                case Background.CornerType.InvertedTopRight: return rounding
-                case Background.CornerType.InvertedBottomLeft: return -rounding
-                case Background.CornerType.TopRight: return -rounding
-                default: return 0
-            }
-        }
-        relativeY: {
-            switch (topRightCorner) {
-                case Background.CornerType.InvertedTopRight: return -rounding
-                case Background.CornerType.InvertedBottomLeft: return rounding
-                case Background.CornerType.TopRight: return -rounding
-                default: return 0
-            }
-        }
-        radiusX: topRightCorner === Background.CornerType.NoShape ? 0 : rounding
-        radiusY: topRightCorner === Background.CornerType.NoShape ? 0 : rounding
-        direction: {
-            switch (topRightCorner) {
-                case Background.CornerType.InvertedTopRight: return outside
-                case Background.CornerType.InvertedBottomLeft: return outside
-                case Background.CornerType.TopRight: return inside
-                default: return outside
-            }
+            return direction * root.wrapper.height + startY + endY
         }
     }
 
