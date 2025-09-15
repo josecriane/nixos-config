@@ -9,7 +9,7 @@ import Quickshell.Widgets
 import QtQuick
 import QtQuick.Controls
 import qs.ds.animations
-import qs.ds.buttons
+import qs.ds
 
 StackView {
     id: root
@@ -93,7 +93,7 @@ StackView {
                     sourceComponent: Item {
                         implicitHeight: label.implicitHeight
 
-                        ButtonAnimation {
+                        InteractiveArea {
                             anchors.margins: -Appearance.padding.small / 2
                             anchors.leftMargin: -Appearance.padding.smaller
                             anchors.rightMargin: -Appearance.padding.smaller
@@ -192,7 +192,7 @@ StackView {
                         radius: Appearance.rounding.full
                         color: Colours.palette.m3secondaryContainer
 
-                        ButtonAnimation {
+                        InteractiveArea {
                             radius: parent.radius
                             color: Colours.palette.m3onSecondaryContainer
 

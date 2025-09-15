@@ -7,28 +7,40 @@ import qs.ds.animations
 MouseArea {
     id: root
 
-    property bool disabled
+    // Interaction properties
+    property bool disabled: false
+    property bool rippleEnabled: true
+    property bool hoverEffectEnabled: true
+    
+    // Visual properties
     property color color: Colours.palette.m3onSurface
     property real radius: parent?.radius ?? 0
-
+    property real hoverOpacity: 0.08
+    property real pressOpacity: 0.1
+    
+    // Callback
     function onClicked(): void { }
 
     anchors.fill: parent
-
+    
     enabled: !disabled
-
     cursorShape: enabled ? Qt.PointingHandCursor : undefined
-    hoverEnabled: enabled
+    hoverEnabled: enabled && root.hoverEffectEnabled
 
     onPressed: event => {
-        if (!enabled)
+        if (!enabled || !rippleEnabled)
             return;
 
         rippleAnim.x = event.x;
         rippleAnim.y = event.y;
 
         const dist = (ox, oy) => ox * ox + oy * oy;
-        rippleAnim.radius = Math.sqrt(Math.max(dist(event.x, event.y), dist(event.x, height - event.y), dist(width - event.x, event.y), dist(width - event.x, height - event.y)));
+        rippleAnim.radius = Math.sqrt(Math.max(
+            dist(event.x, event.y), 
+            dist(event.x, height - event.y), 
+            dist(width - event.x, event.y), 
+            dist(width - event.x, height - event.y)
+        ));
 
         rippleAnim.restart();
     }
@@ -37,24 +49,31 @@ MouseArea {
 
     RippleAnimation {
         id: rippleAnim
-
         rippleItem: ripple
+        running: false
     }
 
     ClippingRectangle {
         id: hoverLayer
-
         anchors.fill: parent
-
-        color: Qt.alpha(root.color, root.disabled ? 0 : root.pressed ? 0.1 : root.containsMouse ? 0.08 : 0)
+        
+        color: {
+            if (root.disabled) return "transparent";
+            if (!root.hoverEffectEnabled) return "transparent";
+            
+            const alpha = root.pressed ? root.pressOpacity : 
+                         root.containsMouse ? root.hoverOpacity : 0;
+            return Qt.alpha(root.color, alpha);
+        }
+        
         radius: root.radius
 
         Rectangle {
             id: ripple
-
             radius: Appearance.rounding.full
             color: root.color
             opacity: 0
+            visible: root.rippleEnabled
 
             transform: Translate {
                 x: -ripple.width / 2

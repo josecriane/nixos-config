@@ -35,7 +35,7 @@ Rectangle {
         strokeWidth: 2
     }
     
-    ButtonAnimation {
+    InteractiveArea {
         color: root.active ? root.activeForegroundColor : root.foregroundColor
         disabled: root.disabled || root.loading
         

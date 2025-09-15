@@ -3,7 +3,7 @@ pragma ComponentBehavior: Bound
 import qs.services
 import qs.config
 import qs.ds.icons as Icons
-import qs.ds.buttons as Buttons
+import qs.ds
 import Quickshell
 import QtQuick
 
@@ -109,7 +109,7 @@ Column {
             }
         }
 
-        Buttons.ButtonAnimation {
+        InteractiveArea {
             radius: parent.radius
             color: button.activeFocus ? Colours.palette.m3onSecondaryContainer : Colours.palette.m3onSurface
 

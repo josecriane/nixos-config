@@ -10,7 +10,7 @@ import Quickshell.Services.Notifications
 import QtQuick
 import QtQuick.Layouts
 import qs.ds.animations
-import qs.ds.buttons as Buttons
+import qs.ds
 import qs.ds.text as DsText
 
 Rectangle {
@@ -316,7 +316,7 @@ Rectangle {
                 implicitWidth: expandIcon.height
                 implicitHeight: expandIcon.height
 
-                Buttons.ButtonAnimation {
+                InteractiveArea {
                     radius: Appearance.rounding.full
                     color: root.modelData.urgency === NotificationUrgency.Critical ? Colours.palette.m3onSecondaryContainer : Colours.palette.m3onSurface
 
@@ -442,7 +442,7 @@ Rectangle {
         implicitWidth: actionText.width + Appearance.padding.normal * 2
         implicitHeight: actionText.height + Appearance.padding.small * 2
 
-        Buttons.ButtonAnimation {
+        InteractiveArea {
             radius: Appearance.rounding.full
             color: root.modelData.urgency === NotificationUrgency.Critical ? Colours.palette.m3onSecondary : Colours.palette.m3onSurface
 

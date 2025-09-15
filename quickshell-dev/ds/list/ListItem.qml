@@ -1,11 +1,13 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
+import Quickshell.Widgets
 import qs.ds
 import qs.ds.buttons.circularButtons as CircularButtons
 import qs.ds.buttons as DsButtons
 import qs.ds.text as DsText
 import qs.ds.icons as Icons
+import qs.ds.animations
 import qs.services
 
 Item {
@@ -30,9 +32,11 @@ Item {
     
     property bool disabled: false
     property bool selected: false
+    property bool clickable: false
     property ButtonGroup buttonGroup: null
     
     property color foregroundColor: disabled ? disabledForegroundColor : (selected ? selectedForegroundColor : defaultForegroundColor)
+    readonly property bool isClickable: clickable || buttonGroup !== null
 
     // Signals
     signal clicked()
@@ -60,10 +64,38 @@ Item {
         }
     }
     
+    // Ripple effect background for clickable items
+    Loader {
+        active: root.isClickable
+        anchors.fill: parent
+        z: 0  // Behind content
+        
+        sourceComponent: Component {
+            InteractiveArea {
+                disabled: root.disabled
+                color: root.foregroundColor
+                radius: Foundations.radius.xs
+                
+                function onClicked(event): void {
+                    // Check if click is on action buttons area
+                    const buttonAreaWidth = 80; // Approximate width of button area
+                    if (event.x > width - buttonAreaWidth) {
+                        return; // Don't handle clicks on button area
+                    }
+                    
+                    if (root.buttonGroup) {
+                        root.selected = true;
+                    }
+                    root.clicked();
+                }
+            }
+        }
+    }
     
     RowLayout {
         id: content
         anchors.fill: parent
+        anchors.leftMargin: Foundations.spacing.m
         spacing: Foundations.spacing.s
         
         // Radio button (if buttonGroup is set)
@@ -96,7 +128,7 @@ Item {
             color: root.foregroundColor
         }
         
-        // Main text with click area
+        // Main text
         Item {
             Layout.leftMargin: Foundations.spacing.xs
             Layout.rightMargin: Foundations.spacing.xs
@@ -115,18 +147,6 @@ Item {
                 elide: Text.ElideRight
                 font.weight: root.selected ? 500 : root.textWeight
                 color: root.foregroundColor
-            }
-            
-            MouseArea {
-                anchors.fill: parent
-                enabled: !root.disabled
-                
-                onClicked: {
-                    if (root.buttonGroup) {
-                        root.selected = true;
-                    }
-                    root.clicked();
-                }
             }
         }
         

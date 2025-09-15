@@ -7,7 +7,7 @@ import Quickshell.Io
 import QtQuick
 import QtQuick.Layouts
 import qs.ds.animations
-import qs.ds.buttons as Buttons
+import qs.ds
 
 Item {
     id: root
@@ -33,7 +33,7 @@ Item {
         }
     }
 
-    Buttons.ButtonAnimation {
+    InteractiveArea {
         radius: Appearance.rounding.full
 
         function onClicked(): void {
@@ -108,7 +108,7 @@ Item {
 
             Layout.alignment: Qt.AlignVCenter
 
-            Buttons.ButtonAnimation {
+            InteractiveArea {
                 id: buttonAnimation
 
                 color: Colours.palette.m3onTertiary

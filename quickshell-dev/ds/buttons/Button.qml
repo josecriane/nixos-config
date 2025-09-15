@@ -29,7 +29,7 @@ Rectangle {
     radius: Foundations.radius.xs
     color: backgroundColor
     
-    ButtonAnimation {
+    InteractiveArea {
         color: foregroundColor
         disabled: root.disabled || root.loading
         
