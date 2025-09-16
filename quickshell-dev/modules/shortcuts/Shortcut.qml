@@ -5,7 +5,7 @@ Item {
     // Stub properties for compatibility
     property string name: ""
     property string description: ""
-    
-    signal pressed()
-    signal released()
+
+    signal pressed
+    signal released
 }

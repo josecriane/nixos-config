@@ -65,7 +65,6 @@ Item {
         anchors.top: parent.top
     }
 
-
     BarPopouts.Wrapper {
         id: popouts
 

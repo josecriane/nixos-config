@@ -9,7 +9,7 @@ import qs.services
 
 Rectangle {
     id: root
-    
+
     property string text: ""
     property string leftIcon: ""
     property string rightIcon: ""
@@ -20,39 +20,39 @@ Rectangle {
 
     readonly property int margin: Foundations.spacing.s
     readonly property int animDuration: 200
-    
-    signal clicked()
-    
+
+    signal clicked
+
     implicitHeight: contentLayout.implicitHeight + margin * 2
     implicitWidth: contentLayout.implicitWidth + margin * 2
-    
+
     radius: Foundations.radius.xs
     color: backgroundColor
-    
+
     InteractiveArea {
         color: foregroundColor
         disabled: root.disabled || root.loading
-        
+
         function onClicked(): void {
             root.clicked();
         }
     }
-    
+
     // Content
     RowLayout {
         id: contentLayout
-        
+
         anchors.centerIn: parent
         spacing: Foundations.spacing.xs
         opacity: root.loading ? 0 : 1
-        
+
         Icons.MaterialFontIcon {
             visible: root.leftIcon !== ""
             text: root.leftIcon
             color: root.foregroundColor
             animate: true
         }
-        
+
         Text.BodyM {
             visible: root.text !== ""
             text: root.text
@@ -65,7 +65,7 @@ Rectangle {
             color: root.foregroundColor
             animate: true
         }
-        
+
         Behavior on opacity {
             NumberAnimation {
                 duration: root.animDuration
@@ -73,11 +73,11 @@ Rectangle {
             }
         }
     }
-    
+
     CircularProgressIndicator {
         visible: root.loading
         anchors.centerIn: parent
-        strokeWidth:  2
+        strokeWidth: 2
         implicitHeight: parent.implicitHeight - 20
         running: root.loading
     }

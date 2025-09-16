@@ -18,13 +18,12 @@ ColumnLayout {
 
     spacing: Appearance.spacing.small
     width: Math.max(320, implicitWidth)
-    
+
     Text.HeadingS {
         Layout.topMargin: Appearance.padding.normal
         Layout.rightMargin: Appearance.padding.small
         text: qsTr("Wifi %1").arg(Network.wifiEnabled ? "enabled" : "disabled")
     }
-
 
     Toggle {
         label: qsTr("Enabled")
@@ -51,7 +50,7 @@ ColumnLayout {
         Lists.ListItem {
             required property Network.AccessPoint modelData
             readonly property bool isConnecting: root.connectingToSsid === modelData.ssid
-            
+
             leftIcon: Utils.Icons.getNetworkIcon(modelData.strength)
             secondaryIcon: modelData.isSecure ? "lock" : ""
             text: modelData.ssid
@@ -75,12 +74,12 @@ ColumnLayout {
     Buttons.PrimaryButton {
         Layout.topMargin: Appearance.spacing.small
         Layout.fillWidth: true
-        
+
         text: qsTr("Rescan networks")
         leftIcon: "wifi_find"
         disabled: !Network.wifiEnabled
         loading: Network.scanning
-        
+
         onClicked: Network.rescanWifi()
     }
 

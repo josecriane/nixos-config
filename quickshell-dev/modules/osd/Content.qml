@@ -59,11 +59,13 @@ Item {
             onMoved: root.monitor?.setBrightness(value)
             onWheelUp: {
                 const monitor = root.monitor;
-                if (monitor) monitor.setBrightness(monitor.brightness + 0.1);
+                if (monitor)
+                    monitor.setBrightness(monitor.brightness + 0.1);
             }
             onWheelDown: {
                 const monitor = root.monitor;
-                if (monitor) monitor.setBrightness(monitor.brightness - 0.1);
+                if (monitor)
+                    monitor.setBrightness(monitor.brightness - 0.1);
             }
         }
     }

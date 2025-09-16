@@ -25,7 +25,7 @@ Utils.Searcher {
             subtitle: qsTr("Shutdown the system")
             isAction: true
             fontIcon: "power_settings_new"
-            onActivate: function() {
+            onActivate: function () {
                 Niri.spawn("systemctl poweroff");
             }
         },
@@ -34,7 +34,7 @@ Utils.Searcher {
             subtitle: qsTr("Reboot the system")
             isAction: true
             fontIcon: "cached"
-            onActivate: function() {
+            onActivate: function () {
                 Niri.spawn("systemctl reboot");
             }
         },
@@ -43,7 +43,7 @@ Utils.Searcher {
             subtitle: qsTr("Log out of the current session")
             isAction: true
             fontIcon: "exit_to_app"
-            onActivate: function() {
+            onActivate: function () {
                 Niri.spawn("loginctl terminate-user");
             }
         },
@@ -52,7 +52,7 @@ Utils.Searcher {
             subtitle: qsTr("Lock the current session")
             isAction: true
             fontIcon: "lock"
-            onActivate: function() {
+            onActivate: function () {
                 Niri.spawn("loginctl lock-session");
             }
         },
@@ -61,7 +61,7 @@ Utils.Searcher {
             subtitle: qsTr("Suspend then hibernate")
             isAction: true
             fontIcon: "bedtime"
-            onActivate: function() {
+            onActivate: function () {
                 Niri.spawn("systemctl suspend-then-hibernate");
             }
         }
@@ -71,12 +71,10 @@ Utils.Searcher {
         return search.slice(actionPrefix.length);
     }
 
-    
     function search(search: string): list<var> {
         return query(search);
     }
 
     list: actions
     useFuzzy: false
-
 }

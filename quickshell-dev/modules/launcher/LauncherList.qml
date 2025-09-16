@@ -32,9 +32,9 @@ ListView {
     orientation: Qt.Vertical
     bottomMargin: Appearance.padding.normal
     property int maxShown: 8
-    
+
     property int itemHeight: 57
-    
+
     implicitHeight: (itemHeight + spacing) * Math.min(maxShown, count) - spacing + bottomMargin
 
     highlightMoveDuration: Appearance.anim.durations.normal
@@ -59,7 +59,6 @@ ListView {
 
         return "apps";
     }
-
 
     states: [
         State {

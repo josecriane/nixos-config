@@ -10,7 +10,7 @@ BackgroundWrapper {
 
     required property ShellScreen screen
     required property var visibilities
-    
+
     readonly property bool hasCurrent: visibilities.osd && Config.osd.enabled
 
     visible: width > 0

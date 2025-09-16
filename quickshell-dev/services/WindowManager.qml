@@ -11,7 +11,7 @@ Singleton {
     readonly property var toplevels: Wayland.ToplevelManagement.toplevels ?? []
     readonly property var workspaces: [] // niri doesn't expose workspaces via standard protocols
     readonly property var monitors: [] // could be implemented later
-    
+
     readonly property Wayland.Toplevel activeToplevel: {
         // Find the focused toplevel
         for (const toplevel of toplevels) {
@@ -21,10 +21,10 @@ Singleton {
         }
         return null;
     }
-    
+
     readonly property string activeTitle: activeToplevel?.title ?? ""
     readonly property string activeAppId: activeToplevel?.appId ?? ""
-    
+
     // Keyboard layout - simplified for now
     readonly property bool capsLock: false
     readonly property bool numLock: false
@@ -38,7 +38,7 @@ Singleton {
     function monitorFor(screen: ShellScreen): var {
         return null; // Not implemented for generic compositor
     }
-    
+
     // Placeholder for workspace management
     readonly property int activeWsId: 1
 }

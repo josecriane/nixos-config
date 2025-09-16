@@ -52,7 +52,7 @@ Column {
         KeyNavigation.up: logout
         KeyNavigation.down: hibernate
     }
-    
+
     SessionButton {
         id: hibernate
 

@@ -68,29 +68,27 @@ ColumnLayout {
         Lists.ListItem {
             required property BluetoothDevice modelData
             readonly property bool loading: modelData.state === BluetoothDeviceState.Connecting || modelData.state === BluetoothDeviceState.Disconnecting
-            
+
             leftIcon: Utils.Icons.getBluetoothIcon(modelData.icon)
             text: modelData.name
             selected: modelData.connected
-            
+
             primaryFontIcon: modelData.connected ? "link_off" : "link"
             primaryActionActive: modelData.connected
             primaryActionLoading: loading
-            
+
             secondaryFontIcon: modelData.bonded ? "delete" : ""
             secondaryActionActive: !modelData.bonded
 
-            
             onPrimaryActionClicked: {
                 modelData.connected = !modelData.connected;
             }
-            
+
             onSecondaryActionClicked: {
                 modelData.forget();
             }
         }
     }
-
 
     component Toggle: RowLayout {
         required property string label

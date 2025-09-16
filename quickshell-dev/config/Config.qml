@@ -14,16 +14,15 @@ Singleton {
     property alias session: adapter.session
     property alias services: adapter.services
 
-        JsonAdapter {
-            id: adapter
+    JsonAdapter {
+        id: adapter
 
-            property AppearanceConfig appearance: AppearanceConfig {}
-            property GeneralConfig general: GeneralConfig {}
-            property BorderConfig border: BorderConfig {}
-            property NotifsConfig notifs: NotifsConfig {}
-            property OsdConfig osd: OsdConfig {}
-            property SessionConfig session: SessionConfig {}
-            property ServiceConfig services: ServiceConfig {}
-        }
-    // }
+        property AppearanceConfig appearance: AppearanceConfig {}
+        property GeneralConfig general: GeneralConfig {}
+        property BorderConfig border: BorderConfig {}
+        property NotifsConfig notifs: NotifsConfig {}
+        property OsdConfig osd: OsdConfig {}
+        property SessionConfig session: SessionConfig {}
+        property ServiceConfig services: ServiceConfig {}
+    }
 }

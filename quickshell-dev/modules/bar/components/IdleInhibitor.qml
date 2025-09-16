@@ -11,7 +11,7 @@ CircularButtons.S {
     backgroundColor: IdleInhibitor.enabled ? Colours.palette.m3primaryContainer : "transparent"
     foregroundColor: IdleInhibitor.enabled ? Colours.palette.m3onPrimaryContainer : Colours.palette.m3secondary
     active: IdleInhibitor.enabled
-    
+
     onClicked: {
         IdleInhibitor.enabled = !IdleInhibitor.enabled;
     }

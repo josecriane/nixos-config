@@ -6,18 +6,18 @@ import qs.services
 
 ScrollBar {
     id: root
-    
+
     property color scrollbarColor: Colours.palette.m3secondary
 
     topPadding: Foundations.spacing.m
     bottomPadding: Foundations.spacing.m
-    
+
     contentItem: Rectangle {
         implicitWidth: 6
         opacity: root.pressed ? 1 : root.policy === ScrollBar.AlwaysOn || (root.active && root.size < 1) ? 0.5 : 0
         radius: Foundations.radius.all
         color: root.scrollbarColor
-        
+
         Behavior on opacity {
             BasicNumberAnimation {}
         }

@@ -42,7 +42,6 @@ BackgroundWrapper {
         }
     }
 
-
     Behavior on x {
         BasicNumberAnimation {
             duration: root.animLength

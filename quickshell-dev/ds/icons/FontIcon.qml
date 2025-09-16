@@ -6,22 +6,22 @@ import qs.config
 
 Text {
     id: root
-    
+
     property bool animate: false
     property string animateProp: "scale"
     property real animateFrom: 0
     property real animateTo: 1
     property real animateDuration: Appearance.anim.durations.normal
-    
+
     renderType: Text.NativeRendering
     textFormat: Text.PlainText
 
     font.pointSize: Foundations.font.size.m
     font.family: Foundations.font.family.material
-    
+
     Behavior on text {
         enabled: root.animate
-        
+
         SequentialAnimation {
             Anim {
                 to: root.animateFrom
@@ -34,7 +34,7 @@ Text {
             }
         }
     }
-    
+
     component Anim: NumberAnimation {
         target: root
         property: root.animateProp

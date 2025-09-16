@@ -51,7 +51,7 @@ Item {
                 text: modelData.description
                 selected: Audio.sink?.id === modelData.id
                 buttonGroup: sinks
-                
+
                 onClicked: {
                     Audio.setAudioSink(modelData);
                 }
@@ -74,7 +74,7 @@ Item {
                 text: modelData.description
                 selected: Audio.source?.id === modelData.id
                 buttonGroup: sources
-                
+
                 onClicked: {
                     Audio.setAudioSource(modelData);
                 }
@@ -104,21 +104,21 @@ Item {
         Buttons.PrimaryButton {
             Layout.topMargin: Appearance.spacing.normal
             visible: Config.general.apps.audio.length > 0
-            
+
             text: qsTr("Open settings")
             rightIcon: "chevron_right"
-            
+
             onClicked: {
                 root.wrapper.hasCurrent = false;
                 Quickshell.execDetached(["pavucontrol"]);
             }
         }
     }
-    
+
     // Update selection when audio devices change externally
     Connections {
         target: Audio
-        
+
         function onSinkChanged() {
             for (let i = 0; i < sinksRepeater.count; i++) {
                 let item = sinksRepeater.itemAt(i);
@@ -127,7 +127,7 @@ Item {
                 }
             }
         }
-        
+
         function onSourceChanged() {
             for (let i = 0; i < sourcesRepeater.count; i++) {
                 let item = sourcesRepeater.itemAt(i);

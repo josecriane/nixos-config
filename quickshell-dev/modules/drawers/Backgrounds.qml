@@ -45,7 +45,6 @@ Shape {
         startY: 0
     }
 
-
     Background {
         wrapper: root.panels.popouts
 

@@ -5,8 +5,8 @@ import Quickshell.Io
 import qs.services
 
 Item {
-    anchors.centerIn: parent
     id: root
+    anchors.centerIn: parent
 
     required property var screen
 
@@ -24,16 +24,19 @@ Item {
     property int spacingBetweenPills: 8
 
     width: {
-        let total = 0
+        let total = 0;
         for (let i = 0; i < workspaces.count; i++) {
-            const ws = workspaces.get(i)
-            if (ws.isFocused) total += 44
-            else if (ws.isActive) total += 28
-            else total += 16
+            const ws = workspaces.get(i);
+            if (ws.isFocused)
+                total += 44;
+            else if (ws.isActive)
+                total += 28;
+            else
+                total += 16;
         }
-        total += Math.max(workspaces.count - 1, 0) * spacingBetweenPills
-        total += horizontalPadding * 2
-        return total
+        total += Math.max(workspaces.count - 1, 0) * spacingBetweenPills;
+        total += horizontalPadding * 2;
+        return total;
     }
 
     height: 30
@@ -41,18 +44,26 @@ Item {
     Component.onCompleted: updateWorkspaceList()
     Connections {
         target: Niri
-        function onWorkspacesChanged() { updateWorkspaceList(); }
-        function onFocusedWorkspaceIndexChanged() { updateWorkspaceFocus(); }
+        function onWorkspacesChanged() {
+            updateWorkspaceList();
+        }
+        function onFocusedWorkspaceIndexChanged() {
+            updateWorkspaceFocus();
+        }
     }
 
     function triggerUnifiedWave() {
-        effectColor = "#D894CF"
-        masterAnimation.restart()
+        effectColor = "#D894CF";
+        masterAnimation.restart();
     }
 
     SequentialAnimation {
         id: masterAnimation
-        PropertyAction { target: root; property: "effectsActive"; value: true }
+        PropertyAction {
+            target: root
+            property: "effectsActive"
+            value: true
+        }
         NumberAnimation {
             target: root
             property: "masterProgress"
@@ -61,15 +72,23 @@ Item {
             duration: 1000
             easing.type: Easing.OutQuint
         }
-        PropertyAction { target: root; property: "effectsActive"; value: false }
-        PropertyAction { target: root; property: "masterProgress"; value: 0.0 }
+        PropertyAction {
+            target: root
+            property: "effectsActive"
+            value: false
+        }
+        PropertyAction {
+            target: root
+            property: "masterProgress"
+            value: 0.0
+        }
     }
 
     function updateWorkspaceList() {
-        const newList = Niri.workspaces || []
-        workspaces.clear()
+        const newList = Niri.workspaces || [];
+        workspaces.clear();
         for (let i = 0; i < newList.length; i++) {
-            const ws = newList[i]
+            const ws = newList[i];
             // Only show workspaces for this screen/monitor
             if (ws.output === root.screen.name) {
                 workspaces.append({
@@ -80,24 +99,24 @@ Item {
                     isActive: ws.is_active,
                     isFocused: ws.is_focused,
                     isUrgent: ws.is_urgent
-                })
+                });
             }
         }
-        updateWorkspaceFocus()
+        updateWorkspaceFocus();
     }
 
     function updateWorkspaceFocus() {
-        const focusedId = Niri.workspaces?.[Niri.focusedWorkspaceIndex]?.id ?? -1
+        const focusedId = Niri.workspaces?.[Niri.focusedWorkspaceIndex]?.id ?? -1;
         for (let i = 0; i < workspaces.count; i++) {
-            const ws = workspaces.get(i)
-            const isFocused = ws.id === focusedId
-            const isActive = isFocused
+            const ws = workspaces.get(i);
+            const isFocused = ws.id === focusedId;
+            const isActive = isFocused;
             if (ws.isFocused !== isFocused || ws.isActive !== isActive) {
-                workspaces.setProperty(i, "isFocused", isFocused)
-                workspaces.setProperty(i, "isActive", isActive)
+                workspaces.setProperty(i, "isFocused", isFocused);
+                workspaces.setProperty(i, "isActive", isActive);
                 if (isFocused) {
-                    root.triggerUnifiedWave()
-                    root.workspaceChanged(ws.id, "#D894CF")
+                    root.triggerUnifiedWave();
+                    root.workspaceChanged(ws.id, "#D894CF");
                 }
             }
         }
@@ -115,19 +134,28 @@ Item {
                 id: workspacePill
                 height: 12
                 width: {
-                    if (model.isFocused) return 44
-                    else if (model.isActive) return 28
-                    else return 16
+                    if (model.isFocused)
+                        return 44;
+                    else if (model.isActive)
+                        return 28;
+                    else
+                        return 16;
                 }
                 radius: {
-                    if (model.isFocused) return 12 // half of focused height (if you want to animate this too)
-                    else return 6
+                    if (model.isFocused)
+                        return 12;
+                    else
+                        // half of focused height (if you want to animate this too)
+                        return 6;
                 }
                 color: {
-                    if (model.isFocused) return "#D894CF"
-                    if (model.isActive) return "#D894CF"
-                    if (model.isUrgent) return "#D894CF"
-                    return "#261924"
+                    if (model.isFocused)
+                        return "#D894CF";
+                    if (model.isActive)
+                        return "#D894CF";
+                    if (model.isUrgent)
+                        return "#D894CF";
+                    return "#261924";
                 }
                 scale: model.isFocused ? 1.0 : 0.9
                 z: 0
@@ -178,9 +206,7 @@ Item {
                     color: "transparent"
                     border.color: root.effectColor
                     border.width: 2 + 6 * (1.0 - root.masterProgress)
-                    opacity: root.effectsActive && model.isFocused
-                        ? (1.0 - root.masterProgress) * 0.7
-                        : 0
+                    opacity: root.effectsActive && model.isFocused ? (1.0 - root.masterProgress) * 0.7 : 0
                     visible: root.effectsActive && model.isFocused
                     z: 1
                 }
@@ -189,6 +215,6 @@ Item {
     }
 
     Component.onDestruction: {
-        root.isDestroying = true
+        root.isDestroying = true;
     }
 }

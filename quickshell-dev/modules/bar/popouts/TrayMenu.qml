@@ -17,37 +17,39 @@ Item {
 
     required property Item popouts
     required property QsMenuHandle trayItem
-    
+
     function calculateTotalWidth(menu) {
-        if (!menu) return 0;
+        if (!menu)
+            return 0;
         let width = menu.implicitWidth || menu.width || 0;
         if (menu.activeSubMenu) {
             width += calculateTotalWidth(menu.activeSubMenu) - 10;
         }
         return width;
     }
-    
+
     function calculateMaxHeight(menu) {
-        if (!menu) return 0;
+        if (!menu)
+            return 0;
         let height = menu.implicitHeight || menu.height || 0;
         if (menu.activeSubMenu) {
             height = Math.max(height, calculateMaxHeight(menu.activeSubMenu));
         }
         return height;
     }
-    
+
     property real totalWidth: calculateTotalWidth(mainMenu)
     property real totalHeight: calculateMaxHeight(mainMenu)
 
     implicitWidth: totalWidth
     implicitHeight: totalHeight
-    
+
     Behavior on implicitWidth {
         BasicNumberAnimation {
             duration: Foundations.duration.xs
         }
     }
-    
+
     Behavior on implicitHeight {
         BasicNumberAnimation {
             duration: Foundations.duration.xs
@@ -96,12 +98,13 @@ Item {
 
             hoveredIndex = -1;
             hoveredIndex = index;
-            
+
             activeSubMenu = subMenuComponent.createObject(root, {
                 "handle": menuHandle,
                 "level": menu.level + 1,
                 "shown": true,
-                "x": menu.x + menu.width - 10, // Slight overlap
+                "x": menu.x + menu.width - 10 // Slight overlap
+                ,
                 "y": Math.max(0, Math.min(menu.y + itemY, root.height - 200)) // Ensure it fits
             });
         }
@@ -119,21 +122,23 @@ Item {
             delegate: Item {
                 required property QsMenuEntry modelData
                 required property int index
-                
+
                 implicitWidth: 300
                 implicitHeight: {
-                    if (modelData.isSeparator) return 1;
-                    if (!modelData.enabled) return headingText.implicitHeight;
+                    if (modelData.isSeparator)
+                        return 1;
+                    if (!modelData.enabled)
+                        return headingText.implicitHeight;
                     return listItem.implicitHeight;
                 }
-                
+
                 // Separator
                 Rectangle {
                     visible: modelData.isSeparator
                     anchors.fill: parent
                     color: Colours.palette.m3outlineVariant
                 }
-                
+
                 // Header for disabled items
                 DsText.HeadingS {
                     id: headingText
@@ -141,27 +146,27 @@ Item {
                     anchors.fill: parent
                     anchors.leftMargin: Foundations.spacing.m
                     anchors.rightMargin: Foundations.spacing.m
-                    
+
                     text: modelData.text
                     verticalAlignment: Text.AlignVCenter
                 }
-                
+
                 // List item for enabled items
                 Lists.ListItem {
                     id: listItem
-                    
+
                     visible: !modelData.isSeparator && modelData.enabled
                     anchors.fill: parent
-                    
+
                     clickable: true
                     keepEmptySpace: true
                     selected: menu.hoveredIndex === index && modelData.hasChildren
-                    
+
                     imageIcon: modelData.icon
                     text: modelData.text
                     minimumHeight: 25
                     rightIcon: modelData.hasChildren ? "chevron_right" : ""
-                    
+
                     onClicked: {
                         if (modelData.hasChildren) {
                             menu.showSubMenu(modelData, listItem.y, listItem.height, index);
@@ -173,7 +178,6 @@ Item {
                 }
             }
         }
-
     }
 
     Component {

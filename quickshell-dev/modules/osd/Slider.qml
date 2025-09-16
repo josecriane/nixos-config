@@ -114,7 +114,6 @@ Slider {
                 }
             }
         }
-        
     }
 
     onPressedChanged: handle.moving = pressed

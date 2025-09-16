@@ -63,7 +63,6 @@ MouseArea {
             }
 
             popouts.hasCurrent = false;
-
         }
     }
 
@@ -123,7 +122,6 @@ MouseArea {
             }
         }
 
-
         function onOsdChanged() {
             if (root.visibilities.osd) {
                 // OSD became visible, immediately check if this should be shortcut mode
@@ -136,7 +134,6 @@ MouseArea {
                 root.osdShortcutActive = false;
             }
         }
-
     }
 
     Osd.Interactions {

@@ -96,7 +96,7 @@ Item {
                 screen: root.screen
             }
         }
-        
+
         WrappedLoader {
             id: activeWindow
             sourceComponent: ActiveWindow {
@@ -104,13 +104,13 @@ Item {
                 height: root.innerHeight
             }
         }
-        
+
         // Center spacer
         WrappedLoader {
             id: spacer
             Layout.fillWidth: true
         }
-        
+
         // Right side items
         WrappedLoader {
             id: tray
@@ -125,7 +125,7 @@ Item {
                 height: root.innerHeight
             }
         }
-        
+
         WrappedLoader {
             id: statusIcons
             sourceComponent: StatusIcons {
@@ -137,7 +137,7 @@ Item {
             id: idleInhibitor
             sourceComponent: IdleInhibitor {}
         }
-        
+
         WrappedLoader {
             id: power
             Layout.rightMargin: root.hPadding
@@ -152,7 +152,7 @@ Item {
 
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
-        
+
         z: 10
     }
 

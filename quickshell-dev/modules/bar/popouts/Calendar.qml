@@ -22,26 +22,26 @@ Column {
         Layout.topMargin: Appearance.padding.large
         Layout.leftMargin: Appearance.padding.large
         Layout.rightMargin: Appearance.padding.large
-        
+
         CircularButtons.M {
             icon: "chevron_left"
-            
+
             onClicked: {
                 let newDate = new Date(root.currentMonth);
                 newDate.setMonth(newDate.getMonth() - 1);
                 root.currentMonth = newDate;
             }
         }
-        
+
         DSText.HeadingM {
             Layout.fillWidth: true
             text: Qt.formatDate(root.currentMonth, "MMMM yyyy")
             horizontalAlignment: Text.AlignHCenter
         }
-        
+
         CircularButtons.M {
             icon: "chevron_right"
-            
+
             onClicked: {
                 let newDate = new Date(root.currentMonth);
                 newDate.setMonth(newDate.getMonth() + 1);

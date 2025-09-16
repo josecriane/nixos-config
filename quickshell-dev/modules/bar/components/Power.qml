@@ -12,7 +12,7 @@ CircularButtons.S {
     icon: "power_settings_new"
     foregroundColor: Colours.palette.m3error
     backgroundColor: "transparent"
-    
+
     onClicked: {
         root.visibilities.session = !root.visibilities.session;
     }

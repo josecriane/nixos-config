@@ -14,27 +14,27 @@ Item {
     required property LauncherItemModel modelData
     property PersistentProperties visibilities
     property var list
-    
+
     property int itemHeight: 57
     implicitHeight: itemHeight
 
     anchors.left: parent?.left
     anchors.right: parent?.right
-    
+
     default property alias customContent: textContainer.data
-    
+
     function activate(): void {
         if (root.modelData.autocompleteText) {
-            root.list.search.text = root.modelData.autocompleteText
+            root.list.search.text = root.modelData.autocompleteText;
         }
-        
+
         if (root.modelData.onActivate) {
             let shouldClose = root.modelData.onActivate();
-            
+
             if (shouldClose === undefined || shouldClose === null) {
                 shouldClose = true;
             }
-        
+
             if (shouldClose) {
                 root.visibilities.launcher = false;
             }

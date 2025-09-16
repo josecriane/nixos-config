@@ -26,24 +26,23 @@ Utils.Searcher {
         return query(search);
     }
 
-
     list: variants.instances
     useFuzzy: false
-    
+
     Variants {
         id: variants
-        
+
         model: [...DesktopEntries.applications.values].sort((a, b) => a.name.localeCompare(b.name))
-        
+
         delegate: LauncherItemModel {
             required property DesktopEntry modelData
-            
+
             name: modelData.name ?? ""
             subtitle: modelData.comment || modelData.genericName || modelData.name || ""
             isApp: true
             appIcon: modelData.icon ?? ""
             originalData: modelData
-            onActivate: function() {
+            onActivate: function () {
                 root.launch(originalData);
             }
         }

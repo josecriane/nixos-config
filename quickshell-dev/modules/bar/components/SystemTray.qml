@@ -23,7 +23,7 @@ Rectangle {
 
     InteractiveArea {
         radius: parent.radius
-        
+
         function onClicked(): void {
             Niri.spawn("alacritty -e btop");
         }

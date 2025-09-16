@@ -39,7 +39,7 @@ Singleton {
                 } else if (event.KeyboardLayoutsChanged) {
                     root.kbLayouts = [];
                     root.currentKbLayoutIndex = -1;
-                    
+
                     const layouts = event.KeyboardLayoutsChanged.keyboard_layouts;
                     if (layouts && layouts.names) {
                         root.kbLayouts = layouts.names;
@@ -48,7 +48,7 @@ Singleton {
                 } else if (event.KeyboardLayoutSwitched) {
                     root.currentKbLayoutIndex = event.KeyboardLayoutSwitched.idx;
                 }
-                
+
                 // Update focused output on any event that might change focus
                 if (event.WorkspaceActivated || event.WindowFocusChanged || event.WindowOpenedOrClosed) {
                     root.updateFocusedOutput();
@@ -56,20 +56,20 @@ Singleton {
             }
         }
     }
-    
+
     // Process for switching keyboard layout
     Process {
         id: switchLayoutProcess
         running: false
     }
-    
+
     // Function to switch keyboard layout
     function switchKbLayout(index: int): void {
         switchLayoutProcess.command = ["niri", "msg", "action", "switch-layout", index.toString()];
         switchLayoutProcess.running = false;
         switchLayoutProcess.running = true;
     }
-    
+
     // Function to get current layout name
     function currentKbLayoutName(): string {
         if (root.currentKbLayoutIndex >= 0 && root.currentKbLayoutIndex < root.kbLayouts.length) {
@@ -77,13 +77,13 @@ Singleton {
         }
         return "";
     }
-    
+
     // Get initial keyboard layouts with a separate Process
     Process {
         id: layoutsInitProcess
         command: ["niri", "msg", "-j", "keyboard-layouts"]
         running: false
-        
+
         onStdoutChanged: {
             try {
                 const data = JSON.parse(stdout.trim());
@@ -96,24 +96,24 @@ Singleton {
             }
         }
     }
-    
+
     function spawn(command: string): void {
         spawnProcess.command = ["niri", "msg", "action", "spawn", "--"].concat(command.split(" "));
         spawnProcess.running = false;
         spawnProcess.running = true;
     }
-    
+
     Process {
         id: spawnProcess
         running: false
     }
-    
+
     // ToDo Review:
     Process {
         id: focusedOutputProcess
         command: ["niri", "msg", "focused-output"]
         running: false
-        
+
         stdout: StdioCollector {
             onStreamFinished: {
                 // Extract the output name from the first line
@@ -125,12 +125,12 @@ Singleton {
             }
         }
     }
-    
+
     function updateFocusedOutput(): void {
         focusedOutputProcess.running = false;
         focusedOutputProcess.running = true;
     }
-    
+
     Component.onCompleted: {
         layoutsInitProcess.running = true;
         updateFocusedOutput();

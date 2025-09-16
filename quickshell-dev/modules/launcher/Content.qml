@@ -86,7 +86,7 @@ Item {
 
             topPadding: Appearance.padding.larger
             bottomPadding: Appearance.padding.larger
-            
+
             background: null
             backgroundColor: "transparent"
             borderWidth: 0
@@ -115,7 +115,6 @@ Item {
                     }
                 }
             }
-
 
             Timer {
                 id: focusTimer

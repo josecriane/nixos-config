@@ -11,7 +11,7 @@ ColumnLayout {
 
     spacing: Appearance.spacing.small
     width: Math.max(320, implicitWidth)
-    
+
     ButtonGroup {
         id: layoutGroup
     }
@@ -29,21 +29,21 @@ ColumnLayout {
         Lists.ListItem {
             required property string modelData
             required property int index
-            
+
             text: modelData
             selected: index === Niri.currentKbLayoutIndex
             buttonGroup: layoutGroup
-            
+
             onClicked: {
                 Niri.switchKbLayout(index);
             }
         }
     }
-    
+
     // Update selection when layout changes externally
     Connections {
         target: Niri
-        
+
         function onCurrentKbLayoutIndexChanged() {
             for (let i = 0; i < layoutRepeater.count; i++) {
                 let item = layoutRepeater.itemAt(i);

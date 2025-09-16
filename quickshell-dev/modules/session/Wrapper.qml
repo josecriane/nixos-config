@@ -8,7 +8,7 @@ BackgroundWrapper {
     id: root
 
     required property PersistentProperties visibilities
-    
+
     readonly property bool hasCurrent: visibilities.session && Config.session.enabled
 
     visible: width > 0

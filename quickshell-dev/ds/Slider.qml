@@ -5,33 +5,34 @@ import qs.services
 
 Slider {
     id: root
-    
+
     property color activeColor: Colours.palette.m3primary
     property color inactiveColor: Colours.palette.m3surfaceContainer
     property color handleColor: Colours.palette.m3primary
-    
+
     // Expose hover state for child components
     readonly property alias handleHovered: mainInteraction.overHandle
-    
-    signal wheelUp()
-    signal wheelDown()
-    
+
+    signal wheelUp
+    signal wheelDown
+
     MouseArea {
         id: mainInteraction
         anchors.fill: parent
         acceptedButtons: Qt.NoButton
         hoverEnabled: true
-        
+
         property bool overHandle: {
-            if (!containsMouse) return false;
+            if (!containsMouse)
+                return false;
             const handleX = root.handle.x;
             const handleWidth = root.handle.width;
             const localX = mouseX;
             return localX >= handleX && localX <= (handleX + handleWidth);
         }
-        
+
         cursorShape: overHandle ? Qt.PointingHandCursor : Qt.ArrowCursor
-        
+
         onWheel: event => {
             if (event.angleDelta.y > 0)
                 root.wheelUp();
@@ -39,7 +40,7 @@ Slider {
                 root.wheelDown();
         }
     }
-    
+
     background: Item {
         Rectangle {
             id: leftSide
@@ -49,13 +50,13 @@ Slider {
             anchors.left: parent.left
             anchors.topMargin: 10
             anchors.bottomMargin: 10
-            
+
             implicitWidth: root.handle.x + root.handle.implicitWidth / 2
-            
+
             color: root.activeColor
             radius: Foundations.radius.all
         }
-        
+
         // Inactive track (right side)
         Rectangle {
             anchors.top: parent.top
@@ -63,14 +64,14 @@ Slider {
             anchors.right: parent.right
             anchors.topMargin: 11
             anchors.bottomMargin: 11
-            
+
             implicitWidth: parent.width - leftSide.implicitWidth
 
             color: root.inactiveColor
             radius: Foundations.radius.all
         }
     }
-    
+
     handle: Rectangle {
 
         property int size: root.pressed ? 32 : 28
@@ -80,14 +81,14 @@ Slider {
         implicitHeight: size
 
         anchors.verticalCenter: root.verticalCenter
-        
+
         border.color: Colours.palette.m3surface
         border.width: 4
 
         color: root.handleColor
 
         radius: Foundations.radius.all
-                
+
         Behavior on implicitWidth {
             NumberAnimation {
                 duration: 150

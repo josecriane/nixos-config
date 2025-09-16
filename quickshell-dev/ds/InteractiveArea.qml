@@ -11,18 +11,19 @@ MouseArea {
     property bool disabled: false
     property bool rippleEnabled: true
     property bool hoverEffectEnabled: true
-    
+
     // Visual properties
     property color color: Colours.palette.m3onSurface
     property real radius: parent?.radius ?? 0
     property real hoverOpacity: 0.08
     property real pressOpacity: 0.1
-    
+
     // Callback
-    function onClicked(): void { }
+    function onClicked(): void {
+    }
 
     anchors.fill: parent
-    
+
     enabled: !disabled
     cursorShape: enabled ? Qt.PointingHandCursor : undefined
     hoverEnabled: enabled && root.hoverEffectEnabled
@@ -35,12 +36,7 @@ MouseArea {
         rippleAnim.y = event.y;
 
         const dist = (ox, oy) => ox * ox + oy * oy;
-        rippleAnim.radius = Math.sqrt(Math.max(
-            dist(event.x, event.y), 
-            dist(event.x, height - event.y), 
-            dist(width - event.x, event.y), 
-            dist(width - event.x, height - event.y)
-        ));
+        rippleAnim.radius = Math.sqrt(Math.max(dist(event.x, event.y), dist(event.x, height - event.y), dist(width - event.x, event.y), dist(width - event.x, height - event.y)));
 
         rippleAnim.restart();
     }
@@ -56,16 +52,17 @@ MouseArea {
     ClippingRectangle {
         id: hoverLayer
         anchors.fill: parent
-        
+
         color: {
-            if (root.disabled) return "transparent";
-            if (!root.hoverEffectEnabled) return "transparent";
-            
-            const alpha = root.pressed ? root.pressOpacity : 
-                         root.containsMouse ? root.hoverOpacity : 0;
+            if (root.disabled)
+                return "transparent";
+            if (!root.hoverEffectEnabled)
+                return "transparent";
+
+            const alpha = root.pressed ? root.pressOpacity : root.containsMouse ? root.hoverOpacity : 0;
             return Qt.alpha(root.color, alpha);
         }
-        
+
         radius: root.radius
 
         Rectangle {

@@ -8,12 +8,12 @@ LauncherInteractiveItem {
     hintIcon: "function"
     hintText: qsTr("Open in calculator")
     placeholderText: qsTr("Type an expression to calculate")
-    
+
     processCommand: ["qalc", "-m", "100"]
 
     readonly property alias math: root.data
-    
-    onProcessOutput: function(output) {
+
+    onProcessOutput: function (output) {
         root.isError = output.includes("error: ") || output.includes("warning: ");
     }
 
@@ -22,14 +22,14 @@ LauncherInteractiveItem {
         subtitle: ""
         isAction: true
         fontIcon: "function"
-        
+
         function onActivate() {
             Quickshell.execDetached(["sh", "-c", `qalc -t -m 100 '${root.math}' | wl-copy`]);
             return true;  // Close launcher after copying result
         }
     }
-    
-    onHintClicked: function() {
+
+    onHintClicked: function () {
         Niri.spawn(`alacritty -e qalc -i '${root.math}'`);
         return true;
     }

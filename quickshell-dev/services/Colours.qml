@@ -72,7 +72,6 @@ Singleton {
         }
     }
 
-
     // Removed wallpaper luminance calculation (Caelestia dependency)
     // Using default luminance value
     Component.onCompleted: {

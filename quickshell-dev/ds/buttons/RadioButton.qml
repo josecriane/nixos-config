@@ -4,23 +4,25 @@ import qs.ds
 
 RadioButton {
     id: root
-    
+
     // Color properties for different states
     property color disabledColor: Colours.palette.m3onSurfaceVariant
     property color defaultColor: Colours.palette.m3onSurface
     property color focusColor: Colours.palette.m3primary
-    
+
     // Computed color based on state
     property color currentColor: {
-        if (!enabled) return disabledColor;
-        if (checked || hovered || activeFocus) return focusColor;
+        if (!enabled)
+            return disabledColor;
+        if (checked || hovered || activeFocus)
+            return focusColor;
         return defaultColor;
     }
-    
+
     indicator: Rectangle {
         implicitWidth: 20
         implicitHeight: 20
-        
+
         radius: Foundations.radius.all
         color: "transparent"
         border.width: 2

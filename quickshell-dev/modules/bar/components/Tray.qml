@@ -60,7 +60,6 @@ Rectangle {
                 focusColor: "transparent"
                 iconColor: "transparent"
 
-                
                 // Process the icon to extract the path
                 iconPath: {
                     let icon = iconButton.modelData.icon;
@@ -74,7 +73,7 @@ Rectangle {
                 onClicked: {
                     iconButton.modelData.activate();
                 }
-                
+
                 onHovered: {
                     iconButton.modelData.secondaryActivate();
                 }

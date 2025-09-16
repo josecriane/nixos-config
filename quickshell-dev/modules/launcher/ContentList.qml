@@ -20,7 +20,7 @@ Item {
     required property int rounding
 
     readonly property Item currentList: appList.item
-    
+
     property int itemWidth: 600
     property int itemHeight: 57
 
@@ -94,30 +94,30 @@ Item {
 
         Row {
             spacing: Appearance.spacing.normal
-            
+
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
 
-        Icons.MaterialFontIcon {
-            text: "manage_search"
-            color: Colours.palette.m3onSurfaceVariant
-            font.pointSize: Appearance.font.size.extraLarge
+            Icons.MaterialFontIcon {
+                text: "manage_search"
+                color: Colours.palette.m3onSurfaceVariant
+                font.pointSize: Appearance.font.size.extraLarge
 
-            anchors.verticalCenter: parent.verticalCenter
-        }
-
-        Column {
-            anchors.verticalCenter: parent.verticalCenter
-
-            DsText.HeadingM {
-                text: qsTr("No results")
+                anchors.verticalCenter: parent.verticalCenter
             }
 
-            DsText.BodyM {
-                text: qsTr("Try searching for something else")
-                disabled: true
+            Column {
+                anchors.verticalCenter: parent.verticalCenter
+
+                DsText.HeadingM {
+                    text: qsTr("No results")
+                }
+
+                DsText.BodyM {
+                    text: qsTr("Try searching for something else")
+                    disabled: true
+                }
             }
-        }
         }
 
         Behavior on opacity {

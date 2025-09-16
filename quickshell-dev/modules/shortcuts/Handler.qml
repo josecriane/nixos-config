@@ -7,17 +7,17 @@ Scope {
     id: root
 
     ShowAllShortcut {}
-    
+
     SessionShortcut {}
-    
+
     LauncherShortcut {
         id: launcherShortcut
     }
-    
+
     LauncherInterruptShortcut {
         launcherShortcut: launcherShortcut
     }
-    
+
     IpcHandler {
         target: "drawers"
 

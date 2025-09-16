@@ -49,11 +49,14 @@ Rectangle {
             sourceComponent: Text.BodyM {
                 text: {
                     const fullName = Niri.currentKbLayoutName();
-                    if (!fullName) return "??";
-                    
-                    if (fullName.includes("Spanish")) return "ES";
-                    if (fullName.includes("English")) return "US";
-                    
+                    if (!fullName)
+                        return "??";
+
+                    if (fullName.includes("Spanish"))
+                        return "ES";
+                    if (fullName.includes("English"))
+                        return "US";
+
                     return "??";
                 }
                 color: root.colour
