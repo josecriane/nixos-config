@@ -36,7 +36,7 @@ Scope {
     Timer {
         id: timer
 
-        interval: Config.osd.hideDelay
+        interval: 2000
 
         onTriggered: {
             if (!root.hovered)

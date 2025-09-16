@@ -61,7 +61,7 @@ Variants {
             Rectangle {
                 anchors.fill: parent
                 color: Colours.palette.m3scrim
-                opacity: visibilities.session && Config.session.enabled ? 0.5 : 0
+                opacity: visibilities.session ? 0.5 : 0
 
                 Behavior on opacity {
                     BasicNumberAnimation {

@@ -22,7 +22,7 @@ Column {
         id: logout
 
         KeyNavigation.down: shutdown
-        command: Config.session.commands.logout
+        command: ["loginctl", "terminate-user", ""]
         icon: "logout"
 
         Connections {
@@ -43,7 +43,7 @@ Column {
 
         KeyNavigation.down: hibernate
         KeyNavigation.up: logout
-        command: Config.session.commands.shutdown
+        command: ["systemctl", "poweroff"]
         icon: "power_settings_new"
     }
     SessionButton {
@@ -51,14 +51,14 @@ Column {
 
         KeyNavigation.down: reboot
         KeyNavigation.up: shutdown
-        command: Config.session.commands.hibernate
+        command: ["systemctl", "hibernate"]
         icon: "downloading"
     }
     SessionButton {
         id: reboot
 
         KeyNavigation.up: hibernate
-        command: Config.session.commands.reboot
+        command: ["systemctl", "reboot"]
         icon: "cached"
     }
 
@@ -67,14 +67,11 @@ Column {
 
         required property list<string> command
 
-        buttonSize: Config.session.sizes.button
+        buttonSize: 80
 
         Keys.onEnterPressed: Quickshell.execDetached(button.command)
         Keys.onEscapePressed: root.visibilities.session = false
         Keys.onPressed: event => {
-            if (!Config.session.vimKeybinds)
-                return;
-
             if (event.modifiers & Qt.ControlModifier) {
                 if (event.key === Qt.Key_J && KeyNavigation.down) {
                     KeyNavigation.down.focus = true;

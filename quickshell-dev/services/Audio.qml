@@ -7,6 +7,7 @@ import Quickshell.Services.Pipewire
 Singleton {
     id: root
 
+    readonly property real audioIncrement: 0.1
     readonly property bool muted: !!sink?.audio?.muted
     readonly property var nodes: Pipewire.nodes.values.reduce((acc, node) => {
         if (!node.isStream) {
@@ -29,16 +30,16 @@ Singleton {
     readonly property real volume: sink?.audio?.volume ?? 0
 
     function decrementSourceVolume(amount: real): void {
-        setSourceVolume(sourceVolume - (amount || Config.services.audioIncrement));
+        setSourceVolume(sourceVolume - (amount || root.audioIncrement));
     }
     function decrementVolume(amount: real): void {
-        setVolume(volume - (amount || Config.services.audioIncrement));
+        setVolume(volume - (amount || root.audioIncrement));
     }
     function incrementSourceVolume(amount: real): void {
-        setSourceVolume(sourceVolume + (amount || Config.services.audioIncrement));
+        setSourceVolume(sourceVolume + (amount || root.audioIncrement));
     }
     function incrementVolume(amount: real): void {
-        setVolume(volume + (amount || Config.services.audioIncrement));
+        setVolume(volume + (amount || root.audioIncrement));
     }
     function setAudioSink(newSink: PwNode): void {
         Pipewire.preferredDefaultAudioSink = newSink;

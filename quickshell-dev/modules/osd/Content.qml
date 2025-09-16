@@ -13,6 +13,9 @@ Item {
     required property Brightness.Monitor monitor
     required property var visibilities
 
+    readonly property int sliderHeight: 150
+    readonly property int sliderWidth: 30
+
     anchors.left: parent.left
     anchors.verticalCenter: parent.verticalCenter
     implicitHeight: layout.implicitHeight + Appearance.padding.large * 2
@@ -27,8 +30,8 @@ Item {
         // Speaker volume
         Slider {
             icon: Utils.Icons.getVolumeIcon(value, Audio.muted)
-            implicitHeight: Config.osd.sizes.sliderHeight
-            implicitWidth: Config.osd.sizes.sliderWidth
+            implicitHeight: root.sliderHeight
+            implicitWidth: root.sliderWidth
             value: Audio.volume
 
             onMoved: Audio.setVolume(value)
@@ -39,8 +42,8 @@ Item {
         // Microphone volume
         Slider {
             icon: Utils.Icons.getMicVolumeIcon(value, Audio.sourceMuted)
-            implicitHeight: Config.osd.sizes.sliderHeight
-            implicitWidth: Config.osd.sizes.sliderWidth
+            implicitHeight: root.sliderHeight
+            implicitWidth: root.sliderWidth
             value: Audio.sourceVolume
 
             onMoved: Audio.setSourceVolume(value)
@@ -51,8 +54,8 @@ Item {
         // Brightness
         Slider {
             icon: `brightness_${(Math.round(value * 6) + 1)}`
-            implicitHeight: Config.osd.sizes.sliderHeight
-            implicitWidth: Config.osd.sizes.sliderWidth
+            implicitHeight: root.sliderHeight
+            implicitWidth: root.sliderWidth
             value: root.monitor?.brightness ?? 0
 
             onMoved: root.monitor?.setBrightness(value)

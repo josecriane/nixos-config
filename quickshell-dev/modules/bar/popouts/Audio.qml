@@ -102,7 +102,7 @@ Item {
             Layout.topMargin: Appearance.spacing.normal
             rightIcon: "chevron_right"
             text: qsTr("Open settings")
-            visible: Config.general.apps.audio.length > 0
+            visible: true
 
             onClicked: {
                 root.wrapper.hasCurrent = false;

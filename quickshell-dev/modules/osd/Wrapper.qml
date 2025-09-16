@@ -8,7 +8,7 @@ import qs.modules.drawers
 BackgroundWrapper {
     id: root
 
-    readonly property bool hasCurrent: visibilities.osd && Config.osd.enabled
+    readonly property bool hasCurrent: visibilities.osd
     required property ShellScreen screen
     required property var visibilities
 
@@ -18,7 +18,7 @@ BackgroundWrapper {
 
     states: State {
         name: "visible"
-        when: root.visibilities.osd && Config.osd.enabled
+        when: root.visibilities.osd
 
         PropertyChanges {
             root.implicitWidth: content.implicitWidth

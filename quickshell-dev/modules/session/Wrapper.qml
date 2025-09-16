@@ -7,7 +7,7 @@ import qs.modules.drawers
 BackgroundWrapper {
     id: root
 
-    readonly property bool hasCurrent: visibilities.session && Config.session.enabled
+    readonly property bool hasCurrent: visibilities.session
     required property PersistentProperties visibilities
 
     implicitHeight: content.implicitHeight
@@ -16,7 +16,7 @@ BackgroundWrapper {
 
     states: State {
         name: "visible"
-        when: root.visibilities.session && Config.session.enabled
+        when: root.visibilities.session
 
         PropertyChanges {
             root.implicitWidth: content.implicitWidth
