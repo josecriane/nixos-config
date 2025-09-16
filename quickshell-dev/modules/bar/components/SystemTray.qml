@@ -25,7 +25,7 @@ Rectangle {
         radius: parent.radius
         
         function onClicked(): void {
-            Niri.spawn("alacritty --class floating -e btop");
+            Niri.spawn("alacritty -e btop");
         }
     }
 

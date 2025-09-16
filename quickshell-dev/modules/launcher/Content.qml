@@ -105,6 +105,17 @@ Item {
 
             Keys.onEscapePressed: root.visibilities.launcher = false
 
+            Keys.onPressed: event => {
+                if (event.key === Qt.Key_Return && (event.modifiers & Qt.ShiftModifier)) {
+                    // Check if current item is interactive (has a hintButton)
+                    const currentItem = list.currentList?.currentItem;
+                    if (currentItem && currentItem.hintButton) {
+                        currentItem.hintButton.clicked();
+                        event.accepted = true;
+                    }
+                }
+            }
+
 
             Timer {
                 id: focusTimer

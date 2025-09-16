@@ -18,10 +18,7 @@ Utils.Searcher {
             subtitle: qsTr("Do simple math equations (powered by Qalc)")
             isAction: true
             actionIcon: "calculate"
-            closeLauncher: false
-            onActivate: function(list) {
-                root.autocomplete(list, "calc");
-            }
+            autocompleteText: ">calc "
         },
         LauncherItemModel {
             name: qsTr("Shutdown")
@@ -74,9 +71,6 @@ Utils.Searcher {
         return search.slice(actionPrefix.length);
     }
 
-    function autocomplete(list: LauncherList, text: string): void {
-        list.search.text = `${actionPrefix}${text} `;
-    }
     
     function search(search: string): list<var> {
         return query(search);

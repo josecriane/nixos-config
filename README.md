@@ -211,17 +211,13 @@ R
   - [ ] Use stylix colors
   - [ ] Add mic icon to the audio tray
   - [ ] OSD
-    - [ ] Fix right osd border with session
     - [ ] Add mic muted on osd
   - [ ] Refactor notifications
   - [ ] Launcher
-    - [ ] Fix calc
     - [ ] Filter .desktop apps
-    - [ ] Return true/false on onActivate to knows if close launcher
     - [ ] Define commands with a yml or a json
 
 - [ ] Use directory name on zellij tab name
-- [ ] Fix discord or add alternative (vesktop)
 - [ ] Remove Electron alerts (as VSCode)
 - [ ] Install steam
 - [ ] Take a look at:

@@ -24,14 +24,18 @@ Item {
     default property alias customContent: textContainer.data
     
     function activate(): void {
+        if (root.modelData.autocompleteText) {
+            root.list.search.text = root.modelData.autocompleteText
+        }
+        
         if (root.modelData.onActivate) {
-            if (root.modelData.onActivate.length > 0) {
-                root.modelData.onActivate(root.list);
-            } else {
-                root.modelData.onActivate();
+            let shouldClose = root.modelData.onActivate();
+            
+            if (shouldClose === undefined || shouldClose === null) {
+                shouldClose = true;
             }
         
-            if (root.modelData.closeLauncher && root.visibilities) {
+            if (shouldClose) {
                 root.visibilities.launcher = false;
             }
         }
