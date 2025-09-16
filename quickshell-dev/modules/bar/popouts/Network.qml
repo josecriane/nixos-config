@@ -56,7 +56,7 @@ ColumnLayout {
             secondaryIcon: modelData.isSecure ? "lock" : ""
             text: modelData.ssid
             selected: modelData.active
-            primaryActionIcon: modelData.active ? "link_off" : "link"
+            primaryFontIcon: modelData.active ? "link_off" : "link"
             primaryActionActive: modelData.active
             primaryActionLoading: isConnecting
             disabled: !Network.wifiEnabled

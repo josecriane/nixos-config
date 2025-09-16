@@ -42,7 +42,7 @@ LauncherItem {
         name: ""
         subtitle: ""
         isAction: true
-        actionIcon: "function"
+        fontIcon: "function"
         
         function onActivate() {
             Quickshell.execDetached(["sh", "-c", `echo '${root.input}' | wl-copy`]);

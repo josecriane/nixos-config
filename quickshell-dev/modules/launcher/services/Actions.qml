@@ -17,14 +17,14 @@ Utils.Searcher {
             name: qsTr("Calculator")
             subtitle: qsTr("Do simple math equations (powered by Qalc)")
             isAction: true
-            actionIcon: "calculate"
+            fontIcon: "calculate"
             autocompleteText: ">calc "
         },
         LauncherItemModel {
             name: qsTr("Shutdown")
             subtitle: qsTr("Shutdown the system")
             isAction: true
-            actionIcon: "power_settings_new"
+            fontIcon: "power_settings_new"
             onActivate: function() {
                 Niri.spawn("systemctl poweroff");
             }
@@ -33,7 +33,7 @@ Utils.Searcher {
             name: qsTr("Reboot")
             subtitle: qsTr("Reboot the system")
             isAction: true
-            actionIcon: "cached"
+            fontIcon: "cached"
             onActivate: function() {
                 Niri.spawn("systemctl reboot");
             }
@@ -42,7 +42,7 @@ Utils.Searcher {
             name: qsTr("Logout")
             subtitle: qsTr("Log out of the current session")
             isAction: true
-            actionIcon: "exit_to_app"
+            fontIcon: "exit_to_app"
             onActivate: function() {
                 Niri.spawn("loginctl terminate-user");
             }
@@ -51,7 +51,7 @@ Utils.Searcher {
             name: qsTr("Lock")
             subtitle: qsTr("Lock the current session")
             isAction: true
-            actionIcon: "lock"
+            fontIcon: "lock"
             onActivate: function() {
                 Niri.spawn("loginctl lock-session");
             }
@@ -60,7 +60,7 @@ Utils.Searcher {
             name: qsTr("Sleep")
             subtitle: qsTr("Suspend then hibernate")
             isAction: true
-            actionIcon: "bedtime"
+            fontIcon: "bedtime"
             onActivate: function() {
                 Niri.spawn("systemctl suspend-then-hibernate");
             }

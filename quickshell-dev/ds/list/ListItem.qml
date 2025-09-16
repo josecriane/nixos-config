@@ -24,12 +24,12 @@ Item {
     property color selectedForegroundColor: Colours.palette.m3primary
     property int textWeight: 400
 
-    property bool primaryActionActive: primaryActionIcon !== ""
-    property string primaryActionIcon: ""
+    property bool primaryActionActive: primaryFontIcon !== ""
+    property string primaryFontIcon: ""
     property bool primaryActionLoading: false
 
-    property bool secondaryActionActive: secondaryActionIcon !== ""
-    property string secondaryActionIcon: ""
+    property bool secondaryActionActive: secondaryFontIcon !== ""
+    property string secondaryFontIcon: ""
     property bool secondaryActionLoading: false
     
     property bool disabled: false
@@ -189,8 +189,8 @@ Item {
         
         // Primary action button
         CircularButtons.CircularButton {
-            visible: root.primaryActionIcon !== ""
-            icon: root.primaryActionIcon
+            visible: root.primaryFontIcon !== ""
+            icon: root.primaryFontIcon
             foregroundColor: root.selectedForegroundColor
             activeBackgroundColor: root.selectedForegroundColor
             active: root.primaryActionActive
@@ -202,8 +202,8 @@ Item {
         
         // Secondary action button
         CircularButtons.CircularButton {
-            visible: root.secondaryActionIcon !== ""
-            icon: root.secondaryActionIcon
+            visible: root.secondaryFontIcon !== ""
+            icon: root.secondaryFontIcon
             foregroundColor: root.selectedForegroundColor
             activeBackgroundColor: root.selectedForegroundColor
             active: root.secondaryActionActive

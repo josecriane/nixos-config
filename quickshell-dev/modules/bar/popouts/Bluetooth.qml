@@ -73,11 +73,11 @@ ColumnLayout {
             text: modelData.name
             selected: modelData.connected
             
-            primaryActionIcon: modelData.connected ? "link_off" : "link"
+            primaryFontIcon: modelData.connected ? "link_off" : "link"
             primaryActionActive: modelData.connected
             primaryActionLoading: loading
             
-            secondaryActionIcon: modelData.bonded ? "delete" : ""
+            secondaryFontIcon: modelData.bonded ? "delete" : ""
             secondaryActionActive: !modelData.bonded
 
             

@@ -67,9 +67,9 @@ Item {
         }
 
         Icons.MaterialFontIcon {
-            id: actionIcon
+            id: fontIcon
             visible: root.modelData?.isAction ?? false
-            text: visible ? (root.modelData?.actionIcon ?? "") : ""
+            text: visible ? (root.modelData?.fontIcon ?? "") : ""
             font.pointSize: Appearance.font.size.extraLarge
             anchors.left: parent.left
             anchors.verticalCenter: parent.verticalCenter
@@ -77,7 +77,7 @@ Item {
 
         Item {
             id: textContainer
-            anchors.left: appIcon.visible ? appIcon.right : actionIcon.right
+            anchors.left: appIcon.visible ? appIcon.right : fontIcon.right
             anchors.right: parent.right
             anchors.leftMargin: Appearance.spacing.normal
             anchors.verticalCenter: parent.verticalCenter

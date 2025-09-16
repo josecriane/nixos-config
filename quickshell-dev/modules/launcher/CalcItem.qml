@@ -21,7 +21,7 @@ LauncherInteractiveItem {
         name: ""
         subtitle: ""
         isAction: true
-        actionIcon: "function"
+        fontIcon: "function"
         
         function onActivate() {
             Quickshell.execDetached(["sh", "-c", `qalc -t -m 100 '${root.math}' | wl-copy`]);
