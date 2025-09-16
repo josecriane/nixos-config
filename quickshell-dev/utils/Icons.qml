@@ -6,18 +6,6 @@ import Quickshell.Services.Notifications
 Singleton {
     id: root
 
-    function getNetworkIcon(strength: int): string {
-        if (strength >= 80)
-            return "signal_wifi_4_bar";
-        if (strength >= 60)
-            return "network_wifi_3_bar";
-        if (strength >= 40)
-            return "network_wifi_2_bar";
-        if (strength >= 20)
-            return "network_wifi_1_bar";
-        return "signal_wifi_0_bar";
-    }
-
     function getBluetoothIcon(icon: string): string {
         if (icon.includes("headset") || icon.includes("headphones"))
             return "headphones";
@@ -31,7 +19,22 @@ Singleton {
             return "keyboard";
         return "bluetooth";
     }
-
+    function getMicVolumeIcon(volume: real, isMuted: bool): string {
+        if (!isMuted && volume > 0)
+            return "mic";
+        return "mic_off";
+    }
+    function getNetworkIcon(strength: int): string {
+        if (strength >= 80)
+            return "signal_wifi_4_bar";
+        if (strength >= 60)
+            return "network_wifi_3_bar";
+        if (strength >= 40)
+            return "network_wifi_2_bar";
+        if (strength >= 20)
+            return "network_wifi_1_bar";
+        return "signal_wifi_0_bar";
+    }
     function getNotifIcon(summary: string, urgency: int): string {
         summary = summary.toLowerCase();
         if (summary.includes("reboot"))
@@ -60,7 +63,6 @@ Singleton {
             return "release_alert";
         return "chat";
     }
-
     function getVolumeIcon(volume: real, isMuted: bool): string {
         if (isMuted)
             return "no_sound";
@@ -69,11 +71,5 @@ Singleton {
         if (volume > 0)
             return "volume_down";
         return "volume_mute";
-    }
-
-    function getMicVolumeIcon(volume: real, isMuted: bool): string {
-        if (!isMuted && volume > 0)
-            return "mic";
-        return "mic_off";
     }
 }

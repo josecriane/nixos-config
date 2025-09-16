@@ -8,63 +8,63 @@ import qs.ds.icons as Icons
 Rectangle {
     id: root
 
-    // Public properties
-    property string icon: ""
-    property color backgroundColor: "transparent"
-    property color foregroundColor: Colours.palette.m3onSurface
+    property bool active: false
     property color activeBackgroundColor: Colours.palette.m3primary
     property color activeForegroundColor: Colours.palette.m3onPrimary
-    property bool active: false
+    property color backgroundColor: "transparent"
     property bool disabled: false
+    property color foregroundColor: Colours.palette.m3onSurface
+
+    // Public properties
+    property string icon: ""
     property bool loading: false
     property real size: Foundations.spacing.l * 2
 
     signal clicked
 
-    // Layout
-    implicitWidth: root.size
+    color: root.active ? root.activeBackgroundColor : root.backgroundColor
     implicitHeight: root.size
 
+    // Layout
+    implicitWidth: root.size
     radius: Foundations.radius.all
-    color: root.active ? root.activeBackgroundColor : root.backgroundColor
-
-    CircularProgressIndicator {
-        visible: root.loading
-        anchors.fill: parent
-        running: root.loading
-        strokeWidth: 2
-    }
-
-    InteractiveArea {
-        color: root.active ? root.activeForegroundColor : root.foregroundColor
-        disabled: root.disabled || root.loading
-
-        function onClicked(): void {
-            root.clicked();
-        }
-    }
-
-    // Icon
-    Icons.MaterialFontIcon {
-        anchors.centerIn: parent
-        animate: true
-        text: root.icon
-        color: root.active ? root.activeForegroundColor : root.foregroundColor
-        opacity: root.loading ? 0 : 1
-
-        Behavior on opacity {
-            NumberAnimation {
-                duration: 200
-                easing.type: Easing.InOutQuad
-            }
-        }
-    }
 
     // Color transitions
     Behavior on color {
         ColorAnimation {
             duration: 150
             easing.type: Easing.InOutQuad
+        }
+    }
+
+    CircularProgressIndicator {
+        anchors.fill: parent
+        running: root.loading
+        strokeWidth: 2
+        visible: root.loading
+    }
+    InteractiveArea {
+        function onClicked(): void {
+            root.clicked();
+        }
+
+        color: root.active ? root.activeForegroundColor : root.foregroundColor
+        disabled: root.disabled || root.loading
+    }
+
+    // Icon
+    Icons.MaterialFontIcon {
+        anchors.centerIn: parent
+        animate: true
+        color: root.active ? root.activeForegroundColor : root.foregroundColor
+        opacity: root.loading ? 0 : 1
+        text: root.icon
+
+        Behavior on opacity {
+            NumberAnimation {
+                duration: 200
+                easing.type: Easing.InOutQuad
+            }
         }
     }
 }

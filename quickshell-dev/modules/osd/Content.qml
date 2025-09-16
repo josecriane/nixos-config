@@ -13,11 +13,10 @@ Item {
     required property Brightness.Monitor monitor
     required property var visibilities
 
-    anchors.verticalCenter: parent.verticalCenter
     anchors.left: parent.left
-
-    implicitWidth: layout.implicitWidth + Appearance.padding.large * 2
+    anchors.verticalCenter: parent.verticalCenter
     implicitHeight: layout.implicitHeight + Appearance.padding.large * 2
+    implicitWidth: layout.implicitWidth + Appearance.padding.large * 2
 
     ColumnLayout {
         id: layout
@@ -27,45 +26,45 @@ Item {
 
         // Speaker volume
         Slider {
-            implicitWidth: Config.osd.sizes.sliderWidth
-            implicitHeight: Config.osd.sizes.sliderHeight
-
             icon: Utils.Icons.getVolumeIcon(value, Audio.muted)
+            implicitHeight: Config.osd.sizes.sliderHeight
+            implicitWidth: Config.osd.sizes.sliderWidth
             value: Audio.volume
+
             onMoved: Audio.setVolume(value)
-            onWheelUp: Audio.incrementVolume()
             onWheelDown: Audio.decrementVolume()
+            onWheelUp: Audio.incrementVolume()
         }
 
         // Microphone volume
         Slider {
-            implicitWidth: Config.osd.sizes.sliderWidth
-            implicitHeight: Config.osd.sizes.sliderHeight
-
             icon: Utils.Icons.getMicVolumeIcon(value, Audio.sourceMuted)
+            implicitHeight: Config.osd.sizes.sliderHeight
+            implicitWidth: Config.osd.sizes.sliderWidth
             value: Audio.sourceVolume
+
             onMoved: Audio.setSourceVolume(value)
-            onWheelUp: Audio.incrementSourceVolume()
             onWheelDown: Audio.decrementSourceVolume()
+            onWheelUp: Audio.incrementSourceVolume()
         }
 
         // Brightness
         Slider {
-            implicitWidth: Config.osd.sizes.sliderWidth
-            implicitHeight: Config.osd.sizes.sliderHeight
-
             icon: `brightness_${(Math.round(value * 6) + 1)}`
+            implicitHeight: Config.osd.sizes.sliderHeight
+            implicitWidth: Config.osd.sizes.sliderWidth
             value: root.monitor?.brightness ?? 0
+
             onMoved: root.monitor?.setBrightness(value)
-            onWheelUp: {
-                const monitor = root.monitor;
-                if (monitor)
-                    monitor.setBrightness(monitor.brightness + 0.1);
-            }
             onWheelDown: {
                 const monitor = root.monitor;
                 if (monitor)
                     monitor.setBrightness(monitor.brightness - 0.1);
+            }
+            onWheelUp: {
+                const monitor = root.monitor;
+                if (monitor)
+                    monitor.setBrightness(monitor.brightness + 0.1);
             }
         }
     }

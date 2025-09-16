@@ -7,37 +7,36 @@ import qs.ds.animations
 SequentialAnimation {
     id: root
 
+    property real radius
+    required property Item rippleItem
     property real x
     property real y
-    property real radius
-
-    required property Item rippleItem
 
     PropertyAction {
-        target: root.rippleItem
         property: "x"
+        target: root.rippleItem
         value: root.x
     }
     PropertyAction {
-        target: root.rippleItem
         property: "y"
+        target: root.rippleItem
         value: root.y
     }
     PropertyAction {
-        target: root.rippleItem
         property: "opacity"
+        target: root.rippleItem
         value: 0.08
     }
     BasicNumberAnimation {
-        target: root.rippleItem
-        properties: "implicitWidth,implicitHeight"
-        from: 0
-        to: root.radius * 2
         easing.bezierCurve: Appearance.anim.curves.standardDecel
+        from: 0
+        properties: "implicitWidth,implicitHeight"
+        target: root.rippleItem
+        to: root.radius * 2
     }
     BasicNumberAnimation {
-        target: root.rippleItem
         property: "opacity"
+        target: root.rippleItem
         to: 0
     }
 }

@@ -14,25 +14,25 @@ ColumnLayout {
 
     ButtonGroup {
         id: layoutGroup
-    }
 
+    }
     Text.HeadingS {
-        Layout.topMargin: Appearance.padding.normal
         Layout.rightMargin: Appearance.padding.small
+        Layout.topMargin: Appearance.padding.normal
         text: qsTr("Keyboard Layout")
     }
-
     Repeater {
         id: layoutRepeater
+
         model: Niri.kbLayouts
 
         Lists.ListItem {
-            required property string modelData
             required property int index
+            required property string modelData
 
-            text: modelData
-            selected: index === Niri.currentKbLayoutIndex
             buttonGroup: layoutGroup
+            selected: index === Niri.currentKbLayoutIndex
+            text: modelData
 
             onClicked: {
                 Niri.switchKbLayout(index);
@@ -42,8 +42,6 @@ ColumnLayout {
 
     // Update selection when layout changes externally
     Connections {
-        target: Niri
-
         function onCurrentKbLayoutIndexChanged() {
             for (let i = 0; i < layoutRepeater.count; i++) {
                 let item = layoutRepeater.itemAt(i);
@@ -52,5 +50,7 @@ ColumnLayout {
                 }
             }
         }
+
+        target: Niri
     }
 }

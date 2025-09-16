@@ -6,21 +6,22 @@ import Quickshell.Io
 Scope {
     id: root
 
-    ShowAllShortcut {}
-
-    SessionShortcut {}
-
+    ShowAllShortcut {
+    }
+    SessionShortcut {
+    }
     LauncherShortcut {
         id: launcherShortcut
-    }
 
+    }
     LauncherInterruptShortcut {
         launcherShortcut: launcherShortcut
     }
-
     IpcHandler {
-        target: "drawers"
-
+        function list(): string {
+            const visibilities = Visibilities.getForActive();
+            return Object.keys(visibilities).filter(k => typeof visibilities[k] === "boolean").join("\n");
+        }
         function toggle(drawer: string): void {
             if (list().split("\n").includes(drawer)) {
                 const visibilities = Visibilities.getForActive();
@@ -30,9 +31,6 @@ Scope {
             }
         }
 
-        function list(): string {
-            const visibilities = Visibilities.getForActive();
-            return Object.keys(visibilities).filter(k => typeof visibilities[k] === "boolean").join("\n");
-        }
+        target: "drawers"
     }
 }

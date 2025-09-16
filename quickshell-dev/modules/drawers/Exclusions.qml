@@ -8,34 +8,32 @@ import QtQuick
 Scope {
     id: root
 
-    required property ShellScreen screen
     required property Item bar
+    required property ShellScreen screen
 
     ExclusionZone {
         anchors.left: true
     }
-
     ExclusionZone {
         anchors.top: true
         exclusiveZone: root.bar.exclusiveZone
     }
-
     ExclusionZone {
         anchors.right: true
     }
-
     ExclusionZone {
         anchors.bottom: true
     }
 
     component ExclusionZone: PanelWindow {
-        screen: root.screen
+        WlrLayershell.namespace: `quickshell-border-exclusion`
         color: "transparent"
         exclusiveZone: Config.border.thickness
-        mask: Region {}
-        implicitWidth: 1
         implicitHeight: 1
+        implicitWidth: 1
+        screen: root.screen
 
-        WlrLayershell.namespace: `quickshell-border-exclusion`
+        mask: Region {
+        }
     }
 }

@@ -18,12 +18,18 @@ Rectangle {
     property color colour: Colours.palette.m3secondary
     readonly property alias items: iconRow
 
+    clip: true
     color: Colours.tPalette.m3surfaceContainer
+    implicitHeight: height
+    implicitWidth: iconRow.implicitWidth + Appearance.padding.normal * 2
     radius: Appearance.rounding.full
 
-    clip: true
-    implicitWidth: iconRow.implicitWidth + Appearance.padding.normal * 2
-    implicitHeight: height
+    Behavior on implicitWidth {
+        BasicNumberAnimation {
+            duration: Appearance.anim.durations.large
+            easing.bezierCurve: Appearance.anim.curves.emphasized
+        }
+    }
 
     RowLayout {
         id: iconRow
@@ -37,8 +43,8 @@ Rectangle {
 
             sourceComponent: Icons.MaterialFontIcon {
                 animate: true
-                text: Utils.Icons.getVolumeIcon(Audio.volume, Audio.muted)
                 color: root.colour
+                text: Utils.Icons.getVolumeIcon(Audio.volume, Audio.muted)
             }
         }
 
@@ -47,6 +53,8 @@ Rectangle {
             name: "kblayout"
 
             sourceComponent: Text.BodyM {
+                color: root.colour
+                font.family: Appearance.font.family.mono
                 text: {
                     const fullName = Niri.currentKbLayoutName();
                     if (!fullName)
@@ -59,8 +67,6 @@ Rectangle {
 
                     return "??";
                 }
-                color: root.colour
-                font.family: Appearance.font.family.mono
             }
         }
 
@@ -70,8 +76,8 @@ Rectangle {
 
             sourceComponent: Icons.MaterialFontIcon {
                 animate: true
-                text: Network.active ? Utils.Icons.getNetworkIcon(Network.active.strength ?? 0) : "wifi_off"
                 color: root.colour
+                text: Network.active ? Utils.Icons.getNetworkIcon(Network.active.strength ?? 0) : "wifi_off"
             }
         }
 
@@ -85,6 +91,7 @@ Rectangle {
                 // Bluetooth icon
                 Icons.MaterialFontIcon {
                     animate: true
+                    color: root.colour
                     text: {
                         if (!Bluetooth.defaultAdapter?.enabled)
                             return "bluetooth_disabled";
@@ -92,7 +99,6 @@ Rectangle {
                             return "bluetooth_connected";
                         return "bluetooth";
                     }
-                    color: root.colour
                 }
 
                 // Connected bluetooth devices
@@ -107,25 +113,25 @@ Rectangle {
                         required property BluetoothDevice modelData
 
                         animate: true
-                        text: Utils.Icons.getBluetoothIcon(modelData.icon)
                         color: root.colour
+                        text: Utils.Icons.getBluetoothIcon(modelData.icon)
 
                         SequentialAnimation on opacity {
-                            running: device.modelData.state !== BluetoothDeviceState.Connected
                             alwaysRunToEnd: true
                             loops: Animation.Infinite
+                            running: device.modelData.state !== BluetoothDeviceState.Connected
 
                             BasicNumberAnimation {
-                                from: 1
-                                to: 0
                                 duration: Appearance.anim.durations.large
                                 easing.bezierCurve: Appearance.anim.curves.standardAccel
+                                from: 1
+                                to: 0
                             }
                             BasicNumberAnimation {
-                                from: 0
-                                to: 1
                                 duration: Appearance.anim.durations.large
                                 easing.bezierCurve: Appearance.anim.curves.standardDecel
+                                from: 0
+                                to: 1
                             }
                         }
                     }
@@ -139,6 +145,7 @@ Rectangle {
 
             sourceComponent: Icons.MaterialFontIcon {
                 animate: true
+                color: !UPower.onBattery || UPower.displayDevice.percentage > 0.2 ? root.colour : Colours.palette.m3error
                 text: {
                     if (!UPower.displayDevice.isLaptopBattery) {
                         if (PowerProfiles.profile === PowerProfile.PowerSaver)
@@ -157,15 +164,7 @@ Rectangle {
                         level--;
                     return charging ? `battery_charging_${(level + 3) * 10}` : `battery_${level}_bar`;
                 }
-                color: !UPower.onBattery || UPower.displayDevice.percentage > 0.2 ? root.colour : Colours.palette.m3error
             }
-        }
-    }
-
-    Behavior on implicitWidth {
-        BasicNumberAnimation {
-            duration: Appearance.anim.durations.large
-            easing.bezierCurve: Appearance.anim.curves.emphasized
         }
     }
 

@@ -11,17 +11,24 @@ import Quickshell.Wayland
 Item {
     id: root
 
-    required property var screen
-    property color colour: Colours.palette.m3primary
-
-    readonly property int maxWidth: screen.width / 3
-    property Title current: text1
-
-    property Toplevel activeToplevel: ToplevelManager.activeToplevel
+    property string activeAppId: activeToplevel?.appId ?? ""
 
     // Propiedades que se actualizarán con binding
     property string activeTitle: activeToplevel?.title ?? ""
-    property string activeAppId: activeToplevel?.appId ?? ""
+    property Toplevel activeToplevel: ToplevelManager.activeToplevel
+    property color colour: Colours.palette.m3primary
+    property Title current: text1
+    readonly property int maxWidth: screen.width / 3
+    required property var screen
+
+    clip: true
+    implicitWidth: Math.min(contentItem.width, maxWidth)
+
+    Behavior on implicitWidth {
+        BasicNumberAnimation {
+            easing.bezierCurve: Appearance.anim.curves.emphasized
+        }
+    }
 
     Component.onCompleted: {
         activeToplevel = Qt.binding(() => {
@@ -48,70 +55,60 @@ Item {
         });
     }
 
-    clip: true
-    implicitWidth: Math.min(contentItem.width, maxWidth)
-
     Item {
         id: contentItem
+
         anchors.centerIn: parent
-        width: icon.implicitWidth + current.implicitWidth + Appearance.spacing.small
         height: Math.max(icon.implicitHeight, current.implicitHeight)
+        width: icon.implicitWidth + current.implicitWidth + Appearance.spacing.small
 
         FontIcon {
             id: icon
 
             text: Utils.Apps.getIcon(root.activeAppId)
         }
-
         Title {
             id: text1
-        }
 
+        }
         Title {
             id: text2
+
         }
     }
-
     TextMetrics {
         id: metrics
 
-        text: Utils.Apps.cleanTitle(root.activeTitle)
-        font.pointSize: Appearance.font.size.smaller
-        font.family: Appearance.font.family.mono
         elide: Qt.ElideRight
         elideWidth: root.maxWidth - icon.implicitWidth - Appearance.spacing.small
+        font.family: Appearance.font.family.mono
+        font.pointSize: Appearance.font.size.smaller
+        text: Utils.Apps.cleanTitle(root.activeTitle)
 
+        onElideWidthChanged: root.current.text = elidedText
         onTextChanged: {
             const next = root.current === text1 ? text2 : text1;
             next.text = elidedText;
             root.current = next;
-        }
-        onElideWidthChanged: root.current.text = elidedText
-    }
-
-    Behavior on implicitWidth {
-        BasicNumberAnimation {
-            easing.bezierCurve: Appearance.anim.curves.emphasized
-        }
-    }
-
-    component Title: Text.BodyM {
-        id: text
-
-        anchors.verticalCenter: icon.verticalCenter
-        anchors.left: icon.right
-        anchors.leftMargin: Appearance.spacing.small
-
-        primary: true
-        opacity: root.current === this ? 1 : 0
-
-        Behavior on opacity {
-            BasicNumberAnimation {}
         }
     }
 
     component FontIcon: Text.BodyM {
         anchors.verticalCenter: parent.verticalCenter
         primary: true
+    }
+    component Title: Text.BodyM {
+        id: text
+
+        anchors.left: icon.right
+        anchors.leftMargin: Appearance.spacing.small
+        anchors.verticalCenter: icon.verticalCenter
+        opacity: root.current === this ? 1 : 0
+        primary: true
+
+        Behavior on opacity {
+            BasicNumberAnimation {
+            }
+        }
     }
 }

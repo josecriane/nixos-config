@@ -11,13 +11,22 @@ Rectangle {
     readonly property alias items: items
 
     clip: true
+    color: "transparent"
+    implicitHeight: height
+    implicitWidth: layout.implicitWidth + Appearance.padding.small * 2
+    radius: Appearance.rounding.full
     visible: width > 0 && height > 0 // To avoid warnings about being visible with no size
 
-    implicitWidth: layout.implicitWidth + Appearance.padding.small * 2
-    implicitHeight: height
-
-    color: "transparent"
-    radius: Appearance.rounding.full
+    Behavior on implicitHeight {
+        BasicNumberAnimation {
+            easing.bezierCurve: Appearance.anim.curves.emphasized
+        }
+    }
+    Behavior on implicitWidth {
+        BasicNumberAnimation {
+            easing.bezierCurve: Appearance.anim.curves.emphasized
+        }
+    }
 
     Row {
         id: layout
@@ -27,18 +36,17 @@ Rectangle {
 
         add: Transition {
             BasicNumberAnimation {
-                properties: "scale"
-                from: 0
-                to: 1
                 easing.bezierCurve: Appearance.anim.curves.standardDecel
+                from: 0
+                properties: "scale"
+                to: 1
             }
         }
-
         move: Transition {
             BasicNumberAnimation {
+                easing.bezierCurve: Appearance.anim.curves.standardDecel
                 properties: "scale"
                 to: 1
-                easing.bezierCurve: Appearance.anim.curves.standardDecel
             }
             BasicNumberAnimation {
                 properties: "x,y"
@@ -55,8 +63,8 @@ Rectangle {
 
                 required property SystemTrayItem modelData
 
-                buttonSize: Appearance.font.size.small * 2
                 buttonColor: "transparent"
+                buttonSize: Appearance.font.size.small * 2
                 focusColor: "transparent"
                 iconColor: "transparent"
 
@@ -73,23 +81,10 @@ Rectangle {
                 onClicked: {
                     iconButton.modelData.activate();
                 }
-
                 onHovered: {
                     iconButton.modelData.secondaryActivate();
                 }
             }
-        }
-    }
-
-    Behavior on implicitWidth {
-        BasicNumberAnimation {
-            easing.bezierCurve: Appearance.anim.curves.emphasized
-        }
-    }
-
-    Behavior on implicitHeight {
-        BasicNumberAnimation {
-            easing.bezierCurve: Appearance.anim.curves.emphasized
         }
     }
 }

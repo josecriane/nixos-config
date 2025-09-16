@@ -13,34 +13,31 @@ import qs.services
 Item {
     id: root
 
+    property ButtonGroup buttonGroup: null
+    property bool clickable: false
+    property color defaultForegroundColor: Colours.palette.m3onSurface
+    property bool disabled: false
+    property color disabledForegroundColor: Colours.palette.m3onSurfaceVariant
+    property color foregroundColor: disabled ? disabledForegroundColor : (selected ? selectedForegroundColor : defaultForegroundColor)
+    property string imageIcon: ""  // For image-based icons (alternative to leftIcon)
+    readonly property bool isClickable: clickable || buttonGroup !== null
+    property bool keepEmptySpace: false  // Keep space for icons even if not present
+
     // Public properties
     property string leftIcon: ""
-    property string imageIcon: ""  // For image-based icons (alternative to leftIcon)
-    property string secondaryIcon: ""
-    property string rightIcon: ""  // Font icon on the far right
-    property string text: ""
-    property color disabledForegroundColor: Colours.palette.m3onSurfaceVariant
-    property color defaultForegroundColor: Colours.palette.m3onSurface
-    property color selectedForegroundColor: Colours.palette.m3primary
-    property int textWeight: 400
-
-    property bool primaryActionActive: primaryFontIcon !== ""
-    property string primaryFontIcon: ""
-    property bool primaryActionLoading: false
-
-    property bool secondaryActionActive: secondaryFontIcon !== ""
-    property string secondaryFontIcon: ""
-    property bool secondaryActionLoading: false
-
-    property bool disabled: false
-    property bool selected: false
-    property bool clickable: false
-    property bool keepEmptySpace: false  // Keep space for icons even if not present
     property real minimumHeight: 0  // Minimum height for the list item
-    property ButtonGroup buttonGroup: null
-
-    property color foregroundColor: disabled ? disabledForegroundColor : (selected ? selectedForegroundColor : defaultForegroundColor)
-    readonly property bool isClickable: clickable || buttonGroup !== null
+    property bool primaryActionActive: primaryFontIcon !== ""
+    property bool primaryActionLoading: false
+    property string primaryFontIcon: ""
+    property string rightIcon: ""  // Font icon on the far right
+    property bool secondaryActionActive: secondaryFontIcon !== ""
+    property bool secondaryActionLoading: false
+    property string secondaryFontIcon: ""
+    property string secondaryIcon: ""
+    property bool selected: false
+    property color selectedForegroundColor: Colours.palette.m3primary
+    property string text: ""
+    property int textWeight: 400
 
     // Signals
     signal clicked
@@ -50,22 +47,21 @@ Item {
     // Layout properties for when used in a Layout
     Layout.fillWidth: true
     Layout.rightMargin: Foundations.spacing.s
-
     implicitHeight: Math.max(content.implicitHeight, minimumHeight)
     implicitWidth: content.implicitWidth
 
     // Entry animation
     opacity: 0
 
-    Component.onCompleted: {
-        opacity = 1;
-    }
-
     Behavior on opacity {
         NumberAnimation {
             duration: 300
             easing.type: Easing.OutQuart
         }
+    }
+
+    Component.onCompleted: {
+        opacity = 1;
     }
 
     // Ripple effect background for clickable items
@@ -76,10 +72,6 @@ Item {
 
         sourceComponent: Component {
             InteractiveArea {
-                disabled: root.disabled
-                color: root.foregroundColor
-                radius: Foundations.radius.xs
-
                 function onClicked(event): void {
                     // Check if click is on action buttons area
                     const buttonAreaWidth = 80; // Approximate width of button area
@@ -92,27 +84,31 @@ Item {
                     }
                     root.clicked();
                 }
+
+                color: root.foregroundColor
+                disabled: root.disabled
+                radius: Foundations.radius.xs
             }
         }
     }
-
     RowLayout {
         id: content
+
         anchors.left: parent.left
+        anchors.leftMargin: Foundations.spacing.m
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
-        anchors.leftMargin: Foundations.spacing.m
         spacing: Foundations.spacing.s
 
         // Radio button (if buttonGroup is set)
         DsButtons.RadioButton {
-            visible: root.buttonGroup !== null
-            checked: root.selected
-            enabled: !root.disabled
             ButtonGroup.group: root.buttonGroup
-            disabledColor: root.disabledForegroundColor
+            checked: root.selected
             defaultColor: root.defaultForegroundColor
+            disabledColor: root.disabledForegroundColor
+            enabled: !root.disabled
             focusColor: root.selectedForegroundColor
+            visible: root.buttonGroup !== null
 
             onClicked: {
                 root.selected = true;
@@ -123,7 +119,6 @@ Item {
         // Left icon (if no buttonGroup)
         Loader {
             active: (root.leftIcon !== "" || root.imageIcon !== "" || root.keepEmptySpace) && root.buttonGroup === null
-
             sourceComponent: {
                 if (root.imageIcon !== "")
                     return imageIconComponent;
@@ -134,45 +129,45 @@ Item {
                 return null;
             }
         }
-
         Component {
             id: fontIconComponent
+
             Icons.MaterialFontIcon {
-                text: root.leftIcon
                 color: root.foregroundColor
+                text: root.leftIcon
             }
         }
-
         Component {
             id: imageIconComponent
+
             IconImage {
-                source: root.imageIcon
-                implicitWidth: Foundations.font.size.m
-                implicitHeight: Foundations.font.size.m
                 asynchronous: true
+                implicitHeight: Foundations.font.size.m
+                implicitWidth: Foundations.font.size.m
+                source: root.imageIcon
             }
         }
-
         Component {
             id: emptySpaceComponent
+
             Item {
-                implicitWidth: Foundations.font.size.m
                 implicitHeight: Foundations.font.size.m
+                implicitWidth: Foundations.font.size.m
             }
         }
 
         // Secondary icon (like lock icon)
         Icons.MaterialFontIcon {
-            visible: root.secondaryIcon !== ""
-            text: root.secondaryIcon
             color: root.foregroundColor
+            text: root.secondaryIcon
+            visible: root.secondaryIcon !== ""
         }
 
         // Main text
         Item {
+            Layout.fillWidth: true
             Layout.leftMargin: Foundations.spacing.xs
             Layout.rightMargin: Foundations.spacing.xs
-            Layout.fillWidth: true
             implicitHeight: textLabel.implicitHeight
             implicitWidth: textLabel.implicitWidth
 
@@ -182,45 +177,44 @@ Item {
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.verticalCenter: parent.verticalCenter
-
-                text: root.text
+                color: root.foregroundColor
                 elide: Text.ElideRight
                 font.weight: root.selected ? 500 : root.textWeight
-                color: root.foregroundColor
+                text: root.text
             }
         }
 
         // Primary action button
         CircularButtons.CircularButton {
-            visible: root.primaryFontIcon !== ""
-            icon: root.primaryFontIcon
-            foregroundColor: root.selectedForegroundColor
-            activeBackgroundColor: root.selectedForegroundColor
             active: root.primaryActionActive
+            activeBackgroundColor: root.selectedForegroundColor
             disabled: root.disabled
+            foregroundColor: root.selectedForegroundColor
+            icon: root.primaryFontIcon
             loading: root.primaryActionLoading
+            visible: root.primaryFontIcon !== ""
 
             onClicked: root.primaryActionClicked()
         }
 
         // Secondary action button
         CircularButtons.CircularButton {
-            visible: root.secondaryFontIcon !== ""
-            icon: root.secondaryFontIcon
-            foregroundColor: root.selectedForegroundColor
-            activeBackgroundColor: root.selectedForegroundColor
             active: root.secondaryActionActive
+            activeBackgroundColor: root.selectedForegroundColor
             disabled: root.disabled
+            foregroundColor: root.selectedForegroundColor
+            icon: root.secondaryFontIcon
             loading: root.secondaryActionLoading
+            visible: root.secondaryFontIcon !== ""
 
             onClicked: root.secondaryActionClicked()
         }
 
         // Right icon (font icon on far right)
         Icons.MaterialFontIcon {
-            visible: root.rightIcon !== ""
-            text: root.rightIcon
             color: root.foregroundColor
+            text: root.rightIcon
+            visible: root.rightIcon !== ""
         }
     }
 }

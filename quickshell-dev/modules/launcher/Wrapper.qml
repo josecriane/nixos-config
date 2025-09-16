@@ -7,21 +7,18 @@ import qs.modules.drawers
 BackgroundWrapper {
     id: root
 
-    required property PersistentProperties visibilities
-    required property var panels
-
-    readonly property bool hasCurrent: root.visibilities.launcher
-    readonly property real nonAnimWidth: hasCurrent ? content.implicitWidth : 0
-    readonly property real nonAnimHeight: hasCurrent ? content.implicitHeight : 0
-
-    property int animLength: Appearance.anim.durations.normal
     property list<real> animCurve: Appearance.anim.curves.standard
+    property int animLength: Appearance.anim.durations.normal
+    readonly property bool hasCurrent: root.visibilities.launcher
+    readonly property real nonAnimHeight: hasCurrent ? content.implicitHeight : 0
+    readonly property real nonAnimWidth: hasCurrent ? content.implicitWidth : 0
+    required property var panels
+    required property PersistentProperties visibilities
 
-    visible: height > 0
     clip: true
-
-    implicitWidth: nonAnimWidth
     implicitHeight: nonAnimHeight
+    implicitWidth: nonAnimWidth
+    visible: height > 0
 
     Behavior on implicitHeight {
         BasicNumberAnimation {
@@ -33,11 +30,10 @@ BackgroundWrapper {
     Content {
         id: content
 
-        wrapper: root
-        visibilities: root.visibilities
-        panels: root.panels
-
         opacity: root.visibilities.launcher ? 1 : 0
+        panels: root.panels
+        visibilities: root.visibilities
+        wrapper: root
 
         Behavior on opacity {
             BasicNumberAnimation {

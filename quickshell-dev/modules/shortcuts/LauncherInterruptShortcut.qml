@@ -1,10 +1,10 @@
 import "."
 
 Shortcut {
-    name: "launcherInterrupt"
-    description: "Interrupt launcher keybind"
-
     property var launcherShortcut
+
+    description: "Interrupt launcher keybind"
+    name: "launcherInterrupt"
 
     onPressed: {
         if (launcherShortcut) {

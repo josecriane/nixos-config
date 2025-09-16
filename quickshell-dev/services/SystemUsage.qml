@@ -8,23 +8,21 @@ import QtQuick
 Singleton {
     id: root
 
+    property string autoGpuType: "NONE"
     property real cpuPerc
     property real cpuTemp
-    readonly property string gpuType: Config.services.gpuType.toUpperCase() || autoGpuType
-    property string autoGpuType: "NONE"
     property real gpuPerc
     property real gpuTemp
-    property real memUsed
-    property real memTotal
-    readonly property real memPerc: memTotal > 0 ? memUsed / memTotal : 0
-    property real storageUsed
-    property real storageTotal
-    property real storagePerc: storageTotal > 0 ? storageUsed / storageTotal : 0
-
+    readonly property string gpuType: Config.services.gpuType.toUpperCase() || autoGpuType
     property real lastCpuIdle
     property real lastCpuTotal
-
+    readonly property real memPerc: memTotal > 0 ? memUsed / memTotal : 0
+    property real memTotal
+    property real memUsed
     property int refCount
+    property real storagePerc: storageTotal > 0 ? storageUsed / storageTotal : 0
+    property real storageTotal
+    property real storageUsed
 
     function formatKib(kib: real): var {
         const mib = 1024;
@@ -53,10 +51,11 @@ Singleton {
     }
 
     Timer {
-        running: true
         interval: 3000
         repeat: true
+        running: true
         triggeredOnStart: true
+
         onTriggered: {
             stat.reload();
             meminfo.reload();
@@ -65,11 +64,11 @@ Singleton {
             sensors.running = true;
         }
     }
-
     FileView {
         id: stat
 
         path: "/proc/stat"
+
         onLoaded: {
             const data = text().match(/^cpu\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)/);
             if (data) {
@@ -86,22 +85,22 @@ Singleton {
             }
         }
     }
-
     FileView {
         id: meminfo
 
         path: "/proc/meminfo"
+
         onLoaded: {
             const data = text();
             root.memTotal = parseInt(data.match(/MemTotal: *(\d+)/)[1], 10) || 1;
             root.memUsed = (root.memTotal - parseInt(data.match(/MemAvailable: *(\d+)/)[1], 10)) || 0;
         }
     }
-
     Process {
         id: storage
 
         command: ["sh", "-c", "df | grep '^/dev/' | awk '{print $1, $3, $4}'"]
+
         stdout: StdioCollector {
             onStreamFinished: {
                 const deviceMap = new Map();
@@ -139,21 +138,21 @@ Singleton {
             }
         }
     }
-
     Process {
         id: gpuTypeCheck
 
-        running: !Config.services.gpuType
         command: ["sh", "-c", "if command -v nvidia-smi &>/dev/null && nvidia-smi -L &>/dev/null; then echo NVIDIA; elif ls /sys/class/drm/card*/device/gpu_busy_percent 2>/dev/null | grep -q .; then echo GENERIC; else echo NONE; fi"]
+        running: !Config.services.gpuType
+
         stdout: StdioCollector {
             onStreamFinished: root.autoGpuType = text.trim()
         }
     }
-
     Process {
         id: gpuUsage
 
         command: root.gpuType === "GENERIC" ? ["sh", "-c", "cat /sys/class/drm/card*/device/gpu_busy_percent"] : root.gpuType === "NVIDIA" ? ["nvidia-smi", "--query-gpu=utilization.gpu,temperature.gpu", "--format=csv,noheader,nounits"] : ["echo"]
+
         stdout: StdioCollector {
             onStreamFinished: {
                 if (root.gpuType === "GENERIC") {
@@ -171,7 +170,6 @@ Singleton {
             }
         }
     }
-
     Process {
         id: sensors
 
@@ -180,6 +178,7 @@ Singleton {
                 LANG: "C.UTF-8",
                 LC_ALL: "C.UTF-8"
             })
+
         stdout: StdioCollector {
             onStreamFinished: {
                 let cpuTemp = text.match(/(?:Package id [0-9]+|Tdie):\s+((\+|-)[0-9.]+)(°| )C/);

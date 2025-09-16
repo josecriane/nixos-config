@@ -7,10 +7,10 @@ import QtQuick
 CircularButtons.S {
     id: root
 
-    icon: "coffee"
+    active: IdleInhibitor.enabled
     backgroundColor: IdleInhibitor.enabled ? Colours.palette.m3primaryContainer : "transparent"
     foregroundColor: IdleInhibitor.enabled ? Colours.palette.m3onPrimaryContainer : Colours.palette.m3secondary
-    active: IdleInhibitor.enabled
+    icon: "coffee"
 
     onClicked: {
         IdleInhibitor.enabled = !IdleInhibitor.enabled;

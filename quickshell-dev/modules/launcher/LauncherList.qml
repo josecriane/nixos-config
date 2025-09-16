@@ -13,39 +13,17 @@ import QtQuick.Controls
 ListView {
     id: root
 
+    property int itemHeight: 57
+    property int maxShown: 8
     required property TextField search
     required property PersistentProperties visibilities
 
-    model: ScriptModel {
-        id: model
-
-        onValuesChanged: root.currentIndex = 0
-    }
-
-    rebound: Transition {
-        BasicNumberAnimation {
-            properties: "x,y"
-        }
-    }
-
-    spacing: Appearance.spacing.small
-    orientation: Qt.Vertical
     bottomMargin: Appearance.padding.normal
-    property int maxShown: 8
-
-    property int itemHeight: 57
-
-    implicitHeight: (itemHeight + spacing) * Math.min(maxShown, count) - spacing + bottomMargin
-
     highlightMoveDuration: Appearance.anim.durations.normal
     highlightResizeDuration: 0
-
-    highlight: Rectangle {
-        radius: Foundations.radius.xs
-        color: Colours.palette.m3onSurface
-        opacity: 0.08
-    }
-
+    implicitHeight: (itemHeight + spacing) * Math.min(maxShown, count) - spacing + bottomMargin
+    orientation: Qt.Vertical
+    spacing: Appearance.spacing.small
     state: {
         const text = search.text;
         const prefix = ">";
@@ -60,6 +38,69 @@ ListView {
         return "apps";
     }
 
+    ScrollBar.vertical: List.ScrollBar {
+    }
+    add: Transition {
+        enabled: !root.state
+
+        BasicNumberAnimation {
+            from: 0
+            properties: "opacity,scale"
+            to: 1
+        }
+    }
+    addDisplaced: Transition {
+        BasicNumberAnimation {
+            duration: Appearance.anim.durations.small
+            property: "y"
+        }
+        BasicNumberAnimation {
+            properties: "opacity,scale"
+            to: 1
+        }
+    }
+    displaced: Transition {
+        BasicNumberAnimation {
+            property: "y"
+        }
+        BasicNumberAnimation {
+            properties: "opacity,scale"
+            to: 1
+        }
+    }
+    highlight: Rectangle {
+        color: Colours.palette.m3onSurface
+        opacity: 0.08
+        radius: Foundations.radius.xs
+    }
+    model: ScriptModel {
+        id: model
+
+        onValuesChanged: root.currentIndex = 0
+    }
+    move: Transition {
+        BasicNumberAnimation {
+            property: "y"
+        }
+        BasicNumberAnimation {
+            properties: "opacity,scale"
+            to: 1
+        }
+    }
+    rebound: Transition {
+        BasicNumberAnimation {
+            properties: "x,y"
+        }
+    }
+    remove: Transition {
+        enabled: !root.state
+
+        BasicNumberAnimation {
+            from: 1
+            properties: "opacity,scale"
+            to: 0
+        }
+    }
     states: [
         State {
             name: "apps"
@@ -86,107 +127,53 @@ ListView {
             }
         }
     ]
-
     transitions: Transition {
         SequentialAnimation {
             ParallelAnimation {
                 BasicNumberAnimation {
-                    target: root
-                    property: "opacity"
-                    from: 1
-                    to: 0
                     duration: Appearance.anim.durations.small
                     easing.bezierCurve: Appearance.anim.curves.standardAccel
+                    from: 1
+                    property: "opacity"
+                    target: root
+                    to: 0
                 }
                 BasicNumberAnimation {
-                    target: root
-                    property: "scale"
-                    from: 1
-                    to: 0.9
                     duration: Appearance.anim.durations.small
                     easing.bezierCurve: Appearance.anim.curves.standardAccel
+                    from: 1
+                    property: "scale"
+                    target: root
+                    to: 0.9
                 }
             }
             PropertyAction {
-                targets: [model, root]
                 properties: "values,delegate"
+                targets: [model, root]
             }
             ParallelAnimation {
                 BasicNumberAnimation {
-                    target: root
-                    property: "opacity"
-                    from: 0
-                    to: 1
                     duration: Appearance.anim.durations.small
                     easing.bezierCurve: Appearance.anim.curves.standardDecel
+                    from: 0
+                    property: "opacity"
+                    target: root
+                    to: 1
                 }
                 BasicNumberAnimation {
-                    target: root
-                    property: "scale"
-                    from: 0.9
-                    to: 1
                     duration: Appearance.anim.durations.small
                     easing.bezierCurve: Appearance.anim.curves.standardDecel
+                    from: 0.9
+                    property: "scale"
+                    target: root
+                    to: 1
                 }
             }
             PropertyAction {
-                target: root
                 property: "enabled"
+                target: root
                 value: true
             }
-        }
-    }
-
-    ScrollBar.vertical: List.ScrollBar {}
-
-    add: Transition {
-        enabled: !root.state
-
-        BasicNumberAnimation {
-            properties: "opacity,scale"
-            from: 0
-            to: 1
-        }
-    }
-
-    remove: Transition {
-        enabled: !root.state
-
-        BasicNumberAnimation {
-            properties: "opacity,scale"
-            from: 1
-            to: 0
-        }
-    }
-
-    move: Transition {
-        BasicNumberAnimation {
-            property: "y"
-        }
-        BasicNumberAnimation {
-            properties: "opacity,scale"
-            to: 1
-        }
-    }
-
-    addDisplaced: Transition {
-        BasicNumberAnimation {
-            property: "y"
-            duration: Appearance.anim.durations.small
-        }
-        BasicNumberAnimation {
-            properties: "opacity,scale"
-            to: 1
-        }
-    }
-
-    displaced: Transition {
-        BasicNumberAnimation {
-            property: "y"
-        }
-        BasicNumberAnimation {
-            properties: "opacity,scale"
-            to: 1
         }
     }
 
@@ -197,16 +184,14 @@ ListView {
             visibilities: root.visibilities
         }
     }
-
     Component {
         id: actionItem
 
         LauncherItem {
-            visibilities: root.visibilities
             list: root
+            visibilities: root.visibilities
         }
     }
-
     Component {
         id: calcItem
 

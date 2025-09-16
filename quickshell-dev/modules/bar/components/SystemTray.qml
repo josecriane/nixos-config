@@ -15,49 +15,10 @@ Rectangle {
 
     property color colour: Colours.palette.m3secondary
 
-    color: Colours.tPalette.m3surfaceContainer
-    radius: Appearance.rounding.full
-
     clip: true
+    color: Colours.tPalette.m3surfaceContainer
     implicitWidth: iconRow.implicitWidth + Appearance.padding.normal * 2
-
-    InteractiveArea {
-        radius: parent.radius
-
-        function onClicked(): void {
-            Niri.spawn("alacritty -e btop");
-        }
-    }
-
-    RowLayout {
-        id: iconRow
-
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.horizontalCenter: parent.horizontalCenter
-
-        spacing: Appearance.spacing.normal
-
-        // CPU usage
-        ResourceItem {
-            icon: "memory"
-            value: SystemUsage.cpuPerc
-            colour: Colours.palette.m3primary
-        }
-
-        // Memory usage
-        ResourceItem {
-            icon: "memory_alt"
-            value: SystemUsage.memPerc
-            colour: Colours.palette.m3secondary
-        }
-
-        // Storage usage
-        ResourceItem {
-            icon: "hard_disk"
-            value: SystemUsage.storagePerc
-            colour: Colours.palette.m3tertiary
-        }
-    }
+    radius: Appearance.rounding.full
 
     Behavior on implicitWidth {
         BasicNumberAnimation {
@@ -66,28 +27,63 @@ Rectangle {
         }
     }
 
+    InteractiveArea {
+        function onClicked(): void {
+            Niri.spawn("alacritty -e btop");
+        }
+
+        radius: parent.radius
+    }
+    RowLayout {
+        id: iconRow
+
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: parent.verticalCenter
+        spacing: Appearance.spacing.normal
+
+        // CPU usage
+        ResourceItem {
+            colour: Colours.palette.m3primary
+            icon: "memory"
+            value: SystemUsage.cpuPerc
+        }
+
+        // Memory usage
+        ResourceItem {
+            colour: Colours.palette.m3secondary
+            icon: "memory_alt"
+            value: SystemUsage.memPerc
+        }
+
+        // Storage usage
+        ResourceItem {
+            colour: Colours.palette.m3tertiary
+            icon: "hard_disk"
+            value: SystemUsage.storagePerc
+        }
+    }
+
     component ResourceItem: RowLayout {
+        required property color colour
         required property string icon
         required property real value
-        required property color colour
 
         spacing: 2
-
-        Text.BodyS {
-            text: Math.round(parent.value * 100) + "%"
-            color: parent.colour
-        }
-
-        Icons.MaterialFontIcon {
-            text: parent.icon
-            color: parent.colour
-            font.pointSize: Appearance.font.size.small
-        }
 
         Behavior on value {
             BasicNumberAnimation {
                 duration: Appearance.anim.durations.large
             }
+        }
+
+        Text.BodyS {
+            color: parent.colour
+            text: Math.round(parent.value * 100) + "%"
+        }
+        Icons.MaterialFontIcon {
+            color: parent.colour
+            font.pointSize: Appearance.font.size.small
+            text: parent.icon
         }
     }
 }

@@ -4,13 +4,14 @@ import QtQuick.Effects
 import qs.ds.animations
 
 RectangularShadow {
-    color: Qt.alpha(Colours.palette.m3shadow, 0.75)
     blur: 15
-    spread: 1
+    color: Qt.alpha(Colours.palette.m3shadow, 0.75)
     offset.x: 4
     offset.y: 4
+    spread: 1
 
     Behavior on spread {
-        BasicNumberAnimation {}
+        BasicNumberAnimation {
+        }
     }
 }

@@ -8,37 +8,37 @@ Text {
     id: root
 
     property bool animate: false
-    property string animateProp: "scale"
-    property real animateFrom: 0
-    property real animateTo: 1
     property real animateDuration: Appearance.anim.durations.normal
+    property real animateFrom: 0
+    property string animateProp: "scale"
+    property real animateTo: 1
 
+    font.family: Foundations.font.family.material
+    font.pointSize: Foundations.font.size.m
     renderType: Text.NativeRendering
     textFormat: Text.PlainText
-
-    font.pointSize: Foundations.font.size.m
-    font.family: Foundations.font.family.material
 
     Behavior on text {
         enabled: root.animate
 
         SequentialAnimation {
             Anim {
-                to: root.animateFrom
                 easing.bezierCurve: Appearance.anim.curves.standardAccel
+                to: root.animateFrom
             }
-            PropertyAction {}
+            PropertyAction {
+            }
             Anim {
-                to: root.animateTo
                 easing.bezierCurve: Appearance.anim.curves.standardDecel
+                to: root.animateTo
             }
         }
     }
 
     component Anim: NumberAnimation {
-        target: root
-        property: root.animateProp
         duration: root.animateDuration / 2
         easing.type: Easing.BezierSpline
+        property: root.animateProp
+        target: root
     }
 }

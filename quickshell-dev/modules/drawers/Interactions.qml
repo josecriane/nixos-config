@@ -8,52 +8,39 @@ import QtQuick
 MouseArea {
     id: root
 
-    required property ShellScreen screen
-    required property BarPopouts.Wrapper popouts
-    required property PersistentProperties visibilities
-    required property Panels panels
     required property Item bar
-
-    property bool osdHovered
     property point dragStart
+    property bool osdHovered
     property bool osdShortcutActive
+    required property Panels panels
+    required property BarPopouts.Wrapper popouts
+    required property ShellScreen screen
+    required property PersistentProperties visibilities
 
+    function inBottomPanel(panel: Item, x: real, y: real): bool {
+        return y > root.height - Config.border.thickness - panel.height - Config.border.rounding && withinPanelWidth(panel, x, y);
+    }
+    function inLeftPanel(panel: Item, x: real, y: real): bool {
+        return x < Config.border.thickness + panel.x + panel.width && withinPanelHeight(panel, x, y);
+    }
+    function inRightPanel(panel: Item, x: real, y: real): bool {
+        return x > Config.border.thickness + panel.x && withinPanelHeight(panel, x, y);
+    }
+    function inTopPanel(panel: Item, x: real, y: real): bool {
+        return y < bar.implicitHeight + panel.y + panel.height && withinPanelWidth(panel, x, y);
+    }
     function withinPanelHeight(panel: Item, x: real, y: real): bool {
         const panelY = bar.implicitHeight + panel.y;
         return y >= panelY - Config.border.rounding && y <= panelY + panel.height + Config.border.rounding;
     }
-
     function withinPanelWidth(panel: Item, x: real, y: real): bool {
         const panelX = Config.border.thickness + panel.x;
         return x >= panelX - Config.border.rounding && x <= panelX + panel.width + Config.border.rounding;
     }
 
-    function inLeftPanel(panel: Item, x: real, y: real): bool {
-        return x < Config.border.thickness + panel.x + panel.width && withinPanelHeight(panel, x, y);
-    }
-
-    function inRightPanel(panel: Item, x: real, y: real): bool {
-        return x > Config.border.thickness + panel.x && withinPanelHeight(panel, x, y);
-    }
-
-    function inTopPanel(panel: Item, x: real, y: real): bool {
-        return y < bar.implicitHeight + panel.y + panel.height && withinPanelWidth(panel, x, y);
-    }
-
-    function inBottomPanel(panel: Item, x: real, y: real): bool {
-        return y > root.height - Config.border.thickness - panel.height - Config.border.rounding && withinPanelWidth(panel, x, y);
-    }
-
-    onWheel: event => {
-        if (event.y < bar.implicitHeight) {
-            bar.handleWheel(event.x, event.angleDelta);
-        }
-    }
-
     anchors.fill: parent
     hoverEnabled: true
 
-    onPressed: event => dragStart = Qt.point(event.x, event.y)
     onContainsMouseChanged: {
         if (!containsMouse) {
             // Only hide if not activated by shortcut
@@ -65,7 +52,6 @@ MouseArea {
             popouts.hasCurrent = false;
         }
     }
-
     onPositionChanged: event => {
         const x = event.x;
         const y = event.y;
@@ -94,11 +80,15 @@ MouseArea {
         else if (!popouts.currentName.startsWith("traymenu") && !inTopPanel(panels.popouts, x, y))
             popouts.hasCurrent = false;
     }
+    onPressed: event => dragStart = Qt.point(event.x, event.y)
+    onWheel: event => {
+        if (event.y < bar.implicitHeight) {
+            bar.handleWheel(event.x, event.angleDelta);
+        }
+    }
 
     // Monitor individual visibility changes
     Connections {
-        target: root.visibilities
-
         function onLauncherChanged() {
             if (root.visibilities.launcher) {
                 // Launcher opened - close all other panels
@@ -121,7 +111,6 @@ MouseArea {
                 }
             }
         }
-
         function onOsdChanged() {
             if (root.visibilities.osd) {
                 // OSD became visible, immediately check if this should be shortcut mode
@@ -134,11 +123,12 @@ MouseArea {
                 root.osdShortcutActive = false;
             }
         }
-    }
 
+        target: root.visibilities
+    }
     Osd.Interactions {
+        hovered: root.osdHovered
         screen: root.screen
         visibilities: root.visibilities
-        hovered: root.osdHovered
     }
 }

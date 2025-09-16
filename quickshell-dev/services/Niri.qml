@@ -8,12 +8,41 @@ import Quickshell.Io
 Singleton {
     id: root
 
-    property list<var> workspaces: []
+    property int currentKbLayoutIndex: 0
+    property string focusedOutput: ""
     property int focusedWorkspaceIndex: 0
     property bool inOverview: false
     property list<string> kbLayouts: []
-    property int currentKbLayoutIndex: 0
-    property string focusedOutput: ""
+    property list<var> workspaces: []
+
+    // Function to get current layout name
+    function currentKbLayoutName(): string {
+        if (root.currentKbLayoutIndex >= 0 && root.currentKbLayoutIndex < root.kbLayouts.length) {
+            return root.kbLayouts[root.currentKbLayoutIndex];
+        }
+        return "";
+    }
+    function spawn(command: string): void {
+        spawnProcess.command = ["niri", "msg", "action", "spawn", "--"].concat(command.split(" "));
+        spawnProcess.running = false;
+        spawnProcess.running = true;
+    }
+
+    // Function to switch keyboard layout
+    function switchKbLayout(index: int): void {
+        switchLayoutProcess.command = ["niri", "msg", "action", "switch-layout", index.toString()];
+        switchLayoutProcess.running = false;
+        switchLayoutProcess.running = true;
+    }
+    function updateFocusedOutput(): void {
+        focusedOutputProcess.running = false;
+        focusedOutputProcess.running = true;
+    }
+
+    Component.onCompleted: {
+        layoutsInitProcess.running = true;
+        updateFocusedOutput();
+    }
 
     Process {
         command: ["niri", "msg", "-j", "event-stream"]
@@ -60,27 +89,14 @@ Singleton {
     // Process for switching keyboard layout
     Process {
         id: switchLayoutProcess
+
         running: false
-    }
-
-    // Function to switch keyboard layout
-    function switchKbLayout(index: int): void {
-        switchLayoutProcess.command = ["niri", "msg", "action", "switch-layout", index.toString()];
-        switchLayoutProcess.running = false;
-        switchLayoutProcess.running = true;
-    }
-
-    // Function to get current layout name
-    function currentKbLayoutName(): string {
-        if (root.currentKbLayoutIndex >= 0 && root.currentKbLayoutIndex < root.kbLayouts.length) {
-            return root.kbLayouts[root.currentKbLayoutIndex];
-        }
-        return "";
     }
 
     // Get initial keyboard layouts with a separate Process
     Process {
         id: layoutsInitProcess
+
         command: ["niri", "msg", "-j", "keyboard-layouts"]
         running: false
 
@@ -96,21 +112,16 @@ Singleton {
             }
         }
     }
-
-    function spawn(command: string): void {
-        spawnProcess.command = ["niri", "msg", "action", "spawn", "--"].concat(command.split(" "));
-        spawnProcess.running = false;
-        spawnProcess.running = true;
-    }
-
     Process {
         id: spawnProcess
+
         running: false
     }
 
     // ToDo Review:
     Process {
         id: focusedOutputProcess
+
         command: ["niri", "msg", "focused-output"]
         running: false
 
@@ -124,15 +135,5 @@ Singleton {
                 }
             }
         }
-    }
-
-    function updateFocusedOutput(): void {
-        focusedOutputProcess.running = false;
-        focusedOutputProcess.running = true;
-    }
-
-    Component.onCompleted: {
-        layoutsInitProcess.running = true;
-        updateFocusedOutput();
     }
 }

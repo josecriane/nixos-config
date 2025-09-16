@@ -18,34 +18,30 @@ Variants {
         required property ShellScreen modelData
 
         Exclusions {
-            screen: scope.modelData
             bar: bar
+            screen: scope.modelData
         }
-
         PanelWindow {
             id: win
-
-            screen: scope.modelData
-            color: "transparent"
 
             WlrLayershell.exclusionMode: ExclusionMode.Ignore
             WlrLayershell.keyboardFocus: visibilities.launcher || visibilities.session ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
             WlrLayershell.namespace: `quickshell-drawers`
-
-            mask: Region {
-                x: Config.border.thickness
-                y: bar.implicitHeight
-                width: win.width - Config.border.thickness * 2
-                height: win.height - bar.implicitHeight - Config.border.thickness
-                intersection: Intersection.Xor
-
-                regions: regions.instances
-            }
-
-            anchors.top: true
             anchors.bottom: true
             anchors.left: true
             anchors.right: true
+            anchors.top: true
+            color: "transparent"
+            screen: scope.modelData
+
+            mask: Region {
+                height: win.height - bar.implicitHeight - Config.border.thickness
+                intersection: Intersection.Xor
+                regions: regions.instances
+                width: win.width - Config.border.thickness * 2
+                x: Config.border.thickness
+                y: bar.implicitHeight
+            }
 
             Variants {
                 id: regions
@@ -55,80 +51,75 @@ Variants {
                 Region {
                     required property Item modelData
 
-                    x: modelData.x + Config.border.thickness
-                    y: modelData.y + bar.implicitHeight
-                    width: modelData.visible ? modelData.width : 0
                     height: modelData.visible ? modelData.height : 0
                     intersection: Intersection.Subtract
+                    width: modelData.visible ? modelData.width : 0
+                    x: modelData.x + Config.border.thickness
+                    y: modelData.y + bar.implicitHeight
                 }
             }
-
             Rectangle {
                 anchors.fill: parent
-                opacity: visibilities.session && Config.session.enabled ? 0.5 : 0
                 color: Colours.palette.m3scrim
+                opacity: visibilities.session && Config.session.enabled ? 0.5 : 0
 
                 Behavior on opacity {
-                    BasicNumberAnimation {}
+                    BasicNumberAnimation {
+                    }
                 }
             }
-
             Item {
                 anchors.fill: parent
-                opacity: Colours.transparency.enabled ? Colours.transparency.base : 1
                 layer.enabled: true
+                opacity: Colours.transparency.enabled ? Colours.transparency.base : 1
+
                 layer.effect: MultiEffect {
-                    shadowEnabled: true
                     blurMax: 15
                     shadowColor: Qt.alpha(Colours.palette.m3shadow, 0.7)
+                    shadowEnabled: true
                 }
 
                 Border {
                     bar: bar
                 }
-
                 Backgrounds {
-                    panels: panels
                     bar: bar
+                    panels: panels
                 }
             }
-
             PersistentProperties {
                 id: visibilities
 
                 property bool bar
+                property bool launcher
                 property bool osd
                 property bool session
-                property bool launcher
 
                 Component.onCompleted: Visibilities.load(scope.modelData, this)
             }
-
             Interactions {
-                screen: scope.modelData
-                popouts: panels.popouts
-                visibilities: visibilities
-                panels: panels
                 bar: bar
+                panels: panels
+                popouts: panels.popouts
+                screen: scope.modelData
+                visibilities: visibilities
 
                 Panels {
                     id: panels
 
+                    bar: bar
                     screen: scope.modelData
                     visibilities: visibilities
-                    bar: bar
                 }
-
                 BarWrapper {
                     id: bar
 
                     anchors.left: parent.left
                     anchors.right: parent.right
                     anchors.top: parent.top
-
+                    popouts: panels.popouts
                     screen: scope.modelData
                     visibilities: visibilities
-                    popouts: panels.popouts
 
                     Component.onCompleted: Visibilities.bars.set(scope.modelData, this)
                 }

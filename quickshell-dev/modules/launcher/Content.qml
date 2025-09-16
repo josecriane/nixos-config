@@ -13,98 +13,77 @@ import qs.ds.animations
 Item {
     id: root
 
-    required property var wrapper
-    required property PersistentProperties visibilities
-    required property var panels
-
     readonly property int padding: Appearance.padding.large
+    required property var panels
     readonly property int rounding: Appearance.rounding.large
+    required property PersistentProperties visibilities
+    required property var wrapper
 
-    implicitWidth: listWrapper.width + padding * 2
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.top: parent.top
     implicitHeight: searchWrapper.height + listWrapper.height + padding * 2
+    implicitWidth: listWrapper.width + padding * 2
 
     Behavior on implicitHeight {
         enabled: false
     }
 
-    anchors.top: parent.top
-    anchors.horizontalCenter: parent.horizontalCenter
-
     Item {
         id: listWrapper
-
-        implicitWidth: list.width
-        implicitHeight: list.height + root.padding
 
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: searchWrapper.bottom
         anchors.topMargin: root.padding
+        implicitHeight: list.height + root.padding
+        implicitWidth: list.width
 
         ContentList {
             id: list
 
-            wrapper: root.wrapper
-            visibilities: root.visibilities
-            panels: root.panels
-            search: search
             padding: root.padding
+            panels: root.panels
             rounding: root.rounding
+            search: search
+            visibilities: root.visibilities
+            wrapper: root.wrapper
         }
     }
-
     Rectangle {
         id: searchWrapper
 
-        color: Colours.tPalette.m3surfaceContainer
-        radius: Appearance.rounding.full
-
         anchors.left: parent.left
+        anchors.margins: root.padding
         anchors.right: parent.right
         anchors.top: parent.top
-        anchors.margins: root.padding
-
+        color: Colours.tPalette.m3surfaceContainer
         implicitHeight: Math.max(searchIcon.implicitHeight, search.implicitHeight, clearIcon.implicitHeight)
+        radius: Appearance.rounding.full
 
         Icons.MaterialFontIcon {
             id: searchIcon
 
-            anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
             anchors.leftMargin: root.padding
-
-            text: "search"
+            anchors.verticalCenter: parent.verticalCenter
             color: Colours.palette.m3onSurfaceVariant
+            text: "search"
         }
-
         Ds.TextField {
             id: search
 
             anchors.left: searchIcon.right
-            anchors.right: clearIcon.left
             anchors.leftMargin: Appearance.spacing.small
+            anchors.right: clearIcon.left
             anchors.rightMargin: Appearance.spacing.small
-
-            topPadding: Appearance.padding.larger
-            bottomPadding: Appearance.padding.larger
-
             background: null
             backgroundColor: "transparent"
             borderWidth: 0
-
+            bottomPadding: Appearance.padding.larger
             placeholderText: "Type \">\" for commands"
+            topPadding: Appearance.padding.larger
 
-            onAccepted: {
-                const currentItem = list.currentList?.currentItem;
-                if (currentItem) {
-                    currentItem.activate();
-                }
-            }
-
-            Keys.onUpPressed: list.currentList?.decrementCurrentIndex()
             Keys.onDownPressed: list.currentList?.incrementCurrentIndex()
-
             Keys.onEscapePressed: root.visibilities.launcher = false
-
             Keys.onPressed: event => {
                 if (event.key === Qt.Key_Return && (event.modifiers & Qt.ShiftModifier)) {
                     // Check if current item is interactive (has a hintButton)
@@ -115,11 +94,20 @@ Item {
                     }
                 }
             }
+            Keys.onUpPressed: list.currentList?.decrementCurrentIndex()
+            onAccepted: {
+                const currentItem = list.currentList?.currentItem;
+                if (currentItem) {
+                    currentItem.activate();
+                }
+            }
 
             Timer {
                 id: focusTimer
+
                 interval: 1
                 repeat: true
+
                 onTriggered: {
                     if (search.visible && root.visibilities.launcher) {
                         search.forceActiveFocus();
@@ -128,10 +116,7 @@ Item {
                     }
                 }
             }
-
             Connections {
-                target: root.visibilities
-
                 function onLauncherChanged(): void {
                     if (root.visibilities.launcher) {
                         focusTimer.start();
@@ -143,32 +128,31 @@ Item {
                             current.currentIndex = 0;
                     }
                 }
-
                 function onSessionChanged(): void {
                     if (root.visibilities.launcher && !root.visibilities.session)
                         focusTimer.start();
                 }
+
+                target: root.visibilities
             }
         }
-
         CircularButtons.M {
             id: clearIcon
 
-            anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.right
             anchors.rightMargin: root.padding
-
+            anchors.verticalCenter: parent.verticalCenter
             icon: "close"
             opacity: search.text ? 1 : 0
             visible: search.text
-
-            onClicked: search.text = ""
 
             Behavior on opacity {
                 BasicNumberAnimation {
                     duration: Appearance.anim.durations.small
                 }
             }
+
+            onClicked: search.text = ""
         }
     }
 }

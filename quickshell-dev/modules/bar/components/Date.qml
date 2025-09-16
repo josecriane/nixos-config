@@ -16,8 +16,7 @@ Row {
         id: text
 
         anchors.verticalCenter: parent.verticalCenter
-
-        text: Time.format("ddd dd MMM  HH:mm")
         font.family: Foundations.font.family.mono
+        text: Time.format("ddd dd MMM  HH:mm")
     }
 }

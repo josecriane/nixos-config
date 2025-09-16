@@ -7,66 +7,61 @@ import QtQuick
 Singleton {
     id: root
 
-    readonly property list<AccessPoint> networks: []
     readonly property AccessPoint active: networks.find(n => n.active) ?? null
-    property bool wifiEnabled: true
+    readonly property list<AccessPoint> networks: []
     readonly property bool scanning: rescanProc.running
-
-    reloadableId: "network"
-
-    function enableWifi(enabled: bool): void {
-        const cmd = enabled ? "on" : "off";
-        enableWifiProc.exec(["nmcli", "radio", "wifi", cmd]);
-    }
-
-    function toggleWifi(): void {
-        const cmd = wifiEnabled ? "off" : "on";
-        enableWifiProc.exec(["nmcli", "radio", "wifi", cmd]);
-    }
-
-    function rescanWifi(): void {
-        rescanProc.running = true;
-    }
+    property bool wifiEnabled: true
 
     function connectToNetwork(ssid: string, password: string): void {
         // TODO: Implement password
         connectProc.exec(["nmcli", "conn", "up", ssid]);
     }
-
     function disconnectFromNetwork(): void {
         if (active) {
             disconnectProc.exec(["nmcli", "connection", "down", active.ssid]);
         }
     }
-
+    function enableWifi(enabled: bool): void {
+        const cmd = enabled ? "on" : "off";
+        enableWifiProc.exec(["nmcli", "radio", "wifi", cmd]);
+    }
     function getWifiStatus(): void {
         wifiStatusProc.running = true;
     }
+    function rescanWifi(): void {
+        rescanProc.running = true;
+    }
+    function toggleWifi(): void {
+        const cmd = wifiEnabled ? "off" : "on";
+        enableWifiProc.exec(["nmcli", "radio", "wifi", cmd]);
+    }
+
+    reloadableId: "network"
 
     Process {
-        running: true
         command: ["nmcli", "m"]
+        running: true
+
         stdout: SplitParser {
             onRead: getNetworks.running = true
         }
     }
-
     Process {
         id: wifiStatusProc
 
-        running: true
         command: ["nmcli", "radio", "wifi"]
         environment: ({
                 LANG: "C.UTF-8",
                 LC_ALL: "C.UTF-8"
             })
+        running: true
+
         stdout: StdioCollector {
             onStreamFinished: {
                 root.wifiEnabled = text.trim() === "enabled";
             }
         }
     }
-
     Process {
         id: enableWifiProc
 
@@ -75,27 +70,25 @@ Singleton {
             getNetworks.running = true;
         }
     }
-
     Process {
         id: rescanProc
 
         command: ["nmcli", "dev", "wifi", "list", "--rescan", "yes"]
+
         onExited: {
             getNetworks.running = true;
         }
     }
-
     Process {
         id: connectProc
 
-        stdout: SplitParser {
-            onRead: getNetworks.running = true
-        }
         stderr: StdioCollector {
             onStreamFinished: console.warn("Network connection error:", text)
         }
+        stdout: SplitParser {
+            onRead: getNetworks.running = true
+        }
     }
-
     Process {
         id: disconnectProc
 
@@ -103,16 +96,16 @@ Singleton {
             onRead: getNetworks.running = true
         }
     }
-
     Process {
         id: getNetworks
 
-        running: true
         command: ["nmcli", "-g", "ACTIVE,SIGNAL,FREQ,SSID,BSSID,SECURITY", "d", "w"]
         environment: ({
                 LANG: "C.UTF-8",
                 LC_ALL: "C.UTF-8"
             })
+        running: true
+
         stdout: StdioCollector {
             onStreamFinished: {
                 const PLACEHOLDER = "STRINGWHICHHOPEFULLYWONTBEUSED";
@@ -172,21 +165,21 @@ Singleton {
             }
         }
     }
-
-    component AccessPoint: QtObject {
-        required property var lastIpcObject
-        readonly property string ssid: lastIpcObject.ssid
-        readonly property string bssid: lastIpcObject.bssid
-        readonly property int strength: lastIpcObject.strength
-        readonly property int frequency: lastIpcObject.frequency
-        readonly property bool active: lastIpcObject.active
-        readonly property string security: lastIpcObject.security
-        readonly property bool isSecure: security.length > 0
-    }
-
     Component {
         id: apComp
 
-        AccessPoint {}
+        AccessPoint {
+        }
+    }
+
+    component AccessPoint: QtObject {
+        readonly property bool active: lastIpcObject.active
+        readonly property string bssid: lastIpcObject.bssid
+        readonly property int frequency: lastIpcObject.frequency
+        readonly property bool isSecure: security.length > 0
+        required property var lastIpcObject
+        readonly property string security: lastIpcObject.security
+        readonly property string ssid: lastIpcObject.ssid
+        readonly property int strength: lastIpcObject.strength
     }
 }

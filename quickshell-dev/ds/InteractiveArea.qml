@@ -7,27 +7,27 @@ import qs.ds.animations
 MouseArea {
     id: root
 
-    // Interaction properties
-    property bool disabled: false
-    property bool rippleEnabled: true
-    property bool hoverEffectEnabled: true
-
     // Visual properties
     property color color: Colours.palette.m3onSurface
-    property real radius: parent?.radius ?? 0
+
+    // Interaction properties
+    property bool disabled: false
+    property bool hoverEffectEnabled: true
     property real hoverOpacity: 0.08
     property real pressOpacity: 0.1
+    property real radius: parent?.radius ?? 0
+    property bool rippleEnabled: true
 
     // Callback
     function onClicked(): void {
     }
 
     anchors.fill: parent
-
-    enabled: !disabled
     cursorShape: enabled ? Qt.PointingHandCursor : undefined
+    enabled: !disabled
     hoverEnabled: enabled && root.hoverEffectEnabled
 
+    onClicked: event => enabled && onClicked(event)
     onPressed: event => {
         if (!enabled || !rippleEnabled)
             return;
@@ -41,18 +41,16 @@ MouseArea {
         rippleAnim.restart();
     }
 
-    onClicked: event => enabled && onClicked(event)
-
     RippleAnimation {
         id: rippleAnim
+
         rippleItem: ripple
         running: false
     }
-
     ClippingRectangle {
         id: hoverLayer
-        anchors.fill: parent
 
+        anchors.fill: parent
         color: {
             if (root.disabled)
                 return "transparent";
@@ -62,24 +60,25 @@ MouseArea {
             const alpha = root.pressed ? root.pressOpacity : root.containsMouse ? root.hoverOpacity : 0;
             return Qt.alpha(root.color, alpha);
         }
-
         radius: root.radius
+
+        Behavior on color {
+            BasicColorAnimation {
+            }
+        }
 
         Rectangle {
             id: ripple
-            radius: Appearance.rounding.full
+
             color: root.color
             opacity: 0
+            radius: Appearance.rounding.full
             visible: root.rippleEnabled
 
             transform: Translate {
                 x: -ripple.width / 2
                 y: -ripple.height / 2
             }
-        }
-
-        Behavior on color {
-            BasicColorAnimation {}
         }
     }
 }

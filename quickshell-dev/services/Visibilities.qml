@@ -4,12 +4,8 @@ import qs.services
 import Quickshell
 
 Singleton {
-    property var screens: new Map()
     property var bars: new Map()
-
-    function load(screen: ShellScreen, visibilities: var): void {
-        screens.set(screen, visibilities);
-    }
+    property var screens: new Map()
 
     function getForActive(): PersistentProperties {
         const focusedOutput = Niri.focusedOutput;
@@ -21,5 +17,8 @@ Singleton {
         }
 
         return screens.values().next().value;
+    }
+    function load(screen: ShellScreen, visibilities: var): void {
+        screens.set(screen, visibilities);
     }
 }

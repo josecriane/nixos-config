@@ -20,24 +20,6 @@ ShapePath {
         BottomRight
     }
 
-    required property BackgroundWrapper wrapper
-    readonly property real rounding: Config.border.rounding
-
-    property bool isLeftBorder: wrapper.x <= 0
-    property bool isTopBorder: wrapper.y <= 0
-    property bool isRightBorder: wrapper.x + wrapper.width + rounding >= parent.width
-    property bool isBottomBorder: wrapper.y + wrapper.height + 1 >= parent.height
-
-    property int topLeftCorner: {
-        if (isTopBorder && !isLeftBorder)
-            return Background.CornerType.InvertedTopLeft;
-        if (!isTopBorder && isLeftBorder)
-            return Background.CornerType.InvertedBottomRight;
-        if (!isTopBorder && !isLeftBorder)
-            return Background.CornerType.TopLeft;
-        return Background.CornerType.NoShape;
-    }
-
     property int bottomLeftCorner: {
         if (isBottomBorder && !isLeftBorder)
             return Background.CornerType.InvertedBottomLeft;
@@ -47,7 +29,6 @@ ShapePath {
             return Background.CornerType.BottomLeft;
         return Background.CornerType.NoShape;
     }
-
     property int bottomRightCorner: {
         if (isBottomBorder && !isRightBorder)
             return Background.CornerType.InvertedBottomRight;
@@ -57,7 +38,22 @@ ShapePath {
             return Background.CornerType.BottomRight;
         return Background.CornerType.NoShape;
     }
-
+    readonly property int inside: PathArc.Counterclockwise
+    property bool isBottomBorder: wrapper.y + wrapper.height + 1 >= parent.height
+    property bool isLeftBorder: wrapper.x <= 0
+    property bool isRightBorder: wrapper.x + wrapper.width + rounding >= parent.width
+    property bool isTopBorder: wrapper.y <= 0
+    readonly property int outside: PathArc.Clockwise
+    readonly property real rounding: Config.border.rounding
+    property int topLeftCorner: {
+        if (isTopBorder && !isLeftBorder)
+            return Background.CornerType.InvertedTopLeft;
+        if (!isTopBorder && isLeftBorder)
+            return Background.CornerType.InvertedBottomRight;
+        if (!isTopBorder && !isLeftBorder)
+            return Background.CornerType.TopLeft;
+        return Background.CornerType.NoShape;
+    }
     property int topRightCorner: {
         if (isTopBorder && !isRightBorder)
             return Background.CornerType.InvertedTopRight;
@@ -67,44 +63,39 @@ ShapePath {
             return Background.CornerType.TopRight;
         return Background.CornerType.NoShape;
     }
+    required property BackgroundWrapper wrapper
 
-    readonly property int inside: PathArc.Counterclockwise
-    readonly property int outside: PathArc.Clockwise
-
-    strokeWidth: -1
     fillColor: wrapper.hasCurrent ? Colours.palette.m3surface : "transparent"
+    strokeWidth: -1
+
+    Behavior on fillColor {
+        BasicColorAnimation {
+        }
+    }
 
     CornerPathArc {
         cornerType: topLeftCorner
     }
-
     VerticalPathLine {
-        startCornerType: topLeftCorner
         endCornerType: bottomLeftCorner
-
+        startCornerType: topLeftCorner
         upToDown: true
     }
-
     CornerPathArc {
         cornerType: bottomLeftCorner
     }
-
     HorizontalPathLine {
-        startCornerType: bottomLeftCorner
         endCornerType: bottomRightCorner
+        startCornerType: bottomLeftCorner
     }
-
     CornerPathArc {
         cornerType: bottomRightCorner
     }
-
     VerticalPathLine {
-        startCornerType: bottomRightCorner
         endCornerType: topRightCorner
-
+        startCornerType: bottomRightCorner
         upToDown: false
     }
-
     CornerPathArc {
         cornerType: topRightCorner
     }
@@ -112,55 +103,6 @@ ShapePath {
     // Components
     component CornerPathArc: PathArc {
         required property int cornerType
-
-        relativeX: {
-            switch (cornerType) {
-            case Background.CornerType.InvertedTopLeft:
-                return rounding;
-            case Background.CornerType.InvertedBottomLeft:
-                return -rounding;
-            case Background.CornerType.InvertedBottomRight:
-                return -rounding;
-            case Background.CornerType.InvertedTopRight:
-                return rounding;
-            case Background.CornerType.TopLeft:
-                return -rounding;
-            case Background.CornerType.BottomLeft:
-                return rounding;
-            case Background.CornerType.BottomRight:
-                return rounding;
-            case Background.CornerType.TopRight:
-                return -rounding;
-            default:
-                return 0;
-            }
-        }
-
-        relativeY: {
-            switch (cornerType) {
-            case Background.CornerType.InvertedTopLeft:
-                return rounding;
-            case Background.CornerType.InvertedBottomLeft:
-                return rounding;
-            case Background.CornerType.InvertedBottomRight:
-                return -rounding;
-            case Background.CornerType.InvertedTopRight:
-                return -rounding;
-            case Background.CornerType.TopLeft:
-                return rounding;
-            case Background.CornerType.BottomLeft:
-                return rounding;
-            case Background.CornerType.BottomRight:
-                return -rounding;
-            case Background.CornerType.TopRight:
-                return -rounding;
-            default:
-                return 0;
-            }
-        }
-
-        radiusX: cornerType === Background.CornerType.NoShape ? 0 : rounding
-        radiusY: cornerType === Background.CornerType.NoShape ? 0 : rounding
 
         direction: {
             switch (cornerType) {
@@ -184,11 +126,56 @@ ShapePath {
                 return outside;
             }
         }
+        radiusX: cornerType === Background.CornerType.NoShape ? 0 : rounding
+        radiusY: cornerType === Background.CornerType.NoShape ? 0 : rounding
+        relativeX: {
+            switch (cornerType) {
+            case Background.CornerType.InvertedTopLeft:
+                return rounding;
+            case Background.CornerType.InvertedBottomLeft:
+                return -rounding;
+            case Background.CornerType.InvertedBottomRight:
+                return -rounding;
+            case Background.CornerType.InvertedTopRight:
+                return rounding;
+            case Background.CornerType.TopLeft:
+                return -rounding;
+            case Background.CornerType.BottomLeft:
+                return rounding;
+            case Background.CornerType.BottomRight:
+                return rounding;
+            case Background.CornerType.TopRight:
+                return -rounding;
+            default:
+                return 0;
+            }
+        }
+        relativeY: {
+            switch (cornerType) {
+            case Background.CornerType.InvertedTopLeft:
+                return rounding;
+            case Background.CornerType.InvertedBottomLeft:
+                return rounding;
+            case Background.CornerType.InvertedBottomRight:
+                return -rounding;
+            case Background.CornerType.InvertedTopRight:
+                return -rounding;
+            case Background.CornerType.TopLeft:
+                return rounding;
+            case Background.CornerType.BottomLeft:
+                return rounding;
+            case Background.CornerType.BottomRight:
+                return -rounding;
+            case Background.CornerType.TopRight:
+                return -rounding;
+            default:
+                return 0;
+            }
+        }
     }
-
     component HorizontalPathLine: PathLine {
-        required property int startCornerType
         required property int endCornerType
+        required property int startCornerType
 
         relativeX: {
             function relativeX(cornerType) {
@@ -215,13 +202,11 @@ ShapePath {
         }
         relativeY: 0
     }
-
     component VerticalPathLine: PathLine {
-        required property int startCornerType
-        required property int endCornerType
-        required property bool upToDown
-
         readonly property int direction: upToDown ? 1 : -1
+        required property int endCornerType
+        required property int startCornerType
+        required property bool upToDown
 
         relativeX: 0
         relativeY: {
@@ -252,9 +237,5 @@ ShapePath {
 
             return direction * root.wrapper.height + startY + endY;
         }
-    }
-
-    Behavior on fillColor {
-        BasicColorAnimation {}
     }
 }

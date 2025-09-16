@@ -12,9 +12,8 @@ Item {
     required property Item wrapper
 
     anchors.centerIn: parent
-
-    implicitWidth: (content.children.find(c => c.shouldBeActive)?.implicitWidth ?? 0) + Appearance.padding.large * 2
     implicitHeight: (content.children.find(c => c.shouldBeActive)?.implicitHeight ?? 0) + Appearance.padding.large * 2
+    implicitWidth: (content.children.find(c => c.shouldBeActive)?.implicitWidth ?? 0) + Appearance.padding.large * 2
 
     Item {
         id: content
@@ -24,43 +23,40 @@ Item {
 
         Popout {
             name: "network"
-            sourceComponent: Network {}
-        }
 
+            sourceComponent: Network {
+            }
+        }
         Popout {
             name: "bluetooth"
+
             sourceComponent: Bluetooth {
                 wrapper: root.wrapper
             }
         }
-
         Popout {
             name: "battery"
             source: "Battery.qml"
         }
-
         Popout {
             name: "audio"
+
             sourceComponent: Audio {
                 wrapper: root.wrapper
             }
         }
-
         Popout {
             name: "kblayout"
             source: "KbLayout.qml"
         }
-
         Popout {
             name: "calendar"
             source: "Calendar.qml"
         }
-
         Popout {
             name: "systemtray"
             source: "Performance.qml"
         }
-
         Repeater {
             model: ScriptModel {
                 values: [...SystemTray.items.values]
@@ -69,23 +65,22 @@ Item {
             Popout {
                 id: trayMenu
 
-                required property SystemTrayItem modelData
                 required property int index
+                required property SystemTrayItem modelData
 
                 name: `traymenu${index}`
                 sourceComponent: trayMenuComp
 
                 Connections {
-                    target: root.wrapper
-
                     function onHasCurrentChanged(): void {
                         if (root.wrapper.hasCurrent && trayMenu.shouldBeActive) {
                             trayMenu.sourceComponent = null;
                             trayMenu.sourceComponent = trayMenuComp;
                         }
                     }
-                }
 
+                    target: root.wrapper
+                }
                 Component {
                     id: trayMenuComp
 
@@ -104,13 +99,12 @@ Item {
         required property string name
         property bool shouldBeActive: root.wrapper.currentName === name
 
-        anchors.verticalCenter: parent.verticalCenter
+        active: false
         anchors.right: parent.right
-
+        anchors.verticalCenter: parent.verticalCenter
+        asynchronous: true
         opacity: 0
         scale: 0.8
-        active: false
-        asynchronous: true
 
         states: State {
             name: "active"
@@ -122,7 +116,6 @@ Item {
                 popout.scale: 1
             }
         }
-
         transitions: [
             Transition {
                 from: "active"
@@ -130,12 +123,12 @@ Item {
 
                 SequentialAnimation {
                     BasicNumberAnimation {
-                        properties: "opacity,scale"
                         duration: Appearance.anim.durations.small
+                        properties: "opacity,scale"
                     }
                     PropertyAction {
-                        target: popout
                         property: "active"
+                        target: popout
                     }
                 }
             },
@@ -145,8 +138,8 @@ Item {
 
                 SequentialAnimation {
                     PropertyAction {
-                        target: popout
                         property: "active"
+                        target: popout
                     }
                     BasicNumberAnimation {
                         properties: "opacity,scale"

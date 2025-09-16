@@ -3,7 +3,8 @@ import "modules/shortcuts" as Shortcuts
 import Quickshell
 
 ShellRoot {
-    Drawers {}
-
-    Shortcuts.Handler {}
+    Drawers {
+    }
+    Shortcuts.Handler {
+    }
 }

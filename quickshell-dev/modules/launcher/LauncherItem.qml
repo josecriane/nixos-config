@@ -11,17 +11,11 @@ import QtQuick
 Item {
     id: root
 
+    default property alias customContent: textContainer.data
+    property int itemHeight: 57
+    property var list
     required property LauncherItemModel modelData
     property PersistentProperties visibilities
-    property var list
-
-    property int itemHeight: 57
-    implicitHeight: itemHeight
-
-    anchors.left: parent?.left
-    anchors.right: parent?.right
-
-    default property alias customContent: textContainer.data
 
     function activate(): void {
         if (root.modelData.autocompleteText) {
@@ -41,69 +35,70 @@ Item {
         }
     }
 
-    InteractiveArea {
-        radius: Foundations.radius.xs
+    anchors.left: parent?.left
+    anchors.right: parent?.right
+    implicitHeight: itemHeight
 
+    InteractiveArea {
         function onClicked(): void {
             root.activate();
         }
-    }
 
+        radius: Foundations.radius.xs
+    }
     Item {
         anchors.fill: parent
         anchors.leftMargin: Appearance.padding.larger
-        anchors.rightMargin: Appearance.padding.larger
         anchors.margins: Appearance.padding.smaller
+        anchors.rightMargin: Appearance.padding.larger
 
         // Icon - Apps use IconImage, Actions use MaterialIcon
         IconImage {
             id: appIcon
-            visible: root.modelData?.isApp ?? false
-            source: visible ? Quickshell.iconPath(root.modelData?.appIcon, "image-missing") : ""
-            width: root.itemHeight * 0.6
-            height: root.itemHeight * 0.6
+
             anchors.left: parent.left
             anchors.verticalCenter: parent.verticalCenter
+            height: root.itemHeight * 0.6
+            source: visible ? Quickshell.iconPath(root.modelData?.appIcon, "image-missing") : ""
+            visible: root.modelData?.isApp ?? false
+            width: root.itemHeight * 0.6
         }
-
         Icons.MaterialFontIcon {
             id: fontIcon
-            visible: root.modelData?.isAction ?? false
-            text: visible ? (root.modelData?.fontIcon ?? "") : ""
-            font.pointSize: Appearance.font.size.extraLarge
+
             anchors.left: parent.left
             anchors.verticalCenter: parent.verticalCenter
+            font.pointSize: Appearance.font.size.extraLarge
+            text: visible ? (root.modelData?.fontIcon ?? "") : ""
+            visible: root.modelData?.isAction ?? false
         }
-
         Item {
             id: textContainer
-            anchors.left: appIcon.visible ? appIcon.right : fontIcon.right
-            anchors.right: parent.right
-            anchors.leftMargin: Appearance.spacing.normal
-            anchors.verticalCenter: parent.verticalCenter
 
+            anchors.left: appIcon.visible ? appIcon.right : fontIcon.right
+            anchors.leftMargin: Appearance.spacing.normal
+            anchors.right: parent.right
+            anchors.verticalCenter: parent.verticalCenter
             height: name.height + subtitle.height
 
             DsText.BodyM {
                 id: name
+
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.top: parent.top
-
-                text: root.modelData?.name ?? ""
                 elide: Text.ElideRight
+                text: root.modelData?.name ?? ""
             }
-
             DsText.BodyS {
                 id: subtitle
+
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.top: name.bottom
-
-                text: root.modelData?.subtitle ?? ""
-
-                elide: Text.ElideRight
                 disabled: true
+                elide: Text.ElideRight
+                text: root.modelData?.subtitle ?? ""
             }
         }
     }

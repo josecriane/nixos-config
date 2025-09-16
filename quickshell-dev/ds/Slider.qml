@@ -7,20 +7,63 @@ Slider {
     id: root
 
     property color activeColor: Colours.palette.m3primary
-    property color inactiveColor: Colours.palette.m3surfaceContainer
     property color handleColor: Colours.palette.m3primary
 
     // Expose hover state for child components
     readonly property alias handleHovered: mainInteraction.overHandle
+    property color inactiveColor: Colours.palette.m3surfaceContainer
 
-    signal wheelUp
     signal wheelDown
+    signal wheelUp
+
+    background: Item {
+        Rectangle {
+            id: leftSide
+
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 10
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.topMargin: 10
+            color: root.activeColor
+            implicitWidth: root.handle.x + root.handle.implicitWidth / 2
+            radius: Foundations.radius.all
+        }
+
+        // Inactive track (right side)
+        Rectangle {
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 11
+            anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.topMargin: 11
+            color: root.inactiveColor
+            implicitWidth: parent.width - leftSide.implicitWidth
+            radius: Foundations.radius.all
+        }
+    }
+    handle: Rectangle {
+        property int size: root.pressed ? 32 : 28
+
+        anchors.verticalCenter: root.verticalCenter
+        border.color: Colours.palette.m3surface
+        border.width: 4
+        color: root.handleColor
+        implicitHeight: size
+        implicitWidth: size
+        radius: Foundations.radius.all
+        x: root.visualPosition * root.availableWidth - implicitWidth / 2
+
+        Behavior on implicitWidth {
+            NumberAnimation {
+                duration: 150
+                easing.type: Easing.InOutQuad
+            }
+        }
+    }
 
     MouseArea {
         id: mainInteraction
-        anchors.fill: parent
-        acceptedButtons: Qt.NoButton
-        hoverEnabled: true
 
         property bool overHandle: {
             if (!containsMouse)
@@ -31,69 +74,16 @@ Slider {
             return localX >= handleX && localX <= (handleX + handleWidth);
         }
 
+        acceptedButtons: Qt.NoButton
+        anchors.fill: parent
         cursorShape: overHandle ? Qt.PointingHandCursor : Qt.ArrowCursor
+        hoverEnabled: true
 
         onWheel: event => {
             if (event.angleDelta.y > 0)
                 root.wheelUp();
             else if (event.angleDelta.y < 0)
                 root.wheelDown();
-        }
-    }
-
-    background: Item {
-        Rectangle {
-            id: leftSide
-
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.left: parent.left
-            anchors.topMargin: 10
-            anchors.bottomMargin: 10
-
-            implicitWidth: root.handle.x + root.handle.implicitWidth / 2
-
-            color: root.activeColor
-            radius: Foundations.radius.all
-        }
-
-        // Inactive track (right side)
-        Rectangle {
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.right: parent.right
-            anchors.topMargin: 11
-            anchors.bottomMargin: 11
-
-            implicitWidth: parent.width - leftSide.implicitWidth
-
-            color: root.inactiveColor
-            radius: Foundations.radius.all
-        }
-    }
-
-    handle: Rectangle {
-
-        property int size: root.pressed ? 32 : 28
-
-        x: root.visualPosition * root.availableWidth - implicitWidth / 2
-        implicitWidth: size
-        implicitHeight: size
-
-        anchors.verticalCenter: root.verticalCenter
-
-        border.color: Colours.palette.m3surface
-        border.width: 4
-
-        color: root.handleColor
-
-        radius: Foundations.radius.all
-
-        Behavior on implicitWidth {
-            NumberAnimation {
-                duration: 150
-                easing.type: Easing.InOutQuad
-            }
         }
     }
 }

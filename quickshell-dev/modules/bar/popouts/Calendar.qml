@@ -12,16 +12,16 @@ Column {
 
     property date currentMonth: new Date()
 
-    width: 300
     height: implicitHeight + Appearance.padding.large
     spacing: Appearance.spacing.small
+    width: 300
 
     RowLayout {
-        width: root.width
         Layout.fillWidth: true
-        Layout.topMargin: Appearance.padding.large
         Layout.leftMargin: Appearance.padding.large
         Layout.rightMargin: Appearance.padding.large
+        Layout.topMargin: Appearance.padding.large
+        width: root.width
 
         CircularButtons.M {
             icon: "chevron_left"
@@ -32,13 +32,11 @@ Column {
                 root.currentMonth = newDate;
             }
         }
-
         DSText.HeadingM {
             Layout.fillWidth: true
-            text: Qt.formatDate(root.currentMonth, "MMMM yyyy")
             horizontalAlignment: Text.AlignHCenter
+            text: Qt.formatDate(root.currentMonth, "MMMM yyyy")
         }
-
         CircularButtons.M {
             icon: "chevron_right"
 
@@ -49,13 +47,12 @@ Column {
             }
         }
     }
-
     DayOfWeekRow {
         id: days
 
         anchors.left: parent.left
-        anchors.right: parent.right
         anchors.margins: parent.padding
+        anchors.right: parent.right
 
         delegate: DSText.HeadingS {
             required property var model
@@ -64,44 +61,39 @@ Column {
             text: model.shortName
         }
     }
-
     MonthGrid {
         id: grid
 
         anchors.left: parent.left
-        anchors.right: parent.right
         anchors.margins: parent.padding
-
-        month: root.currentMonth.getMonth()
-        year: root.currentMonth.getFullYear()
-        spacing: 3
+        anchors.right: parent.right
         height: Math.max(200, implicitHeight)
+        month: root.currentMonth.getMonth()
+        spacing: 3
+        year: root.currentMonth.getFullYear()
 
         delegate: Item {
             id: day
 
             required property var model
 
-            implicitWidth: implicitHeight
             implicitHeight: text.implicitHeight + Appearance.padding.small * 2
+            implicitWidth: implicitHeight
 
             Rectangle {
                 anchors.centerIn: parent
-
-                implicitWidth: parent.implicitHeight
-                implicitHeight: parent.implicitHeight
-
-                radius: Appearance.rounding.full
                 color: Qt.alpha(Colours.palette.m3primary, day.model.today ? 1 : 0)
+                implicitHeight: parent.implicitHeight
+                implicitWidth: parent.implicitHeight
+                radius: Appearance.rounding.full
 
                 DSText.BodyM {
                     id: text
 
                     anchors.centerIn: parent
-
+                    color: day.model.today ? Colours.palette.m3onPrimary : day.model.month === grid.month ? Colours.palette.m3onSurfaceVariant : Colours.palette.m3outline
                     horizontalAlignment: Text.AlignHCenter
                     text: Qt.formatDate(day.model.date, "d")
-                    color: day.model.today ? Colours.palette.m3onPrimary : day.model.month === grid.month ? Colours.palette.m3onSurfaceVariant : Colours.palette.m3outline
                 }
             }
         }

@@ -9,15 +9,13 @@ import QtQuick
 Item {
     id: root
 
-    required property PersistentProperties visibilities
-    required property Item panel
     readonly property int padding: Appearance.padding.large
+    required property Item panel
+    required property PersistentProperties visibilities
 
-    anchors.top: parent.top
     anchors.bottom: parent.bottom
     anchors.right: parent.right
-
-    implicitWidth: Config.notifs.sizes.width + padding * 2
+    anchors.top: parent.top
     implicitHeight: {
         const count = list.count;
         if (count === 0)
@@ -43,96 +41,87 @@ Item {
 
         return Math.min((QsWindow.window?.screen?.height ?? 0) - Config.border.thickness * 2, height + padding * 2);
     }
+    implicitWidth: Config.notifs.sizes.width + padding * 2
+
+    Behavior on implicitHeight {
+        Anim {
+        }
+    }
 
     ClippingWrapperRectangle {
         anchors.fill: parent
         anchors.margins: root.padding
-
         color: "transparent"
         radius: Appearance.rounding.normal
 
         ListView {
             id: list
 
-            model: ScriptModel {
-                values: [...Notifs.popups].reverse()
-            }
-
-            rebound: Transition {
-                BasicNumberAnimation {
-                    properties: "x,y"
-                }
-            }
-
             anchors.fill: parent
-
+            cacheBuffer: QsWindow.window?.screen.height ?? 0
             orientation: Qt.Vertical
             spacing: 0
-            cacheBuffer: QsWindow.window?.screen.height ?? 0
 
             delegate: Item {
                 id: wrapper
 
-                required property Notifs.Notif modelData
-                required property int index
-                readonly property alias nonAnimHeight: notif.nonAnimHeight
                 property int idx
+                required property int index
+                required property Notifs.Notif modelData
+                readonly property alias nonAnimHeight: notif.nonAnimHeight
 
+                implicitHeight: notif.implicitHeight + (idx === 0 ? 0 : Appearance.spacing.smaller)
+                implicitWidth: notif.implicitWidth
+
+                ListView.onRemove: removeAnim.start()
                 onIndexChanged: {
                     if (index !== -1)
                         idx = index;
                 }
 
-                implicitWidth: notif.implicitWidth
-                implicitHeight: notif.implicitHeight + (idx === 0 ? 0 : Appearance.spacing.smaller)
-
-                ListView.onRemove: removeAnim.start()
-
                 SequentialAnimation {
                     id: removeAnim
 
                     PropertyAction {
-                        target: wrapper
                         property: "ListView.delayRemove"
+                        target: wrapper
                         value: true
                     }
                     PropertyAction {
-                        target: wrapper
                         property: "enabled"
+                        target: wrapper
                         value: false
                     }
                     PropertyAction {
-                        target: wrapper
                         property: "implicitHeight"
+                        target: wrapper
                         value: 0
                     }
                     PropertyAction {
-                        target: wrapper
                         property: "z"
+                        target: wrapper
                         value: 1
                     }
                     Anim {
-                        target: notif
-                        property: "x"
-                        to: (notif.x >= 0 ? Config.notifs.sizes.width : -Config.notifs.sizes.width) * 2
                         duration: Appearance.anim.durations.normal
                         easing.bezierCurve: Appearance.anim.curves.emphasized
+                        property: "x"
+                        target: notif
+                        to: (notif.x >= 0 ? Config.notifs.sizes.width : -Config.notifs.sizes.width) * 2
                     }
                     PropertyAction {
-                        target: wrapper
                         property: "ListView.delayRemove"
+                        target: wrapper
                         value: false
                     }
                 }
-
                 ClippingRectangle {
                     anchors.top: parent.top
                     anchors.topMargin: wrapper.idx === 0 ? 0 : Appearance.spacing.smaller
-
                     color: "transparent"
-                    radius: notif.radius
-                    implicitWidth: notif.implicitWidth
                     implicitHeight: notif.implicitHeight
+                    implicitWidth: notif.implicitWidth
+                    radius: notif.radius
 
                     Notification {
                         id: notif
@@ -141,16 +130,22 @@ Item {
                     }
                 }
             }
-
+            displaced: Transition {
+                Anim {
+                    property: "y"
+                }
+            }
+            model: ScriptModel {
+                values: [...Notifs.popups].reverse()
+            }
             move: Transition {
                 Anim {
                     property: "y"
                 }
             }
-
-            displaced: Transition {
-                Anim {
-                    property: "y"
+            rebound: Transition {
+                BasicNumberAnimation {
+                    properties: "x,y"
                 }
             }
 
@@ -174,7 +169,6 @@ Item {
                     return count;
                 }
             }
-
             ExtraIndicator {
                 anchors.bottom: parent.bottom
                 extra: {
@@ -198,13 +192,9 @@ Item {
         }
     }
 
-    Behavior on implicitHeight {
-        Anim {}
-    }
-
     component Anim: NumberAnimation {
         duration: Appearance.anim.durations.expressiveDefaultSpatial
-        easing.type: Easing.BezierSpline
         easing.bezierCurve: Appearance.anim.curves.expressiveDefaultSpatial
+        easing.type: Easing.BezierSpline
     }
 }

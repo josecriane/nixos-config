@@ -9,25 +9,23 @@ ScrollBar {
 
     property color scrollbarColor: Colours.palette.m3secondary
 
-    topPadding: Foundations.spacing.m
     bottomPadding: Foundations.spacing.m
+    topPadding: Foundations.spacing.m
 
     contentItem: Rectangle {
+        color: root.scrollbarColor
         implicitWidth: 6
         opacity: root.pressed ? 1 : root.policy === ScrollBar.AlwaysOn || (root.active && root.size < 1) ? 0.5 : 0
         radius: Foundations.radius.all
-        color: root.scrollbarColor
 
         Behavior on opacity {
-            BasicNumberAnimation {}
+            BasicNumberAnimation {
+            }
         }
     }
 
     MouseArea {
         property int scrollAccumulatedY: 0
-
-        z: -1
-        anchors.fill: parent
 
         function onWheel(event: WheelEvent): void {
             if (event.angleDelta.y > 0)
@@ -35,6 +33,9 @@ ScrollBar {
             else if (event.angleDelta.y < 0)
                 root.increase();
         }
+
+        anchors.fill: parent
+        z: -1
 
         onWheel: event => {
             // Update accumulated scroll

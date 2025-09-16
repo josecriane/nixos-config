@@ -9,8 +9,8 @@ import QtQuick.Shapes
 Shape {
     id: root
 
-    required property Panels panels
     required property Item bar
+    required property Panels panels
 
     anchors.fill: parent
     anchors.margins: Config.border.thickness
@@ -18,37 +18,28 @@ Shape {
     preferredRendererType: Shape.CurveRenderer
 
     Background {
-        wrapper: root.panels.osd
-
         startX: wrapper.x + Config.border.rounding
         startY: wrapper.y
+        wrapper: root.panels.osd
     }
-
     Notifications.Background {
-        wrapper: root.panels.notifications
-
         startX: root.width
         startY: 0
+        wrapper: root.panels.notifications
     }
-
     Background {
-        wrapper: root.panels.session
-
         startX: wrapper.x + Config.border.rounding
         startY: wrapper.y
+        wrapper: root.panels.session
     }
-
     Background {
-        wrapper: root.panels.launcher
-
         startX: (root.width - wrapper.width) / 2 - Config.border.rounding
         startY: 0
+        wrapper: root.panels.launcher
     }
-
     Background {
-        wrapper: root.panels.popouts
-
         startX: wrapper.x - Config.border.rounding
         startY: 0
+        wrapper: root.panels.popouts
     }
 }

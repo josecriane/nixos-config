@@ -13,63 +13,53 @@ Column {
 
     required property PersistentProperties visibilities
 
-    padding: Appearance.padding.large
-
-    anchors.verticalCenter: parent.verticalCenter
     anchors.left: parent.left
-
+    anchors.verticalCenter: parent.verticalCenter
+    padding: Appearance.padding.large
     spacing: Appearance.spacing.large
 
     SessionButton {
         id: logout
 
-        icon: "logout"
-        command: Config.session.commands.logout
-
         KeyNavigation.down: shutdown
+        command: Config.session.commands.logout
+        icon: "logout"
 
         Connections {
-            target: root.visibilities
-
+            function onLauncherChanged(): void {
+                if (root.visibilities.session && !root.visibilities.launcher)
+                    logout.focus = true;
+            }
             function onSessionChanged(): void {
                 if (root.visibilities.session)
                     logout.focus = true;
             }
 
-            function onLauncherChanged(): void {
-                if (root.visibilities.session && !root.visibilities.launcher)
-                    logout.focus = true;
-            }
+            target: root.visibilities
         }
     }
-
     SessionButton {
         id: shutdown
 
-        icon: "power_settings_new"
-        command: Config.session.commands.shutdown
-
-        KeyNavigation.up: logout
         KeyNavigation.down: hibernate
+        KeyNavigation.up: logout
+        command: Config.session.commands.shutdown
+        icon: "power_settings_new"
     }
-
     SessionButton {
         id: hibernate
 
-        icon: "downloading"
-        command: Config.session.commands.hibernate
-
-        KeyNavigation.up: shutdown
         KeyNavigation.down: reboot
+        KeyNavigation.up: shutdown
+        command: Config.session.commands.hibernate
+        icon: "downloading"
     }
-
     SessionButton {
         id: reboot
 
-        icon: "cached"
-        command: Config.session.commands.reboot
-
         KeyNavigation.up: hibernate
+        command: Config.session.commands.reboot
+        icon: "cached"
     }
 
     component SessionButton: DsButtons.IconButton {
@@ -80,7 +70,6 @@ Column {
         buttonSize: Config.session.sizes.button
 
         Keys.onEnterPressed: Quickshell.execDetached(button.command)
-        Keys.onReturnPressed: Quickshell.execDetached(button.command)
         Keys.onEscapePressed: root.visibilities.session = false
         Keys.onPressed: event => {
             if (!Config.session.vimKeybinds)
@@ -104,7 +93,7 @@ Column {
                 }
             }
         }
-
+        Keys.onReturnPressed: Quickshell.execDetached(button.command)
         onClicked: {
             Quickshell.execDetached(button.command);
         }

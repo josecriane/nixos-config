@@ -6,13 +6,12 @@ Shortcut {
 
     property bool interrupted: false
 
-    name: "launcher"
     description: "Toggle launcher"
+    name: "launcher"
 
     onPressed: {
         root.interrupted = false;
     }
-
     onReleased: {
         if (!root.interrupted) {
             const visibilities = Visibilities.getForActive();

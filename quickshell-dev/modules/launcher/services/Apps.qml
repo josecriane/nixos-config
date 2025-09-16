@@ -19,7 +19,6 @@ Utils.Searcher {
             Niri.spawn(entry.command.join(" "));
         }
     }
-
     function search(search: string): list<var> {
         keys = ["name"];
         weights = [1];
@@ -37,11 +36,12 @@ Utils.Searcher {
         delegate: LauncherItemModel {
             required property DesktopEntry modelData
 
-            name: modelData.name ?? ""
-            subtitle: modelData.comment || modelData.genericName || modelData.name || ""
-            isApp: true
             appIcon: modelData.icon ?? ""
+            isApp: true
+            name: modelData.name ?? ""
             originalData: modelData
+            subtitle: modelData.comment || modelData.genericName || modelData.name || ""
+
             onActivate: function () {
                 root.launch(originalData);
             }

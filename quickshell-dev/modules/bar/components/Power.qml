@@ -9,9 +9,9 @@ CircularButtons.S {
 
     required property PersistentProperties visibilities
 
-    icon: "power_settings_new"
-    foregroundColor: Colours.palette.m3error
     backgroundColor: "transparent"
+    foregroundColor: Colours.palette.m3error
+    icon: "power_settings_new"
 
     onClicked: {
         root.visibilities.session = !root.visibilities.session;

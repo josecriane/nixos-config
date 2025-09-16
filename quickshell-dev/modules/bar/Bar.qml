@@ -11,11 +11,11 @@ import QtQuick.Layouts
 Item {
     id: root
 
+    readonly property int hPadding: Appearance.padding.large
+    required property int innerHeight
+    required property BarPopouts.Wrapper popouts
     required property ShellScreen screen
     required property PersistentProperties visibilities
-    required property BarPopouts.Wrapper popouts
-    required property int innerHeight
-    readonly property int hPadding: Appearance.padding.large
 
     function checkPopout(x: real): void {
         // Check if hovering over the centered Date component
@@ -61,7 +61,6 @@ Item {
             popouts.hasCurrent = true;
         }
     }
-
     function handleWheel(x: real, angleDelta: point): void {
         const ch = childAt(x, height / 2) as WrappedLoader;
         if (ch?.id === "workspaces") {
@@ -85,74 +84,79 @@ Item {
 
     RowLayout {
         id: mainLayout
+
         anchors.fill: parent
         spacing: Appearance.spacing.normal
 
         // Left side
         WrappedLoader {
             id: workspaces
+
             Layout.leftMargin: root.hPadding
+
             sourceComponent: Workspaces {
                 screen: root.screen
             }
         }
-
         WrappedLoader {
             id: activeWindow
+
             sourceComponent: ActiveWindow {
-                screen: root.screen
                 height: root.innerHeight
+                screen: root.screen
             }
         }
 
         // Center spacer
         WrappedLoader {
             id: spacer
+
             Layout.fillWidth: true
         }
 
         // Right side items
         WrappedLoader {
             id: tray
+
             sourceComponent: Tray {
                 height: root.innerHeight
             }
         }
-
         WrappedLoader {
             id: resources
+
             sourceComponent: SystemTray {
                 height: root.innerHeight
             }
         }
-
         WrappedLoader {
             id: statusIcons
+
             sourceComponent: StatusIcons {
                 height: root.innerHeight
             }
         }
-
         WrappedLoader {
             id: idleInhibitor
-            sourceComponent: IdleInhibitor {}
-        }
 
+            sourceComponent: IdleInhibitor {
+            }
+        }
         WrappedLoader {
             id: power
+
             Layout.rightMargin: root.hPadding
+
             sourceComponent: Power {
                 visibilities: root.visibilities
             }
         }
     }
-
     Date {
         id: date
 
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
-
         z: 10
     }
 
@@ -160,7 +164,7 @@ Item {
         property string id
 
         Layout.alignment: Qt.AlignVCenter
-        visible: true
         active: true
+        visible: true
     }
 }

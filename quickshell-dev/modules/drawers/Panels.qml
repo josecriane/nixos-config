@@ -10,15 +10,14 @@ import QtQuick
 Item {
     id: root
 
-    required property ShellScreen screen
-    required property PersistentProperties visibilities
     required property Item bar
-
-    readonly property Osd.Wrapper osd: osd
-    readonly property Notifications.Wrapper notifications: notifications
-    readonly property Session.Wrapper session: session
     readonly property Launcher.Wrapper launcher: launcher
+    readonly property Notifications.Wrapper notifications: notifications
+    readonly property Osd.Wrapper osd: osd
     readonly property BarPopouts.Wrapper popouts: popouts
+    required property ShellScreen screen
+    readonly property Session.Wrapper session: session
+    required property PersistentProperties visibilities
 
     anchors.fill: parent
     anchors.margins: Config.border.thickness
@@ -27,49 +26,40 @@ Item {
     Osd.Wrapper {
         id: osd
 
+        anchors.right: parent.right
+        anchors.rightMargin: session.width
+        anchors.verticalCenter: parent.verticalCenter
         clip: root.visibilities.session
         screen: root.screen
         visibilities: root.visibilities
-
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.right: parent.right
-        anchors.rightMargin: session.width
     }
-
     Notifications.Wrapper {
         id: notifications
 
-        visibilities: root.visibilities
-        panel: root
-
-        anchors.top: parent.top
         anchors.right: parent.right
+        anchors.top: parent.top
+        panel: root
+        visibilities: root.visibilities
     }
-
     Session.Wrapper {
         id: session
 
-        visibilities: root.visibilities
-
-        anchors.verticalCenter: parent.verticalCenter
         anchors.right: parent.right
+        anchors.verticalCenter: parent.verticalCenter
+        visibilities: root.visibilities
     }
-
     Launcher.Wrapper {
         id: launcher
 
-        visibilities: root.visibilities
-        panels: root
-
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
+        panels: root
+        visibilities: root.visibilities
     }
-
     BarPopouts.Wrapper {
         id: popouts
 
         screen: root.screen
-
         x: {
             const off = currentCenter - Config.border.thickness - nonAnimWidth / 2;
             const diff = root.width - Math.floor(off + nonAnimWidth);

@@ -22,53 +22,45 @@ Slider {
             id: topSide
 
             anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.top: parent.top
             anchors.leftMargin: 2
+            anchors.right: parent.right
             anchors.rightMargin: 2
-
-            implicitHeight: root.handle.y + root.handle.implicitWidth / 2
-
+            anchors.top: parent.top
             color: Colours.tPalette.m3surfaceContainer
+            implicitHeight: root.handle.y + root.handle.implicitWidth / 2
             radius: parent.radius
         }
-
         Rectangle {
             id: bottomSide
 
             anchors.left: parent.left
-            anchors.right: parent.right
             anchors.leftMargin: 2
+            anchors.right: parent.right
             anchors.rightMargin: 2
-
-            y: root.handle.y
-            implicitHeight: parent.height - y
-
             color: Colours.palette.m3primary
+            implicitHeight: parent.height - y
             radius: parent.radius
+            y: root.handle.y
         }
     }
-
     handle: Item {
         id: handle
 
         property bool moving
 
-        y: root.visualPosition * (root.availableHeight - height)
-        implicitWidth: root.width
         implicitHeight: root.width
+        implicitWidth: root.width
+        y: root.visualPosition * (root.availableHeight - height)
 
         ElevationToken {
             anchors.fill: parent
             radius: rect.radius
             spread: root.handleHovered ? 3 : 1
         }
-
         Rectangle {
             id: rect
 
             anchors.fill: parent
-
             color: Colours.palette.m3inverseSurface
             radius: Appearance.rounding.full
 
@@ -84,40 +76,44 @@ Slider {
                     font.family = moving ? Appearance.font.family.sans : Appearance.font.family.material;
                 }
 
-                animate: true
-                text: root.icon
-                color: Colours.palette.m3inverseOnSurface
                 anchors.centerIn: parent
+                animate: true
+                color: Colours.palette.m3inverseOnSurface
+                text: root.icon
 
                 Behavior on moving {
                     SequentialAnimation {
                         BasicNumberAnimation {
-                            target: icon
-                            property: "scale"
-                            from: 1
-                            to: 0
                             duration: Appearance.anim.durations.normal / 2
                             easing.bezierCurve: Appearance.anim.curves.standardAccel
+                            from: 1
+                            property: "scale"
+                            target: icon
+                            to: 0
                         }
                         ScriptAction {
                             script: icon.update()
                         }
                         BasicNumberAnimation {
-                            target: icon
-                            property: "scale"
-                            from: 0
-                            to: 1
                             duration: Appearance.anim.durations.normal / 2
                             easing.bezierCurve: Appearance.anim.curves.standardDecel
+                            from: 0
+                            property: "scale"
+                            target: icon
+                            to: 1
                         }
                     }
                 }
             }
         }
     }
+    Behavior on value {
+        BasicNumberAnimation {
+            duration: Appearance.anim.durations.large
+        }
+    }
 
     onPressedChanged: handle.moving = pressed
-
     onValueChanged: {
         if (Math.abs(value - oldValue) < 0.01)
             return;
@@ -130,15 +126,10 @@ Slider {
         id: stateChangeDelay
 
         interval: 500
+
         onTriggered: {
             if (!root.pressed)
                 handle.moving = false;
-        }
-    }
-
-    Behavior on value {
-        BasicNumberAnimation {
-            duration: Appearance.anim.durations.large
         }
     }
 }

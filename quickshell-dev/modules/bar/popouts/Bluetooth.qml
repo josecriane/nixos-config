@@ -17,38 +17,37 @@ ColumnLayout {
     required property Item wrapper
 
     spacing: Appearance.spacing.small
-
     width: Math.max(320, implicitWidth)
 
     Text.HeadingS {
-        Layout.topMargin: Appearance.padding.normal
         Layout.rightMargin: Appearance.padding.small
+        Layout.topMargin: Appearance.padding.normal
         text: qsTr("Bluetooth %1").arg(BluetoothAdapterState.toString(Bluetooth.defaultAdapter?.state).toLowerCase())
     }
-
     Toggle {
-        label: qsTr("Enabled")
         checked: Bluetooth.defaultAdapter?.enabled ?? false
+        label: qsTr("Enabled")
+
         toggle.onToggled: {
             const adapter = Bluetooth.defaultAdapter;
             if (adapter)
                 adapter.enabled = checked;
         }
     }
-
     Toggle {
-        label: qsTr("Discovering")
         checked: Bluetooth.defaultAdapter?.discovering ?? false
+        label: qsTr("Discovering")
+
         toggle.onToggled: {
             const adapter = Bluetooth.defaultAdapter;
             if (adapter)
                 adapter.discovering = checked;
         }
     }
-
     Text.BodyS {
-        Layout.topMargin: Appearance.spacing.small
         Layout.rightMargin: Appearance.padding.small
+        Layout.topMargin: Appearance.spacing.small
+        disabled: true
         text: {
             const devices = Bluetooth.devices.values;
             let available = qsTr("%1 device%2 available").arg(devices.length).arg(devices.length === 1 ? "" : "s");
@@ -57,33 +56,28 @@ ColumnLayout {
                 available += qsTr(" (%1 connected)").arg(connected);
             return available;
         }
-        disabled: true
     }
-
     Repeater {
         model: ScriptModel {
             values: [...Bluetooth.devices.values].sort((a, b) => (b.connected - a.connected) || (b.paired - a.paired)).slice(0, 5)
         }
 
         Lists.ListItem {
-            required property BluetoothDevice modelData
             readonly property bool loading: modelData.state === BluetoothDeviceState.Connecting || modelData.state === BluetoothDeviceState.Disconnecting
+            required property BluetoothDevice modelData
 
             leftIcon: Utils.Icons.getBluetoothIcon(modelData.icon)
-            text: modelData.name
-            selected: modelData.connected
-
-            primaryFontIcon: modelData.connected ? "link_off" : "link"
             primaryActionActive: modelData.connected
             primaryActionLoading: loading
-
-            secondaryFontIcon: modelData.bonded ? "delete" : ""
+            primaryFontIcon: modelData.connected ? "link_off" : "link"
             secondaryActionActive: !modelData.bonded
+            secondaryFontIcon: modelData.bonded ? "delete" : ""
+            selected: modelData.connected
+            text: modelData.name
 
             onPrimaryActionClicked: {
                 modelData.connected = !modelData.connected;
             }
-
             onSecondaryActionClicked: {
                 modelData.forget();
             }
@@ -91,8 +85,8 @@ ColumnLayout {
     }
 
     component Toggle: RowLayout {
-        required property string label
         property alias checked: toggle.checked
+        required property string label
         property alias toggle: toggle
 
         Layout.fillWidth: true
@@ -103,9 +97,9 @@ ColumnLayout {
             Layout.fillWidth: true
             text: parent.label
         }
-
         Ds.Switch {
             id: toggle
+
         }
     }
 }

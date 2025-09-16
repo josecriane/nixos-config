@@ -15,29 +15,24 @@ Singleton {
 
         reloadableId: "idleInhibitor"
     }
-
     Process {
-        running: root.enabled
         command: ["systemd-inhibit", "--what=idle", "--who=quickshell", "--why=Idle inhibitor active", "--mode=block", "sleep", "inf"]
+        running: root.enabled
     }
-
     IpcHandler {
-        target: "idleInhibitor"
-
+        function disable(): void {
+            root.enabled = false;
+        }
+        function enable(): void {
+            root.enabled = true;
+        }
         function isEnabled(): bool {
             return root.enabled;
         }
-
         function toggle(): void {
             root.enabled = !root.enabled;
         }
 
-        function enable(): void {
-            root.enabled = true;
-        }
-
-        function disable(): void {
-            root.enabled = false;
-        }
+        target: "idleInhibitor"
     }
 }

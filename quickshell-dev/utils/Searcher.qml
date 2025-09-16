@@ -5,18 +5,7 @@ import "scripts/fuzzysort.js" as Fuzzy
 import QtQuick
 
 Singleton {
-    required property list<QtObject> list
-    property string key: "name"
-    property bool useFuzzy: false
     property var extraOpts: ({})
-
-    // Extra stuff for fuzzy
-    property list<string> keys: [key]
-    property list<real> weights: [1]
-
-    readonly property var fzf: useFuzzy ? [] : new Fzf.Finder(list, Object.assign({
-        selector
-    }, extraOpts))
     readonly property list<var> fuzzyPrepped: useFuzzy ? list.map(e => {
         const obj = {
             _item: e
@@ -25,15 +14,16 @@ Singleton {
             obj[k] = Fuzzy.prepare(e[k]);
         return obj;
     }) : []
+    readonly property var fzf: useFuzzy ? [] : new Fzf.Finder(list, Object.assign({
+        selector
+    }, extraOpts))
+    property string key: "name"
 
-    function transformSearch(search: string): string {
-        return search;
-    }
-
-    function selector(item: var): string {
-        // Only for fzf
-        return item[key];
-    }
+    // Extra stuff for fuzzy
+    property list<string> keys: [key]
+    required property list<QtObject> list
+    property bool useFuzzy: false
+    property list<real> weights: [1]
 
     function query(search: string): list<var> {
         search = transformSearch(search);
@@ -52,5 +42,12 @@ Singleton {
                 return selector(a.item).trim().length - selector(b.item).trim().length;
             return b.score - a.score;
         }).map(r => r.item);
+    }
+    function selector(item: var): string {
+        // Only for fzf
+        return item[key];
+    }
+    function transformSearch(search: string): string {
+        return search;
     }
 }

@@ -20,24 +20,22 @@ ColumnLayout {
     width: Math.max(320, implicitWidth)
 
     Text.HeadingS {
-        Layout.topMargin: Appearance.padding.normal
         Layout.rightMargin: Appearance.padding.small
+        Layout.topMargin: Appearance.padding.normal
         text: qsTr("Wifi %1").arg(Network.wifiEnabled ? "enabled" : "disabled")
     }
-
     Toggle {
-        label: qsTr("Enabled")
         checked: Network.wifiEnabled
+        label: qsTr("Enabled")
+
         toggle.onToggled: Network.enableWifi(checked)
     }
-
     Text.BodyS {
-        Layout.topMargin: Appearance.spacing.small
         Layout.rightMargin: Appearance.padding.small
-        text: qsTr("%1 networks available").arg(Network.networks.length)
+        Layout.topMargin: Appearance.spacing.small
         disabled: true
+        text: qsTr("%1 networks available").arg(Network.networks.length)
     }
-
     Repeater {
         model: ScriptModel {
             values: [...Network.networks].sort((a, b) => {
@@ -48,17 +46,17 @@ ColumnLayout {
         }
 
         Lists.ListItem {
-            required property Network.AccessPoint modelData
             readonly property bool isConnecting: root.connectingToSsid === modelData.ssid
+            required property Network.AccessPoint modelData
 
+            disabled: !Network.wifiEnabled
             leftIcon: Utils.Icons.getNetworkIcon(modelData.strength)
-            secondaryIcon: modelData.isSecure ? "lock" : ""
-            text: modelData.ssid
-            selected: modelData.active
-            primaryFontIcon: modelData.active ? "link_off" : "link"
             primaryActionActive: modelData.active
             primaryActionLoading: isConnecting
-            disabled: !Network.wifiEnabled
+            primaryFontIcon: modelData.active ? "link_off" : "link"
+            secondaryIcon: modelData.isSecure ? "lock" : ""
+            selected: modelData.active
+            text: modelData.ssid
 
             onPrimaryActionClicked: {
                 if (modelData.active) {
@@ -70,33 +68,31 @@ ColumnLayout {
             }
         }
     }
-
     Buttons.PrimaryButton {
-        Layout.topMargin: Appearance.spacing.small
         Layout.fillWidth: true
-
-        text: qsTr("Rescan networks")
-        leftIcon: "wifi_find"
+        Layout.topMargin: Appearance.spacing.small
         disabled: !Network.wifiEnabled
+        leftIcon: "wifi_find"
         loading: Network.scanning
+        text: qsTr("Rescan networks")
 
         onClicked: Network.rescanWifi()
     }
 
     // Reset connecting state when network changes
     Connections {
-        target: Network
-
         function onActiveChanged(): void {
             if (Network.active && root.connectingToSsid === Network.active.ssid) {
                 root.connectingToSsid = "";
             }
         }
+
+        target: Network
     }
 
     component Toggle: RowLayout {
-        required property string label
         property alias checked: toggle.checked
+        required property string label
         property alias toggle: toggle
 
         Layout.fillWidth: true
@@ -107,9 +103,9 @@ ColumnLayout {
             Layout.fillWidth: true
             text: parent.label
         }
-
         Ds.Switch {
             id: toggle
+
         }
     }
 }

@@ -6,84 +6,40 @@ import qs.services
 
 Item {
     id: root
-    anchors.centerIn: parent
 
-    required property var screen
-
-    property ListModel workspaces: ListModel {}
-    property bool isDestroying: false
+    property color effectColor: "#D894CF"
+    property bool effectsActive: false
+    property int horizontalPadding: 8
     property bool hovered: false
+    property bool isDestroying: false
+    property real masterProgress: 0.0
+    required property var screen
+    property int spacingBetweenPills: 8
+    property ListModel workspaces: ListModel {
+    }
 
     signal workspaceChanged(int workspaceId, color accentColor)
-
-    property real masterProgress: 0.0
-    property bool effectsActive: false
-    property color effectColor: "#D894CF"
-
-    property int horizontalPadding: 8
-    property int spacingBetweenPills: 8
-
-    width: {
-        let total = 0;
-        for (let i = 0; i < workspaces.count; i++) {
-            const ws = workspaces.get(i);
-            if (ws.isFocused)
-                total += 44;
-            else if (ws.isActive)
-                total += 28;
-            else
-                total += 16;
-        }
-        total += Math.max(workspaces.count - 1, 0) * spacingBetweenPills;
-        total += horizontalPadding * 2;
-        return total;
-    }
-
-    height: 30
-
-    Component.onCompleted: updateWorkspaceList()
-    Connections {
-        target: Niri
-        function onWorkspacesChanged() {
-            updateWorkspaceList();
-        }
-        function onFocusedWorkspaceIndexChanged() {
-            updateWorkspaceFocus();
-        }
-    }
 
     function triggerUnifiedWave() {
         effectColor = "#D894CF";
         masterAnimation.restart();
     }
-
-    SequentialAnimation {
-        id: masterAnimation
-        PropertyAction {
-            target: root
-            property: "effectsActive"
-            value: true
-        }
-        NumberAnimation {
-            target: root
-            property: "masterProgress"
-            from: 0.0
-            to: 1.0
-            duration: 1000
-            easing.type: Easing.OutQuint
-        }
-        PropertyAction {
-            target: root
-            property: "effectsActive"
-            value: false
-        }
-        PropertyAction {
-            target: root
-            property: "masterProgress"
-            value: 0.0
+    function updateWorkspaceFocus() {
+        const focusedId = Niri.workspaces?.[Niri.focusedWorkspaceIndex]?.id ?? -1;
+        for (let i = 0; i < workspaces.count; i++) {
+            const ws = workspaces.get(i);
+            const isFocused = ws.id === focusedId;
+            const isActive = isFocused;
+            if (ws.isFocused !== isFocused || ws.isActive !== isActive) {
+                workspaces.setProperty(i, "isFocused", isFocused);
+                workspaces.setProperty(i, "isActive", isActive);
+                if (isFocused) {
+                    root.triggerUnifiedWave();
+                    root.workspaceChanged(ws.id, "#D894CF");
+                }
+            }
         }
     }
-
     function updateWorkspaceList() {
         const newList = Niri.workspaces || [];
         workspaces.clear();
@@ -105,49 +61,80 @@ Item {
         updateWorkspaceFocus();
     }
 
-    function updateWorkspaceFocus() {
-        const focusedId = Niri.workspaces?.[Niri.focusedWorkspaceIndex]?.id ?? -1;
+    anchors.centerIn: parent
+    height: 30
+    width: {
+        let total = 0;
         for (let i = 0; i < workspaces.count; i++) {
             const ws = workspaces.get(i);
-            const isFocused = ws.id === focusedId;
-            const isActive = isFocused;
-            if (ws.isFocused !== isFocused || ws.isActive !== isActive) {
-                workspaces.setProperty(i, "isFocused", isFocused);
-                workspaces.setProperty(i, "isActive", isActive);
-                if (isFocused) {
-                    root.triggerUnifiedWave();
-                    root.workspaceChanged(ws.id, "#D894CF");
-                }
-            }
+            if (ws.isFocused)
+                total += 44;
+            else if (ws.isActive)
+                total += 28;
+            else
+                total += 16;
         }
+        total += Math.max(workspaces.count - 1, 0) * spacingBetweenPills;
+        total += horizontalPadding * 2;
+        return total;
     }
 
+    Component.onCompleted: updateWorkspaceList()
+    Component.onDestruction: {
+        root.isDestroying = true;
+    }
+
+    Connections {
+        function onFocusedWorkspaceIndexChanged() {
+            updateWorkspaceFocus();
+        }
+        function onWorkspacesChanged() {
+            updateWorkspaceList();
+        }
+
+        target: Niri
+    }
+    SequentialAnimation {
+        id: masterAnimation
+
+        PropertyAction {
+            property: "effectsActive"
+            target: root
+            value: true
+        }
+        NumberAnimation {
+            duration: 1000
+            easing.type: Easing.OutQuint
+            from: 0.0
+            property: "masterProgress"
+            target: root
+            to: 1.0
+        }
+        PropertyAction {
+            property: "effectsActive"
+            target: root
+            value: false
+        }
+        PropertyAction {
+            property: "masterProgress"
+            target: root
+            value: 0.0
+        }
+    }
     Row {
         id: pillRow
-        spacing: spacingBetweenPills
+
         anchors.centerIn: parent
+        spacing: spacingBetweenPills
         width: root.width - horizontalPadding * 2
         x: horizontalPadding
+
         Repeater {
             model: root.workspaces
+
             Rectangle {
                 id: workspacePill
-                height: 12
-                width: {
-                    if (model.isFocused)
-                        return 44;
-                    else if (model.isActive)
-                        return 28;
-                    else
-                        return 16;
-                }
-                radius: {
-                    if (model.isFocused)
-                        return 12;
-                    else
-                        // half of focused height (if you want to animate this too)
-                        return 6;
-                }
+
                 color: {
                     if (model.isFocused)
                         return "#D894CF";
@@ -157,31 +144,35 @@ Item {
                         return "#D894CF";
                     return "#261924";
                 }
+                height: 12
+                radius: {
+                    if (model.isFocused)
+                        return 12;
+                    else
+                        // half of focused height (if you want to animate this too)
+                        return 6;
+                }
                 scale: model.isFocused ? 1.0 : 0.9
+                width: {
+                    if (model.isFocused)
+                        return 44;
+                    else if (model.isActive)
+                        return 28;
+                    else
+                        return 16;
+                }
                 z: 0
-                // Material 3-inspired smooth animation for width, height, scale, color, opacity, and radius
-                Behavior on width {
-                    NumberAnimation {
-                        duration: 350
-                        easing.type: Easing.OutBack
+
+                Behavior on color {
+                    ColorAnimation {
+                        duration: 200
+                        easing.type: Easing.InOutCubic
                     }
                 }
                 Behavior on height {
                     NumberAnimation {
                         duration: 350
                         easing.type: Easing.OutBack
-                    }
-                }
-                Behavior on scale {
-                    NumberAnimation {
-                        duration: 300
-                        easing.type: Easing.OutBack
-                    }
-                }
-                Behavior on color {
-                    ColorAnimation {
-                        duration: 200
-                        easing.type: Easing.InOutCubic
                     }
                 }
                 Behavior on opacity {
@@ -196,25 +187,36 @@ Item {
                         easing.type: Easing.OutBack
                     }
                 }
+                Behavior on scale {
+                    NumberAnimation {
+                        duration: 300
+                        easing.type: Easing.OutBack
+                    }
+                }
+                // Material 3-inspired smooth animation for width, height, scale, color, opacity, and radius
+                Behavior on width {
+                    NumberAnimation {
+                        duration: 350
+                        easing.type: Easing.OutBack
+                    }
+                }
+
                 // Burst effect overlay for focused pill (smaller outline)
                 Rectangle {
                     id: pillBurst
+
                     anchors.centerIn: parent
-                    width: parent.width + 18 * root.masterProgress
-                    height: parent.height + 18 * root.masterProgress
-                    radius: width / 2
-                    color: "transparent"
                     border.color: root.effectColor
                     border.width: 2 + 6 * (1.0 - root.masterProgress)
+                    color: "transparent"
+                    height: parent.height + 18 * root.masterProgress
                     opacity: root.effectsActive && model.isFocused ? (1.0 - root.masterProgress) * 0.7 : 0
+                    radius: width / 2
                     visible: root.effectsActive && model.isFocused
+                    width: parent.width + 18 * root.masterProgress
                     z: 1
                 }
             }
         }
-    }
-
-    Component.onDestruction: {
-        root.isDestroying = true;
     }
 }

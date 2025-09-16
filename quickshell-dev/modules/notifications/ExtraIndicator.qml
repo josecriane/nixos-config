@@ -8,44 +8,39 @@ import qs.ds
 Rectangle {
     required property int extra
 
-    anchors.right: parent.right
     anchors.margins: Appearance.padding.normal
-
+    anchors.right: parent.right
     color: Colours.palette.m3tertiary
-    radius: Appearance.rounding.small
-
-    implicitWidth: count.implicitWidth + Appearance.padding.normal * 2
     implicitHeight: count.implicitHeight + Appearance.padding.small * 2
-
+    implicitWidth: count.implicitWidth + Appearance.padding.normal * 2
     opacity: extra > 0 ? 1 : 0
+    radius: Appearance.rounding.small
     scale: extra > 0 ? 1 : 0.5
-
-    ElevationToken {
-        anchors.fill: parent
-        radius: parent.radius
-        opacity: parent.opacity
-        z: -1
-        spread: 2
-    }
-
-    Text.BodyS {
-        id: count
-
-        anchors.centerIn: parent
-        text: qsTr("+%1").arg(parent.extra)
-        color: Colours.palette.m3onTertiary
-    }
 
     Behavior on opacity {
         BasicNumberAnimation {
             duration: Appearance.anim.durations.expressiveFastSpatial
         }
     }
-
     Behavior on scale {
         BasicNumberAnimation {
             duration: Appearance.anim.durations.expressiveFastSpatial
             easing.bezierCurve: Appearance.anim.curves.expressiveFastSpatial
         }
+    }
+
+    ElevationToken {
+        anchors.fill: parent
+        opacity: parent.opacity
+        radius: parent.radius
+        spread: 2
+        z: -1
+    }
+    Text.BodyS {
+        id: count
+
+        anchors.centerIn: parent
+        color: Colours.palette.m3onTertiary
+        text: qsTr("+%1").arg(parent.extra)
     }
 }

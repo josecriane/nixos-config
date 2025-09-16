@@ -17,7 +17,6 @@ Column {
     Text.BodyM {
         text: UPower.displayDevice.isLaptopBattery ? qsTr("Remaining: %1%").arg(Math.round(UPower.displayDevice.percentage * 100)) : qsTr("No battery detected")
     }
-
     Text.BodyS {
         function formatSeconds(s: int, fallback: string): string {
             const day = Math.floor(s / 86400);
@@ -37,20 +36,16 @@ Column {
 
         text: UPower.displayDevice.isLaptopBattery ? qsTr("Time %1: %2").arg(UPower.onBattery ? "remaining" : "until charged").arg(UPower.onBattery ? formatSeconds(UPower.displayDevice.timeToEmpty, "Calculating...") : formatSeconds(UPower.displayDevice.timeToFull, "Fully charged!")) : qsTr("Power profile: %1").arg(PowerProfile.toString(PowerProfiles.profile))
     }
-
     Loader {
-        anchors.horizontalCenter: parent.horizontalCenter
-
         active: PowerProfiles.degradationReason !== PerformanceDegradationReason.None
+        anchors.horizontalCenter: parent.horizontalCenter
         asynchronous: true
-
         height: active ? (item?.implicitHeight ?? 0) : 0
 
         sourceComponent: Rectangle {
-            implicitWidth: child.implicitWidth + Appearance.padding.normal * 2
-            implicitHeight: child.implicitHeight + Appearance.padding.smaller * 2
-
             color: Colours.palette.m3error
+            implicitHeight: child.implicitHeight + Appearance.padding.smaller * 2
+            implicitWidth: child.implicitWidth + Appearance.padding.normal * 2
             radius: Appearance.rounding.normal
 
             Column {
@@ -65,37 +60,30 @@ Column {
                     Icons.MaterialFontIcon {
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.verticalCenterOffset: -font.pointSize / 10
-
-                        text: "warning"
                         color: Colours.palette.m3onError
+                        text: "warning"
                     }
-
                     Text.HeadingS {
                         anchors.verticalCenter: parent.verticalCenter
-                        text: qsTr("Performance Degraded")
                         color: Colours.palette.m3onError
                         font.family: Appearance.font.family.mono
+                        text: qsTr("Performance Degraded")
                     }
-
                     Icons.MaterialFontIcon {
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.verticalCenterOffset: -font.pointSize / 10
-
-                        text: "warning"
                         color: Colours.palette.m3onError
+                        text: "warning"
                     }
                 }
-
                 Text.BodyM {
                     anchors.horizontalCenter: parent.horizontalCenter
-
-                    text: qsTr("Reason: %1").arg(PerformanceDegradationReason.toString(PowerProfiles.degradationReason))
                     color: Colours.palette.m3onError
+                    text: qsTr("Reason: %1").arg(PerformanceDegradationReason.toString(PowerProfiles.degradationReason))
                 }
             }
         }
     }
-
     Rectangle {
         id: profiles
 
@@ -109,11 +97,9 @@ Column {
         }
 
         anchors.horizontalCenter: parent.horizontalCenter
-
-        implicitWidth: saver.implicitHeight + balance.implicitHeight + perf.implicitHeight + Appearance.padding.normal * 2 + Appearance.spacing.large * 2
-        implicitHeight: Math.max(saver.implicitHeight, balance.implicitHeight, perf.implicitHeight) + Appearance.padding.small * 2
-
         color: Colours.tPalette.m3surfaceContainer
+        implicitHeight: Math.max(saver.implicitHeight, balance.implicitHeight, perf.implicitHeight) + Appearance.padding.small * 2
+        implicitWidth: saver.implicitHeight + balance.implicitHeight + perf.implicitHeight + Appearance.padding.normal * 2 + Appearance.spacing.large * 2
         radius: Appearance.rounding.full
 
         Rectangle {
@@ -146,59 +132,49 @@ Column {
                     }
                 }
             ]
-
             transitions: Transition {
                 AnchorAnimation {
                     duration: Appearance.anim.durations.normal
-                    easing.type: Easing.BezierSpline
                     easing.bezierCurve: Appearance.anim.curves.emphasized
+                    easing.type: Easing.BezierSpline
                 }
             }
         }
-
         CircularButtons.L {
             id: saver
 
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.left: parent.left
-            anchors.leftMargin: Appearance.padding.small
-
-            icon: "energy_savings_leaf"
-
             active: profiles.current === icon
             activeForegroundColor: Colours.palette.m3onPrimary
+            anchors.left: parent.left
+            anchors.leftMargin: Appearance.padding.small
+            anchors.verticalCenter: parent.verticalCenter
+            icon: "energy_savings_leaf"
 
             onClicked: {
                 PowerProfiles.profile = PowerProfile.PowerSaver;
             }
         }
-
         CircularButtons.L {
             id: balance
 
-            anchors.centerIn: parent
-
-            icon: "balance"
-
             active: profiles.current === icon
             activeForegroundColor: Colours.palette.m3onPrimary
+            anchors.centerIn: parent
+            icon: "balance"
 
             onClicked: {
                 PowerProfiles.profile = PowerProfile.Balanced;
             }
         }
-
         CircularButtons.L {
             id: perf
 
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.right: parent.right
-            anchors.rightMargin: Appearance.padding.small
-
-            icon: "rocket_launch"
-
             active: profiles.current === icon
             activeForegroundColor: Colours.palette.m3onPrimary
+            anchors.right: parent.right
+            anchors.rightMargin: Appearance.padding.small
+            anchors.verticalCenter: parent.verticalCenter
+            icon: "rocket_launch"
 
             onClicked: {
                 PowerProfiles.profile = PowerProfile.Performance;
@@ -209,10 +185,10 @@ Column {
     component Fill: AnchorChanges {
         required property Item item
 
-        target: indicator
+        anchors.bottom: item.bottom
         anchors.left: item.left
         anchors.right: item.right
         anchors.top: item.top
-        anchors.bottom: item.bottom
+        target: indicator
     }
 }

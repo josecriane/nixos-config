@@ -15,17 +15,16 @@ Item {
     Rectangle {
         anchors.fill: parent
         color: Colours.palette.m3surface
-
         layer.enabled: true
+
         layer.effect: MultiEffect {
-            maskSource: mask
             maskEnabled: true
             maskInverted: true
-            maskThresholdMin: 0.5
+            maskSource: mask
             maskSpreadAtMin: 1
+            maskThresholdMin: 0.5
         }
     }
-
     Item {
         id: mask
 

@@ -9,61 +9,57 @@ import qs.ds
 Rectangle {
     id: root
 
-    property string icon: ""
-    property string hint: ""
     property color buttonColor: Colours.palette.m3primaryContainer
     property color contentColor: Colours.palette.m3onPrimaryContainer
+    property string hint: ""
+    property string icon: ""
 
     signal clicked
 
-    color: buttonColor
-    radius: Foundations.radius.s
     clip: true
-
-    implicitWidth: (interactiveArea.containsMouse ? hintLabel.implicitWidth + hintLabel.anchors.rightMargin : 0) + iconElement.implicitWidth + Foundations.spacing.m * 2
+    color: buttonColor
     implicitHeight: Math.max(hintLabel.implicitHeight, iconElement.implicitHeight) + Foundations.spacing.s * 2
-
-    InteractiveArea {
-        id: interactiveArea
-        color: root.contentColor
-
-        function onClicked(): void {
-            root.clicked();
-        }
-    }
-
-    DsText.BodyM {
-        id: hintLabel
-
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.right: iconElement.left
-        anchors.rightMargin: Foundations.spacing.s
-
-        text: root.hint
-        color: root.contentColor
-
-        opacity: interactiveArea.containsMouse ? 1 : 0
-
-        Behavior on opacity {
-            BasicNumberAnimation {}
-        }
-    }
-
-    Icons.MaterialFontIcon {
-        id: iconElement
-
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.right: parent.right
-        anchors.rightMargin: Foundations.spacing.m
-
-        text: root.icon
-        color: root.contentColor
-        font.pointSize: Foundations.font.size.m
-    }
+    implicitWidth: (interactiveArea.containsMouse ? hintLabel.implicitWidth + hintLabel.anchors.rightMargin : 0) + iconElement.implicitWidth + Foundations.spacing.m * 2
+    radius: Foundations.radius.s
 
     Behavior on implicitWidth {
         BasicNumberAnimation {
             duration: Foundations.duration.s
         }
+    }
+
+    InteractiveArea {
+        id: interactiveArea
+
+        function onClicked(): void {
+            root.clicked();
+        }
+
+        color: root.contentColor
+    }
+    DsText.BodyM {
+        id: hintLabel
+
+        anchors.right: iconElement.left
+        anchors.rightMargin: Foundations.spacing.s
+        anchors.verticalCenter: parent.verticalCenter
+        color: root.contentColor
+        opacity: interactiveArea.containsMouse ? 1 : 0
+        text: root.hint
+
+        Behavior on opacity {
+            BasicNumberAnimation {
+            }
+        }
+    }
+    Icons.MaterialFontIcon {
+        id: iconElement
+
+        anchors.right: parent.right
+        anchors.rightMargin: Foundations.spacing.m
+        anchors.verticalCenter: parent.verticalCenter
+        color: root.contentColor
+        font.pointSize: Foundations.font.size.m
+        text: root.icon
     }
 }

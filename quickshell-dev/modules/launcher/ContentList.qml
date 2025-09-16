@@ -12,123 +12,24 @@ import qs.ds.animations
 Item {
     id: root
 
-    required property var wrapper
-    required property PersistentProperties visibilities
-    required property var panels
-    required property TextField search
-    required property int padding
-    required property int rounding
-
     readonly property Item currentList: appList.item
-
-    property int itemWidth: 600
     property int itemHeight: 57
+    property int itemWidth: 600
+    required property int padding
+    required property var panels
+    required property int rounding
+    required property TextField search
+    required property PersistentProperties visibilities
+    required property var wrapper
 
-    anchors.horizontalCenter: parent.horizontalCenter
     anchors.bottom: parent.bottom
-
+    anchors.horizontalCenter: parent.horizontalCenter
     clip: true
     state: "apps"
 
-    states: [
-        State {
-            name: "apps"
-
-            PropertyChanges {
-                root.implicitWidth: root.itemWidth
-                root.implicitHeight: root.currentList?.count > 0 ? appList.implicitHeight : empty.implicitHeight
-                appList.active: true
-            }
-
-            AnchorChanges {
-                anchors.left: root.parent.left
-                anchors.right: root.parent.right
-            }
-        }
-    ]
-
-    Behavior on state {
-        SequentialAnimation {
-            BasicNumberAnimation {
-                target: root
-                property: "opacity"
-                from: 1
-                to: 0
-                duration: Appearance.anim.durations.small
-            }
-            PropertyAction {}
-            BasicNumberAnimation {
-                target: root
-                property: "opacity"
-                from: 0
-                to: 1
-                duration: Appearance.anim.durations.small
-            }
-        }
+    Behavior on implicitHeight {
+        enabled: false
     }
-
-    Loader {
-        id: appList
-
-        active: false
-        asynchronous: true
-
-        anchors.left: parent.left
-        anchors.right: parent.right
-
-        sourceComponent: LauncherList {
-            search: root.search
-            visibilities: root.visibilities
-        }
-    }
-
-    Item {
-        id: empty
-
-        opacity: root.currentList?.count === 0 ? 1 : 0
-        scale: root.currentList?.count === 0 ? 1 : 0.5
-
-        implicitHeight: root.itemHeight * 4
-        anchors.left: parent.left
-        anchors.right: parent.right
-
-        Row {
-            spacing: Appearance.spacing.normal
-
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.verticalCenter: parent.verticalCenter
-
-            Icons.MaterialFontIcon {
-                text: "manage_search"
-                color: Colours.palette.m3onSurfaceVariant
-                font.pointSize: Appearance.font.size.extraLarge
-
-                anchors.verticalCenter: parent.verticalCenter
-            }
-
-            Column {
-                anchors.verticalCenter: parent.verticalCenter
-
-                DsText.HeadingM {
-                    text: qsTr("No results")
-                }
-
-                DsText.BodyM {
-                    text: qsTr("Try searching for something else")
-                    disabled: true
-                }
-            }
-        }
-
-        Behavior on opacity {
-            BasicNumberAnimation {}
-        }
-
-        Behavior on scale {
-            BasicNumberAnimation {}
-        }
-    }
-
     Behavior on implicitWidth {
         enabled: root.visibilities.launcher
 
@@ -137,8 +38,95 @@ Item {
             easing.bezierCurve: Appearance.anim.curves.emphasizedDecel
         }
     }
+    Behavior on state {
+        SequentialAnimation {
+            BasicNumberAnimation {
+                duration: Appearance.anim.durations.small
+                from: 1
+                property: "opacity"
+                target: root
+                to: 0
+            }
+            PropertyAction {
+            }
+            BasicNumberAnimation {
+                duration: Appearance.anim.durations.small
+                from: 0
+                property: "opacity"
+                target: root
+                to: 1
+            }
+        }
+    }
+    states: [
+        State {
+            name: "apps"
 
-    Behavior on implicitHeight {
-        enabled: false
+            PropertyChanges {
+                appList.active: true
+                root.implicitHeight: root.currentList?.count > 0 ? appList.implicitHeight : empty.implicitHeight
+                root.implicitWidth: root.itemWidth
+            }
+            AnchorChanges {
+                anchors.left: root.parent.left
+                anchors.right: root.parent.right
+            }
+        }
+    ]
+
+    Loader {
+        id: appList
+
+        active: false
+        anchors.left: parent.left
+        anchors.right: parent.right
+        asynchronous: true
+
+        sourceComponent: LauncherList {
+            search: root.search
+            visibilities: root.visibilities
+        }
+    }
+    Item {
+        id: empty
+
+        anchors.left: parent.left
+        anchors.right: parent.right
+        implicitHeight: root.itemHeight * 4
+        opacity: root.currentList?.count === 0 ? 1 : 0
+        scale: root.currentList?.count === 0 ? 1 : 0.5
+
+        Behavior on opacity {
+            BasicNumberAnimation {
+            }
+        }
+        Behavior on scale {
+            BasicNumberAnimation {
+            }
+        }
+
+        Row {
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+            spacing: Appearance.spacing.normal
+
+            Icons.MaterialFontIcon {
+                anchors.verticalCenter: parent.verticalCenter
+                color: Colours.palette.m3onSurfaceVariant
+                font.pointSize: Appearance.font.size.extraLarge
+                text: "manage_search"
+            }
+            Column {
+                anchors.verticalCenter: parent.verticalCenter
+
+                DsText.HeadingM {
+                    text: qsTr("No results")
+                }
+                DsText.BodyM {
+                    disabled: true
+                    text: qsTr("Try searching for something else")
+                }
+            }
+        }
     }
 }

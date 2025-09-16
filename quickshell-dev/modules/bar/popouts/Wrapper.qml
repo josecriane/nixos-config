@@ -11,59 +11,19 @@ import qs.ds.animations
 BackgroundWrapper {
     id: root
 
+    property list<real> animCurve: Appearance.anim.curves.emphasized
+    property int animLength: Appearance.anim.durations.normal
+    property real currentCenter
+    property string currentName
+    property bool hasCurrent
+    readonly property real nonAnimHeight: hasCurrent ? (children.find(c => c.shouldBeActive)?.implicitHeight ?? content.implicitHeight) : 0
+    readonly property real nonAnimWidth: hasCurrent ? (children.find(c => c.shouldBeActive)?.implicitWidth ?? content.implicitWidth) : 0
     required property ShellScreen screen
 
-    readonly property real nonAnimWidth: hasCurrent ? (children.find(c => c.shouldBeActive)?.implicitWidth ?? content.implicitWidth) : 0
-    readonly property real nonAnimHeight: hasCurrent ? (children.find(c => c.shouldBeActive)?.implicitHeight ?? content.implicitHeight) : 0
-
-    property string currentName
-    property real currentCenter
-    property bool hasCurrent
-
-    property int animLength: Appearance.anim.durations.normal
-    property list<real> animCurve: Appearance.anim.curves.emphasized
-
-    visible: width > 0 && height > 0
     clip: true
-
-    implicitWidth: nonAnimWidth
     implicitHeight: nonAnimHeight
-
-    Comp {
-        id: content
-
-        shouldBeActive: root.hasCurrent
-        asynchronous: true
-        anchors.bottom: parent.bottom
-        anchors.horizontalCenter: parent.horizontalCenter
-
-        sourceComponent: Content {
-            wrapper: root
-        }
-    }
-
-    Behavior on x {
-        BasicNumberAnimation {
-            duration: root.animLength
-            easing.bezierCurve: root.animCurve
-        }
-    }
-
-    Behavior on y {
-        enabled: root.implicitWidth > 0
-
-        BasicNumberAnimation {
-            duration: root.animLength
-            easing.bezierCurve: root.animCurve
-        }
-    }
-
-    Behavior on implicitWidth {
-        BasicNumberAnimation {
-            duration: root.animLength
-            easing.bezierCurve: root.animCurve
-        }
-    }
+    implicitWidth: nonAnimWidth
+    visible: width > 0 && height > 0
 
     Behavior on implicitHeight {
         enabled: root.implicitWidth > 0
@@ -73,14 +33,47 @@ BackgroundWrapper {
             easing.bezierCurve: root.animCurve
         }
     }
+    Behavior on implicitWidth {
+        BasicNumberAnimation {
+            duration: root.animLength
+            easing.bezierCurve: root.animCurve
+        }
+    }
+    Behavior on x {
+        BasicNumberAnimation {
+            duration: root.animLength
+            easing.bezierCurve: root.animCurve
+        }
+    }
+    Behavior on y {
+        enabled: root.implicitWidth > 0
+
+        BasicNumberAnimation {
+            duration: root.animLength
+            easing.bezierCurve: root.animCurve
+        }
+    }
+
+    Comp {
+        id: content
+
+        anchors.bottom: parent.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        asynchronous: true
+        shouldBeActive: root.hasCurrent
+
+        sourceComponent: Content {
+            wrapper: root
+        }
+    }
 
     component Comp: Loader {
         id: comp
 
         property bool shouldBeActive
 
-        asynchronous: true
         active: false
+        asynchronous: true
         opacity: 0
 
         states: State {
@@ -88,11 +81,10 @@ BackgroundWrapper {
             when: comp.shouldBeActive
 
             PropertyChanges {
-                comp.opacity: 1
                 comp.active: true
+                comp.opacity: 1
             }
         }
-
         transitions: [
             Transition {
                 from: ""

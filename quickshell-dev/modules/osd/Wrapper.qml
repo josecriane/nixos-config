@@ -8,14 +8,13 @@ import qs.modules.drawers
 BackgroundWrapper {
     id: root
 
+    readonly property bool hasCurrent: visibilities.osd && Config.osd.enabled
     required property ShellScreen screen
     required property var visibilities
 
-    readonly property bool hasCurrent: visibilities.osd && Config.osd.enabled
-
-    visible: width > 0
-    implicitWidth: 0
     implicitHeight: content.implicitHeight
+    implicitWidth: 0
+    visible: width > 0
 
     states: State {
         name: "visible"
@@ -25,16 +24,15 @@ BackgroundWrapper {
             root.implicitWidth: content.implicitWidth
         }
     }
-
     transitions: [
         Transition {
             from: ""
             to: "visible"
 
             BasicNumberAnimation {
-                target: root
-                property: "implicitWidth"
                 easing.bezierCurve: Appearance.anim.curves.expressiveDefaultSpatial
+                property: "implicitWidth"
+                target: root
             }
         },
         Transition {
@@ -42,9 +40,9 @@ BackgroundWrapper {
             to: ""
 
             BasicNumberAnimation {
-                target: root
-                property: "implicitWidth"
                 easing.bezierCurve: Appearance.anim.curves.emphasized
+                property: "implicitWidth"
+                target: root
             }
         }
     ]

@@ -5,14 +5,15 @@ import qs.services
 Text {
     id: root
 
-    // Color properties for different states
-    property color disabledColor: Colours.palette.m3onSurfaceVariant
     property color defaultColor: Colours.palette.m3onSurface
-    property color primaryColor: Colours.palette.m3primary
 
     // State properties
     property bool disabled: false
+
+    // Color properties for different states
+    property color disabledColor: Colours.palette.m3onSurfaceVariant
     property bool primary: false
+    property color primaryColor: Colours.palette.m3primary
 
     // Computed color based on state
     color: {
