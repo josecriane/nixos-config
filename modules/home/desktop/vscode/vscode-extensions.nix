@@ -14,6 +14,18 @@ with pkgs.vscode-extensions;
 ]
 ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
   {
+    name = "qt-qml";
+    publisher = "theqtcompany";
+    version = "1.8.0";
+    sha256 = "x8D1jbCpQsVkGGCvnNWfAbbA+8Sn8oPQ/St9HTq1PVg=";
+  }
+  {
+    name = "qt-core";
+    publisher = "theqtcompany";
+    version = "1.8.0";
+    sha256 = "qgtDiSHHZ7k8H55W5Or01UxAW3UaQRVSuOpAj/l021I=";
+  }
+  {
     name = "elixir-ls";
     publisher = "jakebecker";
     version = "0.26.4";
@@ -24,11 +36,5 @@ with pkgs.vscode-extensions;
     publisher = "erlang-ls";
     version = "0.0.46";
     sha256 = "HvQ0qv1wA+qSN1+8r9Z4iTq7DtpsCvOZ73bACeHZ9+o=";
-  }
-  {
-    name = "qml";
-    publisher = "bbenoist";
-    version = "1.0.0";
-    sha256 = "tphnVlD5LA6Au+WDrLZkAxnMJeTCd3UTyTN1Jelditk=";
   }
 ]
