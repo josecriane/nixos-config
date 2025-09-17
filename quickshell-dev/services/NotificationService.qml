@@ -13,20 +13,19 @@ Singleton {
     id: root
 
     readonly property list<NotificationModel> list: []
-    readonly property list<NotificationModel> popups: list.filter(n => n.popup && !n.dismissed)
+    readonly property list<NotificationModel> popups: list.filter(n => n.popup)
 
     function addNotification(notification) {
         const notif = notifComp.createObject(root, {
             popup: true,
+            expireTimeout: notification.expireTimeout >= 0 ? notification.expireTimeout : Config.notifs.defaultExpireTimeout,
             notification: notification
         });
-        
+
         root.list.push(notif);
 
-        const popupTimeout = Config.notifs.defaultExpireTimeout;
-        
         const timer = timerComp.createObject(notif, {
-            interval: popupTimeout,
+            interval: notif.expireTimeout,
             notifModel: notif
         });
         timer.start();
@@ -46,20 +45,19 @@ Singleton {
         }
         root.list = [];
     }
-    function deleteNotification(notification) {
-        const index = root.list.findIndex(n => n.notification === notification);
-        if (index !== -1) {
-            const notif = root.list[index];
-            if (notif.hideTimer) {
-                notif.hideTimer.stop();
-                notif.hideTimer.destroy();
-            }
-            if (notification && !notification.destroyed) {
-                notification.tracked = false;
-            }
-            root.list.splice(index, 1);
-            notif.destroy();
+    function deleteNotification(notificationModel) {
+        const notification = notificationModel.notification
+        if (notificationModel.hideTimer) {
+            notificationModel.hideTimer.stop();
+            notificationModel.hideTimer.destroy();
         }
+        if (notification && !notification.destroyed) {
+            notification.tracked = false;
+        }
+        
+        const index = root.list.indexOf(notificationModel);
+        root.list.splice(index, 1);
+        notificationModel.destroy();
     }
 
     NotificationServer {
@@ -94,6 +92,7 @@ Singleton {
                 if (notifModel) {
                     notifModel.hide();
                 }
+
                 if (notifModel.isTransient) {
                     root.deleteNotification(notifModel)
                 }

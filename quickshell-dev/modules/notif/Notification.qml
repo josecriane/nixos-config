@@ -75,7 +75,7 @@ Rectangle {
                 root.modelData.hideTimer.stop();
             startY = event.y;
             if (event.button === Qt.MiddleButton)
-                NotificationService.deleteNotification(root.modelData.notification);
+                NotificationService.deleteNotification(root.modelData);
         }
         onReleased: event => {
             if (!containsMouse && root.modelData && root.modelData.hideTimer)
@@ -84,7 +84,7 @@ Rectangle {
             if (Math.abs(root.x) < Config.notifs.sizes.width * Config.notifs.clearThreshold)
                 root.x = 0;
             else
-                NotificationService.deleteNotification(root.modelData.notification); // TODO: change back to popup when notif dock impled
+                NotificationService.deleteNotification(root.modelData);
         }
 
         Item {
@@ -357,7 +357,7 @@ Rectangle {
                         return;
 
                     Quickshell.execDetached(["app2unit", "-O", "--", link]);
-                    NotificationService.deleteNotification(root.modelData.notification); // TODO: change back to popup when notif dock impled
+                    NotificationService.deleteNotification(root.modelData);
                 }
             }
             RowLayout {
@@ -379,7 +379,7 @@ Rectangle {
                         readonly property string text: qsTr("Close")
 
                         function invoke(): void {
-                            NotificationService.deleteNotification(root.modelData.notification);
+                            NotificationService.deleteNotification(root.modelData);
                         }
                     }
                 }

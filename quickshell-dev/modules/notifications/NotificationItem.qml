@@ -41,22 +41,22 @@ Rectangle {
             if (event.button !== Qt.LeftButton)
                 return;
 
-            if (root.modelData && !root.modelData.dismissed) {
+            if (root.modelData) {
                 const actions = root.modelData.actions;
                 if (Config.notifs.actionOnClick && actions?.length === 1 && actions[0] && !actions[0].destroyed) {
                     try {
                         actions[0].invoke();
-                        NotificationService.deleteNotification(root.modelData.notification);
+                        NotificationService.deleteNotification(root.modelData);
                     } catch (e) {
                         console.warn("Failed to invoke action:", e);
-                        NotificationService.deleteNotification(root.modelData.notification);
+                        NotificationService.deleteNotification(root.modelData);
                     }
                 } else if (Config.notifs.actionOnClick && actions?.length > 1) {
                     // Show actions (expand if not already expanded)
                     root.expanded = true;
                 } else {
                     // Default behavior: just dismiss
-                    NotificationService.deleteNotification(root.modelData.notification);
+                    NotificationService.deleteNotification(root.modelData);
                 }
             }
         }
@@ -79,8 +79,8 @@ Rectangle {
             if (root.modelData && root.modelData.hideTimer)
                 root.modelData.hideTimer.stop();
             startY = event.y;
-            if (event.button === Qt.MiddleButton && root.modelData && !root.modelData.dismissed)
-                NotificationService.deleteNotification(root.modelData.notification);
+            if (event.button === Qt.MiddleButton && root.modelData)
+                NotificationService.deleteNotification(root.modelData);
         }
         onReleased: event => {
             if (!containsMouse && root.modelData && root.modelData.hideTimer)
@@ -359,7 +359,7 @@ Rectangle {
                         return;
 
                     Quickshell.execDetached(["app2unit", "-O", "--", link]);
-                    NotificationService.deleteNotification(root.modelData.notification);
+                    NotificationService.deleteNotification(root.modelData);
                 }
             }
             RowLayout {
@@ -381,8 +381,8 @@ Rectangle {
                         readonly property string text: qsTr("Close")
 
                         function invoke(): void {
-                            if (root.modelData && !root.modelData.dismissed) {
-                                NotificationService.deleteNotification(root.modelData.notification);
+                            if (root.modelData) {
+                                NotificationService.deleteNotification(root.modelData);
                             }
                         }
                     }
