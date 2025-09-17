@@ -4,7 +4,7 @@ import qs.modules.notif as Notifications
 import qs.modules.notifications as NotificationsList
 import qs.modules.session as Session
 import qs.modules.launcher as Launcher
-import qs.modules.bar.popouts as BarPopouts
+import qs.modules.popups as Popups
 import Quickshell
 import QtQuick
 
@@ -16,7 +16,7 @@ Item {
     readonly property Notifications.Wrapper notif: notif
     readonly property NotificationsList.Wrapper notifications: notifications
     readonly property Osd.Wrapper osd: osd
-    readonly property BarPopouts.Wrapper popouts: popouts
+    readonly property Popups.Wrapper popouts: popouts
     required property ShellScreen screen
     readonly property Session.Wrapper session: session
     required property PersistentProperties visibilities
@@ -66,7 +66,7 @@ Item {
         panels: root
         visibilities: root.visibilities
     }
-    BarPopouts.Wrapper {
+    Popups.Wrapper {
         id: popouts
 
         screen: root.screen

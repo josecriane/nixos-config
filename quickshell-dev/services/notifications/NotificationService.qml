@@ -15,10 +15,12 @@ Singleton {
     readonly property list<NotificationModel> list: []
     readonly property list<NotificationModel> popups: list.filter(n => n.popup)
 
+    property int defaultExpireTimeout: 5000
+
     function addNotification(notification) {
         const notif = notifComp.createObject(root, {
             popup: true,
-            expireTimeout: notification.expireTimeout >= 0 ? notification.expireTimeout : Config.notifs.defaultExpireTimeout,
+            expireTimeout: notification.expireTimeout >= 0 ? notification.expireTimeout : root.defaultExpireTimeout,
             notification: notification
         });
 

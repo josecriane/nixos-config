@@ -11,8 +11,6 @@ JsonObject {
     }
     property Spacing spacing: Spacing {
     }
-    property Transparency transparency: Transparency {
-    }
 
     component Anim: JsonObject {
         property AnimCurves curves: AnimCurves {
@@ -84,10 +82,5 @@ JsonObject {
         property real scale: 1
         property int small: 7 * scale
         property int smaller: 10 * scale
-    }
-    component Transparency: JsonObject {
-        property real base: 0.85
-        property bool enabled: false
-        property real layers: 0.4
     }
 }

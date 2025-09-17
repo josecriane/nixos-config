@@ -10,5 +10,4 @@ Singleton {
     // Also kinda so I can keep accessing it with `Appearance.xxx` instead of `Config.appearance.xxx`
     readonly property AppearanceConfig.Rounding rounding: Config.appearance.rounding
     readonly property AppearanceConfig.Spacing spacing: Config.appearance.spacing
-    readonly property AppearanceConfig.Transparency transparency: Config.appearance.transparency
 }

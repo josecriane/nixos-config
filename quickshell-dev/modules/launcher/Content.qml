@@ -55,7 +55,7 @@ Item {
         anchors.margins: root.padding
         anchors.right: parent.right
         anchors.top: parent.top
-        color: Colours.tPalette.m3surfaceContainer
+        color: Colours.palette.m3surfaceContainer
         implicitHeight: Math.max(searchIcon.implicitHeight, search.implicitHeight, clearIcon.implicitHeight)
         radius: Appearance.rounding.full
 

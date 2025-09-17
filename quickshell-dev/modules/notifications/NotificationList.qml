@@ -1,6 +1,6 @@
 pragma ComponentBehavior: Bound
 
-import qs.services
+import qs.services.notifications
 import qs.config
 import qs.ds.list as List
 import qs.ds.animations
@@ -21,7 +21,7 @@ Item {
     required property var wrapper
 
     anchors.fill: parent
-    implicitWidth: Config.notifs.sizes.width
+    implicitWidth: 400
 
     ColumnLayout {
         anchors.fill: parent

@@ -8,7 +8,6 @@ Singleton {
 
     property alias appearance: adapter.appearance
     property alias border: adapter.border
-    property alias notifs: adapter.notifs
 
     JsonAdapter {
         id: adapter
@@ -16,8 +15,6 @@ Singleton {
         property AppearanceConfig appearance: AppearanceConfig {
         }
         property BorderConfig border: BorderConfig {
-        }
-        property NotifsConfig notifs: NotifsConfig {
         }
     }
 }

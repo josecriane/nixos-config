@@ -71,7 +71,7 @@ Variants {
             Item {
                 anchors.fill: parent
                 layer.enabled: true
-                opacity: Colours.transparency.enabled ? Colours.transparency.base : 1
+                opacity: 1
 
                 layer.effect: MultiEffect {
                     blurMax: 15

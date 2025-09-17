@@ -16,7 +16,7 @@ Rectangle {
     property color colour: Colours.palette.m3secondary
 
     clip: true
-    color: Colours.tPalette.m3surfaceContainer
+    color: Colours.palette.m3surfaceContainer
     implicitWidth: iconRow.implicitWidth + Appearance.padding.normal * 2
     radius: Appearance.rounding.full
 

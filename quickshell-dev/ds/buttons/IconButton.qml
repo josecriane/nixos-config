@@ -8,7 +8,7 @@ import Quickshell
 Rectangle {
     id: root
 
-    property color buttonColor: Colours.tPalette.m3surfaceContainer
+    property color buttonColor: Colours.palette.m3surfaceContainer
     property real buttonSize: 48
     property color focusColor: Colours.palette.m3secondaryContainer
     property color focusIconColor: Colours.palette.m3onSecondaryContainer

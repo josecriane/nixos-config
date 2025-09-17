@@ -1,6 +1,6 @@
 import qs.services
 import qs.config
-import qs.modules.bar.popouts as BarPopouts
+import qs.modules.popups as Popups
 import qs.modules.osd as Osd
 import Quickshell
 import QtQuick
@@ -13,7 +13,7 @@ MouseArea {
     property bool osdHovered
     property bool osdShortcutActive
     required property Panels panels
-    required property BarPopouts.Wrapper popouts
+    required property Popups.Wrapper popouts
     required property ShellScreen screen
     required property PersistentProperties visibilities
 

@@ -1,5 +1,5 @@
 import "."
-import qs.services
+import qs.services.notifications
 import qs.config
 import qs.ds.animations
 import Quickshell
@@ -41,7 +41,7 @@ Item {
 
         return Math.min((QsWindow.window?.screen?.height ?? 0) - Config.border.thickness * 2, height + padding * 2);
     }
-    implicitWidth: Config.notifs.sizes.width + padding * 2
+    implicitWidth: 400 + padding * 2
 
     Behavior on implicitHeight {
         Anim {
@@ -107,7 +107,7 @@ Item {
                         easing.bezierCurve: Appearance.anim.curves.emphasized
                         property: "x"
                         target: notif
-                        to: (notif.x >= 0 ? Config.notifs.sizes.width : -Config.notifs.sizes.width) * 2
+                        to: (notif.x >= 0 ? 1: -1) * 400 * 2
                     }
                     PropertyAction {
                         property: "ListView.delayRemove"

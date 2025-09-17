@@ -15,7 +15,7 @@ Slider {
     orientation: Qt.Vertical
 
     background: Rectangle {
-        color: "transparent"// Colours.tPalette.m3surfaceContainer
+        color: "transparent"// Colours.palette.m3surfaceContainer
         radius: Appearance.rounding.full
 
         Rectangle {
@@ -26,7 +26,7 @@ Slider {
             anchors.right: parent.right
             anchors.rightMargin: 2
             anchors.top: parent.top
-            color: Colours.tPalette.m3surfaceContainer
+            color: Colours.palette.m3surfaceContainer
             implicitHeight: root.handle.y + root.handle.implicitWidth / 2
             radius: parent.radius
         }

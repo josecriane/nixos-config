@@ -1,5 +1,6 @@
 pragma ComponentBehavior: Bound
 
+import qs.services.notifications
 import qs.services
 import qs.config
 import qs.utils as Utils
@@ -22,11 +23,11 @@ Rectangle {
     required property NotificationModel modelData
     readonly property int nonAnimHeight: summary.implicitHeight + (root.expanded ? appName.height + body.height + actions.height + actions.anchors.topMargin : bodyPreview.height) + inner.anchors.margins * 2
 
-    color: root.modelData.urgency === NotificationUrgency.Critical ? Colours.palette.m3secondaryContainer : Colours.tPalette.m3surfaceContainer
+    color: root.modelData.urgency === NotificationUrgency.Critical ? Colours.palette.m3secondaryContainer : Colours.palette.m3surfaceContainer
     implicitHeight: inner.implicitHeight
-    implicitWidth: Config.notifs.sizes.width
+    implicitWidth: 400
     radius: Appearance.rounding.normal
-    x: Config.notifs.sizes.width
+    x: 400
 
     Behavior on x {
         BasicNumberAnimation {
@@ -63,27 +64,11 @@ Rectangle {
             if (!pressed && root.modelData && root.modelData.hideTimer)
                 root.modelData.hideTimer.start();
         }
-        onPositionChanged: event => {
-            if (pressed) {
-                const diffY = event.y - startY;
-                if (Math.abs(diffY) > Config.notifs.expandThreshold)
-                    root.expanded = diffY > 0;
-            }
-        }
         onPressed: event => {
             if (root.modelData && root.modelData.hideTimer)
                 root.modelData.hideTimer.stop();
             startY = event.y;
             if (event.button === Qt.MiddleButton)
-                NotificationService.deleteNotification(root.modelData);
-        }
-        onReleased: event => {
-            if (!containsMouse && root.modelData && root.modelData.hideTimer)
-                root.modelData.hideTimer.start();
-
-            if (Math.abs(root.x) < Config.notifs.sizes.width * Config.notifs.clearThreshold)
-                root.x = 0;
-            else
                 NotificationService.deleteNotification(root.modelData);
         }
 
@@ -110,13 +95,13 @@ Rectangle {
                 anchors.left: parent.left
                 anchors.top: parent.top
                 asynchronous: true
-                height: Config.notifs.sizes.image
+                height: 41
                 visible: root.hasImage || root.hasAppIcon
-                width: Config.notifs.sizes.image
+                width: 41
 
                 sourceComponent: ClippingRectangle {
-                    implicitHeight: Config.notifs.sizes.image
-                    implicitWidth: Config.notifs.sizes.image
+                    implicitHeight: 41
+                    implicitWidth: 41
                     radius: Appearance.rounding.full
 
                     Image {
@@ -139,9 +124,9 @@ Rectangle {
                 asynchronous: true
 
                 sourceComponent: Rectangle {
-                    color: root.modelData.urgency === NotificationUrgency.Critical ? Colours.palette.m3error : root.modelData.urgency === NotificationUrgency.Low ? Colours.layer(Colours.palette.m3surfaceContainerHighest, 2) : Colours.palette.m3secondaryContainer
-                    implicitHeight: root.hasImage ? Config.notifs.sizes.badge : Config.notifs.sizes.image
-                    implicitWidth: root.hasImage ? Config.notifs.sizes.badge : Config.notifs.sizes.image
+                    color: root.modelData.urgency === NotificationUrgency.Critical ? Colours.palette.m3error : root.modelData.urgency === NotificationUrgency.Low ? Colours.palette.m3surfaceContainerHighest : Colours.palette.m3secondaryContainer
+                    implicitHeight: root.hasImage ? 20 : 41
+                    implicitWidth: root.hasImage ? 20: 41
                     radius: Appearance.rounding.full
 
                     Loader {
@@ -401,7 +386,7 @@ Rectangle {
 
         Layout.preferredHeight: actionText.height + Appearance.padding.small * 2
         Layout.preferredWidth: actionText.width + Appearance.padding.normal * 2
-        color: root.modelData.urgency === NotificationUrgency.Critical ? Colours.palette.m3secondary : Colours.layer(Colours.palette.m3surfaceContainerHigh, 2)
+        color: root.modelData.urgency === NotificationUrgency.Critical ? Colours.palette.m3secondary : Colours.palette.m3surfaceContainerHigh
         implicitHeight: actionText.height + Appearance.padding.small * 2
         implicitWidth: actionText.width + Appearance.padding.normal * 2
         radius: Appearance.rounding.full

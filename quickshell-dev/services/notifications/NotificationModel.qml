@@ -1,6 +1,6 @@
 pragma ComponentBehavior: Bound
 
-import "."
+import qs.services
 import qs.config
 import Quickshell
 import Quickshell.Widgets

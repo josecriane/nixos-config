@@ -1,7 +1,7 @@
 pragma ComponentBehavior: Bound
 
 import qs.config
-import "popouts" as BarPopouts
+import qs.modules.popups as BarPopouts
 import Quickshell
 import QtQuick
 import qs.ds.animations

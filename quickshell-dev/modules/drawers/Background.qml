@@ -39,7 +39,7 @@ ShapePath {
         return Background.CornerType.NoShape;
     }
     readonly property int inside: PathArc.Counterclockwise
-    property real maxAvailableHeight: parent.height // Can be overridden if needed
+    property real maxAvailableHeight: parent.height
     property bool isBottomBorder: wrapper.y + wrapper.implicitHeight + rounding + 1 >= maxAvailableHeight
     property bool isLeftBorder: wrapper.x <= 0
     property bool isRightBorder: wrapper.x + wrapper.width + rounding >= parent.width

@@ -19,7 +19,7 @@ Rectangle {
     readonly property alias items: iconRow
 
     clip: true
-    color: Colours.tPalette.m3surfaceContainer
+    color: Colours.palette.m3surfaceContainer
     implicitHeight: height
     implicitWidth: iconRow.implicitWidth + Appearance.padding.normal * 2
     radius: Appearance.rounding.full
