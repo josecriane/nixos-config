@@ -19,6 +19,12 @@ BackgroundWrapper {
     implicitWidth: nonAnimWidth
     visible: height > 0
 
+    focus: root.visibilities.notifications
+    Keys.enabled: root.visibilities.notifications
+    Keys.onEscapePressed: {
+        root.visibilities.notifications = false;
+    }
+
     Behavior on implicitWidth {
         BasicNumberAnimation {
         }

@@ -5,9 +5,11 @@ import qs.config
 import qs.ds.list as List
 import qs.ds.animations
 import qs.ds
+import qs.ds.buttons as Buttons
 import Quickshell
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Layouts
 
 Item {
     id: root
@@ -21,30 +23,49 @@ Item {
     anchors.fill: parent
     implicitWidth: Config.notifs.sizes.width
 
-    Flickable {
+    ColumnLayout {
         anchors.fill: parent
-        clip: true
-        contentHeight: column.implicitHeight + root.padding
-        contentWidth: width
+        spacing: Appearance.spacing.small
 
-        ScrollBar.vertical: List.ScrollBar {
+        Buttons.HintButton {
+            Layout.alignment: Qt.AlignRight
+            Layout.rightMargin: root.padding
+            Layout.topMargin: root.padding
+            
+            hint: "Clear all notifications"
+            icon: "delete"
+            
+            onClicked: {
+                NotificationService.deleteAllNotifications();
+            }
         }
 
-        Column {
-            id: column
+        Flickable {
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+            clip: true
+            contentHeight: column.implicitHeight + root.padding
+            contentWidth: width
 
-            anchors.left: parent.left
-            anchors.right: parent.right
-            spacing: Appearance.spacing.small
+            ScrollBar.vertical: List.ScrollBar {
+            }
 
-            Repeater {
-                model: NotificationService.list.length
+            Column {
+                id: column
 
-                delegate: NotificationItem {
-                    required property int index
+                anchors.left: parent.left
+                anchors.right: parent.right
+                spacing: Appearance.spacing.small
 
-                    modelData: NotificationService.list[index]
-                    width: root.width - root.padding
+                Repeater {
+                    model: NotificationService.list.length
+
+                    delegate: NotificationItem {
+                        required property int index
+
+                        modelData: NotificationService.list[index]
+                        width: root.width - root.padding
+                    }
                 }
             }
         }
