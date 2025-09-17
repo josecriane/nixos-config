@@ -31,7 +31,6 @@ QtObject {
     }
     readonly property Connections notificationConn: Connections {
         function onClosed(reason): void {
-            console.log("Notification closed with reason:", reason);
             notif.popup = false;
         }
 

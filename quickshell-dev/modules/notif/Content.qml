@@ -13,34 +13,8 @@ Item {
     required property Item panel
     required property PersistentProperties visibilities
 
-    anchors.bottom: parent.bottom
-    anchors.right: parent.right
-    anchors.top: parent.top
-    implicitHeight: {
-        const count = list.count;
-        if (count === 0)
-            return 0;
-
-        let height = (count - 1) * Appearance.spacing.smaller;
-        for (let i = 0; i < count; i++)
-            height += list.itemAtIndex(i)?.nonAnimHeight ?? 0;
-
-        if (visibilities && panel) {
-            if (visibilities.osd) {
-                const h = panel.osd.y - Config.border.rounding * 2 - padding * 2;
-                if (height > h)
-                    height = h;
-            }
-
-            if (visibilities.session) {
-                const h = panel.session.y - Config.border.rounding * 2 - padding * 2;
-                if (height > h)
-                    height = h;
-            }
-        }
-
-        return Math.min((QsWindow.window?.screen?.height ?? 0) - Config.border.thickness * 2, height + padding * 2);
-    }
+    anchors.fill: parent
+    implicitHeight: parent.height
     implicitWidth: Config.notifs.sizes.width + padding * 2
 
     Behavior on implicitHeight {
