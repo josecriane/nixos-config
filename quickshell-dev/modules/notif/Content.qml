@@ -1,4 +1,4 @@
-import "."
+import qs.modules.notifications as NotificationsList
 import qs.services.notifications
 import qs.config
 import qs.ds.animations
@@ -10,8 +10,6 @@ Item {
     id: root
 
     readonly property int padding: Appearance.padding.large
-    required property Item panel
-    required property PersistentProperties visibilities
 
     anchors.bottom: parent.bottom
     anchors.right: parent.right
@@ -25,26 +23,13 @@ Item {
         for (let i = 0; i < count; i++)
             height += list.itemAtIndex(i)?.nonAnimHeight ?? 0;
 
-        if (visibilities && panel) {
-            if (visibilities.osd) {
-                const h = panel.osd.y - Config.border.rounding * 2 - padding * 2;
-                if (height > h)
-                    height = h;
-            }
-
-            if (visibilities.session) {
-                const h = panel.session.y - Config.border.rounding * 2 - padding * 2;
-                if (height > h)
-                    height = h;
-            }
-        }
-
-        return Math.min((QsWindow.window?.screen?.height ?? 0) - Config.border.thickness * 2, height + padding * 2);
+        const maxHeight = (QsWindow.window?.screen?.height ?? 0) - Config.border.thickness * 2;
+        return Math.min(maxHeight, height + padding * 2);
     }
     implicitWidth: 400 + padding * 2
 
     Behavior on implicitHeight {
-        Anim {
+        BasicNumberAnimation {
         }
     }
 
@@ -102,12 +87,12 @@ Item {
                         target: wrapper
                         value: 1
                     }
-                    Anim {
+                    BasicNumberAnimation {
                         duration: Appearance.anim.durations.normal
                         easing.bezierCurve: Appearance.anim.curves.emphasized
-                        property: "x"
+                        property: "opacity"
                         target: notif
-                        to: (notif.x >= 0 ? 1: -1) * 400 * 2
+                        to: 0
                     }
                     PropertyAction {
                         property: "ListView.delayRemove"
@@ -123,7 +108,7 @@ Item {
                     implicitWidth: notif.implicitWidth
                     radius: notif.radius
 
-                    Notification {
+                    NotificationsList.NotificationItem {
                         id: notif
 
                         modelData: wrapper.modelData
@@ -131,7 +116,7 @@ Item {
                 }
             }
             displaced: Transition {
-                Anim {
+                BasicNumberAnimation {
                     property: "y"
                 }
             }
@@ -139,62 +124,15 @@ Item {
                 values: [...NotificationService.popups].reverse()
             }
             move: Transition {
-                Anim {
+                BasicNumberAnimation {
                     property: "y"
                 }
             }
             rebound: Transition {
                 BasicNumberAnimation {
-                    properties: "x,y"
-                }
-            }
-
-            ExtraIndicator {
-                anchors.top: parent.top
-                extra: {
-                    const count = list.count;
-                    if (count === 0)
-                        return 0;
-
-                    const scrollY = list.contentY;
-
-                    let height = 0;
-                    for (let i = 0; i < count; i++) {
-                        height += (list.itemAtIndex(i)?.nonAnimHeight ?? 0) + Appearance.spacing.smaller;
-
-                        if (height - Appearance.spacing.smaller >= scrollY)
-                            return i;
-                    }
-
-                    return count;
-                }
-            }
-            ExtraIndicator {
-                anchors.bottom: parent.bottom
-                extra: {
-                    const count = list.count;
-                    if (count === 0)
-                        return 0;
-
-                    const scrollY = list.contentHeight - (list.contentY + list.height);
-
-                    let height = 0;
-                    for (let i = count - 1; i >= 0; i--) {
-                        height += (list.itemAtIndex(i)?.nonAnimHeight ?? 0) + Appearance.spacing.smaller;
-
-                        if (height - Appearance.spacing.smaller >= scrollY)
-                            return count - i - 1;
-                    }
-
-                    return 0;
+                    properties: "y"
                 }
             }
         }
-    }
-
-    component Anim: NumberAnimation {
-        duration: Appearance.anim.durations.expressiveDefaultSpatial
-        easing.bezierCurve: Appearance.anim.curves.expressiveDefaultSpatial
-        easing.type: Easing.BezierSpline
     }
 }

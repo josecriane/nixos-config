@@ -24,8 +24,9 @@ Shape {
         startY: wrapper.y
         wrapper: root.panels.osd
     }
-    Notifications.Background {
-        startX: root.width
+    Background {
+        maxAvailableHeight: root.height
+        startX: wrapper.x - Config.border.rounding
         startY: 0
         wrapper: root.panels.notif
     }
