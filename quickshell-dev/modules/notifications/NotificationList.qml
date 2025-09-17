@@ -12,21 +12,19 @@ import QtQuick.Controls
 Item {
     id: root
 
-    property int itemHeight: 100
-    property int maxShown: 6
     required property int padding
     required property var panels
     required property int rounding
     required property PersistentProperties visibilities
     required property var wrapper
 
-    implicitHeight: Math.min(column.implicitHeight, maxShown * (itemHeight + Appearance.spacing.small)) + padding
+    anchors.fill: parent
     implicitWidth: Config.notifs.sizes.width
 
     Flickable {
         anchors.fill: parent
         clip: true
-        contentHeight: column.implicitHeight
+        contentHeight: column.implicitHeight + root.padding
         contentWidth: width
 
         ScrollBar.vertical: List.ScrollBar {

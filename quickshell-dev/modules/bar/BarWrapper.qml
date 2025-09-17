@@ -10,7 +10,7 @@ Item {
     id: root
 
     readonly property int contentHeight: innerHeight + padding * 2
-    readonly property int exclusiveZone: 0
+    readonly property int exclusiveZone: 0 //Change to de innerHeight
     readonly property int innerHeight: 30
     property bool isHovered
     readonly property int padding: Math.max(Appearance.padding.smaller, Config.border.thickness)

@@ -39,7 +39,8 @@ ShapePath {
         return Background.CornerType.NoShape;
     }
     readonly property int inside: PathArc.Counterclockwise
-    property bool isBottomBorder: wrapper.y + wrapper.height + 1 >= parent.height
+    property real maxAvailableHeight: parent.height // Can be overridden if needed
+    property bool isBottomBorder: wrapper.y + wrapper.implicitHeight + rounding + 1 >= maxAvailableHeight
     property bool isLeftBorder: wrapper.x <= 0
     property bool isRightBorder: wrapper.x + wrapper.width + rounding >= parent.width
     property bool isTopBorder: wrapper.y <= 0
@@ -182,8 +183,10 @@ ShapePath {
                 switch (startCornerType) {
                 case Background.CornerType.InvertedTopLeft:
                     return -rounding;
-                // case Background.CornerType.InvertedBottomLeft: return -rounding
-                // case Background.CornerType.InvertedBottomRight: return rounding
+                case Background.CornerType.InvertedBottomLeft:
+                    return rounding
+                case Background.CornerType.InvertedBottomRight:
+                    return rounding
                 // case Background.CornerType.InvertedTopRight: return rounding
                 // case Background.CornerType.TopLeft: return -rounding
                 case Background.CornerType.BottomLeft:

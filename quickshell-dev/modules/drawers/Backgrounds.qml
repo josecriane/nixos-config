@@ -19,6 +19,7 @@ Shape {
     preferredRendererType: Shape.CurveRenderer
 
     Background {
+        maxAvailableHeight: root.height
         startX: wrapper.x + Config.border.rounding
         startY: wrapper.y
         wrapper: root.panels.osd
@@ -29,21 +30,25 @@ Shape {
         wrapper: root.panels.notif
     }
     Background {
+        maxAvailableHeight: root.height
         startX: wrapper.x + Config.border.rounding
         startY: wrapper.y
         wrapper: root.panels.session
     }
     Background {
+        maxAvailableHeight: root.height
         startX: (root.width - wrapper.width) / 2 - Config.border.rounding
         startY: 0
         wrapper: root.panels.launcher
     }
     Background {
+        maxAvailableHeight: root.height
         startX: (root.width - wrapper.width) / 2 - Config.border.rounding
         startY: 0
         wrapper: root.panels.notifications
     }
     Background {
+        maxAvailableHeight: root.height
         startX: wrapper.x - Config.border.rounding
         startY: 0
         wrapper: root.panels.popouts

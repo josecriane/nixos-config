@@ -18,7 +18,8 @@ Item {
 
     anchors.horizontalCenter: parent.horizontalCenter
     anchors.top: parent.top
-    implicitHeight: listWrapper.height + padding * 2
+    anchors.bottom: parent.bottom
+    implicitHeight: parent.height
     implicitWidth: listWrapper.width + padding * 2
 
     Behavior on implicitHeight {
@@ -31,7 +32,7 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
         anchors.topMargin: root.padding
-        implicitHeight: list.height + root.padding
+        anchors.bottom: parent.bottom
         implicitWidth: list.width
 
         NotificationList {
