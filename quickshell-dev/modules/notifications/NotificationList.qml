@@ -1,6 +1,6 @@
 pragma ComponentBehavior: Bound
 
-import qs.services as Services
+import qs.services
 import qs.config
 import qs.ds.list as List
 import qs.ds.animations
@@ -40,12 +40,12 @@ Item {
             spacing: Appearance.spacing.small
 
             Repeater {
-                model: Services.NotificationService.list.length
+                model: NotificationService.list.length
 
                 delegate: NotificationItem {
                     required property int index
 
-                    modelData: Services.NotificationService.list[index]
+                    modelData: NotificationService.list[index]
                     width: root.width - root.padding
                 }
             }

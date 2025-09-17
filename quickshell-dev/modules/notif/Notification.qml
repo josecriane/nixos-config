@@ -36,10 +36,6 @@ Rectangle {
 
     Component.onCompleted: x = 0
 
-    RetainableLock {
-        locked: true
-        object: root.modelData.notification
-    }
     MouseArea {
         property int startY
 
@@ -59,10 +55,13 @@ Rectangle {
             if (actions?.length === 1)
                 actions[0].invoke();
         }
-        onEntered: root.modelData.timer.stop()
+        onEntered: {
+            if (root.modelData && root.modelData.hideTimer)
+                root.modelData.hideTimer.stop();
+        }
         onExited: {
-            if (!pressed)
-                root.modelData.timer.start();
+            if (!pressed && root.modelData && root.modelData.hideTimer)
+                root.modelData.hideTimer.start();
         }
         onPositionChanged: event => {
             if (pressed) {
@@ -72,19 +71,20 @@ Rectangle {
             }
         }
         onPressed: event => {
-            root.modelData.timer.stop();
+            if (root.modelData && root.modelData.hideTimer)
+                root.modelData.hideTimer.stop();
             startY = event.y;
             if (event.button === Qt.MiddleButton)
-                root.modelData.notification.dismiss();
+                NotificationService.deleteNotification(root.modelData.notification);
         }
         onReleased: event => {
-            if (!containsMouse)
-                root.modelData.timer.start();
+            if (!containsMouse && root.modelData && root.modelData.hideTimer)
+                root.modelData.hideTimer.start();
 
             if (Math.abs(root.x) < Config.notifs.sizes.width * Config.notifs.clearThreshold)
                 root.x = 0;
             else
-                root.modelData.notification.dismiss(); // TODO: change back to popup when notif dock impled
+                NotificationService.deleteNotification(root.modelData.notification); // TODO: change back to popup when notif dock impled
         }
 
         Item {
@@ -357,7 +357,7 @@ Rectangle {
                         return;
 
                     Quickshell.execDetached(["app2unit", "-O", "--", link]);
-                    root.modelData.notification.dismiss(); // TODO: change back to popup when notif dock impled
+                    NotificationService.deleteNotification(root.modelData.notification); // TODO: change back to popup when notif dock impled
                 }
             }
             RowLayout {
@@ -375,20 +375,19 @@ Rectangle {
                 }
 
                 Action {
-                    modelData: QtObject {
+                    actionData: QtObject {
                         readonly property string text: qsTr("Close")
 
                         function invoke(): void {
-                            root.modelData.notification.dismiss();
+                            NotificationService.deleteNotification(root.modelData.notification);
                         }
                     }
                 }
                 Repeater {
                     model: root.modelData.actions
 
-                    delegate: Component {
-                        Action {
-                        }
+                    delegate: Action {
+                        actionData: modelData
                     }
                 }
             }
@@ -398,7 +397,7 @@ Rectangle {
     component Action: Rectangle {
         id: action
 
-        required property var modelData
+        property var actionData
 
         Layout.preferredHeight: actionText.height + Appearance.padding.small * 2
         Layout.preferredWidth: actionText.width + Appearance.padding.normal * 2
@@ -409,7 +408,13 @@ Rectangle {
 
         InteractiveArea {
             function onClicked(): void {
-                action.modelData.invoke();
+                if (action.actionData && !action.actionData.destroyed) {
+                    try {
+                        action.actionData.invoke();
+                    } catch (e) {
+                        console.warn("Failed to invoke action:", e);
+                    }
+                }
             }
 
             color: root.modelData.urgency === NotificationUrgency.Critical ? Colours.palette.m3onSecondary : Colours.palette.m3onSurface
@@ -432,7 +437,7 @@ Rectangle {
             }
             font.family: actionText.font.family
             font.pointSize: actionText.font.pointSize
-            text: action.modelData.text
+            text: action.actionData ? action.actionData.text : ""
         }
     }
 }

@@ -28,10 +28,6 @@ Rectangle {
     implicitWidth: Config.notifs.sizes.width
     radius: Appearance.rounding.normal
 
-    RetainableLock {
-        locked: true
-        object: root.modelData.notification
-    }
     MouseArea {
         property int startY
 
@@ -50,27 +46,27 @@ Rectangle {
                 if (Config.notifs.actionOnClick && actions?.length === 1 && actions[0] && !actions[0].destroyed) {
                     try {
                         actions[0].invoke();
-                        root.modelData.dismiss();
+                        NotificationService.deleteNotification(root.modelData.notification);
                     } catch (e) {
                         console.warn("Failed to invoke action:", e);
-                        root.modelData.dismiss();
+                        NotificationService.deleteNotification(root.modelData.notification);
                     }
                 } else if (Config.notifs.actionOnClick && actions?.length > 1) {
                     // Show actions (expand if not already expanded)
                     root.expanded = true;
                 } else {
                     // Default behavior: just dismiss
-                    root.modelData.dismiss();
+                    NotificationService.deleteNotification(root.modelData.notification);
                 }
             }
         }
         onEntered: {
-            if (root.modelData.timer)
-                root.modelData.timer.stop();
+            if (root.modelData && root.modelData.hideTimer)
+                root.modelData.hideTimer.stop();
         }
         onExited: {
-            if (!pressed && root.modelData.timer)
-                root.modelData.timer.start();
+            if (!pressed && root.modelData && root.modelData.hideTimer)
+                root.modelData.hideTimer.start();
         }
         onPositionChanged: event => {
             if (pressed) {
@@ -80,15 +76,15 @@ Rectangle {
             }
         }
         onPressed: event => {
-            if (root.modelData.timer)
-                root.modelData.timer.stop();
+            if (root.modelData && root.modelData.hideTimer)
+                root.modelData.hideTimer.stop();
             startY = event.y;
             if (event.button === Qt.MiddleButton && root.modelData && !root.modelData.dismissed)
-                root.modelData.dismiss();
+                NotificationService.deleteNotification(root.modelData.notification);
         }
         onReleased: event => {
-            if (!containsMouse && root.modelData.timer)
-                root.modelData.timer.start();
+            if (!containsMouse && root.modelData && root.modelData.hideTimer)
+                root.modelData.hideTimer.start();
         }
 
         Item {
@@ -363,7 +359,7 @@ Rectangle {
                         return;
 
                     Quickshell.execDetached(["app2unit", "-O", "--", link]);
-                    root.modelData.notification.dismiss();
+                    NotificationService.deleteNotification(root.modelData.notification);
                 }
             }
             RowLayout {
@@ -381,12 +377,12 @@ Rectangle {
                 }
 
                 Action {
-                    modelData: QtObject {
+                    actionData: QtObject {
                         readonly property string text: qsTr("Close")
 
                         function invoke(): void {
                             if (root.modelData && !root.modelData.dismissed) {
-                                root.modelData.dismiss();
+                                NotificationService.deleteNotification(root.modelData.notification);
                             }
                         }
                     }
@@ -394,15 +390,8 @@ Rectangle {
                 Repeater {
                     model: root.modelData.actions
 
-                    delegate: Component {
-                        Action {
-                            required property var modelData
-
-                            Component.onCompleted: {
-                                // Bind the action data
-                                this.modelData = parent.modelData;
-                            }
-                        }
+                    delegate: Action {
+                        actionData: modelData
                     }
                 }
             }
@@ -412,7 +401,7 @@ Rectangle {
     component Action: Rectangle {
         id: action
 
-        required property var modelData
+        property var actionData
 
         Layout.preferredHeight: actionText.height + Appearance.padding.small * 2
         Layout.preferredWidth: actionText.width + Appearance.padding.normal * 2
@@ -423,9 +412,9 @@ Rectangle {
 
         InteractiveArea {
             function onClicked(): void {
-                if (action.modelData && !action.modelData.destroyed) {
+                if (action.actionData && !action.actionData.destroyed) {
                     try {
-                        action.modelData.invoke();
+                        action.actionData.invoke();
                     } catch (e) {
                         console.warn("Failed to invoke action:", e);
                     }
@@ -452,7 +441,7 @@ Rectangle {
             }
             font.family: actionText.font.family
             font.pointSize: actionText.font.pointSize
-            text: action.modelData.text
+            text: action.actionData ? action.actionData.text : ""
         }
     }
 }

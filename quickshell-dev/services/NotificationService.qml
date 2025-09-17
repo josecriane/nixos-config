@@ -16,14 +16,32 @@ Singleton {
     readonly property list<NotificationModel> popups: list.filter(n => n.popup && !n.dismissed)
 
     function addNotification(notification) {
-        root.list.push(notifComp.createObject(root, {
+        const notif = notifComp.createObject(root, {
             popup: true,
             notification: notification
-        }));
+        });
+        
+        root.list.push(notif);
+
+        const popupTimeout = Config.notifs.defaultExpireTimeout;
+        
+        const timer = timerComp.createObject(notif, {
+            interval: popupTimeout,
+            notifModel: notif
+        });
+        timer.start();
+        
+        notif.hideTimer = timer;
     }
     function deleteAllNotifications() {
         for (const notif of root.list) {
-            notif.dismiss();
+            if (notif.hideTimer) {
+                notif.hideTimer.stop();
+                notif.hideTimer.destroy();
+            }
+            if (notif.notification && !notif.notification.destroyed) {
+                notif.notification.tracked = false;
+            }
             notif.destroy();
         }
         root.list = [];
@@ -32,7 +50,13 @@ Singleton {
         const index = root.list.findIndex(n => n.notification === notification);
         if (index !== -1) {
             const notif = root.list[index];
-            notif.dismiss();
+            if (notif.hideTimer) {
+                notif.hideTimer.stop();
+                notif.hideTimer.destroy();
+            }
+            if (notification && !notification.destroyed) {
+                notification.tracked = false;
+            }
             root.list.splice(index, 1);
             notif.destroy();
         }
@@ -57,6 +81,24 @@ Singleton {
         id: notifComp
 
         NotificationModel {
+        }
+    }
+    Component {
+        id: timerComp
+        
+        Timer {
+            property var notifModel
+            
+            repeat: false
+            onTriggered: {
+                if (notifModel) {
+                    notifModel.hide();
+                }
+                if (notifModel.isTransient) {
+                    root.deleteNotification(notifModel)
+                }
+                destroy();
+            }
         }
     }
     Shortcuts.Shortcut {
