@@ -10,21 +10,20 @@ import qs.ds.animations
 Item {
     id: root
 
+    property bool isAutoMode: false
     readonly property int padding: Appearance.padding.normal
     required property var panels
     readonly property int rounding: Appearance.rounding.large
     required property PersistentProperties visibilities
     required property var wrapper
+    
+    readonly property int autoModeHeight: list.contentHeight - padding
 
     anchors.right: parent.right
     anchors.top: parent.top
     anchors.bottom: parent.bottom
-    implicitHeight: parent.height
+    implicitHeight: isAutoMode ? autoModeHeight : parent.height
     implicitWidth: listWrapper.width + padding * 2
-
-    Behavior on implicitHeight {
-        enabled: false
-    }
 
     Item {
         id: listWrapper
@@ -34,11 +33,13 @@ Item {
         anchors.top: parent.top
         anchors.topMargin: root.padding
         anchors.bottom: parent.bottom
+        implicitHeight: root.isAutoMode ? autoModeHeight : parent.height
         implicitWidth: list.width
 
         NotificationList {
             id: list
 
+            isAutoMode: root.isAutoMode
             padding: root.padding
             panels: root.panels
             rounding: root.rounding

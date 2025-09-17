@@ -1,6 +1,5 @@
 import qs.config
 import qs.modules.osd as Osd
-import qs.modules.notif as Notifications
 import qs.modules.notifications as NotificationsList
 import qs.modules.session as Session
 import qs.modules.launcher as Launcher
@@ -13,7 +12,6 @@ Item {
 
     required property Item bar
     readonly property Launcher.Wrapper launcher: launcher
-    readonly property Notifications.Wrapper notif: notif
     readonly property NotificationsList.Wrapper notifications: notifications
     readonly property Osd.Wrapper osd: osd
     readonly property Popups.Wrapper popouts: popouts
@@ -33,14 +31,6 @@ Item {
         anchors.verticalCenter: parent.verticalCenter
         clip: root.visibilities.session
         screen: root.screen
-        visibilities: root.visibilities
-    }
-    Notifications.Wrapper {
-        id: notif
-
-        anchors.right: parent.right
-        anchors.top: parent.top
-        panel: root
         visibilities: root.visibilities
     }
     Session.Wrapper {

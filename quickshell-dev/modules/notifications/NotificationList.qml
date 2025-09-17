@@ -14,6 +14,14 @@ import QtQuick.Layouts
 Item {
     id: root
 
+    property bool isAutoMode: false
+    readonly property real contentHeight: {
+        if (isAutoMode) {
+            return flickable.contentHeight + root.padding * 2;
+        } else {
+            return flickable.contentHeight + clearButton.height + columnLayout.spacing + root.padding;
+        }
+    }
     required property int padding
     required property var panels
     required property int rounding
@@ -24,13 +32,18 @@ Item {
     implicitWidth: 400
 
     ColumnLayout {
+        id: columnLayout
+
         anchors.fill: parent
         spacing: Appearance.spacing.small
 
         Buttons.HintButton {
+            id: clearButton
+
             Layout.alignment: Qt.AlignRight
             Layout.rightMargin: root.padding
             Layout.topMargin: root.padding
+            visible: !root.isAutoMode
             
             hint: "Clear all notifications"
             icon: "delete"
@@ -41,6 +54,8 @@ Item {
         }
 
         Flickable {
+            id: flickable
+
             Layout.fillHeight: true
             Layout.fillWidth: true
             clip: true
@@ -58,12 +73,12 @@ Item {
                 spacing: Appearance.spacing.small
 
                 Repeater {
-                    model: NotificationService.list.length
+                    model: root.isAutoMode ? NotificationService.popups.length : NotificationService.list.length
 
                     delegate: NotificationItem {
                         required property int index
 
-                        modelData: NotificationService.list[index]
+                        modelData: root.isAutoMode ? NotificationService.popups[index] : NotificationService.list[index]
                         width: root.width - root.padding
                     }
                 }

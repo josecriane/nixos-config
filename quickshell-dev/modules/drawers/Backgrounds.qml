@@ -1,7 +1,6 @@
 import "."
 import qs.services
 import qs.config
-import qs.modules.notif as Notifications
 import qs.modules.launcher as Launcher
 import qs.modules.notifications as NotificationsList
 import QtQuick
@@ -23,12 +22,6 @@ Shape {
         startX: wrapper.x + Config.border.rounding
         startY: wrapper.y
         wrapper: root.panels.osd
-    }
-    Background {
-        maxAvailableHeight: root.height
-        startX: wrapper.x - Config.border.rounding
-        startY: 0
-        wrapper: root.panels.notif
     }
     Background {
         maxAvailableHeight: root.height
