@@ -27,27 +27,26 @@ Item {
         anchors.fill: parent
         clip: true
         contentHeight: column.implicitHeight
-        contentWidth: column.contentWidth
-        
+        contentWidth: width
+
         ScrollBar.vertical: List.ScrollBar {
         }
-        
+
         Column {
             id: column
-            
+
             anchors.left: parent.left
             anchors.right: parent.right
             spacing: Appearance.spacing.small
-            
+
             Repeater {
-                model: Services.Notifs.list.length
-                
+                model: Services.NotificationService.list.length
+
                 delegate: NotificationItem {
                     required property int index
-                    
-                    modelData: Services.Notifs.list[index]
+
+                    modelData: Services.NotificationService.list[index]
                     width: root.width - root.padding
-                    
                 }
             }
         }

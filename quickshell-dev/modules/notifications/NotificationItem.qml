@@ -19,15 +19,14 @@ Rectangle {
     property bool expanded
     readonly property bool hasAppIcon: modelData.appIcon.length > 0
     readonly property bool hasImage: modelData.image.length > 0
-    required property Notifs.Notif modelData
+    required property NotificationModel modelData
     readonly property int nonAnimHeight: summary.implicitHeight + (root.expanded ? appName.height + body.height + actions.height + actions.anchors.topMargin : bodyPreview.height) + inner.anchors.margins * 2
 
+    anchors.horizontalCenter: parent.horizontalCenter
     color: root.modelData.urgency === NotificationUrgency.Critical ? Colours.palette.m3secondaryContainer : Colours.tPalette.m3surfaceContainer
     implicitHeight: inner.implicitHeight
     implicitWidth: Config.notifs.sizes.width
     radius: Appearance.rounding.normal
-
-    anchors.horizontalCenter: parent.horizontalCenter
 
     RetainableLock {
         locked: true
@@ -46,18 +45,21 @@ Rectangle {
             if (event.button !== Qt.LeftButton)
                 return;
 
-            const actions = root.modelData.actions;
-            if (Config.notifs.actionOnClick && actions?.length === 1) {
-                actions[0].invoke();
-                if (root.modelData && !root.modelData.dismissed) {
-                    root.modelData.dismiss();
-                }
-            } else if (Config.notifs.actionOnClick && actions?.length > 1) {
-                // Show actions (expand if not already expanded)
-                root.expanded = true;
-            } else {
-                // Default behavior: try to open the app or just dismiss
-                if (root.modelData && !root.modelData.dismissed) {
+            if (root.modelData && !root.modelData.dismissed) {
+                const actions = root.modelData.actions;
+                if (Config.notifs.actionOnClick && actions?.length === 1 && actions[0] && !actions[0].destroyed) {
+                    try {
+                        actions[0].invoke();
+                        root.modelData.dismiss();
+                    } catch (e) {
+                        console.warn("Failed to invoke action:", e);
+                        root.modelData.dismiss();
+                    }
+                } else if (Config.notifs.actionOnClick && actions?.length > 1) {
+                    // Show actions (expand if not already expanded)
+                    root.expanded = true;
+                } else {
+                    // Default behavior: just dismiss
                     root.modelData.dismiss();
                 }
             }
@@ -338,6 +340,8 @@ Rectangle {
             DsText.BodyS {
                 id: body
 
+                property string hoveredLink
+
                 anchors.left: summary.left
                 anchors.right: expandBtn.left
                 anchors.rightMargin: Appearance.spacing.small
@@ -348,8 +352,6 @@ Rectangle {
                 text: root.modelData.body
                 textFormat: Text.MarkdownText
                 wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-
-                property string hoveredLink
 
                 Behavior on opacity {
                     BasicNumberAnimation {
@@ -394,6 +396,12 @@ Rectangle {
 
                     delegate: Component {
                         Action {
+                            required property var modelData
+
+                            Component.onCompleted: {
+                                // Bind the action data
+                                this.modelData = parent.modelData;
+                            }
                         }
                     }
                 }
@@ -415,7 +423,13 @@ Rectangle {
 
         InteractiveArea {
             function onClicked(): void {
-                action.modelData.invoke();
+                if (action.modelData && !action.modelData.destroyed) {
+                    try {
+                        action.modelData.invoke();
+                    } catch (e) {
+                        console.warn("Failed to invoke action:", e);
+                    }
+                }
             }
 
             color: root.modelData.urgency === NotificationUrgency.Critical ? Colours.palette.m3onSecondary : Colours.palette.m3onSurface

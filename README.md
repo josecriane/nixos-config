@@ -217,6 +217,7 @@ R
     - [ ] Filter .desktop apps
     - [ ] Define commands with a yml or a json
 
+- [ ] Detect sharing to disable notification popups
 - [ ] Use directory name on zellij tab name
 - [ ] Remove Electron alerts (as VSCode)
 - [ ] Install steam

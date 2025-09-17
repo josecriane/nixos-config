@@ -67,7 +67,7 @@ Item {
 
                 property int idx
                 required property int index
-                required property Notifs.Notif modelData
+                required property NotificationModel modelData
                 readonly property alias nonAnimHeight: notif.nonAnimHeight
 
                 implicitHeight: notif.implicitHeight + (idx === 0 ? 0 : Appearance.spacing.smaller)
@@ -136,7 +136,7 @@ Item {
                 }
             }
             model: ScriptModel {
-                values: [...Notifs.popups].reverse()
+                values: [...NotificationService.popups].reverse()
             }
             move: Transition {
                 Anim {

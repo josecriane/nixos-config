@@ -11,7 +11,7 @@ CircularButtons.S {
 
     backgroundColor: "transparent"
     icon: "notifications"
-    
+
     onClicked: {
         root.visibilities.notifications = !root.visibilities.notifications;
     }

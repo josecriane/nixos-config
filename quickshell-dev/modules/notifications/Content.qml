@@ -20,7 +20,6 @@ Item {
     anchors.top: parent.top
     implicitHeight: listWrapper.height + padding * 2
     implicitWidth: listWrapper.width + padding * 2
-    
 
     Behavior on implicitHeight {
         enabled: false
