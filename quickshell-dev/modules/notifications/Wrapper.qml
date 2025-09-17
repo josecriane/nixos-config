@@ -10,9 +10,10 @@ BackgroundWrapper {
 
     property list<real> animCurve: Appearance.anim.curves.standard
     property int animLength: Appearance.anim.durations.normal
-    readonly property bool hasCurrent: root.visibilities.notifications || isAutoMode
+    readonly property bool hasCurrent: root.visibilities.notifications || (isAutoMode && !isHiding)
     readonly property real nonAnimWidth: hasCurrent ? content.implicitWidth : 0
     property bool isAutoMode: false
+    property bool isHiding: false
     required property var panels
     required property PersistentProperties visibilities
 
@@ -35,9 +36,22 @@ BackgroundWrapper {
             if (!root.visibilities.notifications) {
                 if (NotificationService.popups.length > 0) {
                     root.isAutoMode = true;
+                    root.isHiding = false;
                 } else {
-                    root.isAutoMode = false;
+                    root.isHiding = true;
+                    hideDelayTimer.restart();
                 }
+            }
+        }
+    }
+    
+    Timer {
+        id: hideDelayTimer
+        interval: 500
+        onTriggered: {
+            root.isAutoMode = false;
+            if (root.isHiding && NotificationService.popups.length === 0 && !root.visibilities.notifications) {
+                root.isHiding = false;
             }
         }
     }
@@ -61,7 +75,7 @@ BackgroundWrapper {
         id: content
 
         isAutoMode: root.isAutoMode
-        opacity: (root.visibilities.notifications || root.isAutoMode) ? 1 : 0
+        opacity: (root.visibilities.notifications || (root.isAutoMode && !root.isHiding)) ? 1 : 0
         panels: root.panels
         visibilities: root.visibilities
         wrapper: root

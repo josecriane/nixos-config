@@ -212,7 +212,8 @@ R
   - [ ] Add mic icon to the audio tray
   - [ ] OSD
     - [ ] Add mic muted on osd
-  - [ ] Refactor notifications
+  - [ ] Notifications
+    - [ ] Refactor notificationItem
   - [ ] Launcher
     - [ ] Filter .desktop apps
     - [ ] Define commands with a yml or a json
