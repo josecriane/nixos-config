@@ -11,10 +11,9 @@ Item {
     id: root
 
     required property Brightness.Monitor monitor
-    required property var visibilities
-
     readonly property int sliderHeight: 150
     readonly property int sliderWidth: 30
+    required property var visibilities
 
     anchors.left: parent.left
     anchors.verticalCenter: parent.verticalCenter
