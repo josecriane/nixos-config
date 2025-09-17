@@ -1,200 +1,48 @@
-import "."
-import qs.services
+pragma ComponentBehavior: Bound
+
+import qs.services as Services
 import qs.config
-import qs.ds.animations
+import qs.ds as Ds
 import Quickshell
-import Quickshell.Widgets
 import QtQuick
+import qs.ds.animations
 
 Item {
     id: root
 
-    readonly property int padding: Appearance.padding.large
-    required property Item panel
+    readonly property int padding: Appearance.padding.normal
+    required property var panels
+    readonly property int rounding: Appearance.rounding.large
     required property PersistentProperties visibilities
+    required property var wrapper
 
-    anchors.bottom: parent.bottom
-    anchors.right: parent.right
+    anchors.horizontalCenter: parent.horizontalCenter
     anchors.top: parent.top
-    implicitHeight: {
-        const count = list.count;
-        if (count === 0)
-            return 0;
-
-        let height = (count - 1) * Appearance.spacing.smaller;
-        for (let i = 0; i < count; i++)
-            height += list.itemAtIndex(i)?.nonAnimHeight ?? 0;
-
-        if (visibilities && panel) {
-            if (visibilities.osd) {
-                const h = panel.osd.y - Config.border.rounding * 2 - padding * 2;
-                if (height > h)
-                    height = h;
-            }
-
-            if (visibilities.session) {
-                const h = panel.session.y - Config.border.rounding * 2 - padding * 2;
-                if (height > h)
-                    height = h;
-            }
-        }
-
-        return Math.min((QsWindow.window?.screen?.height ?? 0) - Config.border.thickness * 2, height + padding * 2);
-    }
-    implicitWidth: Config.notifs.sizes.width + padding * 2
+    implicitHeight: listWrapper.height + padding * 2
+    implicitWidth: listWrapper.width + padding * 2
+    
 
     Behavior on implicitHeight {
-        Anim {
-        }
+        enabled: false
     }
 
-    ClippingWrapperRectangle {
-        anchors.fill: parent
-        anchors.margins: root.padding
-        color: "transparent"
-        radius: Appearance.rounding.normal
+    Item {
+        id: listWrapper
 
-        ListView {
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: parent.top
+        anchors.topMargin: root.padding
+        implicitHeight: list.height + root.padding
+        implicitWidth: list.width
+
+        NotificationList {
             id: list
 
-            anchors.fill: parent
-            cacheBuffer: QsWindow.window?.screen.height ?? 0
-            orientation: Qt.Vertical
-            spacing: 0
-
-            delegate: Item {
-                id: wrapper
-
-                property int idx
-                required property int index
-                required property Notifs.Notif modelData
-                readonly property alias nonAnimHeight: notif.nonAnimHeight
-
-                implicitHeight: notif.implicitHeight + (idx === 0 ? 0 : Appearance.spacing.smaller)
-                implicitWidth: notif.implicitWidth
-
-                ListView.onRemove: removeAnim.start()
-                onIndexChanged: {
-                    if (index !== -1)
-                        idx = index;
-                }
-
-                SequentialAnimation {
-                    id: removeAnim
-
-                    PropertyAction {
-                        property: "ListView.delayRemove"
-                        target: wrapper
-                        value: true
-                    }
-                    PropertyAction {
-                        property: "enabled"
-                        target: wrapper
-                        value: false
-                    }
-                    PropertyAction {
-                        property: "implicitHeight"
-                        target: wrapper
-                        value: 0
-                    }
-                    PropertyAction {
-                        property: "z"
-                        target: wrapper
-                        value: 1
-                    }
-                    Anim {
-                        duration: Appearance.anim.durations.normal
-                        easing.bezierCurve: Appearance.anim.curves.emphasized
-                        property: "x"
-                        target: notif
-                        to: (notif.x >= 0 ? Config.notifs.sizes.width : -Config.notifs.sizes.width) * 2
-                    }
-                    PropertyAction {
-                        property: "ListView.delayRemove"
-                        target: wrapper
-                        value: false
-                    }
-                }
-                ClippingRectangle {
-                    anchors.top: parent.top
-                    anchors.topMargin: wrapper.idx === 0 ? 0 : Appearance.spacing.smaller
-                    color: "transparent"
-                    implicitHeight: notif.implicitHeight
-                    implicitWidth: notif.implicitWidth
-                    radius: notif.radius
-
-                    Notification {
-                        id: notif
-
-                        modelData: wrapper.modelData
-                    }
-                }
-            }
-            displaced: Transition {
-                Anim {
-                    property: "y"
-                }
-            }
-            model: ScriptModel {
-                values: [...Notifs.popups].reverse()
-            }
-            move: Transition {
-                Anim {
-                    property: "y"
-                }
-            }
-            rebound: Transition {
-                BasicNumberAnimation {
-                    properties: "x,y"
-                }
-            }
-
-            ExtraIndicator {
-                anchors.top: parent.top
-                extra: {
-                    const count = list.count;
-                    if (count === 0)
-                        return 0;
-
-                    const scrollY = list.contentY;
-
-                    let height = 0;
-                    for (let i = 0; i < count; i++) {
-                        height += (list.itemAtIndex(i)?.nonAnimHeight ?? 0) + Appearance.spacing.smaller;
-
-                        if (height - Appearance.spacing.smaller >= scrollY)
-                            return i;
-                    }
-
-                    return count;
-                }
-            }
-            ExtraIndicator {
-                anchors.bottom: parent.bottom
-                extra: {
-                    const count = list.count;
-                    if (count === 0)
-                        return 0;
-
-                    const scrollY = list.contentHeight - (list.contentY + list.height);
-
-                    let height = 0;
-                    for (let i = count - 1; i >= 0; i--) {
-                        height += (list.itemAtIndex(i)?.nonAnimHeight ?? 0) + Appearance.spacing.smaller;
-
-                        if (height - Appearance.spacing.smaller >= scrollY)
-                            return count - i - 1;
-                    }
-
-                    return 0;
-                }
-            }
+            padding: root.padding
+            panels: root.panels
+            rounding: root.rounding
+            visibilities: root.visibilities
+            wrapper: root.wrapper
         }
-    }
-
-    component Anim: NumberAnimation {
-        duration: Appearance.anim.durations.expressiveDefaultSpatial
-        easing.bezierCurve: Appearance.anim.curves.expressiveDefaultSpatial
-        easing.type: Easing.BezierSpline
     }
 }

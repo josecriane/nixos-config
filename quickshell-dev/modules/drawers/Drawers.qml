@@ -25,7 +25,7 @@ Variants {
             id: win
 
             WlrLayershell.exclusionMode: ExclusionMode.Ignore
-            WlrLayershell.keyboardFocus: visibilities.launcher || visibilities.session ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
+            WlrLayershell.keyboardFocus: visibilities.launcher || visibilities.notifications || visibilities.session ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
             WlrLayershell.namespace: `quickshell-drawers`
             anchors.bottom: true
             anchors.left: true
@@ -92,6 +92,7 @@ Variants {
 
                 property bool bar
                 property bool launcher
+                property bool notifications
                 property bool osd
                 property bool session
 

@@ -34,7 +34,7 @@ Singleton {
         }
     }
     Shortcuts.Shortcut {
-        description: "Clear all notifications"
+        description: "Clear all notif"
         name: "clearNotifs"
 
         onPressed: {
@@ -66,14 +66,20 @@ Singleton {
         readonly property string body: notification.body
         readonly property Connections conn: Connections {
             function onAboutToDestroy(): void {
-                notif.destroy();
+                // Don't destroy, just mark as dismissed
+                notif.popup = false;
+                notif.dismissed = true;
             }
             function onDropped(): void {
-                root.list.splice(root.list.indexOf(notif), 1);
+                // Don't remove from list, just mark as dismissed
+                notif.popup = false;
+                notif.dismissed = true;
             }
 
             target: notif.notification.Retainable
         }
+        property bool dismissed: false
+        readonly property date created: new Date()
         readonly property string image: notification.image
         required property Notification notification
         property bool popup
@@ -100,5 +106,21 @@ Singleton {
             }
         }
         readonly property int urgency: notification.urgency
+        
+        function dismiss() {
+            popup = false;
+            dismissed = true;
+            if (notification && !notification.destroyed) {
+                notification.tracked = false;
+            }
+        }
+        
+        function close() {
+            popup = false;
+            dismissed = true;
+            if (notification && !notification.destroyed) {
+                notification.tracked = false;
+            }
+        }
     }
 }
