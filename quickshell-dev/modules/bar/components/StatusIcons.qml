@@ -41,10 +41,21 @@ Rectangle {
         WrappedLoader {
             name: "audio"
 
-            sourceComponent: Icons.MaterialFontIcon {
-                animate: true
-                color: root.colour
-                text: Utils.Icons.getVolumeIcon(Audio.volume, Audio.muted)
+            sourceComponent: RowLayout {
+                spacing: Appearance.spacing.smaller / 2
+
+                Icons.MaterialFontIcon {
+                    animate: true
+                    color: root.colour
+                    text: "mic_off"
+                    visible: Audio.sourceMuted
+                }
+
+                Icons.MaterialFontIcon {
+                    animate: true
+                    color: root.colour
+                    text: Utils.Icons.getVolumeIcon(Audio.volume, Audio.muted)
+                }
             }
         }
 

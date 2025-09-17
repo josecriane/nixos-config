@@ -1,10 +1,10 @@
-import "modules/drawers"
-import "modules/shortcuts" as Shortcuts
+import qs.modules.drawers
+import qs.modules.shortcuts
 import Quickshell
 
 ShellRoot {
     Drawers {
     }
-    Shortcuts.Handler {
+    Handler {
     }
 }

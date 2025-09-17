@@ -3,6 +3,7 @@ pragma ComponentBehavior: Bound
 import qs.services
 import qs.config
 import qs.ds.buttons as Buttons
+import qs.ds.buttons.circularButtons as CircularButtons
 import qs.ds.list as Lists
 import qs.ds.text as Text
 import qs.ds as Ds
@@ -60,6 +61,36 @@ Item {
         Text.HeadingS {
             Layout.bottomMargin: Appearance.spacing.small / 2
             Layout.topMargin: Appearance.spacing.normal
+            text: qsTr("Volume (%1)").arg(Audio.muted ? qsTr("Muted") : `${Math.round(Audio.volume * 100)}%`)
+        }
+        RowLayout {
+            Layout.fillWidth: true
+            spacing: Appearance.spacing.normal
+            
+            Ds.Slider {
+                Layout.fillWidth: true
+                implicitHeight: Appearance.padding.normal * 3
+                value: Audio.volume
+
+                Behavior on value {
+                    BasicNumberAnimation {
+                    }
+                }
+
+                onMoved: Audio.setVolume(value)
+                onWheelDown: Audio.decrementVolume()
+                onWheelUp: Audio.incrementVolume()
+            }
+            CircularButtons.L {
+                icon: Audio.muted ? "volume_off" : "volume_up"
+                active: Audio.muted
+                onClicked: Audio.toggleMute()
+            }
+        }
+
+        Text.HeadingS {
+            Layout.bottomMargin: Appearance.spacing.small / 2
+            Layout.topMargin: Appearance.spacing.normal
             text: qsTr("Input device")
         }
         Repeater {
@@ -82,21 +113,31 @@ Item {
         Text.HeadingS {
             Layout.bottomMargin: Appearance.spacing.small / 2
             Layout.topMargin: Appearance.spacing.normal
-            text: qsTr("Volume (%1)").arg(Audio.muted ? qsTr("Muted") : `${Math.round(Audio.volume * 100)}%`)
+            text: qsTr("Volume (%1)").arg(Audio.sourceMuted ? qsTr("Muted") : `${Math.round(Audio.sourceVolume * 100)}%`)
         }
-        Ds.Slider {
+        RowLayout {
             Layout.fillWidth: true
-            implicitHeight: Appearance.padding.normal * 3
-            value: Audio.volume
+            spacing: Appearance.spacing.normal
+            
+            Ds.Slider {
+                Layout.fillWidth: true
+                implicitHeight: Appearance.padding.normal * 3
+                value: Audio.sourceVolume
 
-            Behavior on value {
-                BasicNumberAnimation {
+                Behavior on value {
+                    BasicNumberAnimation {
+                    }
                 }
-            }
 
-            onMoved: Audio.setVolume(value)
-            onWheelDown: Audio.decrementVolume()
-            onWheelUp: Audio.incrementVolume()
+                onMoved: Audio.setSourceVolume(value)
+                onWheelDown: Audio.decrementSourceVolume()
+                onWheelUp: Audio.incrementSourceVolume()
+            }
+            CircularButtons.L {
+                icon: Audio.sourceMuted ? "mic_off" : "mic"
+                active: Audio.sourceMuted
+                onClicked: Audio.toggleSourceMute()
+            }
         }
         Buttons.PrimaryButton {
             Layout.topMargin: Appearance.spacing.normal

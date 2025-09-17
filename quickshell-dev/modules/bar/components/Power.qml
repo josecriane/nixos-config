@@ -10,7 +10,8 @@ CircularButtons.S {
     required property PersistentProperties visibilities
 
     backgroundColor: "transparent"
-    foregroundColor: Colours.palette.m3error
+    foregroundColor: Colours.palette.m3secondary
+
     icon: "power_settings_new"
 
     onClicked: {

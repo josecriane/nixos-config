@@ -209,16 +209,13 @@ R
 
 - [ ] Quickshell Redo
   - [ ] Use stylix colors
-  - [ ] Add mic icon to the audio tray
-  - [ ] OSD
-    - [ ] Add mic muted on osd
   - [ ] Notifications
     - [ ] Refactor notificationItem
+    - [ ] Detect sharing to disable notification popups
   - [ ] Launcher
     - [ ] Filter .desktop apps
     - [ ] Define commands with a yml or a json
 
-- [ ] Detect sharing to disable notification popups
 - [ ] Use directory name on zellij tab name
 - [ ] Remove Electron alerts (as VSCode)
 - [ ] Install steam
