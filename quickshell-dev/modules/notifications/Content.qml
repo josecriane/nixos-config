@@ -16,7 +16,7 @@ Item {
     required property PersistentProperties visibilities
     required property var wrapper
 
-    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.right: parent.right
     anchors.top: parent.top
     anchors.bottom: parent.bottom
     implicitHeight: parent.height
@@ -29,7 +29,8 @@ Item {
     Item {
         id: listWrapper
 
-        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.right: parent.right
+        anchors.rightMargin: root.padding
         anchors.top: parent.top
         anchors.topMargin: root.padding
         anchors.bottom: parent.bottom

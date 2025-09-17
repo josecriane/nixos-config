@@ -43,7 +43,7 @@ Shape {
     }
     Background {
         maxAvailableHeight: root.height
-        startX: (root.width - wrapper.width) / 2 - Config.border.rounding
+        startX: wrapper.x - Config.border.rounding
         startY: 0
         wrapper: root.panels.notifications
     }

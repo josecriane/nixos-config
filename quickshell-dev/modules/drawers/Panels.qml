@@ -61,7 +61,7 @@ Item {
     NotificationsList.Wrapper {
         id: notifications
 
-        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.right: parent.right
         anchors.top: parent.top
         panels: root
         visibilities: root.visibilities
