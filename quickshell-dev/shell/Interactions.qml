@@ -10,7 +10,6 @@ MouseArea {
 
     required property Item bar
     property bool osdHovered
-    property bool osdShortcutActive
     required property Panels panels
     required property Popups.Wrapper popouts
     required property ShellScreen screen
@@ -44,12 +43,8 @@ MouseArea {
 
     onContainsMouseChanged: {
         if (!containsMouse) {
-            // Only hide if not activated by shortcut
-            if (!osdShortcutActive) {
-                visibilities.osd = false;
-                osdHovered = false;
-            }
-
+            visibilities.osd = false;
+            osdHovered = false;
             popouts.hasCurrent = false;
         }
     }
@@ -65,26 +60,14 @@ MouseArea {
         // Show osd on hover
         const showOsd = inRightPanel(panels.osd, x, y);
 
-        // Always update visibility based on hover if not in shortcut mode
-        if (!osdShortcutActive) {
-            visibilities.osd = showOsd;
-            osdHovered = showOsd;
-        } else if (showOsd) {
-            // If hovering over OSD area while in shortcut mode, transition to hover control
-            osdShortcutActive = false;
-            osdHovered = true;
-        }
+        visibilities.osd = showOsd;
+        osdHovered = showOsd;
 
         // Show popouts on hover
         if (y < bar.implicitHeight)
             bar.checkPopout(x);
         else if (!popouts.currentName.startsWith("traymenu") && !inTopPanel(panels.popouts, x, y))
             popouts.hasCurrent = false;
-    }
-    onWheel: event => {
-        if (event.y < bar.implicitHeight) {
-            bar.handleWheel(event.x, event.angleDelta);
-        }
     }
 
     // Monitor individual visibility changes
@@ -96,12 +79,8 @@ MouseArea {
                 root.visibilities.session = false;
                 root.visibilities.bar = false;
                 root.popouts.hasCurrent = false;
-                root.osdShortcutActive = false;
                 root.osdHovered = false;
             } else {
-                // If launcher is hidden, clear shortcut flags for OSD
-                root.osdShortcutActive = false;
-
                 // Also hide OSD if they're not being hovered
                 const inOsdArea = root.inRightPanel(root.panels.osd, root.mouseX, root.mouseY);
 
@@ -112,16 +91,6 @@ MouseArea {
             }
         }
         function onOsdChanged() {
-            if (root.visibilities.osd) {
-                // OSD became visible, immediately check if this should be shortcut mode
-                const inOsdArea = root.inRightPanel(root.panels.osd, root.mouseX, root.mouseY);
-                if (!inOsdArea) {
-                    root.osdShortcutActive = true;
-                }
-            } else {
-                // OSD hidden, clear shortcut flag
-                root.osdShortcutActive = false;
-            }
         }
 
         target: root.visibilities

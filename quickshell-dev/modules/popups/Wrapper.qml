@@ -1,6 +1,6 @@
 pragma ComponentBehavior: Bound
 
-import qs.modules.drawers
+import qs.shell
 import qs.services
 import qs.ds
 import Quickshell

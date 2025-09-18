@@ -1,7 +1,7 @@
 pragma ComponentBehavior: Bound
 
 import qs.services
-import qs.utils as Utils
+import qs.services as Services
 import qs.ds
 import qs.ds.text as Text
 import QtQuick
@@ -66,7 +66,7 @@ Item {
         FontIcon {
             id: icon
 
-            text: Utils.Apps.getIcon(root.activeAppId)
+            text: Services.Apps.getIcon(root.activeAppId)
         }
         Title {
             id: text1
@@ -84,7 +84,7 @@ Item {
         elideWidth: root.maxWidth - icon.implicitWidth - margin
         font.family: Foundations.font.family.mono
         font.pointSize: Foundations.font.size.s
-        text: Utils.Apps.cleanTitle(root.activeTitle)
+        text: Services.Apps.cleanTitle(root.activeTitle)
 
         onElideWidthChanged: root.current.text = elidedText
         onTextChanged: {

@@ -1,10 +1,10 @@
 pragma ComponentBehavior: Bound
 
-import "services"
 import qs.services
 import qs.ds.list as List
 import qs.ds.animations
 import qs.ds
+import qs.modules.launcher.services as LauncheServices
 import Quickshell
 import QtQuick
 import QtQuick.Controls
@@ -61,7 +61,7 @@ ListView {
     model: ScriptModel {
         id: model
 
-        onValuesChanged: root.currentIndex = 0
+        onValuesChanged: root.currentIndex = count > 0 ? 0 : -1
     }
     move: ItemTransition {
     }
@@ -84,7 +84,7 @@ ListView {
             name: "apps"
 
             PropertyChanges {
-                model.values: Apps.search(search.text)
+                model.values: LauncheServices.Apps.search(search.text)
                 root.delegate: appItem
             }
         },
@@ -92,7 +92,7 @@ ListView {
             name: "actions"
 
             PropertyChanges {
-                model.values: Actions.query(search.text)
+                model.values: LauncheServices.Actions.search(search.text)
                 root.delegate: actionItem
             }
         },

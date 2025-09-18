@@ -1,7 +1,7 @@
 pragma ComponentBehavior: Bound
 
 import qs.services
-import qs.utils as Utils
+import qs.services as Services
 import qs.ds
 import qs.ds.text as Text
 import qs.ds.icons as Icons
@@ -62,7 +62,7 @@ Rectangle {
                 Icons.MaterialFontIcon {
                     animate: true
                     color: root.colour
-                    text: Utils.Icons.getVolumeIcon(Audio.volume, Audio.muted)
+                    text: Services.IconsService.getVolumeIcon(Audio.volume, Audio.muted)
                 }
             }
         }
@@ -96,7 +96,7 @@ Rectangle {
             sourceComponent: Icons.MaterialFontIcon {
                 animate: true
                 color: root.colour
-                text: Network.active ? Utils.Icons.getNetworkIcon(Network.active.strength ?? 0) : "wifi_off"
+                text: Network.active ? Services.IconsService.getNetworkIcon(Network.active.strength ?? 0) : "wifi_off"
             }
         }
 
@@ -133,7 +133,7 @@ Rectangle {
 
                         animate: true
                         color: root.colour
-                        text: Utils.Icons.getBluetoothIcon(modelData.icon)
+                        text: Services.IconsService.getBluetoothIcon(modelData.icon)
 
                         SequentialAnimation on opacity {
                             alwaysRunToEnd: true

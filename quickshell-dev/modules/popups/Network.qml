@@ -2,7 +2,7 @@ pragma ComponentBehavior: Bound
 
 import qs.services
 import qs.ds
-import qs.utils as Utils
+import qs.services as Services
 import qs.ds.buttons as Buttons
 import qs.ds.list as Lists
 import qs.ds.text as Text
@@ -52,7 +52,7 @@ ColumnLayout {
             required property Network.AccessPoint modelData
 
             disabled: !Network.wifiEnabled
-            leftIcon: Utils.Icons.getNetworkIcon(modelData.strength)
+            leftIcon: Services.IconsService.getNetworkIcon(modelData.strength)
             primaryActionActive: modelData.active
             primaryActionLoading: isConnecting
             primaryFontIcon: modelData.active ? "link_off" : "link"

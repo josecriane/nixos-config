@@ -1,7 +1,6 @@
 pragma Singleton
 pragma ComponentBehavior: Bound
 
-import qs.modules.shortcuts as Shortcuts
 import Quickshell
 import Quickshell.Io
 import QtQuick
@@ -62,19 +61,6 @@ Singleton {
                     }))
         }
     }
-    Shortcuts.Shortcut {
-        description: "Increase brightness"
-        name: "brightnessUp"
-
-        onPressed: root.increaseBrightness()
-    }
-    Shortcuts.Shortcut {
-        description: "Decrease brightness"
-        name: "brightnessDown"
-
-        onPressed: root.decreaseBrightness()
-    }
-
     component Monitor: QtObject {
         id: monitor
 

@@ -2,7 +2,7 @@ import qs.ds
 import Quickshell
 import QtQuick
 import qs.ds.animations
-import qs.modules.drawers
+import qs.shell
 
 BackgroundWrapper {
     id: root

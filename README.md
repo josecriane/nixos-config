@@ -204,11 +204,6 @@ journalctl --user -u niri
 
 ### Future Work:
 - [ ] Quickshell Redo
-  - [ ] OSD
-    - [ ] Icons and values lost
-  - [ ] Moved
-    - [ ] Backgrouds to drawers/backgrounds
-  - [ ] Use stylix colors
   - [ ] Notifications
     - [ ] Launch notification action
     - [ ] Refactor notificationItem
@@ -217,7 +212,8 @@ journalctl --user -u niri
     - [ ] Swaync
     - [ ] Wofi
 
-- [ ] Quickshell Desirable
+- [ ] Quickshell work after merge
+  - [ ] Use stylix colors
   - [ ] DS
     - [ ] Review opacity animations
     - [ ] Propagate margin and radius to all components
@@ -225,6 +221,8 @@ journalctl --user -u niri
     - [ ] Group notifications
   - [ ] Launcher
     - [ ] Filter .desktop apps
+    - [ ] Separate Session commands using !
+    - [ ] Launch de shortcut using #
     - [ ] Define commands with a yml or a json
 
 - [ ] Use directory name on zellij tab name

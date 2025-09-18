@@ -1,6 +1,6 @@
 import qs.ds
-import qs.modules.drawers
-import qs.modules.shortcuts
+import qs.shell
+import qs.services
 import Quickshell
 
 ShellRoot {
@@ -10,11 +10,11 @@ ShellRoot {
     property int radius: Foundations.radius.s
     property int barSize: 30
 
-    Drawers {
+    Shell {
         marginSize: root.margin
         radiusSize: root.radius
         barSize: root.barSize
     }
-    Handler {
+    IpcHandler {
     }
 }

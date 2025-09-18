@@ -2,7 +2,6 @@ pragma Singleton
 pragma ComponentBehavior: Bound
 
 import qs.services
-import qs.modules.shortcuts as Shortcuts
 import Quickshell
 import Quickshell.Io
 import Quickshell.Services.Notifications
@@ -100,20 +99,5 @@ Singleton {
                 destroy();
             }
         }
-    }
-    Shortcuts.Shortcut {
-        description: "Clear all notif"
-        name: "clearNotifs"
-
-        onPressed: {
-            root.deleteAllNotifications();
-        }
-    }
-    IpcHandler {
-        function clear(): void {
-            root.deleteAllNotifications();
-        }
-
-        target: "notifs"
     }
 }

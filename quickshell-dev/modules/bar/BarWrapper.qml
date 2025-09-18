@@ -22,9 +22,6 @@ Item {
     function checkPopout(x: real): void {
         content.item?.checkPopout(x);
     }
-    function handleWheel(x: real, angleDelta: point): void {
-        content.item?.handleWheel(x, angleDelta);
-    }
     implicitHeight: root.contentHeight
     visible: true
 

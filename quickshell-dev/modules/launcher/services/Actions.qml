@@ -1,12 +1,12 @@
 pragma Singleton
 
-import ".."
+import qs.services.search
 import qs.services
-import qs.utils as Utils
+import qs.modules.launcher
 import Quickshell
 import QtQuick
 
-Utils.Searcher {
+Search {
     id: root
 
     property string actionPrefix: ">"
@@ -78,5 +78,4 @@ Utils.Searcher {
     }
 
     list: actions
-    useFuzzy: false
 }

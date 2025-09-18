@@ -82,6 +82,7 @@ Slider {
 
                 anchors.centerIn: parent
                 animate: true
+                color: Foundations.palette.base02
                 text: root.icon
 
                 Behavior on moving {

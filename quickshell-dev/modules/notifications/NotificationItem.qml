@@ -3,7 +3,7 @@ pragma ComponentBehavior: Bound
 import qs.services.notifications
 import qs.services
 import qs.ds
-import qs.utils as Utils
+import qs.services as Services
 import qs.ds.icons as Icons
 import Quickshell
 import Quickshell.Widgets
@@ -173,7 +173,7 @@ Rectangle {
                         sourceComponent: Icons.MaterialFontIcon {
                             color: root.urgency === NotificationUrgency.Critical ? root.criticalBackgroundColor : root.urgency === NotificationUrgency.Low ? Foundations.palette.base07 : Foundations.palette.base0F
                             font.pointSize: Foundations.font.size.l
-                            text: Utils.Icons.getNotifIcon(root.summaryStr, root.urgency)
+                            text: Services.IconsService.getNotifIcon(root.summaryStr, root.urgency)
                         }
                     }
                 }

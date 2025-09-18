@@ -2,7 +2,7 @@ pragma ComponentBehavior: Bound
 
 import qs.services
 import qs.ds
-import qs.utils as Utils
+import qs.services as Services
 import QtQuick
 import QtQuick.Layouts
 import qs.ds.animations
@@ -32,7 +32,7 @@ Item {
 
         // Speaker volume
         Osd.Slider {
-            icon: Utils.Icons.getVolumeIcon(value, Audio.muted)
+            icon: Services.IconsService.getVolumeIcon(value, Audio.muted)
             implicitHeight: root.sliderHeight
             implicitWidth: root.sliderWidth
             value: Audio.volume
@@ -44,7 +44,7 @@ Item {
 
         // Microphone volume
         Osd.Slider {
-            icon: Utils.Icons.getMicVolumeIcon(value, Audio.sourceMuted)
+            icon: Services.IconsService.getMicVolumeIcon(value, Audio.sourceMuted)
             implicitHeight: root.sliderHeight
             implicitWidth: root.sliderWidth
             value: Audio.sourceVolume

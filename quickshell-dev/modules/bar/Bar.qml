@@ -52,26 +52,6 @@ Item {
             popouts.hasCurrent = false;
         }
     }
-    function handleWheel(x: real, angleDelta: point): void {
-        const ch = childAt(x, height / 2) as WrappedLoader;
-        if (ch?.id === "workspaces") {
-            // Workspace scroll - disabled for non-Hyprland
-            console.log("Workspace scrolling disabled for current compositor");
-        } else if (x < screen.width / 2) {
-            // Volume scroll on top half
-            if (angleDelta.y > 0)
-                Audio.incrementVolume();
-            else if (angleDelta.y < 0)
-                Audio.decrementVolume();
-        } else {
-            // Brightness scroll on bottom half
-            const monitor = Brightness.getMonitorForScreen(screen);
-            if (angleDelta.y > 0)
-                monitor.setBrightness(monitor.brightness + 0.1);
-            else if (angleDelta.y < 0)
-                monitor.setBrightness(monitor.brightness - 0.1);
-        }
-    }
 
     RowLayout {
         id: mainLayout

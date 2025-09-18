@@ -5,19 +5,9 @@ import Quickshell.Io
 
 Scope {
     id: root
-
-    ShowAllShortcut {
-    }
-    SessionShortcut {
-    }
-    LauncherShortcut {
-        id: launcherShortcut
-
-    }
-    LauncherInterruptShortcut {
-        launcherShortcut: launcherShortcut
-    }
     IpcHandler {
+        id: visibilitiesHandler
+
         function list(): string {
             const visibilities = Visibilities.getForActive();
             return Object.keys(visibilities).filter(k => typeof visibilities[k] === "boolean").join("\n");

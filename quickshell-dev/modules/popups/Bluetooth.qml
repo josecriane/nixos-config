@@ -2,7 +2,7 @@ pragma ComponentBehavior: Bound
 
 import qs.services
 import qs.ds
-import qs.utils as Utils
+import qs.services as Services
 import qs.ds.list as Lists
 import qs.ds.text as Text
 import qs.ds as Ds
@@ -70,7 +70,7 @@ ColumnLayout {
             readonly property bool loading: modelData.state === BluetoothDeviceState.Connecting || modelData.state === BluetoothDeviceState.Disconnecting
             required property BluetoothDevice modelData
 
-            leftIcon: Utils.Icons.getBluetoothIcon(modelData.icon)
+            leftIcon: Services.IconsService.getBluetoothIcon(modelData.icon)
             primaryActionActive: modelData.connected
             primaryActionLoading: loading
             primaryFontIcon: modelData.connected ? "link_off" : "link"

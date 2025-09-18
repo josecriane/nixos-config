@@ -2,11 +2,11 @@ pragma Singleton
 
 import ".."
 import qs.services
-import qs.utils as Utils
+import qs.services.search
 import Quickshell
 import QtQuick
 
-Utils.Searcher {
+Search {
     id: root
 
     function launch(entry: DesktopEntry): void {
@@ -19,13 +19,10 @@ Utils.Searcher {
         }
     }
     function search(search: string): list<var> {
-        keys = ["name"];
-        weights = [1];
         return query(search);
     }
 
     list: variants.instances
-    useFuzzy: false
 
     Variants {
         id: variants
