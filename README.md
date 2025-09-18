@@ -202,8 +202,6 @@ systemctl --user restart niri
 journalctl --user -u niri
 ```
 
-R
-
 ### Future Work:
 - [ ] Remove waybar, swaync, wofi
 

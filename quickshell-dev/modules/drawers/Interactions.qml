@@ -9,7 +9,6 @@ MouseArea {
     id: root
 
     required property Item bar
-    property point dragStart
     property bool osdHovered
     property bool osdShortcutActive
     required property Panels panels
@@ -80,7 +79,6 @@ MouseArea {
         else if (!popouts.currentName.startsWith("traymenu") && !inTopPanel(panels.popouts, x, y))
             popouts.hasCurrent = false;
     }
-    onPressed: event => dragStart = Qt.point(event.x, event.y)
     onWheel: event => {
         if (event.y < bar.implicitHeight) {
             bar.handleWheel(event.x, event.angleDelta);
