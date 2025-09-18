@@ -32,8 +32,11 @@ Rectangle {
     readonly property string bodyStr: modelData?.body ?? ""
     readonly property string timeStr: modelData?.timeStr ?? ""
 
+    readonly property color criticalBackgroundColor: Foundations.palette.base08
+    readonly property color lowBackgroundColor: Foundations.palette.base03
+
     anchors.horizontalCenter: parent.horizontalCenter
-    color: root.urgency === NotificationUrgency.Critical ? Colours.palette.m3secondaryContainer : Colours.palette.m3surfaceContainer
+    color: root.urgency === NotificationUrgency.Critical ? Foundations.palette.base04 : Foundations.palette.base02
     implicitHeight: inner.implicitHeight
     implicitWidth: 400
     radius: Foundations.radius.m
@@ -101,8 +104,6 @@ Rectangle {
 
             Behavior on implicitHeight {
                 BasicNumberAnimation {
-                    duration: Foundations.duration.standard
-                    easing.bezierCurve: Foundations.animCurves.expressive
                 }
             }
 
@@ -142,7 +143,7 @@ Rectangle {
                 asynchronous: true
 
                 sourceComponent: Rectangle {
-                    color: root.urgency === NotificationUrgency.Critical ? Colours.palette.m3error : root.urgency === NotificationUrgency.Low ? Colours.palette.m3surfaceContainerHighest : Colours.palette.m3secondaryContainer
+                    color: root.urgency === NotificationUrgency.Critical ? root.criticalBackgroundColor : root.urgency === NotificationUrgency.Low ? Foundations.palette.base04 : Foundations.palette.base04
                     implicitHeight: root.hasImage ? 20 : 41
                     implicitWidth: root.hasImage ? 20 : 41
                     radius: Foundations.radius.all
@@ -170,7 +171,7 @@ Rectangle {
                         asynchronous: true
 
                         sourceComponent: Icons.MaterialFontIcon {
-                            color: root.urgency === NotificationUrgency.Critical ? Colours.palette.m3onError : root.urgency === NotificationUrgency.Low ? Colours.palette.m3onSurface : Colours.palette.m3onSecondaryContainer
+                            color: root.urgency === NotificationUrgency.Critical ? root.criticalBackgroundColor : root.urgency === NotificationUrgency.Low ? Foundations.palette.base07 : Foundations.palette.base0F
                             font.pointSize: Foundations.font.size.l
                             text: Utils.Icons.getNotifIcon(root.summaryStr, root.urgency)
                         }
@@ -183,7 +184,7 @@ Rectangle {
                 anchors.left: image.right
                 anchors.leftMargin: Foundations.spacing.xs
                 anchors.top: parent.top
-                color: Colours.palette.m3onSurfaceVariant
+                color: Foundations.palette.base04
                 maximumLineCount: 1
                 opacity: root.expanded ? 1 : 0
                 text: appNameMetrics.elidedText
@@ -235,7 +236,7 @@ Rectangle {
                     }
                     AnchorAnimation {
                         duration: Foundations.duration.standard
-                        easing.bezierCurve: Foundations.animCurves.standard
+                        easing.bezierCurve: Foundations.animCurve
                         easing.type: Easing.BezierSpline
                     }
                 }
@@ -255,7 +256,7 @@ Rectangle {
                 anchors.left: summary.right
                 anchors.leftMargin: Foundations.spacing.s
                 anchors.top: parent.top
-                color: Colours.palette.m3onSurfaceVariant
+                color: Foundations.palette.base04
                 text: "•"
 
                 states: State {
@@ -270,7 +271,7 @@ Rectangle {
                 transitions: Transition {
                     AnchorAnimation {
                         duration: Foundations.duration.standard
-                        easing.bezierCurve: Foundations.animCurves.standard
+                        easing.bezierCurve: Foundations.animCurve
                         easing.type: Easing.BezierSpline
                     }
                 }
@@ -281,7 +282,7 @@ Rectangle {
                 anchors.left: timeSep.right
                 anchors.leftMargin: Foundations.spacing.s
                 anchors.top: parent.top
-                color: Colours.palette.m3onSurfaceVariant
+                color: Foundations.palette.base04
                 horizontalAlignment: Text.AlignLeft
                 text: root.timeStr
             }
@@ -298,7 +299,7 @@ Rectangle {
                         root.expanded = !root.expanded;
                     }
 
-                    color: root.urgency === NotificationUrgency.Critical ? Colours.palette.m3onSecondaryContainer : Colours.palette.m3onSurface
+                    color: root.urgency === NotificationUrgency.Critical ? Foundations.palette.base0F : Foundations.palette.base07
                     radius: Foundations.radius.all
                 }
                 Icons.MaterialFontIcon {
@@ -317,7 +318,7 @@ Rectangle {
                 anchors.right: expandBtn.left
                 anchors.rightMargin: Foundations.spacing.s
                 anchors.top: summary.bottom
-                color: Colours.palette.m3onSurfaceVariant
+                color: Foundations.palette.base04
                 opacity: root.expanded ? 0 : 1
                 text: bodyPreviewMetrics.elidedText
                 textFormat: Text.MarkdownText
@@ -345,7 +346,7 @@ Rectangle {
                 anchors.right: expandBtn.left
                 anchors.rightMargin: Foundations.spacing.s
                 anchors.top: summary.bottom
-                color: Colours.palette.m3onSurfaceVariant
+                color: Foundations.palette.base04
                 height: text ? implicitHeight : 0
                 opacity: root.expanded ? 1 : 0
                 text: root.bodyStr
@@ -408,7 +409,7 @@ Rectangle {
 
         Layout.preferredHeight: actionText.height + Foundations.spacing.xxs * 2
         Layout.preferredWidth: actionText.width + Foundations.spacing.s * 2
-        color: root.urgency === NotificationUrgency.Critical ? Colours.palette.m3secondary : Colours.palette.m3surfaceContainerHigh
+        color: root.urgency === NotificationUrgency.Critical ? Foundations.palette.base0D : root.lowBackgroundColor
         implicitHeight: actionText.height + Foundations.spacing.xxs * 2
         implicitWidth: actionText.width + Foundations.spacing.s * 2
         radius: Foundations.radius.all
@@ -424,14 +425,14 @@ Rectangle {
                 }
             }
 
-            color: root.urgency === NotificationUrgency.Critical ? Colours.palette.m3onSecondary : Colours.palette.m3onSurface
+            color: root.urgency === NotificationUrgency.Critical ? Foundations.palette.base0E : Foundations.palette.base07
             radius: Foundations.radius.all
         }
         DsText.BodyS {
             id: actionText
 
             anchors.centerIn: parent
-            color: root.urgency === NotificationUrgency.Critical ? Colours.palette.m3onSecondary : Colours.palette.m3onSurfaceVariant
+            color: root.urgency === NotificationUrgency.Critical ? Foundations.palette.base0E : Foundations.palette.base04
             text: actionTextMetrics.elidedText
         }
         TextMetrics {

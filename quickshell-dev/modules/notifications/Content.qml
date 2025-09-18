@@ -16,7 +16,6 @@ Item {
     required property var wrapper
 
     readonly property int padding: Foundations.spacing.s
-    readonly property int radius: Foundations.radius.l
     
     readonly property int autoModeHeight: list.contentHeight - padding
 
@@ -60,7 +59,6 @@ Item {
             isAutoMode: root.isAutoMode
             padding: root.padding
             panels: root.panels
-            rounding: root.radius
             visibilities: root.visibilities
             wrapper: root.wrapper
         }

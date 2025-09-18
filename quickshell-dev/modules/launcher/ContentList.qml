@@ -17,7 +17,6 @@ Item {
     property int itemWidth: 600
     required property int padding
     required property var panels
-    required property int rounding
     required property TextField search
     required property PersistentProperties visibilities
     required property var wrapper
@@ -111,7 +110,7 @@ Item {
 
             Icons.MaterialFontIcon {
                 anchors.verticalCenter: parent.verticalCenter
-                color: Colours.palette.m3onSurfaceVariant
+                color: Foundations.palette.base04
                 font.pointSize: Foundations.font.size.xl
                 text: "manage_search"
             }

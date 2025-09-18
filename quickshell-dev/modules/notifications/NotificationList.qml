@@ -23,7 +23,6 @@ Item {
     }
     required property int padding
     required property var panels
-    required property int rounding
     required property PersistentProperties visibilities
     required property var wrapper
 

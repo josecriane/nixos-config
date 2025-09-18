@@ -8,7 +8,7 @@ MouseArea {
     id: root
 
     // Visual properties
-    property color color: Colours.palette.m3onSurface
+    property color color: Foundations.palette.base07
 
     // Interaction properties
     property bool disabled: false

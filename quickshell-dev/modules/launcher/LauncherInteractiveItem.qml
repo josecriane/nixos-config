@@ -28,10 +28,10 @@ LauncherItem {
     property var processCommand: ["echo"]
     property color resultColor: {
         if (isError)
-            return Colours.palette.m3error;
+            return Foundations.palette.base08;
         if (!input)
-            return Colours.palette.m3onSurfaceVariant;
-        return Colours.palette.m3onSurface;
+            return Foundations.palette.base04;
+        return Foundations.palette.base07;
     }
     property string resultText: metrics.elidedText
 

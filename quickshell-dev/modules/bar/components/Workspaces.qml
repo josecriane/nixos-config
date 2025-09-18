@@ -3,11 +3,12 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell.Io
 import qs.services
+import qs.ds
 
 Item {
     id: root
 
-    property color effectColor: "#D894CF"
+    property color activeColor: Foundations.palette.base0D
     property bool effectsActive: false
     property int horizontalPadding: 8
     property bool hovered: false
@@ -21,7 +22,6 @@ Item {
     signal workspaceChanged(int workspaceId, color accentColor)
 
     function triggerUnifiedWave() {
-        effectColor = "#D894CF";
         masterAnimation.restart();
     }
     function updateWorkspaceFocus() {
@@ -35,7 +35,7 @@ Item {
                 workspaces.setProperty(i, "isActive", isActive);
                 if (isFocused) {
                     root.triggerUnifiedWave();
-                    root.workspaceChanged(ws.id, "#D894CF");
+                    root.workspaceChanged(ws.id, root.activeColor);
                 }
             }
         }
@@ -47,6 +47,7 @@ Item {
             const ws = newList[i];
             // Only show workspaces for this screen/monitor
             if (ws.output === root.screen.name) {
+                // Check workspaces model on niri
                 workspaces.append({
                     id: ws.id,
                     idx: ws.idx,
@@ -137,12 +138,9 @@ Item {
 
                 color: {
                     if (model.isFocused)
-                        return "#D894CF";
-                    if (model.isActive)
-                        return "#D894CF";
-                    if (model.isUrgent)
-                        return "#D894CF";
-                    return "#261924";
+                        return activeColor;
+
+                    return Foundations.palette.base02;
                 }
                 height: 12
                 radius: {
@@ -193,7 +191,6 @@ Item {
                         easing.type: Easing.OutBack
                     }
                 }
-                // Material 3-inspired smooth animation for width, height, scale, color, opacity, and radius
                 Behavior on width {
                     NumberAnimation {
                         duration: 350
@@ -206,7 +203,7 @@ Item {
                     id: pillBurst
 
                     anchors.centerIn: parent
-                    border.color: root.effectColor
+                    border.color: root.activeColor
                     border.width: 2 + 6 * (1.0 - root.masterProgress)
                     color: "transparent"
                     height: parent.height + 18 * root.masterProgress

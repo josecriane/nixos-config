@@ -9,8 +9,8 @@ import qs.ds
 Rectangle {
     id: root
 
-    property color buttonColor: Colours.palette.m3primaryContainer
-    property color contentColor: Colours.palette.m3onPrimaryContainer
+    property color buttonColor: Foundations.palette.base00
+    property color contentColor: Foundations.palette.base07
     property string hint: ""
     property string icon: ""
 

@@ -86,7 +86,7 @@ Column {
 
             Rectangle {
                 anchors.centerIn: parent
-                color: Qt.alpha(Colours.palette.m3primary, day.model.today ? 1 : 0)
+                color: Qt.alpha(Foundations.palette.base05, day.model.today ? 1 : 0)
                 implicitHeight: parent.implicitHeight
                 implicitWidth: parent.implicitHeight
                 radius: Foundations.radius.all
@@ -95,7 +95,7 @@ Column {
                     id: text
 
                     anchors.centerIn: parent
-                    color: day.model.today ? Colours.palette.m3onPrimary : day.model.month === grid.month ? Colours.palette.m3onSurfaceVariant : Colours.palette.m3outline
+                    color: day.model.today ? Foundations.palette.base03 : day.model.month === grid.month ? Foundations.palette.base04 : Foundations.palette.base0D
                     horizontalAlignment: Text.AlignHCenter
                     text: Qt.formatDate(day.model.date, "d")
                 }

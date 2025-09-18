@@ -12,14 +12,14 @@ import qs.ds.animations
 Rectangle {
     id: root
 
-    property color colour: Colours.palette.m3secondary
+    property color colour: Foundations.palette.base0D
 
     // ToDo: Reviow (maybe review all margin/paddings)
     property int margin: Foundations.spacing.s
     property int spacingItems: Foundations.spacing.m
 
     clip: true
-    color: Colours.palette.m3surfaceContainer
+    color: Foundations.palette.base02
     implicitWidth: iconRow.implicitWidth + margin * 2
     radius: Foundations.radius.all
 
@@ -45,21 +45,21 @@ Rectangle {
 
         // CPU usage
         ResourceItem {
-            colour: Colours.palette.m3primary
+            colour: Foundations.palette.base0D
             icon: "memory"
             value: SystemUsage.cpuPerc
         }
 
         // Memory usage
         ResourceItem {
-            colour: Colours.palette.m3secondary
+            colour: Foundations.palette.base0D
             icon: "memory_alt"
             value: SystemUsage.memPerc
         }
 
         // Storage usage
         ResourceItem {
-            colour: Colours.palette.m3tertiary
+            colour: Foundations.palette.base0D
             icon: "hard_disk"
             value: SystemUsage.storagePerc
         }

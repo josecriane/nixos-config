@@ -138,7 +138,7 @@ Item {
                 // Separator
                 Rectangle {
                     anchors.fill: parent
-                    color: Colours.palette.m3outlineVariant
+                    color: Foundations.palette.base04
                     visible: modelData.isSeparator
                 }
 

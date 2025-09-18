@@ -20,6 +20,9 @@ ShapePath {
         BottomRight
     }
 
+    // ToDo: Review
+    readonly property real radius: Foundations.radius.l
+
     property int bottomLeftCorner: {
         if (isBottomBorder && !isLeftBorder)
             return Background.CornerType.InvertedBottomLeft;
@@ -40,12 +43,11 @@ ShapePath {
     }
     readonly property int inside: PathArc.Counterclockwise
     property real maxAvailableHeight: parent.height
-    property bool isBottomBorder: wrapper.y + wrapper.implicitHeight + rounding + 1 >= maxAvailableHeight
+    property bool isBottomBorder: wrapper.y + wrapper.implicitHeight + radius + 1 >= maxAvailableHeight
     property bool isLeftBorder: wrapper.x <= 0
-    property bool isRightBorder: wrapper.x + wrapper.width + rounding >= parent.width
+    property bool isRightBorder: wrapper.x + wrapper.width + radius >= parent.width
     property bool isTopBorder: wrapper.y <= 0
     readonly property int outside: PathArc.Clockwise
-    readonly property real rounding: Foundations.radius.l
     property int topLeftCorner: {
         if (isTopBorder && !isLeftBorder)
             return Background.CornerType.InvertedTopLeft;
@@ -66,7 +68,7 @@ ShapePath {
     }
     required property BackgroundWrapper wrapper
 
-    fillColor: wrapper.hasCurrent ? Colours.palette.m3surface : "transparent"
+    fillColor: wrapper.hasCurrent ? Foundations.palette.base01 : "transparent"
     strokeWidth: -1
 
     Behavior on fillColor {
@@ -127,26 +129,26 @@ ShapePath {
                 return outside;
             }
         }
-        radiusX: cornerType === Background.CornerType.NoShape ? 0 : rounding
-        radiusY: cornerType === Background.CornerType.NoShape ? 0 : rounding
+        radiusX: cornerType === Background.CornerType.NoShape ? 0 : radius
+        radiusY: cornerType === Background.CornerType.NoShape ? 0 : radius
         relativeX: {
             switch (cornerType) {
             case Background.CornerType.InvertedTopLeft:
-                return rounding;
+                return radius;
             case Background.CornerType.InvertedBottomLeft:
-                return -rounding;
+                return -radius;
             case Background.CornerType.InvertedBottomRight:
-                return -rounding;
+                return -radius;
             case Background.CornerType.InvertedTopRight:
-                return rounding;
+                return radius;
             case Background.CornerType.TopLeft:
-                return -rounding;
+                return -radius;
             case Background.CornerType.BottomLeft:
-                return rounding;
+                return radius;
             case Background.CornerType.BottomRight:
-                return rounding;
+                return radius;
             case Background.CornerType.TopRight:
-                return -rounding;
+                return -radius;
             default:
                 return 0;
             }
@@ -154,21 +156,21 @@ ShapePath {
         relativeY: {
             switch (cornerType) {
             case Background.CornerType.InvertedTopLeft:
-                return rounding;
+                return radius;
             case Background.CornerType.InvertedBottomLeft:
-                return rounding;
+                return radius;
             case Background.CornerType.InvertedBottomRight:
-                return -rounding;
+                return -radius;
             case Background.CornerType.InvertedTopRight:
-                return -rounding;
+                return -radius;
             case Background.CornerType.TopLeft:
-                return rounding;
+                return radius;
             case Background.CornerType.BottomLeft:
-                return rounding;
+                return radius;
             case Background.CornerType.BottomRight:
-                return -rounding;
+                return -radius;
             case Background.CornerType.TopRight:
-                return -rounding;
+                return -radius;
             default:
                 return 0;
             }
@@ -182,18 +184,18 @@ ShapePath {
             function relativeX(cornerType) {
                 switch (startCornerType) {
                 case Background.CornerType.InvertedTopLeft:
-                    return -rounding;
+                    return -radius;
                 case Background.CornerType.InvertedBottomLeft:
-                    return rounding
+                    return radius
                 case Background.CornerType.InvertedBottomRight:
-                    return rounding
-                // case Background.CornerType.InvertedTopRight: return rounding
-                // case Background.CornerType.TopLeft: return -rounding
+                    return radius
+                // case Background.CornerType.InvertedTopRight: return radius
+                // case Background.CornerType.TopLeft: return -radius
                 case Background.CornerType.BottomLeft:
-                    return -rounding;
+                    return -radius;
                 case Background.CornerType.BottomRight:
-                    return rounding;
-                // case Background.CornerType.TopRight: return rounding
+                    return radius;
+                // case Background.CornerType.TopRight: return radius
                 default:
                     return 0;
                 }
@@ -216,21 +218,21 @@ ShapePath {
             function relativeY(cornerType) {
                 switch (startCornerType) {
                 case Background.CornerType.InvertedTopLeft:
-                    return -rounding;
+                    return -radius;
                 case Background.CornerType.InvertedBottomLeft:
-                    return -rounding;
+                    return -radius;
                 case Background.CornerType.InvertedBottomRight:
-                    return rounding;
+                    return radius;
                 case Background.CornerType.InvertedTopRight:
-                    return rounding;
+                    return radius;
                 case Background.CornerType.TopLeft:
-                    return -rounding;
+                    return -radius;
                 case Background.CornerType.BottomLeft:
-                    return -rounding;
+                    return -radius;
                 case Background.CornerType.BottomRight:
-                    return rounding;
+                    return radius;
                 case Background.CornerType.TopRight:
-                    return rounding;
+                    return radius;
                 default:
                     return 0;
                 }

@@ -1,3 +1,4 @@
+import qs.ds
 import qs.services
 import qs.ds.buttons.circularButtons as CircularButtons
 import Quickshell
@@ -7,8 +8,8 @@ CircularButtons.S {
     id: root
 
     active: IdleInhibitor.enabled
-    backgroundColor: IdleInhibitor.enabled ? Colours.palette.m3primaryContainer : "transparent"
-    foregroundColor: IdleInhibitor.enabled ? Colours.palette.m3onPrimaryContainer : Colours.palette.m3secondary
+    backgroundColor: IdleInhibitor.enabled ? Foundations.palette.base00 : "transparent"
+    foregroundColor: IdleInhibitor.enabled ? Foundations.palette.base00 : Foundations.palette.base0D
     icon: "coffee"
 
     onClicked: {

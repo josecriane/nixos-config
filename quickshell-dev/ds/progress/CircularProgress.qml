@@ -9,7 +9,7 @@ Shape {
 
     readonly property real arcRadius: (size - padding - strokeWidth) / 2
     property color bgColour: "transparent"
-    property color fgColour: Colours.palette.m3primary
+    property color fgColour: Foundations.palette.base05
     readonly property real size: Math.min(width, height)
     property int startAngle: 0
     property int strokeWidth: Foundations.spacing.xs

@@ -63,7 +63,7 @@ Variants {
             }
             Rectangle {
                 anchors.fill: parent
-                color: Colours.palette.m3scrim
+                color: "#000000"
                 opacity: visibilities.session ? 0.5 : 0
 
                 Behavior on opacity {
@@ -78,7 +78,7 @@ Variants {
 
                 layer.effect: MultiEffect {
                     blurMax: 15
-                    shadowColor: Qt.alpha(Colours.palette.m3shadow, 0.7)
+                    shadowColor: Qt.alpha("#000000", 0.7)
                     shadowEnabled: true
                 }
 

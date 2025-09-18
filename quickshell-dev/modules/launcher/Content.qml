@@ -18,7 +18,6 @@ Item {
 
     // ToDo: Review
     readonly property int padding: Foundations.spacing.l
-    readonly property int rounding: Foundations.radius.l
     readonly property int innerMargin: Foundations.spacing.s
 
     anchors.horizontalCenter: parent.horizontalCenter
@@ -44,7 +43,6 @@ Item {
 
             padding: root.padding
             panels: root.panels
-            rounding: root.rounding
             search: search
             visibilities: root.visibilities
             wrapper: root.wrapper
@@ -57,7 +55,7 @@ Item {
         anchors.margins: root.padding
         anchors.right: parent.right
         anchors.top: parent.top
-        color: Colours.palette.m3surfaceContainer
+        color: Foundations.palette.base02
         implicitHeight: Math.max(searchIcon.implicitHeight, search.implicitHeight, clearIcon.implicitHeight)
         radius: Foundations.radius.all
 
@@ -67,7 +65,7 @@ Item {
             anchors.left: parent.left
             anchors.leftMargin: root.padding
             anchors.verticalCenter: parent.verticalCenter
-            color: Colours.palette.m3onSurfaceVariant
+            color: Foundations.palette.base04
             text: "search"
         }
         TextField {

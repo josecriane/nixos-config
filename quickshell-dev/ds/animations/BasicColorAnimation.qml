@@ -3,5 +3,5 @@ import qs.ds
 
 ColorAnimation {
     duration: Foundations.duration.standard
-    easing.bezierCurve: Foundations.animCurves.standard
+    easing.bezierCurve: Foundations.animCurve
 }

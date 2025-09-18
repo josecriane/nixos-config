@@ -54,7 +54,7 @@ ListView {
     displaced: ItemTransition {
     }
     highlight: Rectangle {
-        color: Colours.palette.m3onSurface
+        color: Foundations.palette.base07
         opacity: 0.08
         radius: Foundations.radius.xs
     }

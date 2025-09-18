@@ -5,15 +5,15 @@ import qs.services
 Text {
     id: root
 
-    property color defaultColor: Colours.palette.m3onSurface
+    property color defaultColor: Foundations.palette.base07
 
     // State properties
     property bool disabled: false
 
     // Color properties for different states
-    property color disabledColor: Colours.palette.m3onSurfaceVariant
+    property color disabledColor: Foundations.palette.base04
     property bool primary: false
-    property color primaryColor: Colours.palette.m3primary
+    property color primaryColor: Foundations.palette.base05
 
     property bool interactive: false
     signal clicked()

@@ -62,10 +62,10 @@ RowLayout {
     component Resource: Item {
         id: res
 
-        property color bg1: Colours.palette.m3primaryContainer
-        property color bg2: Colours.palette.m3secondaryContainer
-        property color fg1: Colours.palette.m3primary
-        property color fg2: Colours.palette.m3secondary
+        property color bg1: Foundations.palette.base00
+        property color bg2: Foundations.palette.base04
+        property color fg1: Foundations.palette.base05
+        property color fg2: Foundations.palette.base0D
         required property string label1
         required property string label2
         property bool primary

@@ -13,11 +13,11 @@ RadioButton {
             return focusColor;
         return defaultColor;
     }
-    property color defaultColor: Colours.palette.m3onSurface
+    property color defaultColor: Foundations.palette.base07
 
     // Color properties for different states
-    property color disabledColor: Colours.palette.m3onSurfaceVariant
-    property color focusColor: Colours.palette.m3primary
+    property color disabledColor: Foundations.palette.base04
+    property color focusColor: Foundations.palette.base05
 
     contentItem: null
 

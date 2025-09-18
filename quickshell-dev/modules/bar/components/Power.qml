@@ -1,3 +1,4 @@
+import qs.ds
 import qs.services
 import qs.ds.buttons.circularButtons as CircularButtons
 import Quickshell
@@ -9,7 +10,7 @@ CircularButtons.S {
     required property PersistentProperties visibilities
 
     backgroundColor: "transparent"
-    foregroundColor: Colours.palette.m3secondary
+    foregroundColor: Foundations.palette.base0D
 
     icon: "power_settings_new"
 

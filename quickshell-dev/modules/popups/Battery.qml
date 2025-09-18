@@ -43,7 +43,7 @@ Column {
         height: active ? (item?.implicitHeight ?? 0) : 0
 
         sourceComponent: Rectangle {
-            color: Colours.palette.m3error
+            color: Foundations.palette.base08
             implicitHeight: child.implicitHeight + Foundations.spacing.xs * 2
             implicitWidth: child.implicitWidth + Foundations.spacing.s * 2
             radius: Foundations.radius.m
@@ -60,25 +60,25 @@ Column {
                     Icons.MaterialFontIcon {
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.verticalCenterOffset: -font.pointSize / 10
-                        color: Colours.palette.m3onError
+                        color: Foundations.palette.base08
                         text: "warning"
                     }
                     Text.HeadingS {
                         anchors.verticalCenter: parent.verticalCenter
-                        color: Colours.palette.m3onError
+                        color: Foundations.palette.base08
                         font.family: Foundations.font.family.mono
                         text: qsTr("Performance Degraded")
                     }
                     Icons.MaterialFontIcon {
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.verticalCenterOffset: -font.pointSize / 10
-                        color: Colours.palette.m3onError
+                        color: Foundations.palette.base08
                         text: "warning"
                     }
                 }
                 Text.BodyM {
                     anchors.horizontalCenter: parent.horizontalCenter
-                    color: Colours.palette.m3onError
+                    color: Foundations.palette.base08
                     text: qsTr("Reason: %1").arg(PerformanceDegradationReason.toString(PowerProfiles.degradationReason))
                 }
             }
@@ -97,7 +97,7 @@ Column {
         }
 
         anchors.horizontalCenter: parent.horizontalCenter
-        color: Colours.palette.m3surfaceContainer
+        color: Foundations.palette.base02
         implicitHeight: Math.max(saver.implicitHeight, balance.implicitHeight, perf.implicitHeight) + Foundations.spacing.xxs * 2
         implicitWidth: saver.implicitHeight + balance.implicitHeight + perf.implicitHeight + Foundations.spacing.s * 2 + Foundations.spacing.l * 2
         radius: Foundations.radius.all
@@ -105,7 +105,7 @@ Column {
         Rectangle {
             id: indicator
 
-            color: Colours.palette.m3primary
+            color: Foundations.palette.base05
             radius: Foundations.radius.all
             state: profiles.current
 
@@ -135,7 +135,7 @@ Column {
             transitions: Transition {
                 AnchorAnimation {
                     duration: Foundations.duration.standard
-                    easing.bezierCurve: Foundations.animCurves.standard
+                    easing.bezierCurve: Foundations.animCurve
                 }
             }
         }
@@ -143,7 +143,7 @@ Column {
             id: saver
 
             active: profiles.current === icon
-            activeForegroundColor: Colours.palette.m3onPrimary
+            activeForegroundColor: Foundations.palette.base03
             anchors.left: parent.left
             anchors.leftMargin: Foundations.spacing.xxs
             anchors.verticalCenter: parent.verticalCenter
@@ -157,7 +157,7 @@ Column {
             id: balance
 
             active: profiles.current === icon
-            activeForegroundColor: Colours.palette.m3onPrimary
+            activeForegroundColor: Foundations.palette.base03
             anchors.centerIn: parent
             icon: "balance"
 
@@ -169,7 +169,7 @@ Column {
             id: perf
 
             active: profiles.current === icon
-            activeForegroundColor: Colours.palette.m3onPrimary
+            activeForegroundColor: Foundations.palette.base03
             anchors.right: parent.right
             anchors.rightMargin: Foundations.spacing.xxs
             anchors.verticalCenter: parent.verticalCenter

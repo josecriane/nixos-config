@@ -11,9 +11,9 @@ Rectangle {
     id: root
 
     readonly property int animDuration: 200
-    property color backgroundColor: Colours.palette.m3primaryContainer
+    property color backgroundColor: Foundations.palette.base00
     property bool disabled: false
-    property color foregroundColor: Colours.palette.m3onPrimaryContainer
+    property color foregroundColor: Foundations.palette.base05
     property string leftIcon: ""
     property bool loading: false
     readonly property int margin: Foundations.spacing.s

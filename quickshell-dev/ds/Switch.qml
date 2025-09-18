@@ -7,11 +7,11 @@ Switch {
     id: root
 
     property color activeBorderColor: activeColor
-    property color activeColor: Colours.palette.m3primary
-    property color activeThumbColor: Colours.palette.m3onPrimary
-    property color inactiveBorderColor: Colours.palette.m3outline
-    property color inactiveColor: Colours.palette.m3surfaceContainerHighest
-    property color inactiveThumbColor: Colours.palette.m3outline
+    property color activeColor: Foundations.palette.base05
+    property color activeThumbColor: Foundations.palette.base03
+    property color inactiveBorderColor: Foundations.palette.base0D
+    property color inactiveColor: Foundations.palette.base04
+    property color inactiveThumbColor: Foundations.palette.base0D
 
     implicitHeight: 25
     implicitWidth: 41

@@ -6,12 +6,12 @@ import qs.services
 Slider {
     id: root
 
-    property color activeColor: Colours.palette.m3primary
-    property color handleColor: Colours.palette.m3primary
+    property color activeColor: Foundations.palette.base05
+    property color handleColor: Foundations.palette.base05
 
     // Expose hover state for child components
     readonly property alias handleHovered: mainInteraction.overHandle
-    property color inactiveColor: Colours.palette.m3surfaceContainer
+    property color inactiveColor: Foundations.palette.base02
 
     signal wheelDown
     signal wheelUp
@@ -46,7 +46,7 @@ Slider {
         property int size: root.pressed ? 32 : 28
 
         anchors.verticalCenter: root.verticalCenter
-        border.color: Colours.palette.m3surface
+        border.color: Foundations.palette.base01
         border.width: 4
         color: root.handleColor
         implicitHeight: size

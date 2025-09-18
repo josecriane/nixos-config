@@ -15,13 +15,13 @@ import qs.ds.animations
 Rectangle {
     id: root
 
-    property color colour: Colours.palette.m3secondary
+    property color colour: Foundations.palette.base0D
     readonly property alias items: iconRow
     readonly property int margin: Foundations.spacing.s
     readonly property int iconSpacing: Foundations.spacing.xxs
 
     clip: true
-    color: Colours.palette.m3surfaceContainer
+    color: Foundations.palette.base02
     implicitHeight: height
     implicitWidth: iconRow.implicitWidth + margin * 2
     radius: Foundations.radius.all
@@ -162,7 +162,7 @@ Rectangle {
 
             sourceComponent: Icons.MaterialFontIcon {
                 animate: true
-                color: !UPower.onBattery || UPower.displayDevice.percentage > 0.2 ? root.colour : Colours.palette.m3error
+                color: !UPower.onBattery || UPower.displayDevice.percentage > 0.2 ? root.colour : Foundations.palette.base08
                 text: {
                     if (!UPower.displayDevice.isLaptopBattery) {
                         if (PowerProfiles.profile === PowerProfile.PowerSaver)

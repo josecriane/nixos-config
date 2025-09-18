@@ -8,12 +8,12 @@ import Quickshell
 Rectangle {
     id: root
 
-    property color buttonColor: Colours.palette.m3surfaceContainer
+    property color buttonColor: Foundations.palette.base02
     property real buttonSize: 48
-    property color focusColor: Colours.palette.m3secondaryContainer
-    property color focusIconColor: Colours.palette.m3onSecondaryContainer
+    property color focusColor: Foundations.palette.base04
+    property color focusIconColor: Foundations.palette.base0F
     property string icon: ""
-    property color iconColor: Colours.palette.m3onSurface
+    property color iconColor: Foundations.palette.base07
     property string iconPath: ""  // For image file paths
     readonly property bool useImageIcon: iconPath !== ""
 

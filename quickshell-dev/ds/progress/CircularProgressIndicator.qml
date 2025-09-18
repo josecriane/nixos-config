@@ -9,8 +9,8 @@ BusyIndicator {
     id: root
 
     property string animState
-    property color bgColour: Colours.palette.m3secondaryContainer
-    property color fgColour: Colours.palette.m3primary
+    property color bgColour: Foundations.palette.base04
+    property color fgColour: Foundations.palette.base05
     property real implicitSize: Foundations.font.size.m * 3
     property real internalStrokeWidth: strokeWidth
     property real strokeWidth: Foundations.spacing.s

@@ -9,11 +9,11 @@ Rectangle {
     id: root
 
     property bool active: false
-    property color activeBackgroundColor: Colours.palette.m3primary
-    property color activeForegroundColor: Colours.palette.m3onPrimary
+    property color activeBackgroundColor: Foundations.palette.base05
+    property color activeForegroundColor: Foundations.palette.base03
     property color backgroundColor: "transparent"
     property bool disabled: false
-    property color foregroundColor: Colours.palette.m3onSurface
+    property color foregroundColor: Foundations.palette.base07
 
     // Public properties
     property string icon: ""

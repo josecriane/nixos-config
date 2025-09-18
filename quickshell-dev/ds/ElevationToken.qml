@@ -5,7 +5,7 @@ import qs.ds.animations
 
 RectangularShadow {
     blur: 15
-    color: Qt.alpha(Colours.palette.m3shadow, 0.75)
+    color: Qt.alpha("#000000", 0.75)
     offset.x: 4
     offset.y: 4
     spread: 1

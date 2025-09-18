@@ -8,7 +8,6 @@ import QtQuick
 Item {
     id: root
 
-    property color colour: Colours.palette.m3tertiary
     signal clicked()
 
     implicitWidth: dateText.implicitWidth

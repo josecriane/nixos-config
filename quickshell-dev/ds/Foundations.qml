@@ -6,28 +6,42 @@ import Quickshell
 Singleton {
     id: root
 
-    property AnimCurves animCurves: AnimCurves {
-    }
+    property list<real> animCurve: [0.2, 0, 0, 1, 1, 1]
     property Duration duration: Duration {
     }
     property Font font: Font {
+    }
+    property ColorBase16 palette: ColorBase16 {
     }
     property Radius radius: Radius {
     }
     property Spacing spacing: Spacing {
     }
 
-    component AnimCurves: QtObject {
-        property list<real> emphasized: [0.05, 0, 2 / 15, 0.06, 1 / 6, 0.4, 5 / 24, 0.82, 0.25, 1, 1, 1]
-        property list<real> expressive: [0.38, 1.21, 0.22, 1, 1, 1]
-        property list<real> standard: [0.2, 0, 0, 1, 1, 1]
+    component ColorBase16: QtObject {
+        property color base00: "#303446";
+        property color base01: "#292c3c";
+        property color base02: "#414559";
+        property color base03: "#51576d";
+        property color base04: "#626880";
+        property color base05: "#c6d0f5";
+        property color base06: "#f2d5cf";
+        property color base07: "#babbf1";
+        property color base08: "#e78284";
+        property color base09: "#ef9f76";
+        property color base0A: "#e5c890";
+        property color base0B: "#a6d189";
+        property color base0C: "#81c0c8";
+        property color base0D: "#8caaee";
+        property color base0E: "#a57fbd";
+        property color base0F: "#ca9ee6";
     }
+
     component Duration: QtObject {
         property int slow: 600
         property int standard: 400
         property int fast: 200
         property int fastest: 50
-        property int zero: 0
     }
     component Font: QtObject {
         property FontFamily family: FontFamily {
@@ -36,7 +50,6 @@ Singleton {
         }
     }
     component FontFamily: QtObject {
-        property string clock: "Rubik"
         property string material: "Material Symbols Rounded"
         property string mono: "CaskaydiaCove NF"
         property string sans: "Rubik"
@@ -53,10 +66,7 @@ Singleton {
         property int l: 20
         property int m: 16
         property int s: 12
-        property int xl: 24
         property int xs: 8
-        property int xxs: 4
-        property int zero: 0
     }
     component Spacing: QtObject {
         property int l: 15
@@ -65,6 +75,5 @@ Singleton {
         property int xl: 20
         property int xs: 7
         property int xxs: 5
-        property int zero: 0
     }
 }

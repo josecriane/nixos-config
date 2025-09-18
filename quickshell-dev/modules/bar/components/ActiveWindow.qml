@@ -16,7 +16,7 @@ Item {
     // Propiedades que se actualizarán con binding
     property string activeTitle: activeToplevel?.title ?? ""
     property Toplevel activeToplevel: ToplevelManager.activeToplevel
-    property color colour: Colours.palette.m3primary
+    property color colour: Foundations.palette.base05
     property Title current: text1
     readonly property int maxWidth: screen.width / 3
     required property var screen

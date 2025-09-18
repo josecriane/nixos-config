@@ -33,7 +33,7 @@ Text {
 
     component Anim: NumberAnimation {
         duration: Foundations.duration.fast
-        easing.bezierCurve: Foundations.animCurves.standard
+        easing.bezierCurve: Foundations.animCurve
         property: root.animateProp
         target: root
     }

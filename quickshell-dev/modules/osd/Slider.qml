@@ -30,7 +30,7 @@ Slider {
             anchors.right: parent.right
             anchors.rightMargin: 2
             anchors.top: parent.top
-            color: Colours.palette.m3surfaceContainer
+            color: Foundations.palette.base02
             implicitHeight: root.handle.y + root.handle.implicitWidth / 2
             radius: parent.radius
         }
@@ -41,7 +41,7 @@ Slider {
             anchors.leftMargin: 2
             anchors.right: parent.right
             anchors.rightMargin: 2
-            color: Colours.palette.m3primary
+            color: Foundations.palette.base05
             implicitHeight: parent.height - y
             radius: parent.radius
             y: root.handle.y
@@ -65,7 +65,7 @@ Slider {
             id: rect
 
             anchors.fill: parent
-            color: Colours.palette.m3inverseSurface
+            color: Foundations.palette.base07
             radius: slideRadius
 
             Icons.MaterialFontIcon {
@@ -82,7 +82,6 @@ Slider {
 
                 anchors.centerIn: parent
                 animate: true
-                color: Colours.palette.m3inverseOnSurface
                 text: root.icon
 
                 Behavior on moving {

@@ -1,3 +1,4 @@
+import qs.ds
 import qs.services
 import qs.ds.buttons.circularButtons as CircularButtons
 import Quickshell
@@ -11,8 +12,8 @@ CircularButtons.S {
 
     icon: "notifications"
 
-    backgroundColor: enabled ? Colours.palette.m3primaryContainer : "transparent"
-    foregroundColor: enabled ? Colours.palette.m3onPrimaryContainer : Colours.palette.m3secondary
+    backgroundColor: enabled ? Foundations.palette.base00 : "transparent"
+    foregroundColor: enabled ? Foundations.palette.base00 : Foundations.palette.base0D
 
     active: enabled
 

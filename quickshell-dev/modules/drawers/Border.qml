@@ -18,7 +18,7 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        color: Colours.palette.m3surface
+        color: Foundations.palette.base01
         layer.enabled: true
 
         layer.effect: MultiEffect {
