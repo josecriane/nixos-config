@@ -47,6 +47,13 @@ Rectangle {
                 Icons.MaterialFontIcon {
                     animate: true
                     color: root.colour
+                    text: "screen_record"
+                    visible: ScreenShare.isSharing
+                }
+
+                Icons.MaterialFontIcon {
+                    animate: true
+                    color: root.colour
                     text: "mic_off"
                     visible: Audio.sourceMuted
                 }
