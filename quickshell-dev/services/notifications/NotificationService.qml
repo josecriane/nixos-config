@@ -19,7 +19,7 @@ Singleton {
 
     function addNotification(notification) {
         const notif = notifComp.createObject(root, {
-            popup: true,
+            popup: !ScreenShare.isSharing,
             expireTimeout: notification.expireTimeout >= 0 ? notification.expireTimeout : root.defaultExpireTimeout,
             notification: notification
         });
