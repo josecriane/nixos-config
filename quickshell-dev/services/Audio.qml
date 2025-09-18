@@ -1,6 +1,5 @@
 pragma Singleton
 
-import qs.config
 import Quickshell
 import Quickshell.Services.Pipewire
 

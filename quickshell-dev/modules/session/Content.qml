@@ -1,7 +1,6 @@
 pragma ComponentBehavior: Bound
 
 import qs.services
-import qs.config
 import qs.ds.icons as Icons
 import qs.ds.buttons as DsButtons
 import qs.ds
@@ -15,8 +14,8 @@ Column {
 
     anchors.left: parent.left
     anchors.verticalCenter: parent.verticalCenter
-    padding: Appearance.padding.large
-    spacing: Appearance.spacing.large
+    padding: Foundations.spacing.l
+    spacing: Foundations.spacing.l
 
     SessionButton {
         id: logout

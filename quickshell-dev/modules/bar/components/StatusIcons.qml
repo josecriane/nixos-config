@@ -2,7 +2,7 @@ pragma ComponentBehavior: Bound
 
 import qs.services
 import qs.utils as Utils
-import qs.config
+import qs.ds
 import qs.ds.text as Text
 import qs.ds.icons as Icons
 import Quickshell
@@ -17,17 +17,18 @@ Rectangle {
 
     property color colour: Colours.palette.m3secondary
     readonly property alias items: iconRow
+    readonly property int margin: Foundations.spacing.s
+    readonly property int iconSpacing: Foundations.spacing.xxs
 
     clip: true
     color: Colours.palette.m3surfaceContainer
     implicitHeight: height
-    implicitWidth: iconRow.implicitWidth + Appearance.padding.normal * 2
-    radius: Appearance.rounding.full
+    implicitWidth: iconRow.implicitWidth + margin * 2
+    radius: Foundations.radius.all
 
     Behavior on implicitWidth {
         BasicNumberAnimation {
-            duration: Appearance.anim.durations.large
-            easing.bezierCurve: Appearance.anim.curves.emphasized
+            duration: Foundations.duration.slow
         }
     }
 
@@ -35,14 +36,14 @@ Rectangle {
         id: iconRow
 
         anchors.centerIn: parent
-        spacing: Appearance.spacing.smaller / 2
+        spacing: iconSpacing
 
         // Audio icon
         WrappedLoader {
             name: "audio"
 
             sourceComponent: RowLayout {
-                spacing: Appearance.spacing.smaller / 2
+                spacing: iconSpacing
 
                 Icons.MaterialFontIcon {
                     animate: true
@@ -72,7 +73,7 @@ Rectangle {
 
             sourceComponent: Text.BodyM {
                 color: root.colour
-                font.family: Appearance.font.family.mono
+                font.family: Foundations.font.family.mono
                 text: {
                     const fullName = Niri.currentKbLayoutName();
                     if (!fullName)
@@ -104,7 +105,7 @@ Rectangle {
             name: "bluetooth"
 
             sourceComponent: RowLayout {
-                spacing: Appearance.spacing.smaller / 2
+                spacing: iconSpacing
 
                 // Bluetooth icon
                 Icons.MaterialFontIcon {
@@ -140,14 +141,12 @@ Rectangle {
                             running: device.modelData.state !== BluetoothDeviceState.Connected
 
                             BasicNumberAnimation {
-                                duration: Appearance.anim.durations.large
-                                easing.bezierCurve: Appearance.anim.curves.standardAccel
+                                duration: Foundations.duration.slow
                                 from: 1
                                 to: 0
                             }
                             BasicNumberAnimation {
-                                duration: Appearance.anim.durations.large
-                                easing.bezierCurve: Appearance.anim.curves.standardDecel
+                                duration: Foundations.duration.slow
                                 from: 0
                                 to: 1
                             }

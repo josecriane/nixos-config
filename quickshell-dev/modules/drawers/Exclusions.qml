@@ -1,6 +1,6 @@
 pragma ComponentBehavior: Bound
 
-import qs.config
+import qs.ds
 import Quickshell
 import Quickshell.Wayland
 import QtQuick
@@ -10,6 +10,9 @@ Scope {
 
     required property Item bar
     required property ShellScreen screen
+
+    // ToDo: This params must override
+    property int margin: Foundations.spacing.s
 
     ExclusionZone {
         anchors.left: true
@@ -28,7 +31,7 @@ Scope {
     component ExclusionZone: PanelWindow {
         WlrLayershell.namespace: `quickshell-border-exclusion`
         color: "transparent"
-        exclusiveZone: Config.border.thickness
+        exclusiveZone: margin
         implicitHeight: 1
         implicitWidth: 1
         screen: root.screen

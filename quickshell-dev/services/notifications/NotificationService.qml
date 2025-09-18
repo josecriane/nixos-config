@@ -3,7 +3,6 @@ pragma ComponentBehavior: Bound
 
 import qs.services
 import qs.modules.shortcuts as Shortcuts
-import qs.config
 import Quickshell
 import Quickshell.Io
 import Quickshell.Services.Notifications

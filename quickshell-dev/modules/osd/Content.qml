@@ -1,11 +1,12 @@
 pragma ComponentBehavior: Bound
 
 import qs.services
-import qs.config
+import qs.ds
 import qs.utils as Utils
 import QtQuick
 import QtQuick.Layouts
 import qs.ds.animations
+import "." as Osd
 
 Item {
     id: root
@@ -15,19 +16,22 @@ Item {
     readonly property int sliderWidth: 30
     required property var visibilities
 
+    property int margin: Foundations.spacing.l
+    property int spacingItems: Foundations.spacing.m
+
     anchors.left: parent.left
     anchors.verticalCenter: parent.verticalCenter
-    implicitHeight: layout.implicitHeight + Appearance.padding.large * 2
-    implicitWidth: layout.implicitWidth + Appearance.padding.large * 2
+    implicitHeight: layout.implicitHeight + margin * 2
+    implicitWidth: layout.implicitWidth + margin * 2
 
     ColumnLayout {
         id: layout
 
         anchors.centerIn: parent
-        spacing: Appearance.spacing.normal
+        spacing: root.spacingItems
 
         // Speaker volume
-        Slider {
+        Osd.Slider {
             icon: Utils.Icons.getVolumeIcon(value, Audio.muted)
             implicitHeight: root.sliderHeight
             implicitWidth: root.sliderWidth
@@ -39,7 +43,7 @@ Item {
         }
 
         // Microphone volume
-        Slider {
+        Osd.Slider {
             icon: Utils.Icons.getMicVolumeIcon(value, Audio.sourceMuted)
             implicitHeight: root.sliderHeight
             implicitWidth: root.sliderWidth
@@ -51,7 +55,7 @@ Item {
         }
 
         // Brightness
-        Slider {
+        Osd.Slider {
             icon: `brightness_${(Math.round(value * 6) + 1)}`
             implicitHeight: root.sliderHeight
             implicitWidth: root.sliderWidth

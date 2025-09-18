@@ -1,5 +1,4 @@
 import qs.services
-import qs.config
 import qs.ds.text as DsText
 import qs.ds.buttons as DsButtons
 import Quickshell

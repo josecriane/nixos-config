@@ -1,6 +1,6 @@
 pragma ComponentBehavior: Bound
 
-import qs.config
+import qs.ds
 import qs.modules.popups as BarPopouts
 import Quickshell
 import QtQuick
@@ -10,14 +10,16 @@ Item {
     id: root
 
     readonly property int contentHeight: innerHeight + padding * 2
-    readonly property int exclusiveZone: 0 //Change to de innerHeight
-    readonly property int innerHeight: 30
+    readonly property int exclusiveZone: 0
     property bool isHovered
-    readonly property int padding: Math.max(Appearance.padding.smaller, Config.border.thickness)
     required property BarPopouts.Wrapper popouts
     required property ShellScreen screen
     readonly property bool shouldBeVisible: true
     required property PersistentProperties visibilities
+
+    // ToDo: review if this will
+    property int padding: Foundations.spacing.s
+    property int innerHeight: 30
 
     function checkPopout(x: real): void {
         content.item?.checkPopout(x);
@@ -25,41 +27,8 @@ Item {
     function handleWheel(x: real, angleDelta: point): void {
         content.item?.handleWheel(x, angleDelta);
     }
-
-    implicitHeight: Config.border.thickness
-    visible: height > Config.border.thickness
-
-    states: State {
-        name: "visible"
-        when: root.shouldBeVisible
-
-        PropertyChanges {
-            root.implicitHeight: root.contentHeight
-        }
-    }
-    transitions: [
-        Transition {
-            from: ""
-            to: "visible"
-
-            BasicNumberAnimation {
-                duration: Appearance.anim.durations.expressiveDefaultSpatial
-                easing.bezierCurve: Appearance.anim.curves.expressiveDefaultSpatial
-                property: "implicitHeight"
-                target: root
-            }
-        },
-        Transition {
-            from: "visible"
-            to: ""
-
-            BasicNumberAnimation {
-                easing.bezierCurve: Appearance.anim.curves.emphasized
-                property: "implicitHeight"
-                target: root
-            }
-        }
-    ]
+    implicitHeight: root.contentHeight
+    visible: true
 
     Loader {
         id: content

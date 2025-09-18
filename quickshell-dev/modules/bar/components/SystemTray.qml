@@ -1,7 +1,6 @@
 pragma ComponentBehavior: Bound
 
 import qs.services
-import qs.config
 import qs.ds.text as Text
 import qs.ds.icons as Icons
 import qs.ds
@@ -15,15 +14,18 @@ Rectangle {
 
     property color colour: Colours.palette.m3secondary
 
+    // ToDo: Reviow (maybe review all margin/paddings)
+    property int margin: Foundations.spacing.s
+    property int spacingItems: Foundations.spacing.m
+
     clip: true
     color: Colours.palette.m3surfaceContainer
-    implicitWidth: iconRow.implicitWidth + Appearance.padding.normal * 2
-    radius: Appearance.rounding.full
+    implicitWidth: iconRow.implicitWidth + margin * 2
+    radius: Foundations.radius.all
 
     Behavior on implicitWidth {
         BasicNumberAnimation {
-            duration: Appearance.anim.durations.large
-            easing.bezierCurve: Appearance.anim.curves.emphasized
+            duration: Foundations.duration.slow
         }
     }
 
@@ -39,7 +41,7 @@ Rectangle {
 
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
-        spacing: Appearance.spacing.normal
+        spacing: root.spacingItems
 
         // CPU usage
         ResourceItem {
@@ -72,7 +74,7 @@ Rectangle {
 
         Behavior on value {
             BasicNumberAnimation {
-                duration: Appearance.anim.durations.large
+                duration: Foundations.duration.slow
             }
         }
 
@@ -82,7 +84,7 @@ Rectangle {
         }
         Icons.MaterialFontIcon {
             color: parent.colour
-            font.pointSize: Appearance.font.size.small
+            font.pointSize: Foundations.font.size.xs
             text: parent.icon
         }
     }

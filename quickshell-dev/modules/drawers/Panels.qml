@@ -1,4 +1,4 @@
-import qs.config
+import qs.ds
 import qs.modules.osd as Osd
 import qs.modules.notifications as NotificationsList
 import qs.modules.session as Session
@@ -19,8 +19,10 @@ Item {
     readonly property Session.Wrapper session: session
     required property PersistentProperties visibilities
 
+    property int thickness: Foundations.spacing.s
+
     anchors.fill: parent
-    anchors.margins: Config.border.thickness
+    anchors.margins: thickness
     anchors.topMargin: bar.implicitHeight
 
     Osd.Wrapper {
@@ -61,7 +63,7 @@ Item {
 
         screen: root.screen
         x: {
-            const off = currentCenter - Config.border.thickness - nonAnimWidth / 2;
+            const off = currentCenter - root.thickness - nonAnimWidth / 2;
             const diff = root.width - Math.floor(off + nonAnimWidth);
             if (diff < 0)
                 return off + diff;

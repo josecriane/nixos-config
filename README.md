@@ -207,10 +207,16 @@ journalctl --user -u niri
 
 - [ ] Quickshell Redo
   - [ ] Use stylix colors
+  - [ ] Bar
+    - [ ] Maybe SystemTray and StatusIcons must be the same type of element?
+  - [ ] Foundations
+    - [ ] Rename rounding to radius
+    - [ ] Check if all values are used
+    - [ ] Check hardcoded anim durations curves
+    - [ ] Review TextMetrics
   - [ ] Notifications
     - [ ] Launch notification action
     - [ ] Group notifications
-    - [ ] Reverse notificition list no notification center
     - [ ] Refactor notificationItem
   - [ ] Launcher
     - [ ] Filter .desktop apps

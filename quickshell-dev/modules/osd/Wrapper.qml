@@ -1,5 +1,5 @@
 import qs.services
-import qs.config
+import qs.ds
 import Quickshell
 import QtQuick
 import qs.ds.animations
@@ -30,7 +30,6 @@ BackgroundWrapper {
             to: "visible"
 
             BasicNumberAnimation {
-                easing.bezierCurve: Appearance.anim.curves.expressiveDefaultSpatial
                 property: "implicitWidth"
                 target: root
             }
@@ -40,7 +39,6 @@ BackgroundWrapper {
             to: ""
 
             BasicNumberAnimation {
-                easing.bezierCurve: Appearance.anim.curves.emphasized
                 property: "implicitWidth"
                 target: root
             }

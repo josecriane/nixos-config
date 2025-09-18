@@ -1,5 +1,4 @@
 import qs.services
-import qs.config
 import QtQuick
 import QtQuick.Shapes
 import qs.ds.animations

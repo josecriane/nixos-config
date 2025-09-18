@@ -1,7 +1,7 @@
 pragma ComponentBehavior: Bound
 
 import qs.services
-import qs.config
+import qs.ds
 import qs.ds.buttons as Buttons
 import qs.ds.buttons.circularButtons as CircularButtons
 import qs.ds.list as Lists
@@ -19,8 +19,11 @@ Item {
 
     required property var wrapper
 
-    implicitHeight: layout.implicitHeight + Appearance.padding.normal * 2
-    implicitWidth: layout.implicitWidth + Appearance.padding.normal * 2
+    // ToDo: Review
+    property int margin: Foundations.spacing.s
+
+    implicitHeight: layout.implicitHeight + margin * 2
+    implicitWidth: layout.implicitWidth + margin * 2
 
     ButtonGroup {
         id: sinks
@@ -38,7 +41,7 @@ Item {
         spacing: 0
 
         Text.HeadingS {
-            Layout.bottomMargin: Appearance.spacing.small / 2
+            Layout.bottomMargin: Foundations.spacing.xxs
             text: qsTr("Output device")
         }
         Repeater {
@@ -59,17 +62,17 @@ Item {
             }
         }
         Text.HeadingS {
-            Layout.bottomMargin: Appearance.spacing.small / 2
-            Layout.topMargin: Appearance.spacing.normal
+            Layout.bottomMargin: root.margin
+            Layout.topMargin: root.margin
             text: qsTr("Volume (%1)").arg(Audio.muted ? qsTr("Muted") : `${Math.round(Audio.volume * 100)}%`)
         }
         RowLayout {
             Layout.fillWidth: true
-            spacing: Appearance.spacing.normal
+            spacing: root.margin
             
             Ds.Slider {
                 Layout.fillWidth: true
-                implicitHeight: Appearance.padding.normal * 3
+                implicitHeight: Foundations.spacing.s * 3
                 value: Audio.volume
 
                 Behavior on value {
@@ -89,8 +92,8 @@ Item {
         }
 
         Text.HeadingS {
-            Layout.bottomMargin: Appearance.spacing.small / 2
-            Layout.topMargin: Appearance.spacing.normal
+            Layout.bottomMargin: root.margin
+            Layout.topMargin: root.margin
             text: qsTr("Input device")
         }
         Repeater {
@@ -111,17 +114,17 @@ Item {
             }
         }
         Text.HeadingS {
-            Layout.bottomMargin: Appearance.spacing.small / 2
-            Layout.topMargin: Appearance.spacing.normal
+            Layout.bottomMargin: root.margin
+            Layout.topMargin: root.margin
             text: qsTr("Volume (%1)").arg(Audio.sourceMuted ? qsTr("Muted") : `${Math.round(Audio.sourceVolume * 100)}%`)
         }
         RowLayout {
             Layout.fillWidth: true
-            spacing: Appearance.spacing.normal
+            spacing: root.margin
             
             Ds.Slider {
                 Layout.fillWidth: true
-                implicitHeight: Appearance.padding.normal * 3
+                implicitHeight: Foundations.spacing.s * 3
                 value: Audio.sourceVolume
 
                 Behavior on value {
@@ -140,7 +143,7 @@ Item {
             }
         }
         Buttons.PrimaryButton {
-            Layout.topMargin: Appearance.spacing.normal
+            Layout.topMargin: root.margin
             rightIcon: "chevron_right"
             text: qsTr("Open settings")
             visible: true

@@ -1,5 +1,5 @@
 import qs.services
-import qs.config
+import qs.ds
 import qs.ds.text as DSText
 import qs.ds.icons as Icons
 import qs.ds.buttons.circularButtons as CircularButtons
@@ -12,15 +12,19 @@ Column {
 
     property date currentMonth: new Date()
 
-    height: implicitHeight + Appearance.padding.large
-    spacing: Appearance.spacing.small
+    // ToDo: Review
+    property int margin: Foundations.spacing.l
+    property int itemSpacing: Foundations.spacing.xxs
+
+    height: implicitHeight + margin
+    spacing: Foundations.spacing.s
     width: 300
 
     RowLayout {
         Layout.fillWidth: true
-        Layout.leftMargin: Appearance.padding.large
-        Layout.rightMargin: Appearance.padding.large
-        Layout.topMargin: Appearance.padding.large
+        Layout.leftMargin: root.margin
+        Layout.rightMargin: root.margin
+        Layout.topMargin: root.margin
         width: root.width
 
         CircularButtons.M {
@@ -77,7 +81,7 @@ Column {
 
             required property var model
 
-            implicitHeight: text.implicitHeight + Appearance.padding.small * 2
+            implicitHeight: text.implicitHeight + root.itemSpacing * 2
             implicitWidth: implicitHeight
 
             Rectangle {
@@ -85,7 +89,7 @@ Column {
                 color: Qt.alpha(Colours.palette.m3primary, day.model.today ? 1 : 0)
                 implicitHeight: parent.implicitHeight
                 implicitWidth: parent.implicitHeight
-                radius: Appearance.rounding.full
+                radius: Foundations.radius.all
 
                 DSText.BodyM {
                     id: text

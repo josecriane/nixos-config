@@ -1,7 +1,6 @@
 pragma ComponentBehavior: Bound
 
 import qs.services.notifications
-import qs.config
 import qs.ds.list as List
 import qs.ds.animations
 import qs.ds
@@ -35,7 +34,7 @@ Item {
         id: columnLayout
 
         anchors.fill: parent
-        spacing: Appearance.spacing.small
+        spacing: Foundations.spacing.s
 
         Buttons.HintButton {
             id: clearButton
@@ -70,7 +69,7 @@ Item {
 
                 anchors.left: parent.left
                 anchors.right: parent.right
-                spacing: Appearance.spacing.small
+                spacing: Foundations.spacing.s
 
                 Repeater {
                     model: root.isAutoMode ? NotificationService.popups.length : NotificationService.list.length

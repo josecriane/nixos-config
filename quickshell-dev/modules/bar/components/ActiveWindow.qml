@@ -2,7 +2,7 @@ pragma ComponentBehavior: Bound
 
 import qs.services
 import qs.utils as Utils
-import qs.config
+import qs.ds
 import qs.ds.text as Text
 import QtQuick
 import qs.ds.animations
@@ -24,9 +24,10 @@ Item {
     clip: true
     implicitWidth: Math.min(contentItem.width, maxWidth)
 
+    property int margin: Foundations.spacing.s
+
     Behavior on implicitWidth {
         BasicNumberAnimation {
-            easing.bezierCurve: Appearance.anim.curves.emphasized
         }
     }
 
@@ -60,7 +61,7 @@ Item {
 
         anchors.centerIn: parent
         height: Math.max(icon.implicitHeight, current.implicitHeight)
-        width: icon.implicitWidth + current.implicitWidth + Appearance.spacing.small
+        width: icon.implicitWidth + current.implicitWidth + margin
 
         FontIcon {
             id: icon
@@ -80,9 +81,9 @@ Item {
         id: metrics
 
         elide: Qt.ElideRight
-        elideWidth: root.maxWidth - icon.implicitWidth - Appearance.spacing.small
-        font.family: Appearance.font.family.mono
-        font.pointSize: Appearance.font.size.smaller
+        elideWidth: root.maxWidth - icon.implicitWidth - margin
+        font.family: Foundations.font.family.mono
+        font.pointSize: Foundations.font.size.s
         text: Utils.Apps.cleanTitle(root.activeTitle)
 
         onElideWidthChanged: root.current.text = elidedText
@@ -101,7 +102,7 @@ Item {
         id: text
 
         anchors.left: icon.right
-        anchors.leftMargin: Appearance.spacing.small
+        anchors.leftMargin: margin
         anchors.verticalCenter: icon.verticalCenter
         opacity: root.current === this ? 1 : 0
         primary: true

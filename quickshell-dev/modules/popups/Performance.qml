@@ -1,5 +1,5 @@
 import qs.services
-import qs.config
+import qs.ds
 import qs.ds.text as Text
 import QtQuick
 import QtQuick.Layouts
@@ -8,13 +8,13 @@ import qs.ds.animations
 RowLayout {
     id: root
 
-    readonly property int padding: Appearance.padding.large
+    readonly property int padding: Foundations.spacing.l
 
     function displayTemp(temp: real): string {
         return `${Math.ceil(temp)}°C`;
     }
 
-    spacing: Appearance.spacing.large * 3
+    spacing: padding * 3
 
     Resource {
         Layout.alignment: Qt.AlignVCenter
@@ -127,7 +127,7 @@ RowLayout {
             anchors.horizontalCenter: parent.right
             anchors.horizontalCenterOffset: -res.thickness / 2
             anchors.top: parent.verticalCenter
-            anchors.topMargin: res.thickness / 2 + Appearance.spacing.small
+            anchors.topMargin: res.thickness / 2 + Foundations.spacing.s
 
             Text.HeadingS {
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -159,7 +159,7 @@ RowLayout {
                 ctx.reset();
 
                 ctx.lineWidth = res.thickness;
-                ctx.lineCap = Appearance.rounding.scale === 0 ? "square" : "round";
+                ctx.lineCap = "round";
 
                 const radius = (Math.min(width, height) - ctx.lineWidth) / 2;
                 const cx = centerX;

@@ -1,5 +1,5 @@
 import qs.services
-import qs.config
+import qs.ds
 import qs.ds.list as Lists
 import qs.ds.text as Text
 import QtQuick
@@ -9,7 +9,10 @@ import QtQuick.Controls
 ColumnLayout {
     id: root
 
-    spacing: Appearance.spacing.small
+    // ToDo: Review
+    property int margin: Foundations.spacing.xxs
+
+    spacing: margin
     width: Math.max(320, implicitWidth)
 
     ButtonGroup {
@@ -17,8 +20,8 @@ ColumnLayout {
 
     }
     Text.HeadingS {
-        Layout.rightMargin: Appearance.padding.small
-        Layout.topMargin: Appearance.padding.normal
+        Layout.rightMargin: root.margin
+        Layout.topMargin: root.margin
         text: qsTr("Keyboard Layout")
     }
     Repeater {

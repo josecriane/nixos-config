@@ -1,5 +1,5 @@
 import qs.services
-import qs.config
+import qs.ds
 import QtQuick
 import Quickshell.Widgets
 import qs.ds.animations
@@ -72,7 +72,7 @@ MouseArea {
 
             color: root.color
             opacity: 0
-            radius: Appearance.rounding.full
+            radius: Foundations.radius.all
             visible: root.rippleEnabled
 
             transform: Translate {

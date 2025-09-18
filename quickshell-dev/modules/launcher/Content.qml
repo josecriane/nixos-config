@@ -2,8 +2,7 @@ pragma ComponentBehavior: Bound
 
 import "services"
 import qs.services
-import qs.config
-import qs.ds as Ds
+import qs.ds
 import qs.ds.icons as Icons
 import qs.ds.buttons.circularButtons as CircularButtons
 import Quickshell
@@ -13,11 +12,14 @@ import qs.ds.animations
 Item {
     id: root
 
-    readonly property int padding: Appearance.padding.large
     required property var panels
-    readonly property int rounding: Appearance.rounding.large
     required property PersistentProperties visibilities
     required property var wrapper
+
+    // ToDo: Review
+    readonly property int padding: Foundations.spacing.l
+    readonly property int rounding: Foundations.radius.l
+    readonly property int innerMargin: Foundations.spacing.s
 
     anchors.horizontalCenter: parent.horizontalCenter
     anchors.top: parent.top
@@ -57,7 +59,7 @@ Item {
         anchors.top: parent.top
         color: Colours.palette.m3surfaceContainer
         implicitHeight: Math.max(searchIcon.implicitHeight, search.implicitHeight, clearIcon.implicitHeight)
-        radius: Appearance.rounding.full
+        radius: Foundations.radius.all
 
         Icons.MaterialFontIcon {
             id: searchIcon
@@ -68,19 +70,19 @@ Item {
             color: Colours.palette.m3onSurfaceVariant
             text: "search"
         }
-        Ds.TextField {
+        TextField {
             id: search
 
             anchors.left: searchIcon.right
-            anchors.leftMargin: Appearance.spacing.small
+            anchors.leftMargin: root.innerMargin
             anchors.right: clearIcon.left
-            anchors.rightMargin: Appearance.spacing.small
+            anchors.rightMargin: root.innerMargin
             background: null
             backgroundColor: "transparent"
             borderWidth: 0
-            bottomPadding: Appearance.padding.larger
+            bottomPadding: root.innerMargin
             placeholderText: "Type \">\" for commands"
-            topPadding: Appearance.padding.larger
+            topPadding: root.innerMargin
 
             Keys.onDownPressed: list.currentList?.incrementCurrentIndex()
             Keys.onEscapePressed: root.visibilities.launcher = false
@@ -148,7 +150,6 @@ Item {
 
             Behavior on opacity {
                 BasicNumberAnimation {
-                    duration: Appearance.anim.durations.small
                 }
             }
 

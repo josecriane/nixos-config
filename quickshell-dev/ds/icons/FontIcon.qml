@@ -2,13 +2,11 @@ import QtQuick
 import qs.ds
 import qs.ds.text
 import qs.services
-import qs.config
 
 Text {
     id: root
 
     property bool animate: false
-    property real animateDuration: Appearance.anim.durations.normal
     property real animateFrom: 0
     property string animateProp: "scale"
     property real animateTo: 1
@@ -23,21 +21,19 @@ Text {
 
         SequentialAnimation {
             Anim {
-                easing.bezierCurve: Appearance.anim.curves.standardAccel
                 to: root.animateFrom
             }
             PropertyAction {
             }
             Anim {
-                easing.bezierCurve: Appearance.anim.curves.standardDecel
                 to: root.animateTo
             }
         }
     }
 
     component Anim: NumberAnimation {
-        duration: root.animateDuration / 2
-        easing.type: Easing.BezierSpline
+        duration: Foundations.duration.fast
+        easing.bezierCurve: Foundations.animCurves.standard
         property: root.animateProp
         target: root
     }

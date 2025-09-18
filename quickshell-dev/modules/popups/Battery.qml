@@ -1,7 +1,7 @@
 pragma ComponentBehavior: Bound
 
 import qs.services
-import qs.config
+import qs.ds
 import qs.ds.text as Text
 import qs.ds.icons as Icons
 import Quickshell.Services.UPower
@@ -12,7 +12,7 @@ import qs.ds.buttons.circularButtons as CircularButtons
 Column {
     id: root
 
-    spacing: Appearance.spacing.normal
+    spacing: Foundations.spacing.m
 
     Text.BodyM {
         text: UPower.displayDevice.isLaptopBattery ? qsTr("Remaining: %1%").arg(Math.round(UPower.displayDevice.percentage * 100)) : qsTr("No battery detected")
@@ -44,9 +44,9 @@ Column {
 
         sourceComponent: Rectangle {
             color: Colours.palette.m3error
-            implicitHeight: child.implicitHeight + Appearance.padding.smaller * 2
-            implicitWidth: child.implicitWidth + Appearance.padding.normal * 2
-            radius: Appearance.rounding.normal
+            implicitHeight: child.implicitHeight + Foundations.spacing.xs * 2
+            implicitWidth: child.implicitWidth + Foundations.spacing.s * 2
+            radius: Foundations.radius.m
 
             Column {
                 id: child
@@ -55,7 +55,7 @@ Column {
 
                 Row {
                     anchors.horizontalCenter: parent.horizontalCenter
-                    spacing: Appearance.spacing.small
+                    spacing: Foundations.spacing.s
 
                     Icons.MaterialFontIcon {
                         anchors.verticalCenter: parent.verticalCenter
@@ -66,7 +66,7 @@ Column {
                     Text.HeadingS {
                         anchors.verticalCenter: parent.verticalCenter
                         color: Colours.palette.m3onError
-                        font.family: Appearance.font.family.mono
+                        font.family: Foundations.font.family.mono
                         text: qsTr("Performance Degraded")
                     }
                     Icons.MaterialFontIcon {
@@ -98,15 +98,15 @@ Column {
 
         anchors.horizontalCenter: parent.horizontalCenter
         color: Colours.palette.m3surfaceContainer
-        implicitHeight: Math.max(saver.implicitHeight, balance.implicitHeight, perf.implicitHeight) + Appearance.padding.small * 2
-        implicitWidth: saver.implicitHeight + balance.implicitHeight + perf.implicitHeight + Appearance.padding.normal * 2 + Appearance.spacing.large * 2
-        radius: Appearance.rounding.full
+        implicitHeight: Math.max(saver.implicitHeight, balance.implicitHeight, perf.implicitHeight) + Foundations.spacing.xxs * 2
+        implicitWidth: saver.implicitHeight + balance.implicitHeight + perf.implicitHeight + Foundations.spacing.s * 2 + Foundations.spacing.l * 2
+        radius: Foundations.radius.all
 
         Rectangle {
             id: indicator
 
             color: Colours.palette.m3primary
-            radius: Appearance.rounding.full
+            radius: Foundations.radius.all
             state: profiles.current
 
             states: [
@@ -134,9 +134,8 @@ Column {
             ]
             transitions: Transition {
                 AnchorAnimation {
-                    duration: Appearance.anim.durations.normal
-                    easing.bezierCurve: Appearance.anim.curves.emphasized
-                    easing.type: Easing.BezierSpline
+                    duration: Foundations.duration.standard
+                    easing.bezierCurve: Foundations.animCurves.standard
                 }
             }
         }
@@ -146,7 +145,7 @@ Column {
             active: profiles.current === icon
             activeForegroundColor: Colours.palette.m3onPrimary
             anchors.left: parent.left
-            anchors.leftMargin: Appearance.padding.small
+            anchors.leftMargin: Foundations.spacing.xxs
             anchors.verticalCenter: parent.verticalCenter
             icon: "energy_savings_leaf"
 
@@ -172,7 +171,7 @@ Column {
             active: profiles.current === icon
             activeForegroundColor: Colours.palette.m3onPrimary
             anchors.right: parent.right
-            anchors.rightMargin: Appearance.padding.small
+            anchors.rightMargin: Foundations.spacing.xxs
             anchors.verticalCenter: parent.verticalCenter
             icon: "rocket_launch"
 

@@ -1,6 +1,6 @@
 pragma ComponentBehavior: Bound
 
-import qs.config
+import qs.ds
 import Quickshell
 import Quickshell.Services.SystemTray
 import QtQuick
@@ -11,15 +11,19 @@ Item {
 
     required property Item wrapper
 
+    // ToDo: Review
+    property int margin: Foundations.spacing.l
+    property int itemSpacing: Foundations.spacing.xxs
+
     anchors.centerIn: parent
-    implicitHeight: (content.children.find(c => c.shouldBeActive)?.implicitHeight ?? 0) + Appearance.padding.large * 2
-    implicitWidth: (content.children.find(c => c.shouldBeActive)?.implicitWidth ?? 0) + Appearance.padding.large * 2
+    implicitHeight: (content.children.find(c => c.shouldBeActive)?.implicitHeight ?? 0) + margin * 2
+    implicitWidth: (content.children.find(c => c.shouldBeActive)?.implicitWidth ?? 0) + margin * 2
 
     Item {
         id: content
 
         anchors.fill: parent
-        anchors.margins: Appearance.padding.large
+        anchors.margins: root.margin
 
         Popout {
             name: "network"
@@ -123,7 +127,7 @@ Item {
 
                 SequentialAnimation {
                     BasicNumberAnimation {
-                        duration: Appearance.anim.durations.small
+                        duration: Foundations.duration.fast
                         properties: "opacity,scale"
                     }
                     PropertyAction {

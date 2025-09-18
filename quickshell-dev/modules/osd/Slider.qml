@@ -1,5 +1,4 @@
 import qs.services
-import qs.config
 import qs.ds.icons as Icons
 import QtQuick
 import QtQuick.Controls
@@ -12,11 +11,16 @@ Slider {
     required property string icon
     property real oldValue
 
+    // ToDo: Review this and osd/Content
+    property int slideRadius: Foundations.radius.all
+    property int activeSize: Foundations.font.size.xs
+    property int inactiveSize: Foundations.font.size.m
+
     orientation: Qt.Vertical
 
     background: Rectangle {
-        color: "transparent"// Colours.palette.m3surfaceContainer
-        radius: Appearance.rounding.full
+        color: "transparent"
+        radius: root.slideRadius
 
         Rectangle {
             id: topSide
@@ -62,7 +66,7 @@ Slider {
 
             anchors.fill: parent
             color: Colours.palette.m3inverseSurface
-            radius: Appearance.rounding.full
+            radius: slideRadius
 
             Icons.MaterialFontIcon {
                 id: icon
@@ -72,8 +76,8 @@ Slider {
                 function update(): void {
                     animate = !moving;
                     text = moving ? Qt.binding(() => Math.round(root.value * 100)) : Qt.binding(() => root.icon);
-                    font.pointSize = moving ? Appearance.font.size.small : Appearance.font.size.larger;
-                    font.family = moving ? Appearance.font.family.sans : Appearance.font.family.material;
+                    font.pointSize = moving ? root.activeSize : inactiveSize;
+                    font.family = moving ? Foundations.font.family.sans : Foundations.font.family.material;
                 }
 
                 anchors.centerIn: parent
@@ -84,8 +88,7 @@ Slider {
                 Behavior on moving {
                     SequentialAnimation {
                         BasicNumberAnimation {
-                            duration: Appearance.anim.durations.normal / 2
-                            easing.bezierCurve: Appearance.anim.curves.standardAccel
+                            duration: Foundations.duration.fast
                             from: 1
                             property: "scale"
                             target: icon
@@ -95,8 +98,7 @@ Slider {
                             script: icon.update()
                         }
                         BasicNumberAnimation {
-                            duration: Appearance.anim.durations.normal / 2
-                            easing.bezierCurve: Appearance.anim.curves.standardDecel
+                            duration: Foundations.duration.fast
                             from: 0
                             property: "scale"
                             target: icon
@@ -109,7 +111,7 @@ Slider {
     }
     Behavior on value {
         BasicNumberAnimation {
-            duration: Appearance.anim.durations.large
+            duration: Foundations.duration.slow
         }
     }
 

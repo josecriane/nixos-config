@@ -1,7 +1,7 @@
 pragma ComponentBehavior: Bound
 
 import qs.services
-import qs.config
+import qs.ds
 import qs.ds.text as DsText
 import qs.ds.icons as Icons
 import Quickshell
@@ -34,14 +34,13 @@ Item {
         enabled: root.visibilities.launcher
 
         BasicNumberAnimation {
-            duration: Appearance.anim.durations.large
-            easing.bezierCurve: Appearance.anim.curves.emphasizedDecel
+            duration: Foundations.duration.slow
         }
     }
     Behavior on state {
         SequentialAnimation {
             BasicNumberAnimation {
-                duration: Appearance.anim.durations.small
+                duration: Foundations.duration.fast
                 from: 1
                 property: "opacity"
                 target: root
@@ -50,7 +49,7 @@ Item {
             PropertyAction {
             }
             BasicNumberAnimation {
-                duration: Appearance.anim.durations.small
+                duration: Foundations.duration.fast
                 from: 0
                 property: "opacity"
                 target: root
@@ -108,12 +107,12 @@ Item {
         Row {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
-            spacing: Appearance.spacing.normal
+            spacing: Foundations.spacing.xs
 
             Icons.MaterialFontIcon {
                 anchors.verticalCenter: parent.verticalCenter
                 color: Colours.palette.m3onSurfaceVariant
-                font.pointSize: Appearance.font.size.extraLarge
+                font.pointSize: Foundations.font.size.xl
                 text: "manage_search"
             }
             Column {

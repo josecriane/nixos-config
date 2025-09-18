@@ -24,7 +24,7 @@ Rectangle {
 
     Behavior on implicitWidth {
         BasicNumberAnimation {
-            duration: Foundations.duration.s
+            duration: Foundations.duration.fast
         }
     }
 

@@ -1,7 +1,7 @@
 pragma ComponentBehavior: Bound
 
 import qs.services
-import qs.config
+import qs.ds
 import qs.utils as Utils
 import qs.ds.list as Lists
 import qs.ds.text as Text
@@ -15,13 +15,17 @@ ColumnLayout {
     id: root
 
     required property Item wrapper
+    
+    //ToDo: Review
+    property int margin: Foundations.spacing.xxs
+    property int itemSpacing: Foundations.spacing.m
 
-    spacing: Appearance.spacing.small
+    spacing: Foundations.spacing.s
     width: Math.max(320, implicitWidth)
 
     Text.HeadingS {
-        Layout.rightMargin: Appearance.padding.small
-        Layout.topMargin: Appearance.padding.normal
+        Layout.rightMargin: root.margin
+        Layout.topMargin: root.margin
         text: qsTr("Bluetooth %1").arg(BluetoothAdapterState.toString(Bluetooth.defaultAdapter?.state).toLowerCase())
     }
     Toggle {
@@ -45,8 +49,8 @@ ColumnLayout {
         }
     }
     Text.BodyS {
-        Layout.rightMargin: Appearance.padding.small
-        Layout.topMargin: Appearance.spacing.small
+        Layout.rightMargin: root.margin
+        Layout.topMargin: root.margin
         disabled: true
         text: {
             const devices = Bluetooth.devices.values;
@@ -90,8 +94,8 @@ ColumnLayout {
         property alias toggle: toggle
 
         Layout.fillWidth: true
-        Layout.rightMargin: Appearance.padding.small
-        spacing: Appearance.spacing.normal
+        Layout.rightMargin: root.margin
+        spacing: root.itemSpacing
 
         Text.BodyM {
             Layout.fillWidth: true
@@ -99,7 +103,6 @@ ColumnLayout {
         }
         Ds.Switch {
             id: toggle
-
         }
     }
 }

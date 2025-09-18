@@ -2,7 +2,7 @@ pragma ComponentBehavior: Bound
 
 import qs.modules.drawers
 import qs.services
-import qs.config
+import qs.ds
 import Quickshell
 import Quickshell.Wayland
 import QtQuick
@@ -11,8 +11,7 @@ import qs.ds.animations
 BackgroundWrapper {
     id: root
 
-    property list<real> animCurve: Appearance.anim.curves.emphasized
-    property int animLength: Appearance.anim.durations.normal
+    property int animLength: Foundations.duration.fast
     property real currentCenter
     property string currentName
     property bool hasCurrent
@@ -30,19 +29,16 @@ BackgroundWrapper {
 
         BasicNumberAnimation {
             duration: root.animLength
-            easing.bezierCurve: root.animCurve
         }
     }
     Behavior on implicitWidth {
         BasicNumberAnimation {
             duration: root.animLength
-            easing.bezierCurve: root.animCurve
         }
     }
     Behavior on x {
         BasicNumberAnimation {
             duration: root.animLength
-            easing.bezierCurve: root.animCurve
         }
     }
     Behavior on y {
@@ -50,7 +46,6 @@ BackgroundWrapper {
 
         BasicNumberAnimation {
             duration: root.animLength
-            easing.bezierCurve: root.animCurve
         }
     }
 

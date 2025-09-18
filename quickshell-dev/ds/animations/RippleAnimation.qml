@@ -1,5 +1,5 @@
 import qs.services
-import qs.config
+import qs.ds
 import QtQuick
 import Quickshell.Widgets
 import qs.ds.animations
@@ -28,7 +28,6 @@ SequentialAnimation {
         value: 0.08
     }
     BasicNumberAnimation {
-        easing.bezierCurve: Appearance.anim.curves.standardDecel
         from: 0
         properties: "implicitWidth,implicitHeight"
         target: root.rippleItem

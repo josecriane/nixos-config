@@ -1,12 +1,11 @@
 pragma ComponentBehavior: Bound
 
 import qs.services
-import qs.config
+import qs.ds
 import qs.utils as Utils
 import qs.ds.buttons as Buttons
 import qs.ds.list as Lists
 import qs.ds.text as Text
-import qs.ds as Ds
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
@@ -16,12 +15,15 @@ ColumnLayout {
 
     property string connectingToSsid: ""
 
-    spacing: Appearance.spacing.small
+    // ToDo: Review
+    property int margin: Foundations.spacing.xxs
+
+    spacing: margin
     width: Math.max(320, implicitWidth)
 
     Text.HeadingS {
-        Layout.rightMargin: Appearance.padding.small
-        Layout.topMargin: Appearance.padding.normal
+        Layout.rightMargin: root.margin
+        Layout.topMargin: root.margin
         text: qsTr("Wifi %1").arg(Network.wifiEnabled ? "enabled" : "disabled")
     }
     Toggle {
@@ -31,8 +33,8 @@ ColumnLayout {
         toggle.onToggled: Network.enableWifi(checked)
     }
     Text.BodyS {
-        Layout.rightMargin: Appearance.padding.small
-        Layout.topMargin: Appearance.spacing.small
+        Layout.rightMargin: root.margin
+        Layout.topMargin: root.margin
         disabled: true
         text: qsTr("%1 networks available").arg(Network.networks.length)
     }
@@ -70,7 +72,7 @@ ColumnLayout {
     }
     Buttons.PrimaryButton {
         Layout.fillWidth: true
-        Layout.topMargin: Appearance.spacing.small
+        Layout.topMargin: root.margin
         disabled: !Network.wifiEnabled
         leftIcon: "wifi_find"
         loading: Network.scanning
@@ -96,16 +98,15 @@ ColumnLayout {
         property alias toggle: toggle
 
         Layout.fillWidth: true
-        Layout.rightMargin: Appearance.padding.small
-        spacing: Appearance.spacing.normal
+        Layout.rightMargin: root.margin
+        spacing: root.margin
 
         Text.BodyM {
             Layout.fillWidth: true
             text: parent.label
         }
-        Ds.Switch {
+        Switch {
             id: toggle
-
         }
     }
 }

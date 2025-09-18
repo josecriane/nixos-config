@@ -1,6 +1,6 @@
 import "."
 import qs.services
-import qs.config
+import qs.ds
 import QtQuick
 import QtQuick.Shapes
 import qs.ds.animations
@@ -45,7 +45,7 @@ ShapePath {
     property bool isRightBorder: wrapper.x + wrapper.width + rounding >= parent.width
     property bool isTopBorder: wrapper.y <= 0
     readonly property int outside: PathArc.Clockwise
-    readonly property real rounding: Config.border.rounding
+    readonly property real rounding: Foundations.radius.l
     property int topLeftCorner: {
         if (isTopBorder && !isLeftBorder)
             return Background.CornerType.InvertedTopLeft;

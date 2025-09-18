@@ -1,6 +1,5 @@
 import "."
 import qs.services
-import qs.config
 import qs.ds
 import QtQuick
 import QtQuick.Controls

@@ -1,7 +1,6 @@
 pragma ComponentBehavior: Bound
 
 import qs.services
-import qs.config
 import qs.ds.text as DsText
 import qs.ds.icons as Icons
 import qs.ds.list as Lists
@@ -44,12 +43,12 @@ Item {
 
     Behavior on implicitHeight {
         BasicNumberAnimation {
-            duration: Foundations.duration.xs
+            duration: Foundations.duration.fastest
         }
     }
     Behavior on implicitWidth {
         BasicNumberAnimation {
-            duration: Foundations.duration.xs
+            duration: Foundations.duration.fastest
         }
     }
 
@@ -98,7 +97,7 @@ Item {
         }
 
         opacity: shown ? 1 : 0
-        padding: Appearance.padding.smaller
+        padding: Foundations.spacing.xs
         scale: shown ? 1 : 0.8
         spacing: Foundations.spacing.xxs
 

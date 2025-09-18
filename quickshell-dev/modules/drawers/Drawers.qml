@@ -1,7 +1,7 @@
 pragma ComponentBehavior: Bound
 
 import qs.services
-import qs.config
+import qs.ds
 import qs.modules.bar
 import Quickshell
 import Quickshell.Wayland
@@ -16,6 +16,9 @@ Variants {
         id: scope
 
         required property ShellScreen modelData
+
+        // ToDo: This params must override
+        property int margin: Foundations.spacing.s
 
         Exclusions {
             bar: bar
@@ -35,11 +38,11 @@ Variants {
             screen: scope.modelData
 
             mask: Region {
-                height: win.height - bar.implicitHeight - Config.border.thickness
+                height: win.height - bar.implicitHeight - margin
                 intersection: Intersection.Xor
                 regions: regions.instances
-                width: win.width - Config.border.thickness * 2
-                x: Config.border.thickness
+                width: win.width - margin * 2
+                x: margin
                 y: bar.implicitHeight
             }
 
@@ -54,7 +57,7 @@ Variants {
                     height: modelData.visible ? modelData.height : 0
                     intersection: Intersection.Subtract
                     width: modelData.visible ? modelData.width : 0
-                    x: modelData.x + Config.border.thickness
+                    x: modelData.x + margin
                     y: modelData.y + bar.implicitHeight
                 }
             }

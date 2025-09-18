@@ -1,7 +1,7 @@
 pragma ComponentBehavior: Bound
 
 import qs.services
-import qs.config
+import qs.ds
 import qs.modules.popups as BarPopouts
 import "components"
 import Quickshell
@@ -11,7 +11,7 @@ import QtQuick.Layouts
 Item {
     id: root
 
-    readonly property int hPadding: Appearance.padding.large
+    readonly property int hPadding: Foundations.spacing.l
     required property int innerHeight
     required property BarPopouts.Wrapper popouts
     required property ShellScreen screen
@@ -77,7 +77,7 @@ Item {
         id: mainLayout
 
         anchors.fill: parent
-        spacing: Appearance.spacing.normal
+        spacing: Foundations.spacing.m
 
         // Left side
         WrappedLoader {

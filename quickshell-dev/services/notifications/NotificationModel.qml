@@ -1,7 +1,6 @@
 pragma ComponentBehavior: Bound
 
 import qs.services
-import qs.config
 import Quickshell
 import Quickshell.Widgets
 import Quickshell.Services.Notifications

@@ -1,5 +1,5 @@
 import qs.services
-import qs.config
+import qs.ds
 import Quickshell.Services.SystemTray
 import QtQuick
 import qs.ds.animations
@@ -10,21 +10,20 @@ Rectangle {
 
     readonly property alias items: items
 
+    // ToDo: Reviow (maybe review all margin/paddings)
+    property int margin: Foundations.spacing.xxs
+    property int spacingItems: Foundations.spacing.xs
+    property int buttonSize: Foundations.font.size.xl
+
     clip: true
     color: "transparent"
     implicitHeight: height
-    implicitWidth: layout.implicitWidth + Appearance.padding.small * 2
-    radius: Appearance.rounding.full
+    implicitWidth: layout.implicitWidth + margin * 2
+    radius: Foundations.radius.all
     visible: width > 0 && height > 0 // To avoid warnings about being visible with no size
 
-    Behavior on implicitHeight {
-        BasicNumberAnimation {
-            easing.bezierCurve: Appearance.anim.curves.emphasized
-        }
-    }
     Behavior on implicitWidth {
         BasicNumberAnimation {
-            easing.bezierCurve: Appearance.anim.curves.emphasized
         }
     }
 
@@ -32,11 +31,10 @@ Rectangle {
         id: layout
 
         anchors.centerIn: parent
-        spacing: Appearance.spacing.small
+        spacing: root.spacingItems
 
         add: Transition {
             BasicNumberAnimation {
-                easing.bezierCurve: Appearance.anim.curves.standardDecel
                 from: 0
                 properties: "scale"
                 to: 1
@@ -44,7 +42,6 @@ Rectangle {
         }
         move: Transition {
             BasicNumberAnimation {
-                easing.bezierCurve: Appearance.anim.curves.standardDecel
                 properties: "scale"
                 to: 1
             }
@@ -64,7 +61,7 @@ Rectangle {
                 required property SystemTrayItem modelData
 
                 buttonColor: "transparent"
-                buttonSize: Appearance.font.size.small * 2
+                buttonSize: root.buttonSize
                 focusColor: "transparent"
                 iconColor: "transparent"
 

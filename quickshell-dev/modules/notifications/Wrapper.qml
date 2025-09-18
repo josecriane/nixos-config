@@ -1,4 +1,4 @@
-import qs.config
+import qs.ds
 import qs.services.notifications
 import Quickshell
 import QtQuick
@@ -8,8 +8,6 @@ import qs.modules.drawers
 BackgroundWrapper {
     id: root
 
-    property list<real> animCurve: Appearance.anim.curves.standard
-    property int animLength: Appearance.anim.durations.normal
     readonly property bool hasCurrent: root.visibilities.notifications || (isAutoMode && !isHiding)
     readonly property real nonAnimWidth: hasCurrent ? content.implicitWidth : 0
     property bool isAutoMode: false

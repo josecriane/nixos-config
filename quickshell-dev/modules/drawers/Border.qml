@@ -1,7 +1,7 @@
 pragma ComponentBehavior: Bound
 
 import qs.services
-import qs.config
+import qs.ds
 import QtQuick
 import QtQuick.Effects
 
@@ -9,6 +9,10 @@ Item {
     id: root
 
     required property Item bar
+
+        // ToDo: This params must override
+    property int margin: Foundations.spacing.s
+    property int radius: Foundations.radius.l
 
     anchors.fill: parent
 
@@ -34,9 +38,9 @@ Item {
 
         Rectangle {
             anchors.fill: parent
-            anchors.margins: Config.border.thickness
+            anchors.margins: root.margin
             anchors.topMargin: root.bar.implicitHeight
-            radius: Config.border.rounding
+            radius: root.radius
         }
     }
 }

@@ -1,5 +1,4 @@
 import qs.services
-import qs.config
 import qs.ds.buttons.circularButtons as CircularButtons
 import Quickshell
 import QtQuick

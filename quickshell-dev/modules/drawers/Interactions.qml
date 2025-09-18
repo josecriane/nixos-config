@@ -1,5 +1,5 @@
 import qs.services
-import qs.config
+import qs.ds
 import qs.modules.popups as Popups
 import qs.modules.osd as Osd
 import Quickshell
@@ -16,25 +16,29 @@ MouseArea {
     required property ShellScreen screen
     required property PersistentProperties visibilities
 
+    // ToDo: This params must override
+    property int margin: Foundations.spacing.s
+    property int radius: Foundations.radius.l
+
     function inBottomPanel(panel: Item, x: real, y: real): bool {
-        return y > root.height - Config.border.thickness - panel.height - Config.border.rounding && withinPanelWidth(panel, x, y);
+        return y > root.height - root.margin - panel.height - radius && withinPanelWidth(panel, x, y);
     }
     function inLeftPanel(panel: Item, x: real, y: real): bool {
-        return x < Config.border.thickness + panel.x + panel.width && withinPanelHeight(panel, x, y);
+        return x <  root.margin+ panel.x + panel.width && withinPanelHeight(panel, x, y);
     }
     function inRightPanel(panel: Item, x: real, y: real): bool {
-        return x > Config.border.thickness + panel.x && withinPanelHeight(panel, x, y);
+        return x > root.margin + panel.x && withinPanelHeight(panel, x, y);
     }
     function inTopPanel(panel: Item, x: real, y: real): bool {
         return y < bar.implicitHeight + panel.y + panel.height && withinPanelWidth(panel, x, y);
     }
     function withinPanelHeight(panel: Item, x: real, y: real): bool {
         const panelY = bar.implicitHeight + panel.y;
-        return y >= panelY - Config.border.rounding && y <= panelY + panel.height + Config.border.rounding;
+        return y >= panelY - radius && y <= panelY + panel.height + radius;
     }
     function withinPanelWidth(panel: Item, x: real, y: real): bool {
-        const panelX = Config.border.thickness + panel.x;
-        return x >= panelX - Config.border.rounding && x <= panelX + panel.width + Config.border.rounding;
+        const panelX = margin + panel.x;
+        return x >= panelX - radius && x <= panelX + panel.width + radius;
     }
 
     anchors.fill: parent

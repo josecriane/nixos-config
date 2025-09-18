@@ -1,6 +1,5 @@
 import "services"
 import qs.services
-import qs.config
 import qs.ds.text as DsText
 import qs.ds.icons as Icons
 import qs.ds
@@ -48,9 +47,9 @@ Item {
     }
     Item {
         anchors.fill: parent
-        anchors.leftMargin: Appearance.padding.larger
-        anchors.margins: Appearance.padding.smaller
-        anchors.rightMargin: Appearance.padding.larger
+        anchors.leftMargin: Foundations.spacing.m
+        anchors.margins: Foundations.spacing.xs
+        anchors.rightMargin: Foundations.spacing.m
 
         // Icon - Apps use IconImage, Actions use MaterialIcon
         IconImage {
@@ -68,7 +67,7 @@ Item {
 
             anchors.left: parent.left
             anchors.verticalCenter: parent.verticalCenter
-            font.pointSize: Appearance.font.size.extraLarge
+            font.pointSize: Foundations.font.size.l
             text: visible ? (root.modelData?.fontIcon ?? "") : ""
             visible: root.modelData?.isAction ?? false
         }
@@ -76,7 +75,7 @@ Item {
             id: textContainer
 
             anchors.left: appIcon.visible ? appIcon.right : fontIcon.right
-            anchors.leftMargin: Appearance.spacing.normal
+            anchors.leftMargin: Foundations.spacing.s
             anchors.right: parent.right
             anchors.verticalCenter: parent.verticalCenter
             height: name.height + subtitle.height

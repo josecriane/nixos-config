@@ -1,4 +1,4 @@
-import qs.config
+import qs.ds
 import Quickshell
 import QtQuick
 import qs.ds.animations
@@ -7,8 +7,6 @@ import qs.modules.drawers
 BackgroundWrapper {
     id: root
 
-    property list<real> animCurve: Appearance.anim.curves.standard
-    property int animLength: Appearance.anim.durations.normal
     readonly property bool hasCurrent: root.visibilities.launcher
     readonly property real nonAnimHeight: hasCurrent ? content.implicitHeight : 0
     readonly property real nonAnimWidth: hasCurrent ? content.implicitWidth : 0
@@ -22,8 +20,6 @@ BackgroundWrapper {
 
     Behavior on implicitHeight {
         BasicNumberAnimation {
-            duration: root.animLength
-            easing.bezierCurve: root.animCurve
         }
     }
 
@@ -37,8 +33,6 @@ BackgroundWrapper {
 
         Behavior on opacity {
             BasicNumberAnimation {
-                duration: root.animLength * 0.6
-                easing.bezierCurve: root.animCurve
             }
         }
     }

@@ -1,8 +1,7 @@
 import QtQuick
-import qs.config
+import qs.ds
 
 ColorAnimation {
-    duration: 400
-    easing.bezierCurve: Appearance.anim.curves.standard
-    easing.type: Easing.BezierSpline
+    duration: Foundations.duration.standard
+    easing.bezierCurve: Foundations.animCurves.standard
 }

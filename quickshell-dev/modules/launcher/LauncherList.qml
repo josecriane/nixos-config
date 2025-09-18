@@ -2,7 +2,6 @@ pragma ComponentBehavior: Bound
 
 import "services"
 import qs.services
-import qs.config
 import qs.ds.list as List
 import qs.ds.animations
 import qs.ds
@@ -12,18 +11,19 @@ import QtQuick.Controls
 
 ListView {
     id: root
-
-    property int itemHeight: 57
-    property int maxShown: 8
     required property TextField search
     required property PersistentProperties visibilities
 
-    bottomMargin: Appearance.padding.normal
-    highlightMoveDuration: Appearance.anim.durations.normal
+    // ToDo: review
+    property int itemHeight: 57
+    property int maxShown: 8
+    property int margin: Foundations.spacing.s
+
+    bottomMargin: margin
+    highlightMoveDuration: Foundations.duration.standard
     highlightResizeDuration: 0
-    implicitHeight: (itemHeight + spacing) * Math.min(maxShown, count) - spacing + bottomMargin
+    implicitHeight: (itemHeight + margin) * Math.min(maxShown, count)
     orientation: Qt.Vertical
-    spacing: Appearance.spacing.small
     state: {
         const text = search.text;
         const prefix = ">";
@@ -49,24 +49,9 @@ ListView {
             to: 1
         }
     }
-    addDisplaced: Transition {
-        BasicNumberAnimation {
-            duration: Appearance.anim.durations.small
-            property: "y"
-        }
-        BasicNumberAnimation {
-            properties: "opacity,scale"
-            to: 1
-        }
+    addDisplaced: ItemTransition {
     }
-    displaced: Transition {
-        BasicNumberAnimation {
-            property: "y"
-        }
-        BasicNumberAnimation {
-            properties: "opacity,scale"
-            to: 1
-        }
+    displaced: ItemTransition {
     }
     highlight: Rectangle {
         color: Colours.palette.m3onSurface
@@ -78,14 +63,7 @@ ListView {
 
         onValuesChanged: root.currentIndex = 0
     }
-    move: Transition {
-        BasicNumberAnimation {
-            property: "y"
-        }
-        BasicNumberAnimation {
-            properties: "opacity,scale"
-            to: 1
-        }
+    move: ItemTransition {
     }
     rebound: Transition {
         BasicNumberAnimation {
@@ -131,16 +109,14 @@ ListView {
         SequentialAnimation {
             ParallelAnimation {
                 BasicNumberAnimation {
-                    duration: Appearance.anim.durations.small
-                    easing.bezierCurve: Appearance.anim.curves.standardAccel
+                    duration: Foundations.duration.fast
                     from: 1
                     property: "opacity"
                     target: root
                     to: 0
                 }
                 BasicNumberAnimation {
-                    duration: Appearance.anim.durations.small
-                    easing.bezierCurve: Appearance.anim.curves.standardAccel
+                    duration: Foundations.duration.fast
                     from: 1
                     property: "scale"
                     target: root
@@ -153,16 +129,14 @@ ListView {
             }
             ParallelAnimation {
                 BasicNumberAnimation {
-                    duration: Appearance.anim.durations.small
-                    easing.bezierCurve: Appearance.anim.curves.standardDecel
+                    duration: Foundations.duration.fast
                     from: 0
                     property: "opacity"
                     target: root
                     to: 1
                 }
                 BasicNumberAnimation {
-                    duration: Appearance.anim.durations.small
-                    easing.bezierCurve: Appearance.anim.curves.standardDecel
+                    duration: Foundations.duration.fast
                     from: 0.9
                     property: "scale"
                     target: root
@@ -197,6 +171,17 @@ ListView {
 
         CalcItem {
             list: root
+        }
+    }
+
+    component ItemTransition: Transition {
+        BasicNumberAnimation {
+            duration: Foundations.duration.fast
+            property: "y"
+        }
+        BasicNumberAnimation {
+            properties: "opacity,scale"
+            to: 1
         }
     }
 }

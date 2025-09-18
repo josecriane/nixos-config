@@ -1,7 +1,7 @@
 pragma ComponentBehavior: Bound
 
 import qs.services as Services
-import qs.config
+import qs.ds
 import qs.ds as Ds
 import Quickshell
 import QtQuick
@@ -11,11 +11,12 @@ Item {
     id: root
 
     property bool isAutoMode: false
-    readonly property int padding: Appearance.padding.normal
     required property var panels
-    readonly property int rounding: Appearance.rounding.large
     required property PersistentProperties visibilities
     required property var wrapper
+
+    readonly property int padding: Foundations.spacing.s
+    readonly property int radius: Foundations.radius.l
     
     readonly property int autoModeHeight: list.contentHeight - padding
 
@@ -59,7 +60,7 @@ Item {
             isAutoMode: root.isAutoMode
             padding: root.padding
             panels: root.panels
-            rounding: root.rounding
+            rounding: root.radius
             visibilities: root.visibilities
             wrapper: root.wrapper
         }

@@ -2,7 +2,7 @@ pragma ComponentBehavior: Bound
 
 import qs.services.notifications
 import qs.services
-import qs.config
+import qs.ds
 import qs.utils as Utils
 import qs.ds.icons as Icons
 import Quickshell
@@ -11,7 +11,6 @@ import Quickshell.Services.Notifications
 import QtQuick
 import QtQuick.Layouts
 import qs.ds.animations
-import qs.ds
 import qs.ds.text as DsText
 
 Rectangle {
@@ -37,7 +36,7 @@ Rectangle {
     color: root.urgency === NotificationUrgency.Critical ? Colours.palette.m3secondaryContainer : Colours.palette.m3surfaceContainer
     implicitHeight: inner.implicitHeight
     implicitWidth: 400
-    radius: Appearance.rounding.normal
+    radius: Foundations.radius.m
 
     MouseArea {
         property int startY
@@ -54,7 +53,7 @@ Rectangle {
 
             if (root.modelData) {
                 const actions = root.actionsArray;
-                if (Config.notifs.actionOnClick && actions?.length === 1 && actions[0] && !actions[0].destroyed) {
+                if (actions?.length === 1 && actions[0] && !actions[0].destroyed) {
                     try {
                         actions[0].invoke();
                         NotificationService.deleteNotification(root.modelData);
@@ -62,7 +61,7 @@ Rectangle {
                         console.warn("Failed to invoke action:", e);
                         NotificationService.deleteNotification(root.modelData);
                     }
-                } else if (Config.notifs.actionOnClick && actions?.length > 1) {
+                } else if (actions?.length > 1) {
                     // Show actions (expand if not already expanded)
                     root.expanded = true;
                 } else {
@@ -95,15 +94,15 @@ Rectangle {
             id: inner
 
             anchors.left: parent.left
-            anchors.margins: Appearance.padding.normal
+            anchors.margins: Foundations.spacing.s
             anchors.right: parent.right
             anchors.top: parent.top
             implicitHeight: root.nonAnimHeight
 
             Behavior on implicitHeight {
                 BasicNumberAnimation {
-                    duration: Appearance.anim.durations.expressiveDefaultSpatial
-                    easing.bezierCurve: Appearance.anim.curves.expressiveDefaultSpatial
+                    duration: Foundations.duration.standard
+                    easing.bezierCurve: Foundations.animCurves.expressive
                 }
             }
 
@@ -121,7 +120,7 @@ Rectangle {
                 sourceComponent: ClippingRectangle {
                     implicitHeight: 41
                     implicitWidth: 41
-                    radius: Appearance.rounding.full
+                    radius: Foundations.radius.all
 
                     Image {
                         anchors.fill: parent
@@ -146,7 +145,7 @@ Rectangle {
                     color: root.urgency === NotificationUrgency.Critical ? Colours.palette.m3error : root.urgency === NotificationUrgency.Low ? Colours.palette.m3surfaceContainerHighest : Colours.palette.m3secondaryContainer
                     implicitHeight: root.hasImage ? 20 : 41
                     implicitWidth: root.hasImage ? 20 : 41
-                    radius: Appearance.rounding.full
+                    radius: Foundations.radius.all
 
                     Loader {
                         id: icon
@@ -166,13 +165,13 @@ Rectangle {
                     Loader {
                         active: !root.hasAppIcon
                         anchors.centerIn: parent
-                        anchors.horizontalCenterOffset: -Appearance.font.size.large * 0.02
-                        anchors.verticalCenterOffset: Appearance.font.size.large * 0.02
+                        anchors.horizontalCenterOffset: -Foundations.font.size.l * 0.02
+                        anchors.verticalCenterOffset: Foundations.font.size.l * 0.02
                         asynchronous: true
 
                         sourceComponent: Icons.MaterialFontIcon {
                             color: root.urgency === NotificationUrgency.Critical ? Colours.palette.m3onError : root.urgency === NotificationUrgency.Low ? Colours.palette.m3onSurface : Colours.palette.m3onSecondaryContainer
-                            font.pointSize: Appearance.font.size.large
+                            font.pointSize: Foundations.font.size.l
                             text: Utils.Icons.getNotifIcon(root.summaryStr, root.urgency)
                         }
                     }
@@ -182,7 +181,7 @@ Rectangle {
                 id: appName
 
                 anchors.left: image.right
-                anchors.leftMargin: Appearance.spacing.smaller
+                anchors.leftMargin: Foundations.spacing.xs
                 anchors.top: parent.top
                 color: Colours.palette.m3onSurfaceVariant
                 maximumLineCount: 1
@@ -198,7 +197,7 @@ Rectangle {
                 id: appNameMetrics
 
                 elide: Text.ElideRight
-                elideWidth: expandBtn.x - time.width - timeSep.width - summary.x - Appearance.spacing.small * 3
+                elideWidth: expandBtn.x - time.width - timeSep.width - summary.x - Foundations.spacing.s * 3
                 font.family: appName.font.family
                 font.pointSize: appName.font.pointSize
                 text: root.appNameStr
@@ -207,7 +206,7 @@ Rectangle {
                 id: summary
 
                 anchors.left: image.right
-                anchors.leftMargin: Appearance.spacing.smaller
+                anchors.leftMargin: Foundations.spacing.xs
                 anchors.top: parent.top
                 height: implicitHeight
                 maximumLineCount: 1
@@ -235,8 +234,8 @@ Rectangle {
                         target: summary
                     }
                     AnchorAnimation {
-                        duration: Appearance.anim.durations.normal
-                        easing.bezierCurve: Appearance.anim.curves.standard
+                        duration: Foundations.duration.standard
+                        easing.bezierCurve: Foundations.animCurves.standard
                         easing.type: Easing.BezierSpline
                     }
                 }
@@ -245,7 +244,7 @@ Rectangle {
                 id: summaryMetrics
 
                 elide: Text.ElideRight
-                elideWidth: expandBtn.x - time.width - timeSep.width - summary.x - Appearance.spacing.small * 3
+                elideWidth: expandBtn.x - time.width - timeSep.width - summary.x - Foundations.spacing.s * 3
                 font.family: summary.font.family
                 font.pointSize: summary.font.pointSize
                 text: root.summaryStr
@@ -254,7 +253,7 @@ Rectangle {
                 id: timeSep
 
                 anchors.left: summary.right
-                anchors.leftMargin: Appearance.spacing.small
+                anchors.leftMargin: Foundations.spacing.s
                 anchors.top: parent.top
                 color: Colours.palette.m3onSurfaceVariant
                 text: "•"
@@ -270,8 +269,8 @@ Rectangle {
                 }
                 transitions: Transition {
                     AnchorAnimation {
-                        duration: Appearance.anim.durations.normal
-                        easing.bezierCurve: Appearance.anim.curves.standard
+                        duration: Foundations.duration.standard
+                        easing.bezierCurve: Foundations.animCurves.standard
                         easing.type: Easing.BezierSpline
                     }
                 }
@@ -280,7 +279,7 @@ Rectangle {
                 id: time
 
                 anchors.left: timeSep.right
-                anchors.leftMargin: Appearance.spacing.small
+                anchors.leftMargin: Foundations.spacing.s
                 anchors.top: parent.top
                 color: Colours.palette.m3onSurfaceVariant
                 horizontalAlignment: Text.AlignLeft
@@ -300,14 +299,14 @@ Rectangle {
                     }
 
                     color: root.urgency === NotificationUrgency.Critical ? Colours.palette.m3onSecondaryContainer : Colours.palette.m3onSurface
-                    radius: Appearance.rounding.full
+                    radius: Foundations.radius.all
                 }
                 Icons.MaterialFontIcon {
                     id: expandIcon
 
                     anchors.centerIn: parent
                     animate: true
-                    font.pointSize: Appearance.font.size.normal
+                    font.pointSize: Foundations.font.size.m
                     text: root.expanded ? "expand_less" : "expand_more"
                 }
             }
@@ -316,7 +315,7 @@ Rectangle {
 
                 anchors.left: summary.left
                 anchors.right: expandBtn.left
-                anchors.rightMargin: Appearance.spacing.small
+                anchors.rightMargin: Foundations.spacing.s
                 anchors.top: summary.bottom
                 color: Colours.palette.m3onSurfaceVariant
                 opacity: root.expanded ? 0 : 1
@@ -344,7 +343,7 @@ Rectangle {
 
                 anchors.left: summary.left
                 anchors.right: expandBtn.left
-                anchors.rightMargin: Appearance.spacing.small
+                anchors.rightMargin: Foundations.spacing.s
                 anchors.top: summary.bottom
                 color: Colours.palette.m3onSurfaceVariant
                 height: text ? implicitHeight : 0
@@ -371,9 +370,9 @@ Rectangle {
 
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.top: body.bottom
-                anchors.topMargin: Appearance.spacing.small
+                anchors.topMargin: Foundations.spacing.s
                 opacity: root.expanded ? 1 : 0
-                spacing: Appearance.spacing.smaller
+                spacing: Foundations.spacing.xs
 
                 Behavior on opacity {
                     BasicNumberAnimation {
@@ -407,12 +406,12 @@ Rectangle {
 
         property var actionData
 
-        Layout.preferredHeight: actionText.height + Appearance.padding.small * 2
-        Layout.preferredWidth: actionText.width + Appearance.padding.normal * 2
+        Layout.preferredHeight: actionText.height + Foundations.spacing.xxs * 2
+        Layout.preferredWidth: actionText.width + Foundations.spacing.s * 2
         color: root.urgency === NotificationUrgency.Critical ? Colours.palette.m3secondary : Colours.palette.m3surfaceContainerHigh
-        implicitHeight: actionText.height + Appearance.padding.small * 2
-        implicitWidth: actionText.width + Appearance.padding.normal * 2
-        radius: Appearance.rounding.full
+        implicitHeight: actionText.height + Foundations.spacing.xxs * 2
+        implicitWidth: actionText.width + Foundations.spacing.s * 2
+        radius: Foundations.radius.all
 
         InteractiveArea {
             function onClicked(): void {
@@ -426,7 +425,7 @@ Rectangle {
             }
 
             color: root.urgency === NotificationUrgency.Critical ? Colours.palette.m3onSecondary : Colours.palette.m3onSurface
-            radius: Appearance.rounding.full
+            radius: Foundations.radius.all
         }
         DsText.BodyS {
             id: actionText
@@ -441,7 +440,7 @@ Rectangle {
             elide: Text.ElideRight
             elideWidth: {
                 const numActions = root.actionsArray.length + 1;
-                return (inner.width - actions.spacing * (numActions - 1)) / numActions - Appearance.padding.normal * 2;
+                return (inner.width - actions.spacing * (numActions - 1)) / numActions - Foundations.spacing.s * 2;
             }
             font.family: actionText.font.family
             font.pointSize: actionText.font.pointSize
