@@ -15,10 +15,8 @@ MouseArea {
     required property Popups.Wrapper popouts
     required property ShellScreen screen
     required property PersistentProperties visibilities
-
-    // ToDo: This params must override
-    property int margin: Foundations.spacing.s
-    property int radius: Foundations.radius.l
+    required property int margin
+    required property int radius
 
     function inBottomPanel(panel: Item, x: real, y: real): bool {
         return y > root.height - root.margin - panel.height - radius && withinPanelWidth(panel, x, y);

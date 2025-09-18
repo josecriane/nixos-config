@@ -18,11 +18,10 @@ Item {
     required property ShellScreen screen
     readonly property Session.Wrapper session: session
     required property PersistentProperties visibilities
-
-    property int thickness: Foundations.spacing.s
+    required property int margin
 
     anchors.fill: parent
-    anchors.margins: thickness
+    anchors.margins: margin
     anchors.topMargin: bar.implicitHeight
 
     Osd.Wrapper {
@@ -63,7 +62,7 @@ Item {
 
         screen: root.screen
         x: {
-            const off = currentCenter - root.thickness - nonAnimWidth / 2;
+            const off = currentCenter - root.margin - nonAnimWidth / 2;
             const diff = root.width - Math.floor(off + nonAnimWidth);
             if (diff < 0)
                 return off + diff;

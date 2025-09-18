@@ -9,10 +9,8 @@ Item {
     id: root
 
     required property Item bar
-
-        // ToDo: This params must override
-    property int margin: Foundations.spacing.s
-    property int radius: Foundations.radius.l
+    required property int margin
+    required property int radius
 
     anchors.fill: parent
 

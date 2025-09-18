@@ -20,8 +20,7 @@ ShapePath {
         BottomRight
     }
 
-    // ToDo: Review
-    readonly property real radius: Foundations.radius.l
+    required property real radius
 
     property int bottomLeftCorner: {
         if (isBottomBorder && !isLeftBorder)

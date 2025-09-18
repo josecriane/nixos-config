@@ -118,7 +118,6 @@ Singleton {
         running: false
     }
 
-    // ToDo Review:
     Process {
         id: focusedOutputProcess
 

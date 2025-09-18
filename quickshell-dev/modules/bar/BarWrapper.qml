@@ -9,17 +9,15 @@ import qs.ds.animations
 Item {
     id: root
 
-    readonly property int contentHeight: innerHeight + padding * 2
+    readonly property int contentHeight: barHeight + margin * 2
     readonly property int exclusiveZone: 0
     property bool isHovered
     required property BarPopouts.Wrapper popouts
     required property ShellScreen screen
     readonly property bool shouldBeVisible: true
     required property PersistentProperties visibilities
-
-    // ToDo: review if this will
-    property int padding: Foundations.spacing.s
-    property int innerHeight: 30
+    required property int margin
+    required property int barHeight
 
     function checkPopout(x: real): void {
         content.item?.checkPopout(x);
@@ -40,7 +38,7 @@ Item {
 
         sourceComponent: Bar {
             height: root.contentHeight
-            innerHeight: root.innerHeight
+            innerHeight: root.barHeight
             popouts: root.popouts
             screen: root.screen
             visibilities: root.visibilities

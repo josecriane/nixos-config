@@ -13,7 +13,6 @@ Singleton {
     property bool wifiEnabled: true
 
     function connectToNetwork(ssid: string, password: string): void {
-        // TODO: Implement password
         connectProc.exec(["nmcli", "conn", "up", ssid]);
     }
     function disconnectFromNetwork(): void {

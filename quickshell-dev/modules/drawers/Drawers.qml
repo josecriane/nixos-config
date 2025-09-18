@@ -10,6 +10,12 @@ import QtQuick.Effects
 import qs.ds.animations
 
 Variants {
+    id: root
+
+    required property int marginSize
+    required property int radiusSize
+    required property int barSize
+
     model: Quickshell.screens
 
     Scope {
@@ -17,11 +23,9 @@ Variants {
 
         required property ShellScreen modelData
 
-        // ToDo: This params must override
-        property int margin: Foundations.spacing.s
-
         Exclusions {
             bar: bar
+            margin: root.marginSize
             screen: scope.modelData
         }
         PanelWindow {
@@ -38,11 +42,11 @@ Variants {
             screen: scope.modelData
 
             mask: Region {
-                height: win.height - bar.implicitHeight - margin
+                height: win.height - bar.implicitHeight - root.marginSize
                 intersection: Intersection.Xor
                 regions: regions.instances
-                width: win.width - margin * 2
-                x: margin
+                width: win.width - root.marginSize * 2
+                x: root.marginSize
                 y: bar.implicitHeight
             }
 
@@ -57,10 +61,11 @@ Variants {
                     height: modelData.visible ? modelData.height : 0
                     intersection: Intersection.Subtract
                     width: modelData.visible ? modelData.width : 0
-                    x: modelData.x + margin
+                    x: modelData.x + root.marginSize
                     y: modelData.y + bar.implicitHeight
                 }
             }
+            // ToDo: This rectanble must be property of Session
             Rectangle {
                 anchors.fill: parent
                 color: "#000000"
@@ -84,10 +89,14 @@ Variants {
 
                 Border {
                     bar: bar
+                    margin: root.marginSize
+                    radius: root.radiusSize
                 }
                 Backgrounds {
                     bar: bar
                     panels: panels
+                    margin: root.marginSize
+                    radius: root.radiusSize
                 }
             }
             PersistentProperties {
@@ -107,6 +116,8 @@ Variants {
                 popouts: panels.popouts
                 screen: scope.modelData
                 visibilities: visibilities
+                margin: root.marginSize
+                radius: root.radiusSize
 
                 Panels {
                     id: panels
@@ -114,6 +125,7 @@ Variants {
                     bar: bar
                     screen: scope.modelData
                     visibilities: visibilities
+                    margin: root.marginSize
                 }
                 BarWrapper {
                     id: bar
@@ -124,6 +136,8 @@ Variants {
                     popouts: panels.popouts
                     screen: scope.modelData
                     visibilities: visibilities
+                    margin: root.marginSize
+                    barHeight: root.barSize
 
                     Component.onCompleted: Visibilities.bars.set(scope.modelData, this)
                 }

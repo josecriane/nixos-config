@@ -203,18 +203,26 @@ journalctl --user -u niri
 ```
 
 ### Future Work:
-- [ ] Remove waybar, swaync, wofi
-
 - [ ] Quickshell Redo
+  - [ ] OSD
+    - [ ] Icons and values lost
+  - [ ] Moved
+    - [ ] Backgrouds to drawers/backgrounds
   - [ ] Use stylix colors
-  - [ ] Bar
-    - [ ] Maybe SystemTray and StatusIcons must be the same type of element?
-  - [ ] Foundations
-    - [ ] Review TextMetrics
   - [ ] Notifications
     - [ ] Launch notification action
-    - [ ] Group notifications
     - [ ] Refactor notificationItem
+  - [ ] Remove old niri components
+    - [ ] Waybar
+    - [ ] Swaync
+    - [ ] Wofi
+
+- [ ] Quickshell Desirable
+  - [ ] DS
+    - [ ] Review opacity animations
+    - [ ] Propagate margin and radius to all components
+  - [ ] Notifications
+    - [ ] Group notifications
   - [ ] Launcher
     - [ ] Filter .desktop apps
     - [ ] Define commands with a yml or a json

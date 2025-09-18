@@ -10,9 +10,7 @@ Scope {
 
     required property Item bar
     required property ShellScreen screen
-
-    // ToDo: This params must override
-    property int margin: Foundations.spacing.s
+    required property int margin
 
     ExclusionZone {
         anchors.left: true
