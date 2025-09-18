@@ -21,9 +21,26 @@ Item {
 
     anchors.right: parent.right
     anchors.top: parent.top
-    anchors.bottom: parent.bottom
-    implicitHeight: isAutoMode ? autoModeHeight : parent.height
     implicitWidth: listWrapper.width + padding * 2
+    
+    states: [
+        State {
+            name: "autoMode"
+            when: isAutoMode
+            PropertyChanges {
+                target: root
+                height: autoModeHeight
+            }
+        },
+        State {
+            name: "normalMode"  
+            when: !isAutoMode
+            PropertyChanges {
+                target: root
+                height: parent.height
+            }
+        }
+    ]
 
     Item {
         id: listWrapper
@@ -32,8 +49,8 @@ Item {
         anchors.rightMargin: root.padding
         anchors.top: parent.top
         anchors.topMargin: root.padding
-        anchors.bottom: parent.bottom
-        implicitHeight: root.isAutoMode ? autoModeHeight : parent.height
+        anchors.bottom: root.isAutoMode ? undefined : parent.bottom
+        height: root.isAutoMode ? list.contentHeight : undefined
         implicitWidth: list.width
 
         NotificationList {

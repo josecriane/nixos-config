@@ -78,7 +78,11 @@ Item {
                     delegate: NotificationItem {
                         required property int index
 
-                        modelData: root.isAutoMode ? NotificationService.popups[index] : NotificationService.list[index]
+                        modelData: {
+                            const list = root.isAutoMode ? NotificationService.popups : NotificationService.list;
+                            const reverseIndex = list.length - 1 - index;
+                            return reverseIndex >= 0 && reverseIndex < list.length ? list[reverseIndex] : null;
+                        }
                         width: root.width - root.padding
                     }
                 }

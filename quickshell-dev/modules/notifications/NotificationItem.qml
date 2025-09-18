@@ -18,13 +18,23 @@ Rectangle {
     id: root
 
     property bool expanded
-    readonly property bool hasAppIcon: modelData.appIcon.length > 0
-    readonly property bool hasImage: modelData.image.length > 0
+    readonly property bool hasAppIcon: modelData?.appIcon?.length > 0
+    readonly property bool hasImage: modelData?.image?.length > 0
     required property NotificationModel modelData
     readonly property int nonAnimHeight: summary.implicitHeight + (root.expanded ? appName.height + body.height + actions.height + actions.anchors.topMargin : bodyPreview.height) + inner.anchors.margins * 2
+    
+    // Safe properties with defaults
+    readonly property int urgency: modelData?.urgency ?? NotificationUrgency.Normal
+    readonly property string appIconStr: modelData?.appIcon ?? ""
+    readonly property string summaryStr: modelData?.summary ?? ""
+    readonly property var actionsArray: modelData?.actions ?? []
+    readonly property string imageStr: modelData?.image ?? ""
+    readonly property string appNameStr: modelData?.appName ?? ""
+    readonly property string bodyStr: modelData?.body ?? ""
+    readonly property string timeStr: modelData?.timeStr ?? ""
 
     anchors.horizontalCenter: parent.horizontalCenter
-    color: root.modelData.urgency === NotificationUrgency.Critical ? Colours.palette.m3secondaryContainer : Colours.palette.m3surfaceContainer
+    color: root.urgency === NotificationUrgency.Critical ? Colours.palette.m3secondaryContainer : Colours.palette.m3surfaceContainer
     implicitHeight: inner.implicitHeight
     implicitWidth: 400
     radius: Appearance.rounding.normal
@@ -43,7 +53,7 @@ Rectangle {
                 return;
 
             if (root.modelData) {
-                const actions = root.modelData.actions;
+                const actions = root.actionsArray;
                 if (Config.notifs.actionOnClick && actions?.length === 1 && actions[0] && !actions[0].destroyed) {
                     try {
                         actions[0].invoke();
@@ -118,7 +128,7 @@ Rectangle {
                         asynchronous: true
                         cache: false
                         fillMode: Image.PreserveAspectCrop
-                        source: Qt.resolvedUrl(root.modelData.image)
+                        source: Qt.resolvedUrl(root.imageStr)
                     }
                 }
             }
@@ -133,7 +143,7 @@ Rectangle {
                 asynchronous: true
 
                 sourceComponent: Rectangle {
-                    color: root.modelData.urgency === NotificationUrgency.Critical ? Colours.palette.m3error : root.modelData.urgency === NotificationUrgency.Low ? Colours.palette.m3surfaceContainerHighest : Colours.palette.m3secondaryContainer
+                    color: root.urgency === NotificationUrgency.Critical ? Colours.palette.m3error : root.urgency === NotificationUrgency.Low ? Colours.palette.m3surfaceContainerHighest : Colours.palette.m3secondaryContainer
                     implicitHeight: root.hasImage ? 20 : 41
                     implicitWidth: root.hasImage ? 20 : 41
                     radius: Appearance.rounding.full
@@ -150,7 +160,7 @@ Rectangle {
                         sourceComponent: IconImage {
                             anchors.fill: parent
                             asynchronous: true
-                            source: Quickshell.iconPath(root.modelData.appIcon)
+                            source: Quickshell.iconPath(root.appIconStr)
                         }
                     }
                     Loader {
@@ -161,9 +171,9 @@ Rectangle {
                         asynchronous: true
 
                         sourceComponent: Icons.MaterialFontIcon {
-                            color: root.modelData.urgency === NotificationUrgency.Critical ? Colours.palette.m3onError : root.modelData.urgency === NotificationUrgency.Low ? Colours.palette.m3onSurface : Colours.palette.m3onSecondaryContainer
+                            color: root.urgency === NotificationUrgency.Critical ? Colours.palette.m3onError : root.urgency === NotificationUrgency.Low ? Colours.palette.m3onSurface : Colours.palette.m3onSecondaryContainer
                             font.pointSize: Appearance.font.size.large
-                            text: Utils.Icons.getNotifIcon(root.modelData.summary, root.modelData.urgency)
+                            text: Utils.Icons.getNotifIcon(root.summaryStr, root.urgency)
                         }
                     }
                 }
@@ -191,7 +201,7 @@ Rectangle {
                 elideWidth: expandBtn.x - time.width - timeSep.width - summary.x - Appearance.spacing.small * 3
                 font.family: appName.font.family
                 font.pointSize: appName.font.pointSize
-                text: root.modelData.appName
+                text: root.appNameStr
             }
             DsText.BodyM {
                 id: summary
@@ -238,7 +248,7 @@ Rectangle {
                 elideWidth: expandBtn.x - time.width - timeSep.width - summary.x - Appearance.spacing.small * 3
                 font.family: summary.font.family
                 font.pointSize: summary.font.pointSize
-                text: root.modelData.summary
+                text: root.summaryStr
             }
             DsText.BodyS {
                 id: timeSep
@@ -274,7 +284,7 @@ Rectangle {
                 anchors.top: parent.top
                 color: Colours.palette.m3onSurfaceVariant
                 horizontalAlignment: Text.AlignLeft
-                text: root.modelData.timeStr
+                text: root.timeStr
             }
             Item {
                 id: expandBtn
@@ -289,7 +299,7 @@ Rectangle {
                         root.expanded = !root.expanded;
                     }
 
-                    color: root.modelData.urgency === NotificationUrgency.Critical ? Colours.palette.m3onSecondaryContainer : Colours.palette.m3onSurface
+                    color: root.urgency === NotificationUrgency.Critical ? Colours.palette.m3onSecondaryContainer : Colours.palette.m3onSurface
                     radius: Appearance.rounding.full
                 }
                 Icons.MaterialFontIcon {
@@ -325,7 +335,7 @@ Rectangle {
                 elideWidth: bodyPreview.width
                 font.family: bodyPreview.font.family
                 font.pointSize: bodyPreview.font.pointSize
-                text: root.modelData.body
+                text: root.bodyStr
             }
             DsText.BodyS {
                 id: body
@@ -339,7 +349,7 @@ Rectangle {
                 color: Colours.palette.m3onSurfaceVariant
                 height: text ? implicitHeight : 0
                 opacity: root.expanded ? 1 : 0
-                text: root.modelData.body
+                text: root.bodyStr
                 textFormat: Text.MarkdownText
                 wrapMode: Text.WrapAtWordBoundaryOrAnywhere
 
@@ -382,7 +392,7 @@ Rectangle {
                     }
                 }
                 Repeater {
-                    model: root.modelData.actions
+                    model: root.actionsArray
 
                     delegate: Action {
                         actionData: modelData
@@ -399,7 +409,7 @@ Rectangle {
 
         Layout.preferredHeight: actionText.height + Appearance.padding.small * 2
         Layout.preferredWidth: actionText.width + Appearance.padding.normal * 2
-        color: root.modelData.urgency === NotificationUrgency.Critical ? Colours.palette.m3secondary : Colours.palette.m3surfaceContainerHigh
+        color: root.urgency === NotificationUrgency.Critical ? Colours.palette.m3secondary : Colours.palette.m3surfaceContainerHigh
         implicitHeight: actionText.height + Appearance.padding.small * 2
         implicitWidth: actionText.width + Appearance.padding.normal * 2
         radius: Appearance.rounding.full
@@ -415,14 +425,14 @@ Rectangle {
                 }
             }
 
-            color: root.modelData.urgency === NotificationUrgency.Critical ? Colours.palette.m3onSecondary : Colours.palette.m3onSurface
+            color: root.urgency === NotificationUrgency.Critical ? Colours.palette.m3onSecondary : Colours.palette.m3onSurface
             radius: Appearance.rounding.full
         }
         DsText.BodyS {
             id: actionText
 
             anchors.centerIn: parent
-            color: root.modelData.urgency === NotificationUrgency.Critical ? Colours.palette.m3onSecondary : Colours.palette.m3onSurfaceVariant
+            color: root.urgency === NotificationUrgency.Critical ? Colours.palette.m3onSecondary : Colours.palette.m3onSurfaceVariant
             text: actionTextMetrics.elidedText
         }
         TextMetrics {
@@ -430,12 +440,12 @@ Rectangle {
 
             elide: Text.ElideRight
             elideWidth: {
-                const numActions = root.modelData.actions.length + 1;
+                const numActions = root.actionsArray.length + 1;
                 return (inner.width - actions.spacing * (numActions - 1)) / numActions - Appearance.padding.normal * 2;
             }
             font.family: actionText.font.family
             font.pointSize: actionText.font.pointSize
-            text: action.actionData ? action.actionData.text : ""
+            text: action.actionData?.text ?? ""
         }
     }
 }

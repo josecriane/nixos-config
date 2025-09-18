@@ -208,8 +208,10 @@ journalctl --user -u niri
 - [ ] Quickshell Redo
   - [ ] Use stylix colors
   - [ ] Notifications
+    - [ ] Launch notification action
+    - [ ] Group notifications
+    - [ ] Reverse notificition list no notification center
     - [ ] Refactor notificationItem
-    - [ ] Detect sharing to disable notification popups
   - [ ] Launcher
     - [ ] Filter .desktop apps
     - [ ] Define commands with a yml or a json

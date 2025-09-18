@@ -18,7 +18,7 @@ BackgroundWrapper {
     required property PersistentProperties visibilities
 
     clip: true
-    implicitHeight: isAutoMode ? content.implicitHeight : parent.height
+    implicitHeight: isAutoMode ? content.height : parent.height
     implicitWidth: nonAnimWidth
     visible: height > 0
 
