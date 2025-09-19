@@ -205,7 +205,6 @@ journalctl --user -u niri
 ### Future Work:
 - [ ] Quickshell Redo
   - [ ] Notifications
-    - [ ] Launch notification action
     - [ ] Refactor notificationItem
   - [ ] Remove old niri components
     - [ ] Waybar

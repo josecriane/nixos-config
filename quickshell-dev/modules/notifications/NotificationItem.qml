@@ -395,7 +395,7 @@ Rectangle {
                     model: root.actionsArray
 
                     delegate: Action {
-                        actionData: modelData
+                        actionData: root.actionsArray[index]
                     }
                 }
             }
