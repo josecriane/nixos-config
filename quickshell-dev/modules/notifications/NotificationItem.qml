@@ -12,39 +12,47 @@ import QtQuick
 import QtQuick.Layouts
 import qs.ds.animations
 import qs.ds.text as DsText
+import qs.ds.buttons as Buttons
+import qs.ds.buttons.circularButtons as CircularButtons
 
 Rectangle {
     id: root
 
-    property bool expanded
-    readonly property bool hasAppIcon: modelData?.appIcon?.length > 0
-    readonly property bool hasImage: modelData?.image?.length > 0
-    required property NotificationModel modelData
-    readonly property int nonAnimHeight: summary.implicitHeight + (root.expanded ? appName.height + body.height + actions.height + actions.anchors.topMargin : bodyPreview.height) + inner.anchors.margins * 2
-    
-    // Safe properties with defaults
-    readonly property int urgency: modelData?.urgency ?? NotificationUrgency.Normal
-    readonly property string appIconStr: modelData?.appIcon ?? ""
-    readonly property string summaryStr: modelData?.summary ?? ""
-    readonly property var actionsArray: modelData?.actions ?? []
-    readonly property string imageStr: modelData?.image ?? ""
-    readonly property string appNameStr: modelData?.appName ?? ""
-    readonly property string bodyStr: modelData?.body ?? ""
-    readonly property string timeStr: modelData?.timeStr ?? ""
-
+    // ToDo if will be hardcoded
     readonly property color criticalBackgroundColor: Foundations.palette.base08
     readonly property color lowBackgroundColor: Foundations.palette.base03
 
+    required property Notification notification
+    required property int notificationWidth 
+
+    property bool expanded
+    readonly property bool isCritical: notification.urgency === NotificationUrgency.Critical
+    readonly property bool isLow: notification.urgency === NotificationUrgency.Low
+
+    function toggleExpanded() {
+        root.expanded = !root.expanded
+    }
+    
+    readonly property bool hasAppIcon: notification.appIcon !== ""
+    readonly property bool hasImage: notification.image !== ""
+    readonly property int nonAnimHeight: summary.implicitHeight + (root.expanded ? appName.height + body.height + actions.height + actions.anchors.topMargin : bodyPreview.height) + inner.anchors.margins * 2
+    
+    // Safe properties with defaults
+    readonly property string appIconStr: notification.appIcon ?? ""
+    readonly property string summaryStr: notification.summary ?? ""
+    readonly property string imageStr: notification?.image ?? ""
+    readonly property string appNameStr: notification?.appName ?? ""
+    readonly property string bodyStr: notification?.body ?? ""
+    readonly property string timeStr: notification?.timeStr ?? ""
+
     anchors.horizontalCenter: parent.horizontalCenter
-    color: root.urgency === NotificationUrgency.Critical ? Foundations.palette.base04 : Foundations.palette.base02
+    color: root.isCritical ? Foundations.palette.base04 : Foundations.palette.base02
     implicitHeight: inner.implicitHeight
-    implicitWidth: 400
+    implicitWidth: notificationWidth
     radius: Foundations.radius.m
 
     MouseArea {
-        property int startY
-
-        acceptedButtons: Qt.LeftButton | Qt.MiddleButton
+        acceptedButtons: Qt.LeftButton
         anchors.fill: parent
         cursorShape: root.expanded && body.hoveredLink ? Qt.PointingHandCursor : pressed ? Qt.ClosedHandCursor : undefined
         hoverEnabled: true
@@ -54,45 +62,25 @@ Rectangle {
             if (event.button !== Qt.LeftButton)
                 return;
 
-            if (root.modelData) {
-                const actions = root.actionsArray;
-                if (actions?.length === 1 && actions[0] && !actions[0].destroyed) {
-                    try {
-                        actions[0].invoke();
-                        NotificationService.deleteNotification(root.modelData);
-                    } catch (e) {
-                        console.warn("Failed to invoke action:", e);
-                        NotificationService.deleteNotification(root.modelData);
-                    }
-                } else if (actions?.length > 1) {
-                    // Show actions (expand if not already expanded)
-                    root.expanded = true;
-                } else {
-                    // Default behavior: just dismiss
-                    NotificationService.deleteNotification(root.modelData);
-                }
+            switch (root.notification.actions.length) {
+                case 0:
+                    root.notification.dismiss()
+                    return
+                case 1:
+                    root.notification.actions.invoke()
+                    return
+                default:
+                    root.toggleExpanded()
             }
         }
-        onEntered: {
-            if (root.modelData && root.modelData.hideTimer)
-                root.modelData.hideTimer.stop();
-        }
-        onExited: {
-            if (!pressed && root.modelData && root.modelData.hideTimer)
-                root.modelData.hideTimer.start();
-        }
-        onPressed: event => {
-            if (root.modelData && root.modelData.hideTimer)
-                root.modelData.hideTimer.stop();
-            startY = event.y;
-            if (event.button === Qt.MiddleButton && root.modelData)
-                NotificationService.deleteNotification(root.modelData);
-        }
-        onReleased: event => {
-            if (!containsMouse && root.modelData && root.modelData.hideTimer)
-                root.modelData.hideTimer.start();
-        }
-
+        // onEntered: {
+        //     if (root.modelData && root.modelData.hideTimer)
+        //         root.modelData.hideTimer.stop();
+        // }
+        // onExited: {
+        //     if (!pressed && root.modelData && root.modelData.hideTimer)
+        //         root.modelData.hideTimer.start();
+        // }
         Item {
             id: inner
 
@@ -143,7 +131,7 @@ Rectangle {
                 asynchronous: true
 
                 sourceComponent: Rectangle {
-                    color: root.urgency === NotificationUrgency.Critical ? root.criticalBackgroundColor : root.urgency === NotificationUrgency.Low ? Foundations.palette.base04 : Foundations.palette.base04
+                    color: root.isCritical ? root.criticalBackgroundColor : Foundations.palette.base04
                     implicitHeight: root.hasImage ? 20 : 41
                     implicitWidth: root.hasImage ? 20 : 41
                     radius: Foundations.radius.all
@@ -171,9 +159,9 @@ Rectangle {
                         asynchronous: true
 
                         sourceComponent: Icons.MaterialFontIcon {
-                            color: root.urgency === NotificationUrgency.Critical ? root.criticalBackgroundColor : root.urgency === NotificationUrgency.Low ? Foundations.palette.base07 : Foundations.palette.base0F
+                            color: root.isCritical ? root.criticalBackgroundColor : root.isLow? Foundations.palette.base07 : Foundations.palette.base0F
                             font.pointSize: Foundations.font.size.l
-                            text: Services.IconsService.getNotifIcon(root.summaryStr, root.urgency)
+                            text: Services.IconsService.getNotifIcon(root.summaryStr, root.notification.urgency)
                         }
                     }
                 }
@@ -286,29 +274,16 @@ Rectangle {
                 horizontalAlignment: Text.AlignLeft
                 text: root.timeStr
             }
-            Item {
+            CircularButtons.S {
                 id: expandBtn
 
                 anchors.right: parent.right
                 anchors.top: parent.top
-                implicitHeight: expandIcon.height
-                implicitWidth: expandIcon.height
 
-                InteractiveArea {
-                    function onClicked() {
-                        root.expanded = !root.expanded;
-                    }
+                icon: root.expanded ? "expand_less" : "expand_more"
 
-                    color: root.urgency === NotificationUrgency.Critical ? Foundations.palette.base0F : Foundations.palette.base07
-                    radius: Foundations.radius.all
-                }
-                Icons.MaterialFontIcon {
-                    id: expandIcon
-
-                    anchors.centerIn: parent
-                    animate: true
-                    font.pointSize: Foundations.font.size.m
-                    text: root.expanded ? "expand_less" : "expand_more"
+                onClicked: {
+                    root.toggleExpanded()
                 }
             }
             DsText.BodyS {
@@ -340,8 +315,6 @@ Rectangle {
             DsText.BodyS {
                 id: body
 
-                property string hoveredLink
-
                 anchors.left: summary.left
                 anchors.right: expandBtn.left
                 anchors.rightMargin: Foundations.spacing.s
@@ -356,14 +329,6 @@ Rectangle {
                 Behavior on opacity {
                     BasicNumberAnimation {
                     }
-                }
-
-                onLinkActivated: link => {
-                    if (!root.expanded)
-                        return;
-
-                    Quickshell.execDetached(["app2unit", "-O", "--", link]);
-                    NotificationService.deleteNotification(root.modelData);
                 }
             }
             RowLayout {
@@ -380,72 +345,39 @@ Rectangle {
                     }
                 }
 
-                Action {
-                    actionData: QtObject {
-                        readonly property string text: qsTr("Close")
+                ActionButton {
+                    text: qsTr("Close")
+                    leftIcon: "close"
+                    visible: true
 
-                        function invoke(): void {
-                            if (root.modelData) {
-                                NotificationService.deleteNotification(root.modelData);
-                            }
-                        }
+                    onClicked: {
+                        root.notification.dismiss()
                     }
                 }
-                Repeater {
-                    model: root.actionsArray
 
-                    delegate: Action {
-                        actionData: root.actionsArray[index]
+                Repeater {
+                    model: root.notification.actions
+
+                    ActionButton {
+                        required property NotificationAction modelData
+
+                        text: qsTr(modelData.text ?? "")
+                        leftIcon: ""
+                        visible: true
+
+                        onClicked: {
+                            modelData.invoke()
+                        }
                     }
                 }
             }
         }
     }
 
-    component Action: Rectangle {
-        id: action
+    component ActionButton: Buttons.PrimaryButton {
+        id: actionButton
 
-        property var actionData
-
-        Layout.preferredHeight: actionText.height + Foundations.spacing.xxs * 2
-        Layout.preferredWidth: actionText.width + Foundations.spacing.s * 2
-        color: root.urgency === NotificationUrgency.Critical ? Foundations.palette.base0D : root.lowBackgroundColor
-        implicitHeight: actionText.height + Foundations.spacing.xxs * 2
-        implicitWidth: actionText.width + Foundations.spacing.s * 2
-        radius: Foundations.radius.all
-
-        InteractiveArea {
-            function onClicked(): void {
-                if (action.actionData && !action.actionData.destroyed) {
-                    try {
-                        action.actionData.invoke();
-                    } catch (e) {
-                        console.warn("Failed to invoke action:", e);
-                    }
-                }
-            }
-
-            color: root.urgency === NotificationUrgency.Critical ? Foundations.palette.base0E : Foundations.palette.base07
-            radius: Foundations.radius.all
-        }
-        DsText.BodyS {
-            id: actionText
-
-            anchors.centerIn: parent
-            color: root.urgency === NotificationUrgency.Critical ? Foundations.palette.base0E : Foundations.palette.base04
-            text: actionTextMetrics.elidedText
-        }
-        TextMetrics {
-            id: actionTextMetrics
-
-            elide: Text.ElideRight
-            elideWidth: {
-                const numActions = root.actionsArray.length + 1;
-                return (inner.width - actions.spacing * (numActions - 1)) / numActions - Foundations.spacing.s * 2;
-            }
-            font.family: actionText.font.family
-            font.pointSize: actionText.font.pointSize
-            text: action.actionData?.text ?? ""
-        }
+        property color backgroundColor: root.isCritical ? Foundations.palette.base09 : Foundations.palette.base07
+        property color foregroundColor: root.isCritical ? Foundations.palette.base01 : Foundations.palette.base04
     }
 }

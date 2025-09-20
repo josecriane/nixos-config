@@ -61,4 +61,31 @@ QtObject {
     function hide() {
         popup = false;
     }
+    
+    function invoke(index: int) {
+        // Invoke an action at the given index
+        if (index >= 0 && index < actions.length) {
+            actions[index].invoke();
+        }
+    }
+    
+    function dismiss() {
+        // Dismiss the notification (close it and notify the sender)
+        if (notification) {
+            notification.dismiss();
+        }
+    }
+    
+    function close() {
+        // Clean up and destroy this model
+        if (hideTimer) {
+            hideTimer.stop();
+            hideTimer.destroy();
+            hideTimer = null;
+        }
+        if (notification) {
+            notification.tracked = false;
+        }
+        // The actual destroy will be called by the service
+    }
 }

@@ -67,6 +67,8 @@ Variants {
             }
             // ToDo: This rectanble must be property of Session
             Rectangle {
+                id: disabledBackground
+
                 anchors.fill: parent
                 color: "#000000"
                 opacity: visibilities.session ? 0.5 : 0

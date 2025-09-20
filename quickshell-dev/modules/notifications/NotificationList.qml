@@ -13,6 +13,8 @@ import QtQuick.Layouts
 Item {
     id: root
 
+    readonly property int notificationWidth: 600
+
     property bool isAutoMode: false
     readonly property real contentHeight: {
         if (isAutoMode) {
@@ -27,7 +29,7 @@ Item {
     required property var wrapper
 
     anchors.fill: parent
-    implicitWidth: 400
+    width: notificationWidth + padding
 
     ColumnLayout {
         id: columnLayout
@@ -47,7 +49,7 @@ Item {
             icon: "delete"
             
             onClicked: {
-                NotificationService.deleteAllNotifications();
+                NotificationService.clearNotifications()
             }
         }
 
@@ -71,17 +73,18 @@ Item {
                 spacing: Foundations.spacing.s
 
                 Repeater {
-                    model: root.isAutoMode ? NotificationService.popups.length : NotificationService.list.length
+                    model: root.isAutoMode ? NotificationService.popups.length : NotificationService.notifications.length
 
                     delegate: NotificationItem {
                         required property int index
 
-                        modelData: {
-                            const list = root.isAutoMode ? NotificationService.popups : NotificationService.list;
+                        notification: {
+                            const list = root.isAutoMode ? NotificationService.popups : NotificationService.notifications;
                             const reverseIndex = list.length - 1 - index;
                             return reverseIndex >= 0 && reverseIndex < list.length ? list[reverseIndex] : null;
                         }
-                        width: root.width - root.padding
+
+                        notificationWidth: root.notificationWidth
                     }
                 }
             }

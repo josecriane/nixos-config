@@ -212,6 +212,7 @@ journalctl --user -u niri
     - [ ] Wofi
 
 - [ ] Quickshell work after merge
+  - [ ] Add local flake to install Quickshell
   - [ ] Use stylix colors
   - [ ] DS
     - [ ] Review opacity animations

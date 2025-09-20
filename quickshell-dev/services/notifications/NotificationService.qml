@@ -10,54 +10,15 @@ import QtQuick
 Singleton {
     id: root
 
-    readonly property list<NotificationModel> list: []
-    readonly property list<NotificationModel> popups: list.filter(n => n.popup)
+    // TODO: Redesign using direct Notification objects
+    readonly property list<Notification> notifications: server.trackedNotifications.values
+    property list<Notification> popups: []
 
     property int defaultExpireTimeout: 5000
 
-    function addNotification(notification) {
-        const notif = notifComp.createObject(root, {
-            popup: !ScreenShare.isSharing,
-            expireTimeout: notification.expireTimeout >= 0 ? notification.expireTimeout : root.defaultExpireTimeout,
-            notification: notification
-        });
-
-        root.list.push(notif);
-
-        const timer = timerComp.createObject(notif, {
-            interval: notif.expireTimeout,
-            notifModel: notif
-        });
-        timer.start();
-        
-        notif.hideTimer = timer;
-    }
-    function deleteAllNotifications() {
-        for (const notif of root.list) {
-            if (notif.hideTimer) {
-                notif.hideTimer.stop();
-                notif.hideTimer.destroy();
-            }
-            if (notif.notification && !notif.notification.destroyed) {
-                notif.notification.tracked = false;
-            }
-            notif.destroy();
-        }
-        root.list = [];
-    }
-    function deleteNotification(notificationModel) {
-        const notification = notificationModel.notification
-        if (notificationModel.hideTimer) {
-            notificationModel.hideTimer.stop();
-            notificationModel.hideTimer.destroy();
-        }
-        if (notification && !notification.destroyed) {
-            notification.tracked = false;
-        }
-        
-        const index = root.list.indexOf(notificationModel);
-        root.list.splice(index, 1);
-        notificationModel.destroy();
+    function clearNotifications() {
+        for (const notification  of root.notifications)
+            notification.dismiss()
     }
 
     NotificationServer {
@@ -68,35 +29,41 @@ Singleton {
         bodyImagesSupported: true
         bodyMarkupSupported: true
         imageSupported: true
-        keepOnReload: false
+        keepOnReload: true
 
-        onNotification: notif => {
-            notif.tracked = true;
-            root.addNotification(notif);
+        onNotification: notification => {
+            console.log("Model data",  JSON.stringify(notification, null, 2))
+
+            notification.tracked = true;
+
+            root.popups.pop(notification)
+            const timer = timerComponent.createObject(notification, {
+                interval: notification.expireTimeout ?? root.defaultExpireTimeout,
+                notification: notification
+            });
         }
     }
-    Component {
-        id: notifComp
 
-        NotificationModel {
-        }
-    }
+    // TODO: Remove NotificationModel component - use Notification directly
+    // Component {
+    //     id: notifComp
+    //     NotificationModel {}
+    // }
+
     Component {
-        id: timerComp
+        id: timerComponent
         
         Timer {
-            property var notifModel
+            property var notification
             
             repeat: false
             onTriggered: {
-                if (notifModel) {
-                    notifModel.hide();
-                }
+                const index = root.popups.indexOf(notification);
+                root.popups.splice(index, 1);
 
-                if (notifModel.isTransient) {
-                    root.deleteNotification(notifModel)
+                if (notification.transient) {
+                    notification.dismiss()
                 }
-                destroy();
             }
         }
     }
