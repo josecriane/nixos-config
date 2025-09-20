@@ -35,7 +35,7 @@ Singleton {
             return "network_wifi_1_bar";
         return "signal_wifi_0_bar";
     }
-    function getNotifIcon(summary: string, urgency: int): string {
+    function getNotifIcon(summary: string): string {
         summary = summary.toLowerCase();
         if (summary.includes("reboot"))
             return "restart_alt";

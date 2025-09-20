@@ -218,6 +218,8 @@ journalctl --user -u niri
     - [ ] Review opacity animations
     - [ ] Propagate margin and radius to all components
   - [ ] Notifications
+    - [ ] Add notificationTime
+    - [ ] Don't hide notification when hover
     - [ ] Group notifications
   - [ ] Launcher
     - [ ] Filter .desktop apps

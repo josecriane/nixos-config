@@ -16,7 +16,7 @@ Rectangle {
     property color foregroundColor: Foundations.palette.base05
     property string leftIcon: ""
     property bool loading: false
-    readonly property int margin: Foundations.spacing.s
+    property int margin: Foundations.spacing.s
     property string rightIcon: ""
     property string text: ""
 
