@@ -32,7 +32,7 @@ Variants {
             id: win
 
             WlrLayershell.exclusionMode: ExclusionMode.Ignore
-            WlrLayershell.keyboardFocus: visibilities.launcher || visibilities.notifications || visibilities.session ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
+            WlrLayershell.keyboardFocus: visibilities.captureKeyboard ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
             WlrLayershell.namespace: `quickshell-drawers`
             anchors.bottom: true
             anchors.left: true
@@ -71,7 +71,7 @@ Variants {
 
                 anchors.fill: parent
                 color: "#000000"
-                opacity: visibilities.session ? 0.5 : 0
+                opacity: visibilities.captureKeyboard ? 0.5 : 0
 
                 Behavior on opacity {
                     BasicNumberAnimation {
@@ -109,6 +109,8 @@ Variants {
                 property bool notifications
                 property bool osd
                 property bool session
+
+                readonly property bool captureKeyboard: launcher | notifications | session
 
                 Component.onCompleted: Visibilities.load(scope.modelData, this)
             }
