@@ -59,7 +59,7 @@ Singleton {
             return "person";
         if (summary.includes("file"))
             return "folder_copy";
-        if (urgency === NotificationUrgency.Critical)
+        if (summary.includes("critical"))
             return "release_alert";
         return "chat";
     }

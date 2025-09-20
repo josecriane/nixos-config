@@ -17,6 +17,7 @@ Singleton {
     property int defaultExpireTimeout: 5000
 
     function clearNotifications() {
+        root.popups = []
         for (const notification  of root.notifications)
             notification.dismiss()
     }
@@ -32,23 +33,25 @@ Singleton {
         keepOnReload: true
 
         onNotification: notification => {
-            console.log("Model data",  JSON.stringify(notification, null, 2))
-
             notification.tracked = true;
 
-            root.popups.pop(notification)
+            root.popups.push(notification)
+            
+            // Connect to notification closed signal to clean up
+            notification.closed.connect(() => {
+                const index = root.popups.indexOf(notification);
+                if (index >= 0) {
+                    root.popups.splice(index, 1);
+                }
+            });
+            
             const timer = timerComponent.createObject(notification, {
-                interval: notification.expireTimeout ?? root.defaultExpireTimeout,
+                interval: notification.expireTimeout > 0 ? notification.expireTimeout : root.defaultExpireTimeout,
                 notification: notification
             });
+            timer.start()
         }
     }
-
-    // TODO: Remove NotificationModel component - use Notification directly
-    // Component {
-    //     id: notifComp
-    //     NotificationModel {}
-    // }
 
     Component {
         id: timerComponent
@@ -59,7 +62,10 @@ Singleton {
             repeat: false
             onTriggered: {
                 const index = root.popups.indexOf(notification);
-                root.popups.splice(index, 1);
+                
+                if (index >= 0) {
+                    root.popups.splice(index, 1);
+                }
 
                 if (notification.transient) {
                     notification.dismiss()

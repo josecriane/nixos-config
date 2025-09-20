@@ -161,7 +161,7 @@ Rectangle {
                         sourceComponent: Icons.MaterialFontIcon {
                             color: root.isCritical ? root.criticalBackgroundColor : root.isLow? Foundations.palette.base07 : Foundations.palette.base0F
                             font.pointSize: Foundations.font.size.l
-                            text: Services.IconsService.getNotifIcon(root.summaryStr, root.notification.urgency)
+                            text: Services.IconsService.getNotifIcon(root.isCritical ? "critical" : root.summaryStr)
                         }
                     }
                 }
@@ -361,7 +361,7 @@ Rectangle {
                     ActionButton {
                         required property NotificationAction modelData
 
-                        text: qsTr(modelData.text ?? "")
+                        text: qsTr(modelData?.text ?? "")
                         leftIcon: ""
                         visible: true
 
