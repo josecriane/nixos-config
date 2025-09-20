@@ -1,5 +1,5 @@
 import qs.ds
-import qs.services.notifications
+import qs.services
 import Quickshell
 import QtQuick
 import qs.ds.animations

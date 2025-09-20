@@ -1,6 +1,5 @@
 pragma ComponentBehavior: Bound
 
-import qs.services.notifications
 import qs.services
 import qs.ds
 import qs.services as Services
