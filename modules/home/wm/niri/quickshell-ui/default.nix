@@ -7,6 +7,9 @@
   ...
 }:
 {
+  imports = [
+    ./commands.nix
+  ];
   # Use the custom quickshell configuration package
   home.packages = [ 
     inputs.quickshell.packages.${pkgs.system}.default

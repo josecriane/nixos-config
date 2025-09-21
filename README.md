@@ -204,7 +204,6 @@ journalctl --user -u niri
 
 ### Future Work:
 - [ ] Quickshell work after merge
-  - [ ] Add local flake to install Quickshell
   - [ ] Use stylix colors
   - [ ] DS
     - [ ] Review opacity animations
