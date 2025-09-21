@@ -1,0 +1,3 @@
+// Composed UI specific keybinds (waybar + swaync + wofi)
+Mod+Space  repeat=false { spawn "sh" "-c" "~/.config/niri/toggle-wofi"; }
+Mod+E { spawn "wofi-emoji"; }

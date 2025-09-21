@@ -478,6 +478,25 @@
         "url": "https://git.outfoxxed.me/outfoxxed/quickshell"
       }
     },
+    "quickshell-config": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "quickshell": [
+          "quickshell"
+        ]
+      },
+      "locked": {
+        "path": "./pkgs/quickshell-config",
+        "type": "path"
+      },
+      "original": {
+        "path": "./pkgs/quickshell-config",
+        "type": "path"
+      },
+      "parent": []
+    },
     "root": {
       "inputs": {
         "agenix": "agenix",
@@ -489,6 +508,7 @@
         "nixpkgs-darwin": "nixpkgs-darwin",
         "plasma-manager": "plasma-manager",
         "quickshell": "quickshell",
+        "quickshell-config": "quickshell-config",
         "secrets": "secrets",
         "stylix": "stylix"
       }

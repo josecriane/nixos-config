@@ -10,7 +10,7 @@ Item {
     id: root
 
     readonly property int contentHeight: barHeight + margin * 2
-    readonly property int exclusiveZone: 0
+    readonly property int exclusiveZone: contentHeight
     property bool isHovered
     required property BarPopouts.Wrapper popouts
     required property ShellScreen screen

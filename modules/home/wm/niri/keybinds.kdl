@@ -1,6 +1,3 @@
-Mod+Space  repeat=false { spawn "sh" "-c" "~/.config/niri/toggle-wofi"; }
-Mod+M { spawn "quickshell" "-p" "/home/sito/nixos-config/quickshell-dev" "ipc" "call" "drawers" "toggle" "launcher"; }
-Mod+E { spawn "wofi-emoji"; }
 Mod+L { spawn "swaylock"; }
 
 Mod+F { maximize-column; }
@@ -8,7 +5,6 @@ Mod+Shift+F { fullscreen-window; }
 Mod+Q { close-window; }
 Mod+Ctrl+Q { quit skip-confirmation=true; }
 Mod+Ctrl+R { spawn "sh" "-c" "~/.config/niri/reload-niri"; }
-Mod+Shift+Q { spawn "sh" "-c" "~/.config/quickshell/start-quickshell"; }
 
 Mod+Shift+C { screenshot; }
 Mod+Alt+C { screenshot-screen; }

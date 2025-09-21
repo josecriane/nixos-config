@@ -203,14 +203,6 @@ journalctl --user -u niri
 ```
 
 ### Future Work:
-- [ ] Quickshell Redo
-  - [ ] Notifications
-    - [ ] Refactor notificationItem
-  - [ ] Remove old niri components
-    - [ ] Waybar
-    - [ ] Swaync
-    - [ ] Wofi
-
 - [ ] Quickshell work after merge
   - [ ] Add local flake to install Quickshell
   - [ ] Use stylix colors
@@ -226,6 +218,7 @@ journalctl --user -u niri
     - [ ] Separate Session commands using !
     - [ ] Launch de shortcut using #
     - [ ] Define commands with a yml or a json
+      - [ ] Screenshot. "niri msg action screenshot"
 
 - [ ] Use directory name on zellij tab name
 - [ ] Remove Electron alerts (as VSCode)

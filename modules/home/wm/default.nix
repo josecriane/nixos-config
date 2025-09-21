@@ -10,8 +10,5 @@
   imports =
     [ ]
     ++ (lib.optionals (machineOptions.wm == "plasma") [ ./plasma.nix ])
-    ++ (lib.optionals (machineOptions.wm == "niri") [
-      ./niri
-      ./quickshell
-    ]);
+    ++ (lib.optionals (machineOptions.wm == "niri") [ ./niri ]);
 }
