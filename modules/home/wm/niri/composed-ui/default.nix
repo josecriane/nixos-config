@@ -14,7 +14,6 @@
     ./wofi
   ];
 
-
   xdg.configFile."niri/start-tray-apps" = {
     executable = true;
     source = ./niri-utils/start-tray-apps.sh;

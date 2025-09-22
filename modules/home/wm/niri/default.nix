@@ -153,13 +153,21 @@ in
       spawn-at-startup "sh" "-c" "~/.config/niri/monitor-setup"
       spawn-at-startup "/run/current-system/sw/libexec/polkit-gnome-authentication-agent-1"
       spawn-at-startup "swaybg" "-i" "${config.home.homeDirectory}/docs/wallpapers/default.png" "-m" "fill"
-      ${lib.optionalString (!machineOptions.quickshell_config_enable) (builtins.readFile ./composed-ui/spawn-at-startup.kdl)}
-      ${lib.optionalString (machineOptions.quickshell_config_enable) (builtins.readFile ./quickshell-ui/spawn-at-startup.kdl)}
+      ${lib.optionalString (!machineOptions.quickshell_config_enable) (
+        builtins.readFile ./composed-ui/spawn-at-startup.kdl
+      )}
+      ${lib.optionalString (machineOptions.quickshell_config_enable) (
+        builtins.readFile ./quickshell-ui/spawn-at-startup.kdl
+      )}
 
       binds {
           ${builtins.readFile ./keybinds.kdl}
-          ${lib.optionalString (!machineOptions.quickshell_config_enable) (builtins.readFile ./composed-ui/keybinds.kdl)}
-          ${lib.optionalString (machineOptions.quickshell_config_enable) (builtins.readFile ./quickshell-ui/keybinds.kdl)}
+          ${lib.optionalString (!machineOptions.quickshell_config_enable) (
+            builtins.readFile ./composed-ui/keybinds.kdl
+          )}
+          ${lib.optionalString (machineOptions.quickshell_config_enable) (
+            builtins.readFile ./quickshell-ui/keybinds.kdl
+          )}
       }
     '';
 
