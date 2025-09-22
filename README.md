@@ -215,6 +215,7 @@ journalctl --user -u niri
   - [ ] Launcher
     - [ ] Filter .desktop apps
     - [ ] Define interactive commands with a json
+  - [ ] Fix reload quickshell
 
 - [ ] Use directory name on zellij tab name
 - [ ] Remove Electron alerts (as VSCode)

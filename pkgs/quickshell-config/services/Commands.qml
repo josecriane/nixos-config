@@ -11,8 +11,7 @@ Singleton {
     property alias sessionCommands: sessionCommandsAdapter.commands
 
     property FileView commandsFile: FileView {
-        // path: `${Quickshell.shellDir}/commands.json`
-        path: '/home/sito/.config/quickshell/commands.json'
+        path: `${Quickshell.shellDir}/commands.json`
         watchChanges: true
 
         JsonAdapter {
@@ -23,7 +22,7 @@ Singleton {
     }
     
     property FileView sessionCommandsFile: FileView {
-        path: '/home/sito/.config/quickshell/session-commands.json'
+        path: `${Quickshell.shellDir}/session-commands.json`
         watchChanges: true
 
         JsonAdapter {

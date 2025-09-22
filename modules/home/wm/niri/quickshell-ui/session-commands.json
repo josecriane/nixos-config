@@ -5,6 +5,36 @@
       "command": "swaylock",
       "icon": "lock",
       "description": "Lock the current session"
+    },
+    {
+      "name": "Logout",
+      "command": "niri msg action quit --skip-confirmation",
+      "icon": "exit_to_app",
+      "description": "End current session"
+    },
+    {
+      "name": "Reboot",
+      "command": "systemctl reboot",
+      "icon": "restart_alt",
+      "description": "Restart the computer"
+    },
+    {
+      "name": "Shutdown",
+      "command": "systemctl poweroff",
+      "icon": "power_settings_new",
+      "description": "Power off the computer"
+    },
+    {
+      "name": "Suspend",
+      "command": "systemctl suspend",
+      "icon": "bedtime",
+      "description": "Suspend the computer"
+    },
+    {
+      "name": "Reload Niri",
+      "command": "bash ~/.config/niri/reload-niri",
+      "icon": "autorenew",
+      "description": "Reload niri configuration and restart services"
     }
   ]
 }
