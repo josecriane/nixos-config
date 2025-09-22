@@ -67,7 +67,7 @@ ShapePath {
     }
     required property BackgroundWrapper wrapper
 
-    fillColor: wrapper.hasCurrent ? Foundations.palette.base01 : "transparent"
+    fillColor: wrapper.hasCurrent ?  Qt.alpha(Foundations.palette.base01, 0.95) : "transparent"
     strokeWidth: -1
 
     Behavior on fillColor {

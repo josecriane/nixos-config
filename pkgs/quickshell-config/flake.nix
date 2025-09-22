@@ -36,11 +36,61 @@
           pkgs = nixpkgsFor.${system};
           quickshellPkg = quickshell.packages.${system}.default;
 
+          # Function to replace Stylix placeholders in QML files (similar to stylix-css)
+          replaceStylixPlaceholders =
+            content: stylix:
+            if stylix == null then
+              content
+            else
+              builtins.replaceStrings
+                [
+                  "@base00@"
+                  "@base01@"
+                  "@base02@"
+                  "@base03@"
+                  "@base04@"
+                  "@base05@"
+                  "@base06@"
+                  "@base07@"
+                  "@base08@"
+                  "@base09@"
+                  "@base0A@"
+                  "@base0B@"
+                  "@base0C@"
+                  "@base0D@"
+                  "@base0E@"
+                  "@base0F@"
+                  "@monoFont@"
+                  "@sansFont@"
+                ]
+                [
+                  stylix.base00
+                  stylix.base01
+                  stylix.base02
+                  stylix.base03
+                  stylix.base04
+                  stylix.base05
+                  stylix.base06
+                  stylix.base07
+                  stylix.base08
+                  stylix.base09
+                  stylix.base0A
+                  stylix.base0B
+                  stylix.base0C
+                  stylix.base0D
+                  stylix.base0E
+                  stylix.base0F
+                  (stylix.monoFont or "CaskaydiaCove NF")
+                  (stylix.sansFont or "Rubik")
+                ]
+                content;
+
           # Function to create quickshell config with optional commands files
           mkQuickshellConfig =
             {
               commandsPath ? null,
               sessionCommandsPath ? null,
+              stylix ? null,
             }:
             pkgs.stdenv.mkDerivation rec {
               pname = "quickshell-config";
@@ -56,6 +106,22 @@
                 mkdir -p $out/share/quickshell-config
                 cp -r ds modules services shell $out/share/quickshell-config/ 2>/dev/null || true
                 cp shell.qml $out/share/quickshell-config/
+
+                # Process Foundations.qml with Stylix replacement if available
+                ${
+                  if stylix != null then
+                    ''
+                        # Use template and replace placeholders
+                        cat > $out/share/quickshell-config/ds/Foundations.qml << 'EOF'
+                      ${replaceStylixPlaceholders (builtins.readFile ./ds/Foundations.qml.template) stylix}
+                      EOF
+                    ''
+                  else
+                    ''
+                      # Use original Foundations.qml as fallback
+                      [ -f ds/Foundations.qml ] && cp ds/Foundations.qml $out/share/quickshell-config/ds/
+                    ''
+                }
 
                 # Copy commands.json if provided
                 ${pkgs.lib.optionalString (commandsPath != null) ''
@@ -92,8 +158,9 @@
             {
               commandsPath ? null,
               sessionCommandsPath ? null,
+              stylix ? null,
             }:
-            mkQuickshellConfig { inherit commandsPath sessionCommandsPath; };
+            mkQuickshellConfig { inherit commandsPath sessionCommandsPath stylix; };
         }
       );
 

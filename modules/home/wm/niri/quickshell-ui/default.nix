@@ -6,26 +6,37 @@
   machineOptions,
   ...
 }:
+
+let
+  # QuickShell configuration parameters (reused 3 times)
+  quickshellConfig = {
+    commandsPath = ./commands.json;
+    sessionCommandsPath = ./session-commands.json;
+    stylix = config.lib.stylix.colors.withHashtag // {
+      # Fonts from Stylix
+      monoFont = config.stylix.fonts.monospace.name;
+      sansFont = config.stylix.fonts.sansSerif.name;
+    };
+  };
+
+  # Build the quickshell package with our configuration
+  quickshellPackage =
+    inputs.quickshell-config.packages.${pkgs.system}.withAllCommands
+      quickshellConfig;
+
+in
 {
   imports = [
     ./commands.nix
   ];
-  # Use the custom quickshell configuration package with both commands
+  # Use the custom quickshell configuration package with both commands and Stylix colors
   home.packages = [
     inputs.quickshell.packages.${pkgs.system}.default
-    (inputs.quickshell-config.packages.${pkgs.system}.withAllCommands {
-      commandsPath = ./commands.json;
-      sessionCommandsPath = ./session-commands.json;
-    })
+    quickshellPackage
   ];
 
-  # Create symlink to quickshell configuration (now includes both commands files)
-  xdg.configFile."quickshell".source = "${
-    inputs.quickshell-config.packages.${pkgs.system}.withAllCommands {
-      commandsPath = ./commands.json;
-      sessionCommandsPath = ./session-commands.json;
-    }
-  }/share/quickshell-config";
+  # Create symlink to quickshell configuration
+  xdg.configFile."quickshell".source = "${quickshellPackage}/share/quickshell-config";
 
   # Put the start script in a different location to avoid conflicts
   xdg.configFile."niri/start-quickshell" = {
@@ -40,12 +51,7 @@
       sleep 0.5
 
       # Start quickshell with custom config
-      exec ${
-        inputs.quickshell-config.packages.${pkgs.system}.withAllCommands {
-          commandsPath = ./commands.json;
-          sessionCommandsPath = ./session-commands.json;
-        }
-      }/bin/quickshell-config
+      exec ${quickshellPackage}/bin/quickshell-config
     '';
   };
 
