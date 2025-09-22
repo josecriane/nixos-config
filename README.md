@@ -214,10 +214,7 @@ journalctl --user -u niri
     - [ ] Group notifications
   - [ ] Launcher
     - [ ] Filter .desktop apps
-    - [ ] Separate Session commands using !
-    - [ ] Launch de shortcut using #
-    - [ ] Define commands with a yml or a json
-      - [ ] Screenshot. "niri msg action screenshot"
+    - [ ] Define interactive commands with a json
 
 - [ ] Use directory name on zellij tab name
 - [ ] Remove Electron alerts (as VSCode)

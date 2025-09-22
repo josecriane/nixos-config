@@ -32,11 +32,11 @@ Search {
         delegate: LauncherItemModel {
             required property DesktopEntry modelData
 
-            appIcon: modelData.icon ?? ""
+            appIcon: modelData?.icon ?? ""
             isApp: true
-            name: modelData.name ?? ""
+            name: modelData?.name ?? ""
             originalData: modelData
-            subtitle: modelData.comment || modelData.genericName || modelData.name || ""
+            subtitle: modelData?.comment || modelData?.genericName || modelData?.name || ""
 
             onActivate: function () {
                 root.launch(originalData);

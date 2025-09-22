@@ -10,14 +10,20 @@
   imports = [
     ./commands.nix
   ];
-  # Use the custom quickshell configuration package
+  # Use the custom quickshell configuration package with both commands
   home.packages = [ 
     inputs.quickshell.packages.${pkgs.system}.default
-    inputs.quickshell-config.packages.${pkgs.system}.quickshell-config
+    (inputs.quickshell-config.packages.${pkgs.system}.withAllCommands {
+      commandsPath = ./commands.json;
+      sessionCommandsPath = ./session-commands.json;
+    })
   ];
 
-  # Create symlink to quickshell configuration in default location
-  xdg.configFile."quickshell".source = "${inputs.quickshell-config.packages.${pkgs.system}.quickshell-config}/share/quickshell-config";
+  # Create symlink to quickshell configuration (now includes both commands files)
+  xdg.configFile."quickshell".source = "${inputs.quickshell-config.packages.${pkgs.system}.withAllCommands {
+    commandsPath = ./commands.json;
+    sessionCommandsPath = ./session-commands.json;
+  }}/share/quickshell-config";
 
   # Put the start script in a different location to avoid conflicts
   xdg.configFile."niri/start-quickshell" = {
@@ -32,7 +38,10 @@
       sleep 0.5
 
       # Start quickshell with custom config
-      exec ${inputs.quickshell-config.packages.${pkgs.system}.quickshell-config}/bin/quickshell-config
+      exec ${inputs.quickshell-config.packages.${pkgs.system}.withAllCommands {
+        commandsPath = ./commands.json;
+        sessionCommandsPath = ./session-commands.json;
+      }}/bin/quickshell-config
     '';
   };
 

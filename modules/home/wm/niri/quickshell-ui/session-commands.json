@@ -1,0 +1,10 @@
+{
+  "commands": [
+    {
+      "name": "Lock",
+      "command": "swaylock",
+      "icon": "lock",
+      "description": "Lock the current session"
+    }
+  ]
+}

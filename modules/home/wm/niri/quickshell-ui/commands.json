@@ -1,0 +1,11 @@
+{
+  "commands": [
+    {
+      "name": "Screenshot",
+      "command": "niri msg action screenshot",
+      "icon": "camera-photo",
+      "description": "Take a screenshot",
+      "delayed": true
+    }
+  ]
+}

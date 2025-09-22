@@ -11,6 +11,17 @@ import QtQuick.Controls
 
 ListView {
     id: root
+    
+    // Command launchers
+    property LauncheServices.CommandLauncher commandsLauncher: LauncheServices.CommandLauncher {
+        commandPrefix: "!"
+        commandList: Commands.commands
+    }
+    
+    property LauncheServices.CommandLauncher sessionCommandsLauncher: LauncheServices.CommandLauncher {
+        commandPrefix: "#"
+        commandList: Commands.sessionCommands
+    }
     required property TextField search
     required property PersistentProperties visibilities
 
@@ -26,13 +37,24 @@ ListView {
     orientation: Qt.Vertical
     state: {
         const text = search.text;
-        const prefix = ">";
-        if (text.startsWith(prefix)) {
+        const actionsPrefix = ">";
+        const commandsPrefix = "!";
+        const sessionCommandsPrefix = "#";
+        
+        if (text.startsWith(actionsPrefix)) {
             for (const action of ["calc"])
-                if (text.startsWith(`${prefix}${action} `))
+                if (text.startsWith(`${actionsPrefix}${action} `))
                     return action;
 
             return "actions";
+        }
+        
+        if (text.startsWith(commandsPrefix)) {
+            return "commands";
+        }
+        
+        if (text.startsWith(sessionCommandsPrefix)) {
+            return "sessionCommands";
         }
 
         return "apps";
@@ -93,6 +115,22 @@ ListView {
 
             PropertyChanges {
                 model.values: LauncheServices.Actions.search(search.text)
+                root.delegate: actionItem
+            }
+        },
+        State {
+            name: "commands"
+
+            PropertyChanges {
+                model.values: root.commandsLauncher.search(search.text)
+                root.delegate: actionItem
+            }
+        },
+        State {
+            name: "sessionCommands"
+
+            PropertyChanges {
+                model.values: root.sessionCommandsLauncher.search(search.text)
                 root.delegate: actionItem
             }
         },
