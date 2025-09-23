@@ -15,12 +15,12 @@ ListView {
     // Command launchers
     property LauncheServices.CommandLauncher commandsLauncher: LauncheServices.CommandLauncher {
         commandPrefix: "!"
-        commandList: Commands.commands
+        commandList: ConfigsJson.commands
     }
     
     property LauncheServices.CommandLauncher sessionCommandsLauncher: LauncheServices.CommandLauncher {
         commandPrefix: "#"
-        commandList: Commands.sessionCommands
+        commandList: ConfigsJson.sessionCommands
     }
     required property TextField search
     required property PersistentProperties visibilities

@@ -204,7 +204,6 @@ journalctl --user -u niri
 
 ### Future Work:
 - [ ] Quickshell work after merge
-  - [ ] Use stylix colors
   - [ ] DS
     - [ ] Review opacity animations
     - [ ] Propagate margin and radius to all components

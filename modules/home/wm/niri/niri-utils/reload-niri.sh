@@ -4,4 +4,4 @@
 niri msg reload-config
 
 # Restart tray applications
-~/.config/niri/start-tray-apps
+#~/.config/niri/start-tray-apps

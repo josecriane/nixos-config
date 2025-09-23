@@ -23,11 +23,13 @@ Search {
     }
 
     list: variants.instances
-
+    
     Variants {
         id: variants
 
-        model: [...DesktopEntries.applications.values].sort((a, b) => a.name.localeCompare(b.name))
+        model: [...DesktopEntries.applications.values]
+            .filter(app => !ConfigsJson.excludedDesktops.includes(app.id))
+            .sort((a, b) => a.name.localeCompare(b.name))
 
         delegate: LauncherItemModel {
             required property DesktopEntry modelData

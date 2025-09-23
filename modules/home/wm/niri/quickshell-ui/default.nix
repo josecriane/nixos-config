@@ -12,6 +12,7 @@ let
   quickshellConfig = {
     commandsPath = ./commands.json;
     sessionCommandsPath = ./session-commands.json;
+    excludedAppsPath = ./excluded-apps.json;
     stylix = config.lib.stylix.colors.withHashtag // {
       # Fonts from Stylix
       monoFont = config.stylix.fonts.monospace.name;

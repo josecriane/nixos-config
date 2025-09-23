@@ -91,6 +91,7 @@
               commandsPath ? null,
               sessionCommandsPath ? null,
               stylix ? null,
+              excludedAppsPath ? null,
             }:
             pkgs.stdenv.mkDerivation rec {
               pname = "quickshell-config";
@@ -133,6 +134,11 @@
                   cp ${sessionCommandsPath} $out/share/quickshell-config/session-commands.json
                 ''}
 
+                # Copy excluded-apps.json if provided
+                ${pkgs.lib.optionalString (excludedAppsPath != null) ''
+                  cp ${excludedAppsPath} $out/share/quickshell-config/excluded-apps.json
+                ''}
+
                 # Create wrapper script
                 mkdir -p $out/bin
                 makeWrapper ${quickshellPkg}/bin/quickshell $out/bin/quickshell-config \
@@ -159,8 +165,9 @@
               commandsPath ? null,
               sessionCommandsPath ? null,
               stylix ? null,
+              excludedAppsPath ? null,
             }:
-            mkQuickshellConfig { inherit commandsPath sessionCommandsPath stylix; };
+            mkQuickshellConfig { inherit commandsPath sessionCommandsPath stylix excludedAppsPath; };
         }
       );
 
