@@ -65,7 +65,7 @@ Variants {
                     y: modelData.y + bar.implicitHeight
                 }
             }
-            // ToDo: This rectanble must be property of Session
+
             Rectangle {
                 id: disabledBackground
 

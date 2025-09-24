@@ -54,6 +54,9 @@ Item {
 
             return activeToplevel;
         });
+
+        activeTitle = Qt.binding(() => activeToplevel?.title ?? "");
+        activeAppId = Qt.binding(() => activeToplevel?.appId ?? "");
     }
 
     Item {

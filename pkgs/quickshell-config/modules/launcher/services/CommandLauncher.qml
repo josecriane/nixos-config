@@ -39,7 +39,7 @@ Search {
             onActivate: function () {
                 // Check if individual command has delayed property, otherwise use launcher default
                 const shouldDelay = modelData.delayed !== undefined ? modelData.delayed : root.useDelayedExecution;
-                
+
                 if (shouldDelay) {
                     const timer = delayedExecutionTimer.createObject(root, {
                         command: originalData.command
@@ -55,11 +55,11 @@ Search {
 
     Component {
         id: delayedExecutionTimer
-        
+
         Timer {
             property string command
-            
-            interval: 50
+
+            interval: 100
             repeat: false
             onTriggered: {
                 Quickshell.execDetached(["sh", "-c", command]);
