@@ -7,10 +7,8 @@
 {
   fonts.packages = with pkgs; [
     material-symbols
-    nerd-fonts.caskaydia-cove
     nerd-fonts.meslo-lg
     nerd-fonts.noto
-    # rubik
   ];
 
   stylix.fonts = {
