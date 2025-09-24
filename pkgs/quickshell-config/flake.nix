@@ -167,7 +167,14 @@
               stylix ? null,
               excludedAppsPath ? null,
             }:
-            mkQuickshellConfig { inherit commandsPath sessionCommandsPath stylix excludedAppsPath; };
+            mkQuickshellConfig {
+              inherit
+                commandsPath
+                sessionCommandsPath
+                stylix
+                excludedAppsPath
+                ;
+            };
         }
       );
 
