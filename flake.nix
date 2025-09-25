@@ -36,6 +36,17 @@
       inputs.darwin.follows = "darwin";
     };
 
+    quickshell = {
+      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    quickshell-config = {
+      url = "path:./pkgs/quickshell-config";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.quickshell.follows = "quickshell";
+    };
+
     secrets = {
       url = "git+ssh://git@github.com/josecriane/nix-secrets.git";
       flake = false;
@@ -52,6 +63,8 @@
       home-manager,
       lanzaboote,
       agenix,
+      quickshell,
+      quickshell-config,
       secrets,
       ...
     }@inputs:

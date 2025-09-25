@@ -22,12 +22,11 @@ in
   imports = [
     ./automount.nix
     ./services.nix
-    ./essential-gui.nix
-    ./waybar
-    ./wofi
-    ./swaync
+    ./essential-gui
     ./swaylock.nix
-  ];
+  ]
+  ++ (lib.optionals (!machineOptions.quickshell_config_enable) [ ./composed-ui ])
+  ++ (lib.optionals (machineOptions.quickshell_config_enable) [ ./quickshell-ui ]);
 
   home.packages = with pkgs; [
     niri
@@ -150,15 +149,25 @@ in
 
       spawn-at-startup "systemctl" "--user" "import-environment" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
       spawn-at-startup "dbus-update-activation-environment" "--systemd" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
-      spawn-at-startup "waybar"
-      spawn-at-startup "swaync"
+      spawn-at-startup "xwayland-satellite"
       spawn-at-startup "sh" "-c" "~/.config/niri/monitor-setup"
       spawn-at-startup "/run/current-system/sw/libexec/polkit-gnome-authentication-agent-1"
-      spawn-at-startup "sh" "-c" "~/.config/niri/start-tray-apps"
       spawn-at-startup "swaybg" "-i" "${config.home.homeDirectory}/docs/wallpapers/default.png" "-m" "fill"
+      ${lib.optionalString (!machineOptions.quickshell_config_enable) (
+        builtins.readFile ./composed-ui/spawn-at-startup.kdl
+      )}
+      ${lib.optionalString (machineOptions.quickshell_config_enable) (
+        builtins.readFile ./quickshell-ui/spawn-at-startup.kdl
+      )}
 
       binds {
           ${builtins.readFile ./keybinds.kdl}
+          ${lib.optionalString (!machineOptions.quickshell_config_enable) (
+            builtins.readFile ./composed-ui/keybinds.kdl
+          )}
+          ${lib.optionalString (machineOptions.quickshell_config_enable) (
+            builtins.readFile ./quickshell-ui/keybinds.kdl
+          )}
       }
     '';
 
@@ -175,18 +184,9 @@ in
     };
   };
 
-  xdg.configFile."niri/start-tray-apps" = {
-    executable = true;
-    source = ./niri-utils/start-tray-apps.sh;
-  };
-
   xdg.configFile."niri/reload-niri" = {
     executable = true;
     source = ./niri-utils/reload-niri.sh;
   };
 
-  xdg.configFile."niri/toggle-wofi" = {
-    executable = true;
-    source = ./niri-utils/toggle-wofi.sh;
-  };
 }

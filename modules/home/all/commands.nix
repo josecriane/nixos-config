@@ -4,6 +4,7 @@
     home-manager
     imagemagick
     jq
+    libqalculate
     nixfmt-rfc-style
     nixfmt-tree
     p7zip

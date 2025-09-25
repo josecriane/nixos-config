@@ -1,0 +1,79 @@
+pragma Singleton
+
+import QtQuick
+import Quickshell
+
+Singleton {
+    id: root
+
+    property list<real> animCurve: [0.2, 0, 0, 1, 1, 1]
+    property Duration duration: Duration {
+    }
+    property Font font: Font {
+    }
+    property ColorBase16 palette: ColorBase16 {
+    }
+    property Radius radius: Radius {
+    }
+    property Spacing spacing: Spacing {
+    }
+
+    component ColorBase16: QtObject {
+        property color base00: "@base00@"
+        property color base01: "@base01@"
+        property color base02: "@base02@"
+        property color base03: "@base03@"
+        property color base04: "@base04@"
+        property color base05: "@base05@"
+        property color base06: "@base06@"
+        property color base07: "@base07@"
+        property color base08: "@base08@"
+        property color base09: "@base09@"
+        property color base0A: "@base0A@"
+        property color base0B: "@base0B@"
+        property color base0C: "@base0C@"
+        property color base0D: "@base0D@"
+        property color base0E: "@base0E@"
+        property color base0F: "@base0F@"
+    }
+
+    component Duration: QtObject {
+        property int slow: 600
+        property int standard: 400
+        property int fast: 200
+        property int fastest: 50
+    }
+    component Font: QtObject {
+        property FontFamily family: FontFamily {
+        }
+        property FontSize size: FontSize {
+        }
+    }
+    component FontFamily: QtObject {
+        property string material: "Material Symbols Rounded"
+        property string mono: "@monoFont@"
+        property string sans: "@sansFont@"
+    }
+    component FontSize: QtObject {
+        property int l: 18
+        property int m: 14
+        property int s: 12
+        property int xl: 20
+        property int xs: 10
+    }
+    component Radius: QtObject {
+        property int all: 500
+        property int l: 20
+        property int m: 16
+        property int s: 12
+        property int xs: 8
+    }
+    component Spacing: QtObject {
+        property int l: 15
+        property int m: 12
+        property int s: 10
+        property int xl: 20
+        property int xs: 7
+        property int xxs: 5
+    }
+}

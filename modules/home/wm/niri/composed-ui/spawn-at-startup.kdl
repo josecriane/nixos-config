@@ -1,0 +1,4 @@
+// Composed UI spawn-at-startup commands (waybar + swaync + wofi)
+spawn-at-startup "waybar"
+spawn-at-startup "swaync"
+spawn-at-startup "sh" "-c" "~/.config/niri/start-tray-apps"

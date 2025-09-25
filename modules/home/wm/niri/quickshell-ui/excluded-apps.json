@@ -1,0 +1,6 @@
+{
+  "excludedApps": [
+    "qt5ct",
+    "qt6ct"
+  ]
+}

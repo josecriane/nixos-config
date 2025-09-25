@@ -59,6 +59,8 @@ in
         # Wayland configuration
         "window.titleBarStyle" = "custom";
         "window.commandCenter" = false;
+
+        "qt-qml.qmlls.useQmlImportPathEnvVar" = true;
       };
     };
   };

@@ -13,7 +13,7 @@ nixos-config/
 ├── flake.nix                 # Main entry point
 ├── hosts/                    # Host-specific configurations
 │   ├── imre/                # Linux workstation
-│   ├── newarre/             # Linux laptop  
+│   ├── newarre/             # Linux laptop
 │   └── macbook-air/         # macOS laptop
 ├── modules/
 │   ├── core/                # System-level configurations
@@ -24,7 +24,14 @@ nixos-config/
 │       ├── desktop/        # Desktop applications
 │       ├── develop/        # Development tools
 │       └── wm/             # Window managers (niri, plasma)
+│           └── niri/
+│               ├── composed-ui/    # Traditional UI (waybar, wofi, swaync)
+│               └── quickshell-ui/  # Modern Qt-based shell UI
 └── pkgs/                   # Custom packages
+    └── quickshell-config/  # Quickshell configuration package
+        ├── ds/             # Design system components
+        ├── modules/        # UI modules (bar, launcher, etc.)
+        └── services/       # System services integration
 ```
 
 ## 🚀 Quick Start
@@ -59,9 +66,13 @@ This configuration primarily uses **niri**, a scrollable-tiling Wayland composit
 
 ### Key Features
 - **GDM** login manager with Wayland support
-- **Waybar** status bar with custom styling
-- **wofi** application launcher
-- **swaync** notification center
+- **Quickshell** modern Qt-based shell (optional, can be toggled via `quickshell_config_enable`)
+  - Custom design system with Stylix integration
+  - Modular components (bar, launcher, notifications, dashboard)
+  - Interactive command system
+- **Waybar** status bar with custom styling (when Quickshell disabled)
+- **wofi** application launcher (when Quickshell disabled)
+- **swaync** notification center (when Quickshell disabled)
 - **GNOME** applications ecosystem
 - **Adwaita Dark** unified theming
 
@@ -108,12 +119,17 @@ The niri configuration is modularized for easy customization:
 ```
 modules/home/wm/niri/
 ├── default.nix          # Main configuration + imports
-├── essential-gui.nix    # GUI applications & utilities
-├── themes.nix           # Qt/GTK theming
-├── keybinds.kdl         # All keyboard shortcuts
-├── waybar/              # Status bar config + CSS
-├── wofi/                # App launcher config + CSS
-└── swaync/              # Notification center config + CSS
+├── essential-gui/       # GUI applications & utilities
+├── keybinds.kdl         # All keyboard shortcuts (composed-ui)
+├── composed-ui/         # Traditional UI components (when quickshell disabled)
+│   ├── waybar/          # Status bar config + CSS
+│   ├── wofi/            # App launcher config + CSS
+│   └── swaync/          # Notification center config + CSS
+├── quickshell-ui/       # Quickshell integration (when enabled)
+│   ├── default.nix      # Quickshell configuration
+│   ├── commands.json    # Interactive commands
+│   └── keybinds.kdl     # Quickshell keybindings
+└── services.nix         # System services configuration
 ```
 
 ## 🛠️ Development Environment
@@ -179,38 +195,62 @@ find . -name "*.nix" -exec nixfmt {} \;
 1. Create `hosts/<hostname>/` directory
 2. Add `default.nix`, `hardware-configuration.nix`, `options.nix`
 3. Update `flake.nix` with new host configuration
+4. Set `quickshell_config_enable` in `options.nix` to choose UI system
 
 ### Adding Applications
 - **System-wide**: Add to appropriate `modules/core/` file
 - **User-specific**: Add to relevant `modules/home/` module
-- **Window manager specific**: Add to `modules/home/wm/niri/essential-gui.nix`
+- **Window manager specific**: Add to `modules/home/wm/niri/essential-gui/`
 
-### Customizing niri
-- **Keybinds**: Edit `modules/home/wm/niri/keybinds.kdl`
-- **Styling**: Modify CSS files in `waybar/`, `wofi/`, `swaync/`
-- **Applications**: Update `essential-gui.nix`
+### Customizing niri with Quickshell
+- **Enable Quickshell**: Set `quickshell_config_enable = true` in host's `options.nix`
+- **Commands**: Edit `modules/home/wm/niri/quickshell-ui/commands.json`
+- **Excluded apps**: Edit `modules/home/wm/niri/quickshell-ui/excluded-apps.json`
+- **Quickshell modules**: Edit files in `pkgs/quickshell-config/modules/`
+- **Design system**: Customize `pkgs/quickshell-config/ds/` components
+
+### Customizing niri with traditional UI (Waybar/Wofi/Swaync)
+- **Enable traditional UI**: Set `quickshell_config_enable = false` in host's `options.nix`
+- **Keybinds**: Edit `modules/home/wm/niri/composed-ui/keybinds.kdl`
+- **Styling**: Modify CSS files in `composed-ui/waybar/`, `composed-ui/wofi/`, `composed-ui/swaync/`
+- **Applications**: Update files in `essential-gui/`
 
 ### Useful Commands
 ```bash
 # Check niri status
 niri msg --help
 
-# Restart niri session  
+# Restart niri session
 systemctl --user restart niri
 
 # View logs
 journalctl --user -u niri
+
+# Quickshell commands (when enabled)
+quickshell-config                    # Run quickshell with custom config
+~/.config/niri/start-quickshell      # Start/restart quickshell
+pgrep -af quickshell                  # Check running quickshell processes
 ```
 
 ### Future Work:
-- [ ] Recustomize waybar, swaync, wofi
+- [ ] Quickshell work after merge
+  - [ ] DS
+    - [ ] Review opacity animations
+    - [ ] Propagate margin and radius to all components
+  - [ ] Notifications
+    - [ ] Add notificationTime
+    - [ ] Don't hide notification when hover
+    - [ ] Group notifications
+  - [ ] Launcher
+    - [ ] Filter .desktop apps
+    - [ ] Define interactive commands with a json
+  - [ ] Fix reload quickshell
+
 - [ ] Use directory name on zellij tab name
-- [ ] Fix discord or add alternative
 - [ ] Remove Electron alerts (as VSCode)
 - [ ] Install steam
 - [ ] Take a look at:
   - [ ] https://syncthing.net
-  - [ ] https://quickshell.org/
 - [ ] Finish the initial setup script
 - [ ] Remove built in bookmarks on nautilus (Starred, Recent)
 - [ ] Create move-window-or-to-monitor-up/down and move-column-or-monitor-right. See: [focus](https://github.com/YaLTeR/niri/commit/a56e4ff436cc4f36d7cda89e985d51e37f0b4f78)
@@ -234,6 +274,14 @@ journalctl --user -u niri
 ### WM Configuration
 * [Plasma Manager Options](https://nix-community.github.io/plasma-manager/options.xhtml)
 * [Niri Configuration Guide](https://github.com/YaLTeR/niri/wiki/Configuration:-Introduction)
+
+### Quickshell
+* [Quickshell](https://quickshell.org/docs/v0.2.0/types/Quickshell.Hyprland/HyprlandWorkspace/)
+* [Caelestia-shell](https://github.com/caelestia-dots/shell)
+* [Shovel-shell](https://github.com/shovelwithasprout/shovel-shell)
+
+### NerdFonts Search
+* [NerdFonts Cheatsheet](https://www.nerdfonts.com/cheat-sheet)
 
 ## 📄 License
 

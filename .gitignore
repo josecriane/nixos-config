@@ -8,3 +8,6 @@ secrets/*.age.key
 # Temporary files
 *.tmp
 *.swp
+
+# QML LS
+.qmlls.ini

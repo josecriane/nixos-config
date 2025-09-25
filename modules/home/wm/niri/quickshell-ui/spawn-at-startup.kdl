@@ -1,0 +1,2 @@
+// QuickShell spawn-at-startup commands
+spawn-at-startup "sh" "-c" "~/.config/niri/start-quickshell"

@@ -5,6 +5,12 @@
   ...
 }:
 {
+  fonts.packages = with pkgs; [
+    material-symbols
+    nerd-fonts.meslo-lg
+    nerd-fonts.noto
+  ];
+
   stylix.fonts = {
     # Monospace font (terminal, code editors)
     monospace = {
