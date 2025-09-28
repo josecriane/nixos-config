@@ -72,7 +72,7 @@ in
       }
 
       output "HDMI-A-1" {
-          mode "2560x1440@143,972"
+          mode "2560x1440@143.972"
           position x=0 y=500
           focus-at-startup
       }
