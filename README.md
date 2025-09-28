@@ -229,29 +229,38 @@ journalctl --user -u niri
 # Quickshell commands (when enabled)
 quickshell-config                    # Run quickshell with custom config
 ~/.config/niri/start-quickshell      # Start/restart quickshell
-pgrep -af quickshell                  # Check running quickshell processes
+pgrep -af quickshell                 # Check running quickshell processes
+
+# Syncthing status commands
+syncthing cli show system
+syncthing cli show connections
+syncthing cli show folder docs
+
+# Syncthing service logs
+journalctl -u syncthing -f
+journalctl -u syncthing -n 50
 ```
 
 ### Future Work:
 - [ ] Quickshell work after merge
   - [ ] DS
     - [ ] Review opacity animations
-    - [ ] Propagate margin and radius to all components
+    - [ ] Propagate margin, radius and opacity to all components
   - [ ] Notifications
     - [ ] Add notificationTime
     - [ ] Don't hide notification when hover
     - [ ] Group notifications
   - [ ] Launcher
-    - [ ] Filter .desktop apps
     - [ ] Define interactive commands with a json
   - [ ] Fix reload quickshell
 - [ ] Niri
   - [ ] Configure screens on hosts/*/options.nix
+- [ ] Syncthing
+  - [ ] Firefox bookmarks
+  - [ ] Use on VMs
 - [ ] Use directory name on zellij tab name
 - [ ] Remove Electron alerts (as VSCode)
 - [ ] Install steam
-- [ ] Take a look at:
-  - [ ] https://syncthing.net
 - [ ] Finish the initial setup script
 - [ ] Remove built in bookmarks on nautilus (Starred, Recent)
 - [ ] Create move-window-or-to-monitor-up/down and move-column-or-monitor-right. See: [focus](https://github.com/YaLTeR/niri/commit/a56e4ff436cc4f36d7cda89e985d51e37f0b4f78)

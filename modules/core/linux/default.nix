@@ -21,6 +21,7 @@
     ./secrets.nix
     ./security.nix
     ./ssh-agent.nix
+    ./syncthing.nix
     ./system.nix
     ./virtualization.nix
     ./xserver.nix
