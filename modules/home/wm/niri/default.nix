@@ -71,6 +71,18 @@ in
           focus-follows-mouse max-scroll-amount="0%"
       }
 
+      output "HDMI-A-1" {
+          mode "2560x1440@143,972"
+          position x=0 y=500
+          focus-at-startup
+      }
+
+      output "DP-1" {
+          position x=2560 y=0
+          transform "270"
+          variable-refresh-rate // on-demand=true
+      }
+
       output "DP-2" {
           position x=0 y=0
       }

@@ -245,7 +245,8 @@ pgrep -af quickshell                  # Check running quickshell processes
     - [ ] Filter .desktop apps
     - [ ] Define interactive commands with a json
   - [ ] Fix reload quickshell
-
+- [ ] Niri
+  - [ ] Configure screens on hosts/*/options.nix
 - [ ] Use directory name on zellij tab name
 - [ ] Remove Electron alerts (as VSCode)
 - [ ] Install steam

@@ -1,8 +1,8 @@
 {
   desktop = true;
   develop = true;
-  wm = "plasma";
-  quickshell_config_enable = false;
+  wm = "niri";
+  quickshell_config_enable = true;
   os = "linux";
   username = "sito";
   hostname = "imre";

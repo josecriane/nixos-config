@@ -1,6 +1,6 @@
 { pkgs, config, ... }:
 let
-  stylixCss = import ../niri-utils/stylix-css.nix { inherit config; };
+  stylixCss = import ../../niri-utils/stylix-css.nix { inherit config; };
 in
 {
   programs.waybar = {

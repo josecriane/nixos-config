@@ -48,7 +48,7 @@
     };
 
     secrets = {
-      url = "git+ssh://git@github.com/josecriane/nix-secrets.git";
+      url = "git+file:./secrets";
       flake = false;
     };
   };
