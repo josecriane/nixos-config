@@ -242,10 +242,12 @@ journalctl -u syncthing -n 50
 ```
 
 ### Future Work:
-- [ ] Quickshell work after merge
+- [ ] Quickshell
   - [ ] DS
     - [ ] Review opacity animations
     - [ ] Propagate margin, radius and opacity to all components
+  - [ ] Bar
+    - [ ] Handle unknown icons
   - [ ] Notifications
     - [ ] Add notificationTime
     - [ ] Don't hide notification when hover
@@ -255,6 +257,7 @@ journalctl -u syncthing -n 50
   - [ ] Fix reload quickshell
 - [ ] Niri
   - [ ] Configure screens on hosts/*/options.nix
+  - [ ] New keybinds to handle windows
 - [ ] Syncthing
   - [ ] Firefox bookmarks
   - [ ] Use on VMs
@@ -263,6 +266,10 @@ journalctl -u syncthing -n 50
 - [ ] Install steam
 - [ ] Finish the initial setup script
 - [ ] Remove built in bookmarks on nautilus (Starred, Recent)
+- [ ] New hosts:
+  - [ ] pihole
+  - [ ] server
+  - [ ] remote server
 - [ ] Create move-window-or-to-monitor-up/down and move-column-or-monitor-right. See: [focus](https://github.com/YaLTeR/niri/commit/a56e4ff436cc4f36d7cda89e985d51e37f0b4f78)
 
 ## 📚 References
