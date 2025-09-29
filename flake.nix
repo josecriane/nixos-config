@@ -19,12 +19,6 @@
       inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
 
-    plasma-manager = {
-      url = "github:nix-community/plasma-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-    };
-
     stylix = {
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -59,7 +53,6 @@
       nixos-hardware,
       self,
       darwin,
-      plasma-manager,
       home-manager,
       lanzaboote,
       agenix,

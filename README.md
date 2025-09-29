@@ -23,7 +23,7 @@ nixos-config/
 │       ├── all/            # Cross-platform user configs
 │       ├── desktop/        # Desktop applications
 │       ├── develop/        # Development tools
-│       └── wm/             # Window managers (niri, plasma)
+│       └── wm/             # Window manager (niri)
 │           └── niri/
 │               ├── composed-ui/    # Traditional UI (waybar, wofi, swaync)
 │               └── quickshell-ui/  # Modern Qt-based shell UI
@@ -62,10 +62,9 @@ sudo darwin-rebuild switch --flake ~/nixos-config#MacBookAir10-1-jose-cribeiro
 
 ## 🎨 Window Manager: niri
 
-This configuration primarily uses **niri**, a scrollable-tiling Wayland compositor, with a custom modular setup.
+This configuration uses **niri**, a scrollable-tiling Wayland compositor, with a custom modular setup.
 
 ### Key Features
-- **GDM** login manager with Wayland support
 - **Quickshell** modern Qt-based shell (optional, can be toggled via `quickshell_config_enable`)
   - Custom design system with Stylix integration
   - Modular components (bar, launcher, notifications, dashboard)
@@ -73,7 +72,7 @@ This configuration primarily uses **niri**, a scrollable-tiling Wayland composit
 - **Waybar** status bar with custom styling (when Quickshell disabled)
 - **wofi** application launcher (when Quickshell disabled)
 - **swaync** notification center (when Quickshell disabled)
-- **GNOME** applications ecosystem
+- **GTK** applications ecosystem
 - **Adwaita Dark** unified theming
 
 ### Keybinds
@@ -230,15 +229,6 @@ journalctl --user -u niri
 quickshell-config                    # Run quickshell with custom config
 ~/.config/niri/start-quickshell      # Start/restart quickshell
 pgrep -af quickshell                 # Check running quickshell processes
-
-# Syncthing status commands
-syncthing cli show system
-syncthing cli show connections
-syncthing cli show folder docs
-
-# Syncthing service logs
-journalctl -u syncthing -f
-journalctl -u syncthing -n 50
 ```
 
 ### Future Work:
@@ -255,25 +245,17 @@ journalctl -u syncthing -n 50
     - [ ] Group notifications
   - [ ] Launcher
     - [ ] Define interactive commands with a json
-  - [ ] Fix reload quickshell
 - [ ] Niri
   - [ ] Configure screens on hosts/*/options.nix
   - [ ] New keybinds to handle windows
-- [ ] Syncthing
-  - [ ] Firefox bookmarks
-  - [ ] Use on VMs
 - [ ] Use directory name on zellij tab name
-- [ ] Remove Electron alerts (as VSCode)
 - [ ] Install steam
 - [ ] Finish the initial setup script
 - [ ] Remove built in bookmarks on nautilus (Starred, Recent)
 - [ ] New hosts:
   - [ ] pihole
   - [ ] server
-  - [ ] remote server
-- [ ] Clean configs
-  - [ ] Remove kde and gnome
-  - [ ] Remove sddm references
+  - [ ] remote servers
 - [ ] Create move-window-or-to-monitor-up/down and move-column-or-monitor-right. See: [focus](https://github.com/YaLTeR/niri/commit/a56e4ff436cc4f36d7cda89e985d51e37f0b4f78)
 
 ## 📚 References
@@ -293,7 +275,6 @@ journalctl -u syncthing -n 50
 * [Home Manager Options](https://home-manager-options.extranix.com/?query=&release=release-25.05)
 
 ### WM Configuration
-* [Plasma Manager Options](https://nix-community.github.io/plasma-manager/options.xhtml)
 * [Niri Configuration Guide](https://github.com/YaLTeR/niri/wiki/Configuration:-Introduction)
 
 ### Quickshell

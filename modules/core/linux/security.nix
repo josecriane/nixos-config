@@ -7,8 +7,6 @@
 {
   security.rtkit.enable = true;
 
-  security.pam.services.sddm.fprintAuth = false;
-
   # Habilitar fprintd para autenticación por huella dactilar
   services.fprintd = {
     enable = machineOptions.fprint or false;
