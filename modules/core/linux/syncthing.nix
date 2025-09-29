@@ -19,7 +19,7 @@
 
       settings = {
         gui = {
-          enabled = false;
+          enabled = true;
         };
 
         options = {
@@ -47,7 +47,7 @@
             };
           };
           "firefox-profile" = {
-            path = "/home/${machineOptions.username}/.mozilla/default";
+            path = "/home/${machineOptions.username}/.mozilla/firefox/default";
             devices = lib.filter (d: d != machineOptions.hostname) [
               "imre"
               "newarre"
@@ -56,6 +56,14 @@
               type = "simple";
               params.keep = "5";
             };
+            ignorePatterns = [
+              "!places.sqlite"
+              "!favicons.sqlite"
+              "!key4.db"
+              "!logins.json"
+              "!cert9.db"
+              "*"
+            ];
           };
         };
 
@@ -65,7 +73,7 @@
             id = "CUATIOC-UAA7JFJ-QXCKMX6-54UICCE-JT7E5IL-Q2WNNUO-X3SCW4B-MWAIVQ3";
           };
           "newarre" = {
-            id = "HCNKGIP-2N3DLFY-SP6UPU3-CCYR3LM-AUMU5TU-HASS4S2-Y2DIEA5-5HXJYQE";
+            id = "ZCV2MT5-DAU4RWF-VITKVT6-O5AN4KR-QUEMJPE-7XJFUVV-Z6PYLZP-PP2BTQD";
           };
         };
       };
