@@ -243,6 +243,7 @@ journalctl -u syncthing -n 50
 
 ### Future Work:
 - [ ] Quickshell work after merge
+  - [ ] Connect to new wifi dont ask the password
   - [ ] DS
     - [ ] Review opacity animations
     - [ ] Propagate margin, radius and opacity to all components
@@ -256,8 +257,6 @@ journalctl -u syncthing -n 50
 - [ ] Niri
   - [ ] Configure screens on hosts/*/options.nix
 - [ ] Syncthing
-  - [ ] Firefox bookmarks
-  - [ ] Use on VMs
 - [ ] Use directory name on zellij tab name
 - [ ] Remove Electron alerts (as VSCode)
 - [ ] Install steam
