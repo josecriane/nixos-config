@@ -50,6 +50,7 @@
             path = "/home/${machineOptions.username}/.mozilla/default";
             devices = lib.filter (d: d != machineOptions.hostname) [
               "imre"
+              "newarre"
             ];
             versioning = {
               type = "simple";
