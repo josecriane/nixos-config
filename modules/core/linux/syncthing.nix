@@ -47,7 +47,7 @@
             };
           };
           "firefox-profile" = {
-            path = "/home/${machineOptions.username}/.mozilla/default";
+            path = "/home/${machineOptions.username}/.mozilla/firefox/default";
             devices = lib.filter (d: d != machineOptions.hostname) [
               "imre"
               "newarre"
