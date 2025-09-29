@@ -56,6 +56,14 @@
               type = "simple";
               params.keep = "5";
             };
+            ignorePatterns = [
+              "!places.sqlite"
+              "!favicons.sqlite"
+              "!key4.db"
+              "!logins.json"
+              "!cert9.db"
+              "*"
+            ];
           };
         };
 
