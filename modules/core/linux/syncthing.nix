@@ -64,7 +64,7 @@
           "imre" = {
             id = "CUATIOC-UAA7JFJ-QXCKMX6-54UICCE-JT7E5IL-Q2WNNUO-X3SCW4B-MWAIVQ3";
           };
-          HCNKGIP-2N3DLFY-SP6UPU3-CCYR3LM-AUMU5TU-HASS4S2-Y2DIEA5-5HXJYQE = {
+          "newarre" = {
             id = "HCNKGIP-2N3DLFY-SP6UPU3-CCYR3LM-AUMU5TU-HASS4S2-Y2DIEA5-5HXJYQE";
           };
         };

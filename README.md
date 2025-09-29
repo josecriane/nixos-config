@@ -271,6 +271,9 @@ journalctl -u syncthing -n 50
   - [ ] pihole
   - [ ] server
   - [ ] remote server
+- [ ] Clean configs
+  - [ ] Remove kde and gnome
+  - [ ] Remove sddm references
 - [ ] Create move-window-or-to-monitor-up/down and move-column-or-monitor-right. See: [focus](https://github.com/YaLTeR/niri/commit/a56e4ff436cc4f36d7cda89e985d51e37f0b4f78)
 
 ## 📚 References
