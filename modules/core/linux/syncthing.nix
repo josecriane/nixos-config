@@ -65,7 +65,7 @@
           };
           "newarre" = {
             id = "ZCV2MT5-DAU4RWF-VITKVT6-O5AN4KR-QUEMJPE-7XJFUVV-Z6PYLZP-PP2BTQD";
-          }
+          };
         };
       };
     };
