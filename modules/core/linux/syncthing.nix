@@ -39,7 +39,18 @@
             path = "/home/${machineOptions.username}/docs";
             devices = lib.filter (d: d != machineOptions.hostname) [
               "imre"
-              # "newarre"
+              "newarre"
+            ];
+            versioning = {
+              type = "simple";
+              params.keep = "5";
+            };
+          };
+          "firefox-profile" = {
+            path = "/home/${machineOptions.username}/.mozilla/default";
+            devices = lib.filter (d: d != machineOptions.hostname) [
+              "imre"
+              "newarre"
             ];
             versioning = {
               type = "simple";
@@ -53,9 +64,9 @@
           "imre" = {
             id = "CUATIOC-UAA7JFJ-QXCKMX6-54UICCE-JT7E5IL-Q2WNNUO-X3SCW4B-MWAIVQ3";
           };
-          # "newarre" = {
-          #   id = "DEVICE-ID-HERE";
-          # };
+          HCNKGIP-2N3DLFY-SP6UPU3-CCYR3LM-AUMU5TU-HASS4S2-Y2DIEA5-5HXJYQE = {
+            id = "HCNKGIP-2N3DLFY-SP6UPU3-CCYR3LM-AUMU5TU-HASS4S2-Y2DIEA5-5HXJYQE";
+          };
         };
       };
     };

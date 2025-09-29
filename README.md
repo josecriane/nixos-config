@@ -243,6 +243,7 @@ journalctl -u syncthing -n 50
 
 ### Future Work:
 - [ ] Quickshell
+  - [ ] Connect to new wifi dont ask the password
   - [ ] DS
     - [ ] Review opacity animations
     - [ ] Propagate margin, radius and opacity to all components
