@@ -39,6 +39,7 @@
             path = "/home/${machineOptions.username}/docs";
             devices = lib.filter (d: d != machineOptions.hostname) [
               "imre"
+              "newarre"
             ];
             versioning = {
               type = "simple";
@@ -62,6 +63,9 @@
           "imre" = {
             id = "CUATIOC-UAA7JFJ-QXCKMX6-54UICCE-JT7E5IL-Q2WNNUO-X3SCW4B-MWAIVQ3";
           };
+          "newarre" = {
+            id = "ZCV2MT5-DAU4RWF-VITKVT6-O5AN4KR-QUEMJPE-7XJFUVV-Z6PYLZP-PP2BTQD";
+          }
         };
       };
     };
