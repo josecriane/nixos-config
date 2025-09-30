@@ -17,6 +17,25 @@ let
     ];
   layouts = lib.concatStringsSep "," (map (k: k.layout) keyboards);
   variants = lib.concatStringsSep "," (map (k: k.variant or "") keyboards);
+
+  # Get monitor configurations
+  monitors = machineOptions.monitors or [ ];
+
+  # Function to generate monitor output configuration
+  generateMonitorConfig = monitor: ''
+    output "${monitor.name}" {
+      ${lib.optionalString (monitor ? mode) ''mode "${monitor.mode}"''}
+      ${lib.optionalString (monitor ? scale) ''scale ${toString monitor.scale}''}
+      ${lib.optionalString (
+        monitor ? position
+      ) ''position x=${toString monitor.position.x} y=${toString monitor.position.y}''}
+      ${lib.optionalString (monitor ? transform) ''transform "${monitor.transform}"''}
+      ${lib.optionalString (
+        monitor ? variableRefreshRate && monitor.variableRefreshRate
+      ) ''variable-refresh-rate''}
+      ${lib.optionalString (monitor ? focusAtStartup && monitor.focusAtStartup) ''focus-at-startup''}
+    }
+  '';
 in
 {
   imports = [
@@ -71,31 +90,7 @@ in
           focus-follows-mouse max-scroll-amount="0%"
       }
 
-      output "HDMI-A-1" {
-          mode "2560x1440@143.972"
-          position x=0 y=500
-          focus-at-startup
-      }
-
-      output "DP-1" {
-          position x=2560 y=0
-          transform "270"
-          variable-refresh-rate // on-demand=true
-      }
-
-      output "DP-2" {
-          position x=0 y=0
-      }
-
-      output "DP-3" {
-          position x=0 y=0
-      }
-
-      output "eDP-1" {
-          mode "2880x1800"
-          scale 1.3
-          position x=160 y=1440
-      }
+      ${lib.concatMapStringsSep "\n" generateMonitorConfig monitors}
 
       layout {
           gaps 8

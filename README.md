@@ -246,7 +246,6 @@ pgrep -af quickshell                 # Check running quickshell processes
   - [ ] Launcher
     - [ ] Define interactive commands with a json
 - [ ] Niri
-  - [ ] Configure screens on hosts/*/options.nix
   - [ ] New keybinds to handle windows
 - [ ] Use directory name on zellij tab name
 - [ ] Install steam
