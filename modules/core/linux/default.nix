@@ -12,6 +12,7 @@
     ./alias.nix
     ./bluetooth.nix
     ./boot.nix
+    ./gaming.nix
     ./gvfs.nix
     ./home-manager.nix
     ./i18n.nix

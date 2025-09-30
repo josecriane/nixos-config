@@ -246,8 +246,7 @@ pgrep -af quickshell                 # Check running quickshell processes
   - [ ] Launcher
     - [ ] Define interactive commands with a json
 - [ ] Niri
-  - [ ] New keybinds to handle windows
-- [ ] Install steam
+  - [ ] New keybinds to handle windows{}
 - [ ] Finish the initial setup script
 - [ ] Remove built in bookmarks on nautilus (Starred, Recent)
 - [ ] New hosts:
