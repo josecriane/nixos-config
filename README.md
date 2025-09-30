@@ -247,7 +247,6 @@ pgrep -af quickshell                 # Check running quickshell processes
     - [ ] Define interactive commands with a json
 - [ ] Niri
   - [ ] New keybinds to handle windows
-- [ ] Use directory name on zellij tab name
 - [ ] Install steam
 - [ ] Finish the initial setup script
 - [ ] Remove built in bookmarks on nautilus (Starred, Recent)
