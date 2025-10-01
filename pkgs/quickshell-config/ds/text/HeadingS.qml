@@ -1,7 +1,0 @@
-import qs.ds
-import qs.ds.text as Text
-
-Text.Text {
-    font.pointSize: Foundations.font.size.m
-    font.weight: 600
-}

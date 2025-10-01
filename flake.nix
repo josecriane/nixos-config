@@ -36,7 +36,7 @@
     };
 
     quickshell-config = {
-      url = "path:./pkgs/quickshell-config";
+      url = "github:josecriane/quickshell-config";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.quickshell.follows = "quickshell";
     };

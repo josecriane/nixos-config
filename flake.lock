@@ -465,14 +465,18 @@
         ]
       },
       "locked": {
-        "path": "./pkgs/quickshell-config",
-        "type": "path"
+        "lastModified": 1759323632,
+        "narHash": "sha256-LqAzK2KaYszCbBVx/SSsIW9shsMa7/TP2HLDrO4vNL0=",
+        "owner": "josecriane",
+        "repo": "quickshell-config",
+        "rev": "bc8ed398d09287574f6fefb56d06a979d4794f13",
+        "type": "github"
       },
       "original": {
-        "path": "./pkgs/quickshell-config",
-        "type": "path"
-      },
-      "parent": []
+        "owner": "josecriane",
+        "repo": "quickshell-config",
+        "type": "github"
+      }
     },
     "root": {
       "inputs": {
