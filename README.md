@@ -232,19 +232,6 @@ pgrep -af quickshell                 # Check running quickshell processes
 ```
 
 ### Future Work:
-- [ ] Quickshell
-  - [ ] Connect to new wifi dont ask the password
-  - [ ] DS
-    - [ ] Review opacity animations
-    - [ ] Propagate margin, radius and opacity to all components
-  - [ ] Bar
-    - [ ] Handle unknown icons
-  - [ ] Notifications
-    - [ ] Add notificationTime
-    - [ ] Don't hide notification when hover
-    - [ ] Group notifications
-  - [ ] Launcher
-    - [ ] Define interactive commands with a json
 - [ ] Niri
   - [ ] New keybinds to handle windows{}
 - [ ] Finish the initial setup script

@@ -36,9 +36,9 @@ Mod+Alt+Right { set-window-height "+10%"; }
 Mod+Ctrl+K { spawn "sh" "-c" "~/.config/niri/switch-layout"; }
 Mod+Ctrl+Shift+Up { toggle-overview; }
 
-XF86AudioMute { spawn "pamixer" "-t"; }
-XF86AudioRaiseVolume { spawn "pamixer" "-i" "5"; }
-XF86AudioLowerVolume { spawn "pamixer" "-d" "5"; }
+XF86AudioMute { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+XF86AudioRaiseVolume { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+"; }
+XF86AudioLowerVolume { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"; }
 XF86MonBrightnessDown { spawn "brightnessctl" "set" "10%-"; }
 XF86MonBrightnessUp { spawn "brightnessctl" "set" "+10%"; }
 XF86AudioPrev { spawn "playerctl" "previous"; }
