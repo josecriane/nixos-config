@@ -29,7 +29,7 @@
     };
   };
 
-  # Systemd user service para niri
+  # Systemd user services
   systemd.user.targets.niri-session = {
     Unit = {
       Description = "niri compositor session";
@@ -37,6 +37,25 @@
       BindsTo = [ "graphical-session.target" ];
       Wants = [ "graphical-session-pre.target" ];
       After = [ "graphical-session-pre.target" ];
+    };
+  };
+
+  # Polkit authentication agent
+  systemd.user.services.polkit-gnome = {
+    Unit = {
+      Description = "Polkit GNOME Authentication Agent";
+      After = [ "graphical-session.target" ];
+      PartOf = [ "graphical-session.target" ];
+    };
+    Service = {
+      Type = "simple";
+      ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+      Restart = "on-failure";
+      RestartSec = 1;
+      TimeoutStopSec = 10;
+    };
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
     };
   };
 }

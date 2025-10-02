@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
-# Reload niri configuration
-niri msg reload-config
+# Restart niri to reload configuration
+# Note: niri doesn't have a reload-config command, need to restart the service
+systemctl --user restart niri.service
 
-# Restart tray applications
+# Optional: Restart tray applications if needed
 #~/.config/niri/start-tray-apps
