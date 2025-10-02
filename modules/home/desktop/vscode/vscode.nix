@@ -9,58 +9,55 @@ in
     profiles.default = {
       extensions = import ./vscode-extensions.nix { pkgs = pkgs; };
       userSettings = {
-        "workbench.colorCustomizations" = {
-          "sideBar.background" = "#${colors.base00}";
-        };
-
-        "security.workspace.trust.untrustedFiles" = "open";
-        "explorer.confirmDelete" = false;
-        "redhat.telemetry.enabled" = false;
-        "editor.accessibilitySupport" = "off";
-        "explorer.confirmDragAndDrop" = false;
-        "[xml]" = {
-          "editor.defaultFormatter" = "DotJoshJohnson.xml";
-        };
-        "window.zoomLevel" = 0;
-        "dart.debugExternalPackageLibraries" = true;
-        "dart.debugSdkLibraries" = true;
-        "explorer.confirmPasteNative" = false;
-
-        "editor.detectIndentation" = true;
-        "editor.guides.bracketPairs" = true;
-        "editor.minimap.enabled" = true;
-
-        "erlangFormatter.formatter" = "erlfmt";
-
-        "extensions.ignoreRecommendations" = true;
-
-        # Nix formatting
         "[nix]" = {
           "editor.defaultFormatter" = "bbenoist.nix";
           "editor.formatOnSave" = true;
         };
-        "nix.enableLanguageServer" = true;
-        "nix.formatterPath" = "nixfmt";
+        "[xml]" = {
+          "editor.defaultFormatter" = "DotJoshJohnson.xml";
+        };
 
-        # Mostrar cambios de espacios en blanco en el diff
+        "dart.debugExternalPackageLibraries" = true;
+        "dart.debugSdkLibraries" = true;
+
         "diffEditor.ignoreTrimWhitespace" = false;
         "diffEditor.renderSideBySide" = true;
+        "editor.accessibilitySupport" = "off";
+        "editor.detectIndentation" = true;
+
+        "editor.guides.bracketPairs" = true;
+
+        "editor.minimap.enabled" = true;
         "editor.renderWhitespace" = "all";
+        "erlangFormatter.formatter" = "erlfmt";
+        "explorer.confirmDelete" = false;
+        "explorer.confirmDragAndDrop" = false;
+        "explorer.confirmPasteNative" = false;
+        "extensions.ignoreRecommendations" = true;
+
+        "nix.enableLanguageServer" = true;
+        "nix.formatterPath" = "nixfmt";
+        "qt-qml.qmlls.useQmlImportPathEnvVar" = true;
+        "redhat.telemetry.enabled" = false;
 
         # Excluir directorios de búsqueda
         "search.exclude" = {
-          "**/_build" = true;
           "**/.direnv" = true;
           "**/.git" = true;
+          "**/_build" = true;
           "**/node_modules" = true;
           "**/target" = true;
         };
+        "security.workspace.trust.untrustedFiles" = "open";
 
         # Wayland configuration
-        "window.titleBarStyle" = "custom";
         "window.commandCenter" = false;
-
-        "qt-qml.qmlls.useQmlImportPathEnvVar" = true;
+        "window.titleBarStyle" = "custom";
+        "window.zoomLevel" = 0;
+        "workbench.colorCustomizations" = {
+          "sideBar.background" = "#${colors.base00}";
+        };
+        "qt-qml.doNotAskForQmllsDownload" = true;
       };
     };
   };
