@@ -261,11 +261,6 @@ pgrep -af quickshell                 # Check running quickshell processes
 ### WM Configuration
 * [Niri Configuration Guide](https://github.com/YaLTeR/niri/wiki/Configuration:-Introduction)
 
-### Quickshell
-* [Quickshell](https://quickshell.org/docs/v0.2.0/types/Quickshell.Hyprland/HyprlandWorkspace/)
-* [Caelestia-shell](https://github.com/caelestia-dots/shell)
-* [Shovel-shell](https://github.com/shovelwithasprout/shovel-shell)
-
 ### NerdFonts Search
 * [NerdFonts Cheatsheet](https://www.nerdfonts.com/cheat-sheet)
 
