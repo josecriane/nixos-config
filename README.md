@@ -236,6 +236,7 @@ pgrep -af quickshell                 # Check running quickshell processes
   - [ ] New keybinds to handle windows{}
 - [ ] Finish the initial setup script
 - [ ] Remove built in bookmarks on nautilus (Starred, Recent)
+- [ ] Base64 decode on the commands
 - [ ] New hosts:
   - [ ] pihole
   - [ ] server

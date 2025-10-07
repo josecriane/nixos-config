@@ -1,0 +1,43 @@
+{
+  "commands": [
+    {
+      "name": "Calculator",
+      "key": "calc",
+      "commandPrefix": ">calc ",
+      "fontIcon": "calculate",
+      "subtitle": "Do simple math equations (powered by Qalc)",
+      "processCommand": ["qalc", "-m", "100"],
+      "hintIcon": "function",
+      "hintText": "Open in calculator",
+      "placeholderText": "Type an expression to calculate",
+      "openCommand": "alacritty -e qalc -i '{input}'",
+      "activateCommand": "qalc -t -m 100 '{input}'"
+    },
+    {
+      "name": "Base64 Encode",
+      "key": "base64",
+      "commandPrefix": ">base64 ",
+      "fontIcon": "code",
+      "subtitle": "Encode text in base64",
+      "processCommand": ["sh", "-c", "echo -n \"$0\" | base64"],
+      "hintIcon": "content_copy",
+      "hintText": "Copy to clipboard",
+      "placeholderText": "Type text to encode in base64",
+      "openCommand": "",
+      "activateCommand": "echo -n '{input}' | base64"
+    },
+    {
+      "name": "Base64 Decode",
+      "key": "base64decode",
+      "commandPrefix": ">base64decode ",
+      "fontIcon": "code_off",
+      "subtitle": "Decode base64 text",
+      "processCommand": ["sh", "-c", "echo -n \"$0\" | base64 -d"],
+      "hintIcon": "content_copy",
+      "hintText": "Copy to clipboard",
+      "placeholderText": "Type base64 text to decode",
+      "openCommand": "",
+      "activateCommand": "echo -n '{input}' | base64 -d"
+    }
+  ]
+}
