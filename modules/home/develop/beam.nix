@@ -2,9 +2,9 @@
 {
   home.packages = with pkgs; [
     # Erlang
-    erlang_27
-    beamMinimal27Packages.rebar3
-    erlang-ls
+    erlang_28
+    beamMinimal28Packages.rebar3
+    erlang-language-platform
 
     # Elixir
     elixir_1_18

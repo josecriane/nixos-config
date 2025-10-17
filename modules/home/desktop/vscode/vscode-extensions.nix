@@ -32,9 +32,9 @@ with pkgs.vscode-extensions;
     sha256 = "ipnKJRnRYDVadyfSAisYDc2fyZeWrzlRQ0ZpCX1hVl0=";
   }
   {
-    name = "erlang-ls";
-    publisher = "erlang-ls";
-    version = "0.0.46";
-    sha256 = "HvQ0qv1wA+qSN1+8r9Z4iTq7DtpsCvOZ73bACeHZ9+o=";
+    name = "erlang-language-platform";
+    publisher = "erlang-language-platform";
+    version = "0.42.0";
+    sha256 = "tmwOrZnfgMfEVeV4vgYe1VJDtR+MeM/4bXiQuCcoH38=";
   }
 ]
