@@ -10,9 +10,7 @@ let
 in
 {
   config = {
-    services.udev.packages = [ pkgs.android-udev-rules ];
-
-    users.groups.adbusers = { };
+    programs.adb.enable = true;
 
     users.users.${username} = {
       extraGroups = [ "adbusers" ];
