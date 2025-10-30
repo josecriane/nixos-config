@@ -3,22 +3,24 @@
   programs.git = {
     enable = true;
 
-    userName = "Jose E. Cribeiro Aneiros";
-    userEmail = "josecriane@gmail.com";
+    settings = {
+      user = {
+        name = "Jose E. Cribeiro Aneiros";
+        email = "josecriane@gmail.com";
+      };
 
-    aliases = {
-      amend = "commit --amend --no-edit";
-      br = "branch";
-      ci = "commit";
-      co = "checkout";
-      lg = "log --graph --format=format:'%C(bold cyan)%h%C(reset)%C(bold yellow)%d%C(reset) %C(bold green)%ar%C(reset) %C(white)%s%C(reset) %C(dim white)%an%C(reset)%C(reset)' --all";
-      resetveryhard = "!git reset --hard && git clean -ffxd && git submodule foreach --recursive 'git reset --hard && git clean -ffxd'";
-      st = "status";
-      sup = "submodule update --init --recursive";
-      tree = "log --oneline --graph --decorate --all";
-    };
+      alias = {
+        amend = "commit --amend --no-edit";
+        br = "branch";
+        ci = "commit";
+        co = "checkout";
+        lg = "log --graph --format=format:'%C(bold cyan)%h%C(reset)%C(bold yellow)%d%C(reset) %C(bold green)%ar%C(reset) %C(white)%s%C(reset) %C(dim white)%an%C(reset)%C(reset)' --all";
+        resetveryhard = "!git reset --hard && git clean -ffxd && git submodule foreach --recursive 'git reset --hard && git clean -ffxd'";
+        st = "status";
+        sup = "submodule update --init --recursive";
+        tree = "log --oneline --graph --decorate --all";
+      };
 
-    extraConfig = {
       core.editor = "vim";
 
       credential.helper = "store";

@@ -4,7 +4,7 @@
     meld
   ];
 
-  programs.git.extraConfig = {
+  programs.git.settings = {
     diff.tool = "meld";
     merge.tool = "meld";
   };
