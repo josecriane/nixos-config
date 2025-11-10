@@ -29,6 +29,8 @@ in
 
         "editor.minimap.enabled" = true;
         "editor.renderWhitespace" = "all";
+        "elpClient.serverPath" = "/etc/profiles/per-user/sito/bin/elp";
+        "erlangDap.erlangInstallationPath" = "/etc/profiles/per-user/sito/bin/";
         "erlangFormatter.formatter" = "erlfmt";
         "explorer.confirmDelete" = false;
         "explorer.confirmDragAndDrop" = false;
