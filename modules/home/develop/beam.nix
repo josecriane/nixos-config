@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   home.packages = with pkgs; [
     # Erlang
@@ -8,7 +8,7 @@
 
     # Elixir
     elixir_1_18
-    (lowPrio elixir-ls)
+    (lib.lowPrio elixir-ls)
   ];
 
   home.sessionVariables = {
