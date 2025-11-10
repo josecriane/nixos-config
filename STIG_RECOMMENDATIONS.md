@@ -1609,37 +1609,38 @@ Examples:
 
 | Category | Implemented | Conscious Exceptions | Deferred | Not Implemented | Total | % Compliance |
 |----------|-------------|---------------------|----------|-----------------|-------|--------------|
-| **CAT I (High Severity)** | 5 | 1 | 0 | 5 | 11 | **54.5%** |
-| **CAT II (Medium Severity)** | 15 | 4 | 1 | 72 | 92 | **20.7%** |
+| **CAT I (High Severity)** | 8 | 1 | 0 | 2 | 11 | **81.8%** |
+| **CAT II (Medium Severity)** | 17 | 4 | 1 | 70 | 92 | **22.8%** |
 | **CAT III (Low Severity)** | 0 | 0 | 0 | 1 | 1 | **0%** |
-| **TOTAL** | **20** | **5** | **1** | **78** | **104** | **24.0%** |
+| **TOTAL** | **25** | **5** | **1** | **73** | **104** | **28.8%** |
 
 ---
 
 ### CAT I - High Severity (11 rules)
 
-✅ **Implemented: 5/11 (45.5%)**
+✅ **Implemented: 8/11 (72.7%)**
 - V-268144: LUKS disk encryption (hosts/imre and hosts/newarre)
 - V-268154: Signature verification (modules/core/linux/system.nix)
-- V-268176: Strong authenticators for SSH (UsePAM) - **Available when server=true** (modules/core/linux/openssh.nix) 
-- V-268159: SSH enabled - **Available when server=true** (modules/core/linux/openssh.nix) 
-- V-268157: SSH MACs (FIPS approved) - **Available when server=true** (modules/core/linux/openssh.nix) 
+- V-268131: Remove telnet (modules/core/linux/security.nix)
+- V-268130: SHA512 password hashing (modules/core/linux/security.nix)
+- V-268172: Prevent autologin (modules/core/linux/xserver.nix)
+**Available when server=true** 
+  - V-268176: Strong authenticators for SSH (UsePAM) (modules/core/linux/openssh.nix)
+  - V-268159: SSH enabled (modules/core/linux/openssh.nix)
+  - V-268157: SSH MACs (FIPS approved) (modules/core/linux/openssh.nix)
 
 ⚠️ **Conscious Exceptions (counted as implemented): 1/11**
-- V-268083: DOD SSH banner → **EXCEPTION: Not a U.S. Department of Defense system** - **Available when server=true** (modules/core/linux/openssh.nix - commented out) 
+- V-268083: DOD SSH banner (modules/core/linux/openssh.nix - commented out)
 
-❌ **Not Implemented: 5/11 (45.5%)**
-- V-268172: Prevent autologin
+❌ **Not Implemented: 2/11 (18.2%)**
 - V-268168: FIPS mode
-- V-268131: Remove telnet
-- V-268130: SHA512 password hashing
 - V-268146: Disable wireless (marked as conscious exception in CAT II)
 
 ---
 
 ### CAT II - Medium Severity (92 rules)
 
-✅ **Implemented: 15/92 (16.3%)**
+✅ **Implemented: 17/92 (18.5%)**
 - V-268078: Firewall enabled (modules/core/linux/networking.nix)
 - V-268152: Software installation restricted (modules/core/linux/home-manager.nix)
 - V-268173: AppArmor enabled (modules/core/linux/security.nix)
@@ -1649,11 +1650,15 @@ Examples:
 - V-268161: ASLR enabled (modules/core/linux/boot.nix)
 - V-268160: Kernel pointer restriction (modules/core/linux/boot.nix)
 - V-268141: TCP syncookies (modules/core/linux/boot.nix)
-- V-268089: SSH ciphers (FIPS approved) - **Available when server=true** (modules/core/linux/openssh.nix) 
-- V-268137: Prohibit root login via SSH - **Available when server=true** (modules/core/linux/openssh.nix) 
-- V-268142: SSH idle timeout - **Available when server=true** (modules/core/linux/openssh.nix) 
-- V-268143: Terminate unresponsive SSH - **Available when server=true** (modules/core/linux/openssh.nix) 
-- V-268088: Verbose SSH logging - **Available when server=true** (modules/core/linux/openssh.nix) 
+- V-268155: Sudo reauthentication (modules/core/linux/security.nix)
+- V-268156: Sudo password requirement (modules/core/linux/security.nix) 
+**Available when server=true**
+  - V-268089: SSH ciphers (FIPS approved) (modules/core/linux/openssh.nix)
+  - V-268137: Prohibit root login via SSH (modules/core/linux/openssh.nix)
+  - V-268142: SSH idle timeout (modules/core/linux/openssh.nix)
+  - V-268143: Terminate unresponsive SSH (modules/core/linux/openssh.nix)
+  - V-268088: Verbose SSH logging (modules/core/linux/openssh.nix)
+
 
 ⚠️ **Conscious Exceptions (counted as implemented): 4/92**
 - V-268147: Bluetooth disabled → **EXCEPTION: Required for peripheral devices** (modules/core/linux/bluetooth.nix)
@@ -1664,7 +1669,7 @@ Examples:
 ⏸️ **Deferred Implementation: 1/92**
 - V-268138: Prevent root login (users.mutableUsers) → **TODO: Requires SSH keys or hashed passwords configured declaratively** (modules/core/linux/security.nix - commented out)
 
-❌ **Not Implemented: 78/92 (84.8%)**
+❌ **Not Implemented: 70/92 (76.1%)**
 
 **By subcategory:**
 
@@ -1676,11 +1681,11 @@ Examples:
 - V-268091-268119: Audit rules and configuration (43 additional rules)
 
 **SSH Security (6 rules - 83.3% implemented when server=true):**
-- V-268089: SSH ciphers (FIPS approved) - **Available when server=true** 
-- V-268137: Prohibit root login via SSH - **Available when server=true** 
-- V-268088: Verbose SSH logging - **Available when server=true** 
-- V-268143: Terminate unresponsive SSH - **Available when server=true** 
-- V-268142: SSH idle timeout - **Available when server=true** 
+- V-268089: SSH ciphers (FIPS approved) 
+- V-268137: Prohibit root login via SSH 
+- V-268088: Verbose SSH logging 
+- V-268143: Terminate unresponsive SSH 
+- V-268142: SSH idle timeout 
 - ⚠️ V-268083: SSH DOD banner - **Exception: Not DOD system** 
 
 **Password Policies (9 rules - 0% implemented):**
@@ -1699,12 +1704,13 @@ Examples:
 - V-268158: DoS rate-limiting
 - V-268139: USBGuard
 
-**Authentication (5 rules - 0% implemented):**
+**Authentication (5 rules - 40% implemented):**
 - ⏸️ V-268138: Prevent root login (deferred - commented out)
+- V-268155: Sudo reauthentication
+- V-268156: Sudo password requirement
 - V-268177: Multifactor authentication
 - V-268179: PKI authentication
 - V-268081: Account lockout
-- V-268156/155: Sudo reauthentication
 
 **Time Synchronization (3 rules - 100% implemented):**
 - V-268151: timesyncd enable
@@ -1736,38 +1742,39 @@ Examples:
 
 ### Priority Summary
 
-**🔴 Critical (CAT I):** 45.5% not implemented (5 rules) - **54.5% compliant** ⬆️ **+27.2%**
-**🟠 High (CAT II):** 78.3% not implemented (72 rules) - **20.7% compliant** ⬆️ **+6.6%** (including exceptions)
+**🔴 Critical (CAT I):** 18.2% not implemented (2 rules) - **81.8% compliant** ⬆️ **+27.3%** from last update
+**🟠 High (CAT II):** 76.1% not implemented (70 rules) - **22.8% compliant** ⬆️ **+2.1%** from last update (including exceptions)
 **🟡 Low (CAT III):** 100% not implemented (1 rule)
 
 **✅ Progress:**
-- 5 Quick Wins completed
+- 8 Quick Wins completed (CAT I: telnet, SHA512, autologin)
 - Kernel hardening implemented (3 rules)
 - Time synchronization completed (100% - 3/3 rules)
-- SSH hardening implemented (8 rules when server=true) 
+- SSH hardening implemented (8 rules when server=true)
+- Sudo hardening implemented (2 rules)
 - 5 conscious exceptions documented and accepted
-- **Overall compliance: 24.0%** ⬆️ **8.3x improvement from initial 2.9%**
+- **Overall compliance: 28.8%** ⬆️ **9.9x improvement from initial 2.9%**
 
 ---
 
 ### Implementation Priority Recommendations
 
 #### Priority 1 - Critical (CAT I) - Implement Immediately:
-1. ~~Configure SSH hardening (V-268176, V-268157, V-268089, V-268159, V-268137, V-268142, V-268143, V-268088)~~ **COMPLETED** (available when server=true)
-2. Enable FIPS mode (V-268168)
-3. ~~Enable Nix signature verification (V-268154)~~
-4. Configure SHA512 password hashing (V-268130)
-5. Disable autologin if present (V-268172)
-6. Verify telnet is removed (V-268131)
+1. ~~Configure SSH hardening (V-268176, V-268157, V-268089, V-268159, V-268137, V-268142, V-268143, V-268088)~~ (available when server=true)
+2. ~~Enable Nix signature verification (V-268154)~~
+3. ~~Configure SHA512 password hashing (V-268130)~~
+4. ~~Disable autologin if present (V-268172)~~
+5. ~~Verify telnet is removed (V-268131)~~
+6. Enable FIPS mode (V-268168) - **Only 2 CAT I rules remaining!**
 
 #### Priority 2 - High (CAT II Core Security):
 1. ~~Enable audit daemon (V-268080)~~ - Continue with audit rules (V-268090, V-268092, V-268093 + all audit rules)
 2. ~~Enable AppArmor (V-268173)~~
-3. ~~Configure kernel hardening (V-268161, V-268160, V-268141)~~ 
-4. Implement password policies (V-268134, V-268126-128, V-268145, V-268129, V-268132-133)
-5. Configure account lockout (V-268081)
-6. ⏸️ Secure root account (V-268138 - deferred, needs SSH keys config) - SSH root login available when server=true (V-268137)
-7. Configure sudo hardening (V-268155, V-268156)
+3. ~~Configure kernel hardening (V-268161, V-268160, V-268141)~~
+4. ~~Configure sudo hardening (V-268155, V-268156)~~
+5. Implement password policies (V-268134, V-268126-128, V-268145, V-268129, V-268132-133)
+6. Configure account lockout (V-268081)
+7. ⏸️ Secure root account (V-268138 - deferred, needs SSH keys config) - SSH root login available when server=true (V-268137)
 
 #### Priority 3 - Medium (CAT II Operational):
 1. ~~Enable time synchronization (V-268151, V-268150, V-268149)~~ **COMPLETED** (100%)
@@ -1790,6 +1797,10 @@ Examples:
    - Added V-268173 (AppArmor enabled)
    - Added V-268080 (Audit daemon enabled)
    - Added V-268138 (Prevent root login) ⏸️ **DEFERRED** (commented out)
+   - Added V-268131 (Telnet removed - verified)
+   - Added V-268130 (SHA512 password hashing)
+   - Added V-268156 (Sudo password requirement)
+   - Added V-268155 (Sudo reauthentication)
 
 2. **`modules/core/linux/system.nix`**
    - Added V-268151 (Time synchronization)
@@ -1827,17 +1838,22 @@ Examples:
 9. **`hosts/newarre/hardware-configuration.nix`**
    - Added comment for V-268144 (LUKS encryption)
 
+10. **`modules/core/linux/xserver.nix`**
+   - Added V-268172 (Prevent autologin - verified)
+
 ---
 
 *Last updated: 2025-11-10 - Complete documentation of 104 STIG vulnerabilities with compliance analysis*
 
 **Latest changes:**
-- Implemented 5 Quick Wins (AppArmor, Audit, Time sync, Signature verification)
+- Implemented 8 Quick Wins (AppArmor, Audit, Time sync, Signature verification, Telnet, SHA512, Autologin, Sudo)
 - Implemented Kernel Hardening (ASLR, Kernel pointer restriction, TCP syncookies)
-- Created SSH hardening module (conditional on server=true) - **8 rules implemented** 
+- Created SSH hardening module (conditional on server=true) - **8 rules implemented**
+- Implemented Sudo hardening (reauthentication + password requirement)
+- Completed CAT I Quick Wins (telnet, SHA512, autologin)
 - ⚠️ Added 5 conscious exceptions (Bluetooth, Wireless, DOD banner, DoD time servers)
 - ⏸️ Deferred V-268138 (users.mutableUsers) - requires SSH keys configuration
-- Compliance increased **8.3x** from 2.9% to **24.0%** ⬆️ **UPDATED**
-  - CAT I: 18.2% → **54.5%** (+27.2%)
-  - CAT II: 10.9% → **20.7%** (+6.6%)
-- 📁 Modified 9 files with STIG configurations and comments
+- Compliance increased **9.9x** from 2.9% to **28.8%** ⬆️ **UPDATED**
+  - CAT I: 18.2% → **81.8%** (+63.6%) - **Only 2 rules remaining!** 🎉
+  - CAT II: 10.9% → **22.8%** (+11.9%)
+- 📁 Modified 10 files with STIG configurations and comments

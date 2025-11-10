@@ -24,6 +24,11 @@ in
         variant = variants;
         model = "pc105";
       };
+
+      # STIG V-268172: Prevent unattended/automatic console login
+      # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268172
+      # Automatic login bypasses authentication controls
+      # No autoLogin configured - verified compliant (autoLogin.enable defaults to false)
     };
   };
 
