@@ -1613,14 +1613,14 @@ Examples:
 ## 📊 Current STIG Compliance Status
 
 ### Overall Summary
-**Total:** 8 implemented + 2 conscious exceptions = 10 of 104 rules evaluated
+**Total:** 11 implemented + 3 conscious exceptions + 1 deferred = 15 of 104 rules evaluated
 
-| Category | Implemented | Conscious Exceptions | Not Implemented | Total | % Compliance |
-|----------|-------------|---------------------|-----------------|-------|--------------|
-| **CAT I (High Severity)** | 2 | 0 | 9 | 11 | **18.2%** |
-| **CAT II (Medium Severity)** | 6 | 2 | 84 | 92 | **6.5%** (8.7% with exceptions) |
-| **CAT III (Low Severity)** | 0 | 0 | 1 | 1 | **0%** |
-| **TOTAL** | **8** | **2** | **94** | **104** | **7.7%** (9.6% with exceptions) |
+| Category | Implemented | Conscious Exceptions | Deferred | Not Implemented | Total | % Compliance |
+|----------|-------------|---------------------|----------|-----------------|-------|--------------|
+| **CAT I (High Severity)** | 2 | 1 | 0 | 8 | 11 | **18.2%** (27.3% with exceptions) |
+| **CAT II (Medium Severity)** | 9 | 2 | 1 | 80 | 92 | **9.8%** (13.0% with exceptions) |
+| **CAT III (Low Severity)** | 0 | 0 | 0 | 1 | 1 | **0%** |
+| **TOTAL** | **11** | **3** | **1** | **89** | **104** | **10.6%** (14.4% with exceptions) |
 
 ---
 
@@ -1630,27 +1630,33 @@ Examples:
 - V-268144: LUKS disk encryption (hosts/imre and hosts/newarre)
 - V-268154: Signature verification (modules/core/linux/system.nix)
 
-❌ **Not Implemented: 9/11 (81.8%)**
-- V-268176: Strong authenticators for SSH (UsePAM)
+⚠️ **Conscious Exceptions: 1/11**
+- V-268083: DOD SSH banner → **EXCEPTION: Not a U.S. Department of Defense system** (modules/core/linux/openssh.nix - commented out)
+
+❌ **Not Implemented: 8/11 (72.7%)**
+- V-268176: Strong authenticators for SSH (UsePAM) - **Available when server=true**
 - V-268172: Prevent autologin
 - V-268168: FIPS mode
-- V-268159: SSH enabled
-- V-268157: SSH MACs (FIPS-approved)
-- V-268146: Disable wireless (marked as conscious exception)
+- V-268159: SSH enabled - **Available when server=true**
+- V-268157: SSH MACs (FIPS-approved) - **Available when server=true**
+- V-268146: Disable wireless (marked as conscious exception in CAT II)
 - V-268131: Remove telnet
 - V-268130: SHA512 password hashing
-- V-268089: SSH ciphers (DoD-approved)
+- V-268089: SSH ciphers (DoD-approved) - **Available when server=true**
 
 ---
 
 ### CAT II - Medium Severity (92 rules)
 
-✅ **Implemented: 6/92 (6.5%)**
+✅ **Implemented: 9/92 (9.8%)**
 - V-268078: Firewall enabled (modules/core/linux/networking.nix)
 - V-268152: Software installation restricted (modules/core/linux/home-manager.nix)
 - V-268173: AppArmor enabled (modules/core/linux/security.nix)
 - V-268080: Audit daemon enabled (modules/core/linux/security.nix)
 - V-268151: Time synchronization (modules/core/linux/system.nix)
+- V-268161: ASLR enabled (modules/core/linux/boot.nix) ⭐ **NEW**
+- V-268160: Kernel pointer restriction (modules/core/linux/boot.nix) ⭐ **NEW**
+- V-268141: TCP syncookies (modules/core/linux/boot.nix) ⭐ **NEW**
 
 ⚠️ **Conscious Exceptions: 2/92**
 - V-268147: Bluetooth disabled → **EXCEPTION: Required for peripheral devices** (modules/core/linux/bluetooth.nix)
@@ -1659,7 +1665,7 @@ Examples:
 ⏸️ **Deferred Implementation: 1/92**
 - V-268138: Prevent root login (users.mutableUsers) → **TODO: Requires SSH keys or hashed passwords configured declaratively** (modules/core/linux/security.nix - commented out)
 
-❌ **Not Implemented: 83/92 (90.2%)**
+❌ **Not Implemented: 80/92 (87.0%)**
 
 **By subcategory:**
 
@@ -1670,12 +1676,12 @@ Examples:
 - V-268093: Audit backlog
 - V-268091-268119: Audit rules and configuration (43 additional rules)
 
-**SSH Security (5 rules - 0% implemented):**
-- V-268137: Prohibit root login via SSH
-- V-268088: Verbose SSH logging
-- V-268143: Terminate unresponsive SSH
-- V-268142: SSH idle timeout
-- V-268083: SSH DOD banner
+**SSH Security (5 rules - 0% base, 80% when server=true):**
+- V-268137: Prohibit root login via SSH - **Available when server=true**
+- V-268088: Verbose SSH logging - **Available when server=true**
+- V-268143: Terminate unresponsive SSH - **Available when server=true**
+- V-268142: SSH idle timeout - **Available when server=true**
+- V-268083: SSH DOD banner - **Exception: Not DOD system**
 
 **Password Policies (9 rules - 0% implemented):**
 - V-268134: Minimum 15 characters
@@ -1685,11 +1691,11 @@ Examples:
 - V-268132-133: Min/max password lifetime
 - V-268169-170: Dictionary checking
 
-**Security Hardening (5 rules - 16.7% implemented):**
+**Security Hardening (6 rules - 66.7% implemented):**
 - ✅ V-268173: AppArmor
-- V-268161: ASLR
-- V-268160: Kernel pointer restriction
-- V-268141: TCP syncookies
+- ✅ V-268161: ASLR ⭐ **NEW**
+- ✅ V-268160: Kernel pointer restriction ⭐ **NEW**
+- ✅ V-268141: TCP syncookies ⭐ **NEW**
 - V-268158: DoS rate-limiting
 - V-268139: USBGuard
 
@@ -1730,11 +1736,15 @@ Examples:
 
 ### Priority Summary
 
-**🔴 Critical (CAT I):** 81.8% not implemented (9 rules) - Improved from 90.9%
-**🟠 High (CAT II):** 91.3% not implemented (84 rules) - Improved from 95.7%
+**🔴 Critical (CAT I):** 72.7% not implemented (8 rules) - Improved from 90.9%
+**🟠 High (CAT II):** 87.0% not implemented (80 rules) - Improved from 95.7%
 **🟡 Low (CAT III):** 100% not implemented (1 rule)
 
-**✅ Progress:** 5 Quick Wins completed! Compliance increased 2.65x from 2.9% to 7.7%.
+**✅ Progress:**
+- 5 Quick Wins completed
+- Kernel hardening implemented (3 rules)
+- SSH hardening ready (4 rules available when server=true)
+- Compliance increased 3.66x from 2.9% to 10.6%
 
 ---
 
@@ -1749,12 +1759,12 @@ Examples:
 6. Verify telnet is removed (V-268131)
 
 #### Priority 2 - High (CAT II Core Security):
-1. ~~Enable audit daemon (V-268080)~~ - Continue with audit rules (V-268090, V-268092, V-268093 + all audit rules)
-2. ~~Enable AppArmor (V-268173)~~
-3. Configure kernel hardening (V-268161, V-268160, V-268141)
+1. ~~Enable audit daemon (V-268080)~~ ✅ - Continue with audit rules (V-268090, V-268092, V-268093 + all audit rules)
+2. ~~Enable AppArmor (V-268173)~~ ✅
+3. ~~Configure kernel hardening (V-268161, V-268160, V-268141)~~ ✅ **DONE**
 4. Implement password policies (V-268134, V-268126-128, V-268145, V-268129, V-268132-133)
 5. Configure account lockout (V-268081)
-6. ⏸️ Secure root account (V-268138 - deferred, needs SSH keys config) - Continue with SSH root login (V-268137)
+6. ⏸️ Secure root account (V-268138 - deferred, needs SSH keys config) - SSH root login available when server=true (V-268137)
 7. Configure sudo hardening (V-268155, V-268156)
 
 #### Priority 3 - Medium (CAT II Operational):
@@ -1774,29 +1784,45 @@ Examples:
 
 ### Files Modified with STIG Comments
 
-1. **`modules/core/linux/security.nix`** ⭐
+1. **`modules/core/linux/security.nix`**
    - Added V-268173 (AppArmor enabled) ✅
    - Added V-268080 (Audit daemon enabled) ✅
    - Added V-268138 (Prevent root login) ⏸️ **DEFERRED** (commented out)
 
-2. **`modules/core/linux/system.nix`** ⭐ **NEW**
+2. **`modules/core/linux/system.nix`**
    - Added V-268151 (Time synchronization) ✅
    - Added V-268154 (Signature verification) ✅
 
-3. **`modules/core/linux/networking.nix`**
+3. **`modules/core/linux/boot.nix`** ⭐ **NEW**
+   - Added V-268161 (ASLR) ✅
+   - Added V-268160 (Kernel pointer restriction) ✅
+   - Added V-268141 (TCP syncookies) ✅
+
+4. **`modules/core/linux/openssh.nix`** ⭐ **NEW** (conditional: server=true)
+   - Added V-268159 (SSH enabled) ✅
+   - Added V-268176 (UsePAM) ✅
+   - Added V-268089 (SSH ciphers) ✅
+   - Added V-268157 (SSH MACs) ✅
+   - Added V-268137 (PermitRootLogin no) ✅
+   - Added V-268142 (SSH idle timeout) ✅
+   - Added V-268143 (Terminate unresponsive) ✅
+   - Added V-268088 (VERBOSE logging) ✅
+   - Added V-268083 (DOD banner) ⚠️ **EXCEPTION** (commented out)
+
+5. **`modules/core/linux/networking.nix`**
    - Added comment for V-268078 (firewall enabled) ✅
    - Added exception note for V-268146 (wireless) ⚠️
 
-4. **`modules/core/linux/home-manager.nix`**
+6. **`modules/core/linux/home-manager.nix`**
    - Added comment for V-268152 (software installation restricted) ✅
 
-5. **`modules/core/linux/bluetooth.nix`**
+7. **`modules/core/linux/bluetooth.nix`**
    - Added exception note for V-268147 (bluetooth) ⚠️
 
-6. **`hosts/imre/hardware-configuration.nix`**
+8. **`hosts/imre/hardware-configuration.nix`**
    - Added comment for V-268144 (LUKS encryption) ✅
 
-7. **`hosts/newarre/hardware-configuration.nix`**
+9. **`hosts/newarre/hardware-configuration.nix`**
    - Added comment for V-268144 (LUKS encryption) ✅
 
 ---
@@ -1804,7 +1830,10 @@ Examples:
 *Last updated: 2025-11-10 - Complete documentation of 104 STIG vulnerabilities with compliance analysis*
 
 **Latest changes:**
-- ✅ Implemented 5 Quick Wins (increased compliance 2.65x from 2.9% to 7.7%)
+- ✅ Implemented 5 Quick Wins (AppArmor, Audit, Time sync, Signature verification)
+- ✅ Implemented Kernel Hardening (ASLR, Kernel pointer restriction, TCP syncookies)
+- ✅ Created SSH hardening module (conditional on server=true)
+- ⚠️ Added 3 conscious exceptions (Bluetooth, Wireless, DOD banner)
 - ⏸️ Deferred V-268138 (users.mutableUsers) - requires SSH keys configuration
-- ✅ Added STIG configurations to `modules/core/linux/security.nix` and `modules/core/linux/system.nix`
-- ✅ Updated compliance status and implementation tracking
+- ✅ Compliance increased **3.66x** from 2.9% to **10.6%**
+- 📁 Modified 9 files with STIG configurations and comments
