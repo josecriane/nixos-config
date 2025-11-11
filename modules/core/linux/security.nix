@@ -47,6 +47,18 @@
     Defaults timestamp_timeout=0
   '';
 
+  # STIG V-268085: Limit concurrent sessions to 10 per account
+  # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268085
+  # Prevents resource exhaustion and helps detect anomalous activity
+  security.pam.loginLimits = [
+    {
+      domain = "*";
+      item = "maxlogins";
+      type = "hard";
+      value = "10";
+    }
+  ];
+
   security.rtkit.enable = true;
 
   # Habilitar fprintd para autenticación por huella dactilar
