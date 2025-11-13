@@ -10,6 +10,7 @@
   imports = [
     inputs.lanzaboote.nixosModules.lanzaboote
     ./alias.nix
+    ./audit.nix
     ./bluetooth.nix
     ./boot.nix
     ./gaming.nix
