@@ -65,4 +65,26 @@
     # Enable verbose logging for security monitoring
     logLevel = "VERBOSE";
   };
+
+  # STIG V-268158: DoS protection via rate-limiting for SSH
+  # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268158
+  # Protects against SSH brute-force and DoS attacks by limiting connection rates
+  # Applied only when SSH server is enabled (server=true)
+  networking.firewall.extraCommands = ''
+    # SSH rate limiting: max 1MB/second per source IP (protects against connection floods)
+    iptables -A INPUT -p tcp --dport 22 \
+      -m hashlimit \
+      --hashlimit-name stig_ssh_byte_limit \
+      --hashlimit-mode srcip \
+      --hashlimit-above 1000000b/second \
+      -j REJECT --reject-with tcp-reset
+
+    # Same for IPv6
+    ip6tables -A INPUT -p tcp --dport 22 \
+      -m hashlimit \
+      --hashlimit-name stig_ssh_byte_limit_v6 \
+      --hashlimit-mode srcip \
+      --hashlimit-above 1000000b/second \
+      -j REJECT --reject-with tcp-reset
+  '';
 }

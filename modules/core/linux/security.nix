@@ -31,8 +31,34 @@
   # STIG V-268130: SHA512 password hashing
   # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268130
   # Use SHA512 for password hashing to prevent brute-force attacks
-  security.pam.services.passwd.text = ''
-    password required pam_unix.so sha512 shadow
+
+  # STIG V-268132: Minimum password lifetime (1 day)
+  # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268132
+  # Prevents users from changing password multiple times to circumvent history
+
+  # STIG Password Quality Requirements (7 rules implemented, 2 deferred)
+  # V-268126: Uppercase requirement
+  # V-268127: Lowercase requirement
+  # V-268128: Numeric requirement
+  # V-268145: Special character requirement
+  # V-268129: 50% character change from old password
+  # V-268169-170: Dictionary checking
+  # V-268134: Minimum 15 characters - DEFERRED (current passwords don't meet requirement)
+  # V-268133: Maximum 60 days - DEFERRED (forced rotation not desired)
+  security.pam.services.passwd.text = lib.mkForce ''
+    # SHA512 hashing with minimum password lifetime (1 day)
+    password required pam_unix.so sha512 shadow mindays=1
+
+    # Password complexity requirements (without minlen and maxdays)
+    password requisite pam_pwquality.so \
+      ucredit=-1 \
+      lcredit=-1 \
+      dcredit=-1 \
+      ocredit=-1 \
+      difok=8 \
+      dictcheck=1 \
+      enforce_for_root \
+      retry=3
   '';
 
   # STIG V-268156: Reauthentication when executing privileged commands
@@ -58,6 +84,14 @@
       value = "10";
     }
   ];
+
+  # STIG V-268139: USBGuard for USB device control (INTENTIONALLY NOT FOLLOWED)
+  # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268139
+  # NOTE: USBGuard not enabled - would be too restrictive for desktop/laptop usage
+  # Risk accepted: Personal workstation frequently connects various USB devices (keyboards, mice, storage, peripherals)
+  # USBGuard would require manual authorization for each new device, impacting productivity
+  # Alternative mitigations: Physical security, user awareness, antivirus scanning
+  # services.usbguard.enable = false;
 
   security.rtkit.enable = true;
 

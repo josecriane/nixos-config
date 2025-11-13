@@ -1610,9 +1610,9 @@ Examples:
 | Category | Implemented | Conscious Exceptions | Deferred | Not Implemented | Total | % Compliance |
 |----------|-------------|---------------------|----------|-----------------|-------|--------------|
 | **CAT I (High Severity)** | 8 | 3 | 0 | 0 | 11 | **100%** 🎉 |
-| **CAT II (Medium Severity)** | 17 | 4 | 1 | 70 | 92 | **22.8%** |
+| **CAT II (Medium Severity)** | 25 | 5 | 3 | 59 | 92 | **32.6%** |
 | **CAT III (Low Severity)** | 1 | 0 | 0 | 0 | 1 | **100%** 🎉 |
-| **TOTAL** | **26** | **7** | **1** | **70** | **104** | **31.7%** |
+| **TOTAL** | **34** | **8** | **3** | **59** | **104** | **40.4%** |
 
 ---
 
@@ -1864,13 +1864,14 @@ Examples:
 - 🎉 **CAT III - LOW SEVERITY: 100% COMPLETE!** ⭐ **MILESTONE ACHIEVED**
 - ✅ Implemented 8 Quick Wins (AppArmor, Audit, Time sync, Signature verification, Telnet, SHA512, Autologin, Sudo)
 - ✅ Implemented Kernel Hardening (ASLR, Kernel pointer restriction, TCP syncookies)
-- ✅ Created SSH hardening module (conditional on server=true) - **8 rules implemented**
+- ✅ Created SSH hardening module (conditional on server=true) - **9 rules implemented including DoS rate-limiting** ⭐ **UPDATED**
 - ✅ Implemented Sudo hardening (reauthentication + password requirement)
+- ✅ Implemented Password Policies (7 of 9 rules: complexity requirements, dictionary checking, min lifetime) ⭐ **NEW**
 - ✅ Implemented session limits (CAT III complete)
-- ⚠️ Added 7 conscious exceptions (Bluetooth, Wireless [CAT I+II], DOD banner, DoD time servers, FIPS mode)
-- ⏸️ Deferred V-268138 (users.mutableUsers) - requires SSH keys configuration
-- ✅ Compliance increased **10.9x** from 2.9% to **31.7%** ⬆️ **UPDATED**
+- ⚠️ Added 8 conscious exceptions (Bluetooth, Wireless [CAT I+II], DOD banner, DoD time servers, FIPS mode, USBGuard) ⭐ **UPDATED**
+- ⏸️ Deferred 3 rules (users.mutableUsers, password min 15 chars, password max 60 days) ⭐ **UPDATED**
+- ✅ Compliance increased **13.9x** from 2.9% to **40.4%** ⬆️ **UPDATED**
   - **CAT I: 18.2% → 100%** (+81.8%) 🏆 **COMPLETE!**
   - **CAT III: 0% → 100%** (+100%) 🏆 **COMPLETE!**
-  - CAT II: 10.9% → **22.8%** (+11.9%)
+  - **CAT II: 10.9% → 32.6%** (+21.7%) 🚀 **BIG JUMP!**
 - 📁 Modified 10 files with STIG configurations and comments
