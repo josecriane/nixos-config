@@ -8,15 +8,17 @@
   # Servicios esenciales para niri
   services = {
     # Control de inactividad
+    # STIG V-268086: Session lock after 10 minutes of inactivity
+    # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268086
     swayidle = {
       enable = true;
       timeouts = [
         {
-          timeout = 300;
+          timeout = 600; # 10 minutes - STIG requirement (was 5 minutes)
           command = "${pkgs.swaylock-effects}/bin/swaylock -f";
         }
         {
-          timeout = 600;
+          timeout = 900; # 15 minutes - suspend after lock
           command = "${pkgs.systemd}/bin/systemctl suspend";
         }
       ];

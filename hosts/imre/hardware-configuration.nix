@@ -31,6 +31,8 @@
     options = [ "subvol=@" ];
   };
 
+  # STIG V-268144: Protect confidentiality/integrity of data at rest (LUKS encryption)
+  # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268144
   boot.initrd.luks.devices."luks-c126b589-c1a6-4b12-82e8-c3bb57ff4fe2".device =
     "/dev/disk/by-uuid/c126b589-c1a6-4b12-82e8-c3bb57ff4fe2";
 

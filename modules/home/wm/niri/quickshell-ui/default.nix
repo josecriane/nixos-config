@@ -23,7 +23,7 @@ let
 
   # Build the quickshell package with our configuration
   quickshellPackage =
-    inputs.quickshell-config.packages.${pkgs.system}.withAllCommands
+    inputs.quickshell-config.packages.${pkgs.stdenv.hostPlatform.system}.withAllCommands
       quickshellConfig;
 
 in
@@ -33,7 +33,7 @@ in
   ];
   # Use the custom quickshell configuration package with both commands and Stylix colors
   home.packages = [
-    inputs.quickshell.packages.${pkgs.system}.default
+    inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default
     quickshellPackage
   ];
 
@@ -59,6 +59,8 @@ in
 
   # Enable QML language server support
   home.sessionVariables = {
-    QML2_IMPORT_PATH = "${inputs.quickshell.packages.${pkgs.system}.default}/lib/qt-6/qml";
+    QML2_IMPORT_PATH = "${
+      inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default
+    }/lib/qt-6/qml";
   };
 }

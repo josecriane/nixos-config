@@ -34,6 +34,8 @@
     fsType = "ext4";
   };
 
+  # STIG V-268144: Protect confidentiality/integrity of data at rest (LUKS encryption)
+  # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268144
   boot.initrd.luks.devices."luks-ee40f3c8-b2b4-4071-b04a-b1b1ddc49113".device =
     "/dev/disk/by-uuid/ee40f3c8-b2b4-4071-b04a-b1b1ddc49113";
 
