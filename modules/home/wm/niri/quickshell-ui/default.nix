@@ -59,6 +59,8 @@ in
 
   # Enable QML language server support
   home.sessionVariables = {
-    QML2_IMPORT_PATH = "${inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default}/lib/qt-6/qml";
+    QML2_IMPORT_PATH = "${
+      inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default
+    }/lib/qt-6/qml";
   };
 }
