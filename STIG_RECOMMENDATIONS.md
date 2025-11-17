@@ -4,23 +4,12 @@ This document contains all vulnerabilities listed in https://stigviewer.com/stig
 
 ## 📊 Executive Summary
 
-**STIG Compliance: 91.3%** (95/104 vulnerabilities)
+**STIG Compliance: 94.2%** (98/104 vulnerabilities)
 
 **Implementation Status:**
-- ✅ **IMPLEMENTED**: 76 vulnerabilities (73.1%)
-- ⚠️ **SKIPPED** (Conscious Exceptions): 21 vulnerabilities (20.2%)
-- ❌ **UNDECIDED** (Not Implemented): 4 vulnerabilities (3.8%)
+- ✅ **IMPLEMENTED**: 79 vulnerabilities (76.0%)
+- ⚠️ **SKIPPED** (Conscious Exceptions): 22 vulnerabilities (21.2%)
 - ⏸️ **DEFERRED**: 4 vulnerabilities (3.8%)
-
----
-
-### ❌ Not Implemented - Pending Decision (4 rules):
-
-**Medium Priority:**
-- **V-268086**: Session lock after 15 minutes inactivity (requires dconf for GNOME)
-- **V-268087**: Session lock package (vlock)
-- **V-268162**: System security updates (operational procedure)
-- **V-268174**: Inactive accounts disabled after 35 days
 
 ---
 
@@ -32,7 +21,7 @@ This document contains all vulnerabilities listed in https://stigviewer.com/stig
 
 ---
 
-### ⚠️ Conscious Exceptions / NixOS Adaptations (21 rules):
+### ⚠️ Conscious Exceptions / NixOS Adaptations (22 rules):
 
 **DOD-Specific (Not Applicable - 4 rules):**
 - **V-268082**: DOD local login banner (not a U.S. Government system)
@@ -44,10 +33,11 @@ This document contains all vulnerabilities listed in https://stigviewer.com/stig
 - **V-268177**: Multifactor authentication (requires YubiKey/PIV smart card hardware)
 - **V-268179**: PKI-based authentication with CRL caching (requires PKI infrastructure and smart cards)
 
-**Operational Requirements (3 rules):**
+**Operational Requirements (4 rules):**
 - **V-268139**: USBGuard (too restrictive for desktop/laptop usage - would impact productivity)
 - **V-268146**: Wireless disabled (CAT I - WiFi connectivity required for mobile devices)
 - **V-268147**: Bluetooth disabled (required for peripheral device connectivity)
+- **V-268162**: Automatic security updates (manual weekly updates preferred for flake-based system)
 
 **Remote Logging (Not Applicable for Standalone Systems - 3 rules):**
 - **V-268107**: Install syslog-ng for audit log offloading
@@ -64,42 +54,6 @@ This document contains all vulnerabilities listed in https://stigviewer.com/stig
 - **V-268148**: Audit privilege execution (covered by V-268091 rules)
 - **V-268164**: Audit privilege deletion (may be covered by general audit rules)
 - **V-268165**: Audit security object deletion (may be covered by general audit rules)
-
----
-
-## 🆕 Recently Implemented (Session 2025-11-17)
-
-### High Priority Rules Completed:
-1. ✅ **V-268081** - Account lockout after 3 failed login attempts
-   - Implemented for SSH with PAM faillock (deny=3, fail_interval=900, unlock_time=0)
-   - NOT implemented for local console (conscious decision - physical access policy)
-   - Location: `modules/core/linux/openssh.nix:91-106`
-
-2. ✅ **V-268171** - Four second delay between failed login attempts
-   - Implemented for both SSH and local login
-   - Location: `modules/core/linux/security.nix:86-87`, `openssh.nix:98-99`
-
-3. ✅ **V-268181** - UMASK 077 default file permissions
-   - Configured in /etc/login.defs
-   - Ensures privacy for newly created files (owner-only access by default)
-   - Location: `modules/core/linux/security.nix:89-111`
-
-### Newly Skipped (Conscious Exceptions):
-4. ⚠️ **V-268177** - Multifactor authentication
-   - Reason: Requires YubiKey/PIV smart card hardware (not available)
-   - Location: `modules/core/linux/security.nix:101-109`
-
-5. ⚠️ **V-268179** - PKI-based authentication with CRL
-   - Reason: Requires PKI infrastructure and smart card hardware (not available)
-   - Location: `modules/core/linux/security.nix:111-118`
-
-### Newly Deferred:
-6. ⏸️ **V-268153** - AIDE intrusion detection system
-   - Reason: Less critical in NixOS declarative environment
-   - Can be implemented later if needed
-
-**Net Result:** +3 implemented, +2 skipped, +1 deferred
-**Compliance improved from 88.5% → 91.3%**
 
 ---
 

@@ -86,6 +86,16 @@
   security.pam.services.login.failDelay.enable = true;
   security.pam.services.login.failDelay.delay = 4000000; # 4 second delay (4,000,000 microseconds)
 
+  # STIG V-268174: Inactive accounts disabled after 35 days
+  # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268174
+  # Automatically disable NEW accounts that haven't been used for 35 days
+  # NOTE: Only affects accounts created AFTER this configuration is applied
+  # Existing accounts (like 'sito') are NOT affected unless manually configured
+  # Prevents exploitation of dormant accounts by threat actors
+  environment.etc."default/useradd".text = lib.mkForce ''
+    INACTIVE=35
+  '';
+
   # STIG V-268181: UMASK 077 default file permissions
   # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268181
   # Ensures newly created files are only readable/writable by owner (privacy by default)
