@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   # STIG SSH Hardening Configuration
   # Multiple STIG requirements for secure SSH access
@@ -86,5 +86,22 @@
       --hashlimit-mode srcip \
       --hashlimit-above 1000000b/second \
       -j REJECT --reject-with tcp-reset
+  '';
+
+  # STIG V-268081: Account lockout after 3 failed SSH login attempts
+  # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268081
+  # Locks account after 3 consecutive failed attempts within 15 minutes
+  # Requires manual unlock by administrator
+
+  # STIG V-268171: Four second delay between failed login attempts
+  # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268171
+  security.pam.services.sshd.failDelay.enable = true;
+  security.pam.services.sshd.failDelay.delay = 4000000; # 4 second delay (4,000,000 microseconds)
+
+  # Configure faillock for SSH service
+  security.pam.services.sshd.text = lib.mkAfter ''
+    auth required pam_faillock.so preauth deny=3 even_deny_root fail_interval=900 unlock_time=0
+    auth [default=die] pam_faillock.so authfail deny=3 even_deny_root fail_interval=900 unlock_time=0
+    account required pam_faillock.so
   '';
 }

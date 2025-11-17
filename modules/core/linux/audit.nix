@@ -28,18 +28,22 @@
   # NixOS handles auditd configuration differently than traditional distributions
 
   # STIG V-268111-V-268114: Audit log file and directory permissions
-  # STIG V-268115-V-268118: Syslog file permissions (covered by systemd-journald in NixOS)
   # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268111
   # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268112
   # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268113
   # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268114
+  # Audit directory: owned by root:root with 0700 permissions
+  # Audit log files: 0600 permissions
+
+  # STIG V-268115-V-268118: Syslog file permissions (ADAPTED FOR NIXOS)
   # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268115
   # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268116
   # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268117
   # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268118
-  # Audit directory: owned by root:root with 0700 permissions
-  # Audit log files: 0600 permissions
+  # NOTE: NixOS uses systemd-journald instead of traditional syslog (/var/log/messages)
   # Journal files: owned by root:systemd-journal with mode 0640
+  # Journal directory: owned by root:root with mode 0755
+  # This configuration meets the intent of the STIG requirements using NixOS equivalents
   systemd.tmpfiles.rules = [
     "d /var/log/audit 0700 root root -"
     "Z /var/log/audit/*.log 0600 root root -"

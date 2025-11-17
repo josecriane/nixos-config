@@ -73,6 +73,43 @@
     Defaults timestamp_timeout=0
   '';
 
+  # STIG V-268081: Account lockout after 3 failed login attempts (ADAPTED FOR PHYSICAL ACCESS)
+  # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268081
+  # NOTE: Faillock NOT configured for local console login
+  # Risk accepted: Users with physical access to the machine should not be locked out
+  # This prevents legitimate users from being locked out if they mistype their password
+  # SSH faillock is configured in openssh.nix to protect against remote brute-force attacks
+
+  # STIG V-268171: Four second delay between failed login attempts
+  # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268171
+  # Still apply delay to slow down physical access brute-force attempts
+  security.pam.services.login.failDelay.enable = true;
+  security.pam.services.login.failDelay.delay = 4000000; # 4 second delay (4,000,000 microseconds)
+
+  # STIG V-268181: UMASK 077 default file permissions
+  # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268181
+  # Ensures newly created files are only readable/writable by owner (privacy by default)
+  # UMASK 077 = Owner: rwx (7), Group: --- (0), Others: --- (0)
+  environment.etc."login.defs".text = lib.mkForce ''
+    DEFAULT_HOME yes
+
+    SYS_UID_MIN 400
+    SYS_UID_MAX 999
+    UID_MIN 1000
+    UID_MAX 29999
+
+    SYS_GID_MIN 400
+    SYS_GID_MAX 999
+    GID_MIN 1000
+    GID_MAX 29999
+
+    TTYGROUP tty
+    TTYPERM 0620
+
+    # UMASK 077 - Privacy for newly created files and home directories
+    UMASK 077
+  '';
+
   # STIG V-268085: Limit concurrent sessions to 10 per account
   # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268085
   # Prevents resource exhaustion and helps detect anomalous activity
@@ -84,6 +121,25 @@
       value = "10";
     }
   ];
+
+  # STIG V-268177: Multifactor authentication for network access (INTENTIONALLY NOT FOLLOWED)
+  # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268177
+  # NOTE: MFA not configured - requires PIV/CAC smart card or hardware token (YubiKey)
+  # Risk accepted: Hardware tokens (YubiKey, smart cards) not available
+  # This is a personal/development system, not a production or government system
+  # Alternative mitigations: Strong passwords, SSH key authentication, faillock protection
+  # For production use, implement with: security.pam.p11.enable = true (requires smart card)
+  # or security.pam.u2f.enable = true (requires YubiKey)
+  # security.pam.p11.enable = false;
+
+  # STIG V-268179: PKI-based authentication with CRL caching (INTENTIONALLY NOT FOLLOWED)
+  # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268179
+  # NOTE: PKI authentication not configured - requires smart card infrastructure
+  # Risk accepted: PKI/smart card hardware and infrastructure not available
+  # Requires: pam_pkcs11 with cert_policy including crl_auto for certificate revocation checking
+  # This control is intended for government/enterprise environments with PKI infrastructure
+  # Alternative mitigations: SSH key-based authentication with passphrase protection
+  # security.pam.p11.enable = false;
 
   # STIG V-268139: USBGuard for USB device control (INTENTIONALLY NOT FOLLOWED)
   # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268139

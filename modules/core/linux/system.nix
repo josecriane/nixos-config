@@ -38,6 +38,13 @@
   # Prevents installation of tampered or malicious software
   nix.settings.require-sigs = true;
 
+  # STIG V-268082: DOD banner for local logins/getty (INTENTIONALLY NOT FOLLOWED)
+  # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268082
+  # NOTE: DOD banner not configured - not a U.S. Government system
+  # Risk accepted: This is not a DOD/government system, displaying USG legal warnings would be inappropriate
+  # DOD banners are specifically for U.S. Government Information Systems with legal monitoring requirements
+  # services.getty.helpLine = "..."; # Commented out - not applicable
+
   environment.systemPackages = with pkgs; [
     fwupd
   ];
