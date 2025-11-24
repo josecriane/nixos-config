@@ -9,11 +9,13 @@
     powerOnBoot = true;
     settings = {
       General = {
-        Enable = "Source,Sink,Media,Socket";
         Experimental = true;
       };
     };
   };
+
+  # Load Bluetooth kernel modules
+  boot.kernelModules = [ "btusb" ];
 
   environment.systemPackages = with pkgs; [
     bluez

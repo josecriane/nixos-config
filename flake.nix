@@ -45,6 +45,11 @@
       url = "git+file:./secrets";
       flake = false;
     };
+
+    elp-from-source = {
+      url = "path:./pkgs/elp-from-source";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

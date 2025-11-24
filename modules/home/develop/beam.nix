@@ -1,10 +1,17 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 {
   home.packages = with pkgs; [
     # Erlang
     erlang_28
     beamMinimal28Packages.rebar3
-    erlang-language-platform
+
+    # ELP compilado desde source (versión 2025-11-04)
+    inputs.elp-from-source.packages.${pkgs.system}.default
 
     # Elixir
     elixir_1_18
