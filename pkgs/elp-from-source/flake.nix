@@ -51,13 +51,14 @@
         # Wrapper con FHS environment para que eqwalizer funcione
         elp-patched = pkgs.buildFHSEnv {
           name = "elp";
-          targetPkgs = pkgs: with pkgs; [
-            elp-binary
-            stdenv.cc.cc.lib
-            zlib
-            openssl
-            glibc
-          ];
+          targetPkgs =
+            pkgs: with pkgs; [
+              elp-binary
+              stdenv.cc.cc.lib
+              zlib
+              openssl
+              glibc
+            ];
           runScript = "elp";
 
           meta = with pkgs.lib; {
