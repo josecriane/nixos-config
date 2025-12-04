@@ -31,5 +31,5 @@
   ++ (lib.optionals machineOptions.develop [ ./android.nix ])
   ++ (lib.optionals (machineOptions.server or false) [ ./openssh.nix ]);
 
-  system.stateVersion = "25.05";
+  system.stateVersion = "25.11";
 }

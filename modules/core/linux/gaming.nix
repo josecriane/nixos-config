@@ -53,7 +53,8 @@
 
   # Kernel modules for controllers
   boot.kernelModules = [ "uinput" ];
-  hardware.xpadneo.enable = true; # Xbox controller support
+  # FIXME: xpadneo no compila con kernel 6.18 (ida_simple_get deprecado)
+  # hardware.xpadneo.enable = true; # Xbox controller support
 
   # udev rules for controllers
   services.udev.packages = with pkgs; [

@@ -254,10 +254,10 @@ pgrep -af quickshell                 # Check running quickshell processes
 * [NixOS Darwin Config Reference](https://github.com/dustinlyons/nixos-config/blob/main/README.md)
 
 ### Package & Options Search
-* [NixOS Packages](https://search.nixos.org/packages?channel=25.05)
+* [NixOS Packages](https://search.nixos.org/packages?channel=25.11)
 * [MyNixOS Packages](https://mynixos.com/packages)
 * [Nix Darwin Manual](https://daiderd.com/nix-darwin/manual/index.html)
-* [Home Manager Options](https://home-manager-options.extranix.com/?query=&release=release-25.05)
+* [Home Manager Options](https://home-manager-options.extranix.com/?query=&release=release-25.11)
 
 ### WM Configuration
 * [Niri Configuration Guide](https://github.com/YaLTeR/niri/wiki/Configuration:-Introduction)
