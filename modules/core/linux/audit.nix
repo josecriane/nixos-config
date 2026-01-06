@@ -7,18 +7,22 @@
   # STIG V-268080: Enable audit daemon (already in security.nix, kept here for reference)
   # STIG V-268090: Install audit package
   # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268090
-  security.auditd.enable = true;
-  security.audit.enable = true;
+  # DISABLED: audit-rules-nixos.service fails with audit 4.1.2-unstable
+  # Error: "There was an error in line 2" when loading -b backlog parameter
+  # TODO: Re-enable when nixpkgs fixes the audit module
+  security.auditd.enable = lib.mkForce false;
+  security.audit.enable = lib.mkForce false;
 
   # STIG V-268092: Enable early process auditing
   # STIG V-268093: Audit backlog limit (8192 or greater)
   # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268092
   # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268093
   # Captures audit events from early boot and prevents event loss during high activity
-  boot.kernelParams = [
-    "audit=1"
-    "audit_backlog_limit=8192"
-  ];
+  # DISABLED: audit is disabled due to nixpkgs bug
+  # boot.kernelParams = [
+  #   "audit=1"
+  #   "audit_backlog_limit=8192"
+  # ];
 
   # STIG V-268101-268106: Audit storage and processing failure actions
   # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268101
