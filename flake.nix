@@ -50,6 +50,11 @@
       url = "path:./pkgs/elp-from-source";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    android-nixpkgs = {
+      url = "github:tadfisher/android-nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -74,6 +79,9 @@
           modules = [
             (./hosts + "/${host}")
             ./modules/core
+            {
+              nixpkgs.overlays = [ inputs.android-nixpkgs.overlays.default ];
+            }
           ];
           specialArgs = {
             inherit self inputs;

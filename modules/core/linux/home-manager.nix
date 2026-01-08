@@ -27,6 +27,7 @@ in
     };
     users.${username} = {
       imports = [
+        inputs.android-nixpkgs.hmModule
         ./../../home
       ];
       home.username = "${username}";

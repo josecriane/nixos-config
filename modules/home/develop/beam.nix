@@ -11,7 +11,7 @@
     beamMinimal28Packages.rebar3
 
     # ELP compilado desde source (versión 2025-11-04)
-    inputs.elp-from-source.packages.${pkgs.system}.default
+    inputs.elp-from-source.packages.${pkgs.stdenv.hostPlatform.system}.default
 
     # Elixir
     elixir_1_18

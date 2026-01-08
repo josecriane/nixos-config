@@ -33,6 +33,10 @@
 
   services.fwupd.enable = true;
 
+  hardware.enableRedistributableFirmware = true;
+
+  programs.nix-ld.enable = true;
+
   # STIG V-268154: Verify digital signatures on patches/drivers/OS components
   # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268154
   # Prevents installation of tampered or malicious software
