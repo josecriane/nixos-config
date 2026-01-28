@@ -5,7 +5,7 @@
     imagemagick
     jq
     libqalculate
-    nixfmt-rfc-style
+    nixfmt
     nixfmt-tree
     p7zip
     pandoc
