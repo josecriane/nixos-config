@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 let
   colors = config.lib.stylix.colors;
   toHex = color: "hex:${color}";
@@ -23,23 +28,31 @@ in
 
       hooks = {
         # Añade newline al final de archivos si no lo tienen
-        PostToolUse = [{
-          matcher = "Edit|Write";
-          hooks = [{
-            type = "command";
-            command = ''
-              file_path=$(jq -r '.tool_input.file_path // empty'); if [ -n "$file_path" ] && [ -f "$file_path" ] && [ -n "$(tail -c 1 "$file_path")" ]; then echo >> "$file_path"; fi
-            '';
-          }];
-        }];
+        PostToolUse = [
+          {
+            matcher = "Edit|Write";
+            hooks = [
+              {
+                type = "command";
+                command = ''
+                  file_path=$(jq -r '.tool_input.file_path // empty'); if [ -n "$file_path" ] && [ -f "$file_path" ] && [ -n "$(tail -c 1 "$file_path")" ]; then echo >> "$file_path"; fi
+                '';
+              }
+            ];
+          }
+        ];
         # Notificación cuando Claude espera input
-        Notification = [{
-          matcher = "";
-          hooks = [{
-            type = "command";
-            command = "${pkgs.libnotify}/bin/notify-send 'Claude Code' 'Awaiting your input' -u normal";
-          }];
-        }];
+        Notification = [
+          {
+            matcher = "";
+            hooks = [
+              {
+                type = "command";
+                command = "${pkgs.libnotify}/bin/notify-send 'Claude Code' 'Awaiting your input' -u normal";
+              }
+            ];
+          }
+        ];
       };
     };
   };
@@ -49,16 +62,41 @@ in
     version = 3;
     lines = [
       [
-        { id = "1"; type = "model"; color = toHex colors.base0D; }            # azul
-        { id = "2"; type = "separator"; }
-        { id = "3"; type = "session-cost"; color = toHex colors.base0B; }     # verde
-        { id = "4"; type = "separator"; }
-        { id = "5"; type = "context-percentage"; color = toHex colors.base0A; } # amarillo
-        { id = "6"; type = "separator"; }
-        { id = "7"; type = "git-branch"; color = toHex colors.base0E; }       # morado
+        {
+          id = "1";
+          type = "model";
+          color = toHex colors.base0D;
+        } # azul
+        {
+          id = "2";
+          type = "separator";
+        }
+        {
+          id = "3";
+          type = "session-cost";
+          color = toHex colors.base0B;
+        } # verde
+        {
+          id = "4";
+          type = "separator";
+        }
+        {
+          id = "5";
+          type = "context-percentage";
+          color = toHex colors.base0A;
+        } # amarillo
+        {
+          id = "6";
+          type = "separator";
+        }
+        {
+          id = "7";
+          type = "git-branch";
+          color = toHex colors.base0E;
+        } # morado
       ]
-      []
-      []
+      [ ]
+      [ ]
     ];
     flexMode = "full-minus-40";
     compactThreshold = 60;
@@ -68,8 +106,8 @@ in
       enabled = false;
       separators = [ "" ];
       separatorInvertBackground = [ false ];
-      startCaps = [];
-      endCaps = [];
+      startCaps = [ ];
+      endCaps = [ ];
       autoAlign = false;
     };
   };

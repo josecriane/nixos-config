@@ -25,15 +25,15 @@ let
   generateMonitorConfig = monitor: ''
     output "${monitor.name}" {
       ${lib.optionalString (monitor ? mode) ''mode "${monitor.mode}"''}
-      ${lib.optionalString (monitor ? scale) ''scale ${toString monitor.scale}''}
+      ${lib.optionalString (monitor ? scale) "scale ${toString monitor.scale}"}
       ${lib.optionalString (
         monitor ? position
-      ) ''position x=${toString monitor.position.x} y=${toString monitor.position.y}''}
+      ) "position x=${toString monitor.position.x} y=${toString monitor.position.y}"}
       ${lib.optionalString (monitor ? transform) ''transform "${monitor.transform}"''}
       ${lib.optionalString (
         monitor ? variableRefreshRate && monitor.variableRefreshRate
-      ) ''variable-refresh-rate''}
-      ${lib.optionalString (monitor ? focusAtStartup && monitor.focusAtStartup) ''focus-at-startup''}
+      ) "variable-refresh-rate"}
+      ${lib.optionalString (monitor ? focusAtStartup && monitor.focusAtStartup) "focus-at-startup"}
     }
   '';
 in
