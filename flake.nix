@@ -55,6 +55,8 @@
       url = "github:tadfisher/android-nixpkgs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nur.url = "github:nix-community/NUR";
   };
 
   outputs =
@@ -80,7 +82,10 @@
             (./hosts + "/${host}")
             ./modules/core
             {
-              nixpkgs.overlays = [ inputs.android-nixpkgs.overlays.default ];
+              nixpkgs.overlays = [
+                inputs.android-nixpkgs.overlays.default
+                inputs.nur.overlays.default
+              ];
             }
           ];
           specialArgs = {

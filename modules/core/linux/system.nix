@@ -31,6 +31,11 @@
 
   services.printing.enable = true;
 
+  services.tailscale = {
+    enable = true;
+    useRoutingFeatures = "client";
+  };
+
   services.fwupd.enable = true;
 
   hardware.enableRedistributableFirmware = true;
@@ -66,6 +71,7 @@
   # vlock allows manual session lock for text console (TTY) sessions
   # Note: Graphical sessions use swaylock (configured in modules/home/wm/niri/)
   environment.systemPackages = with pkgs; [
+    age
     fwupd
     vlock # Session lock for TTY consoles
   ];

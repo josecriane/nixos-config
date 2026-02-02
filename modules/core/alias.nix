@@ -18,7 +18,7 @@
     _rcd() {
       local base_dir="${"$"}{1:-dev}"
       local sub_dir="${"$"}{2}"
-      
+
       if [ "$base_dir" = "." ]; then
         if [ -z "$sub_dir" ]; then
           cd ~
