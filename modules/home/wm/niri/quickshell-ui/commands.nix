@@ -38,7 +38,10 @@
       icon = "${config.home.homeDirectory}/.config/icons/claude.svg";
       exec = "chromium --app=https://claude.ai";
       terminal = false;
-      categories = [ "Network" "WebBrowser" ];
+      categories = [
+        "Network"
+        "WebBrowser"
+      ];
     };
 
     "gmail" = {
@@ -47,7 +50,10 @@
       icon = "${config.home.homeDirectory}/.config/icons/gmail.svg";
       exec = "chromium --app=https://mail.google.com";
       terminal = false;
-      categories = [ "Network" "Email" ];
+      categories = [
+        "Network"
+        "Email"
+      ];
     };
 
     "gchat" = {
@@ -56,7 +62,10 @@
       icon = "${config.home.homeDirectory}/.config/icons/gchat.svg";
       exec = "chromium --app=https://chat.google.com";
       terminal = false;
-      categories = [ "Network" "InstantMessaging" ];
+      categories = [
+        "Network"
+        "InstantMessaging"
+      ];
     };
 
     "outlook" = {
@@ -65,7 +74,10 @@
       icon = "${config.home.homeDirectory}/.config/icons/outlook.svg";
       exec = "chromium --app=https://outlook.office.com";
       terminal = false;
-      categories = [ "Network" "Email" ];
+      categories = [
+        "Network"
+        "Email"
+      ];
     };
   };
 }
