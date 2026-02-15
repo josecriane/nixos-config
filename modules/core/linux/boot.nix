@@ -16,6 +16,8 @@
       };
     };
 
+    supportedFilesystems = [ "nfs" ];
+
     lanzaboote = {
       enable = true;
       pkiBundle = "/var/lib/sbctl";

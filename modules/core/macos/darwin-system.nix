@@ -33,7 +33,7 @@ in
 
     activationScripts.setWallpaper.text = ''
       # Set wallpaper for all desktops
-      wallpaper_path="$HOME/docs/wallpapers/default.png"
+      wallpaper_path="$HOME/.config/wallpapers/default.png"
       if [ -f "$wallpaper_path" ]; then
         /usr/bin/osascript -e "tell application \"Finder\" to set desktop picture to POSIX file \"$wallpaper_path\""
       fi

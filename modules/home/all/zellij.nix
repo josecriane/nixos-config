@@ -18,6 +18,22 @@
       session_serialization = true;
       resurrect_dead_sessions = true;
       pane_viewport_serialization = true;
+
+      keybinds = {
+        unbind._args = [ "Ctrl g" ];
+        normal._children = [
+          {
+            bind._args = [ "Ctrl Shift g" ];
+            bind._children = [ { SwitchToMode._args = [ "locked" ]; } ];
+          }
+        ];
+        locked._children = [
+          {
+            bind._args = [ "Ctrl Shift g" ];
+            bind._children = [ { SwitchToMode._args = [ "normal" ]; } ];
+          }
+        ];
+      };
     };
   };
 

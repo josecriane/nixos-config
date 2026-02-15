@@ -41,8 +41,13 @@
     '';
   };
 
-  home.file."docs/wallpapers" = {
+  home.file.".config/wallpapers" = {
     source = ../../../assets/wallpapers;
+    recursive = true;
+  };
+
+  home.file.".config/icons" = {
+    source = ../../../assets/icons;
     recursive = true;
   };
 

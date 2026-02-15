@@ -77,7 +77,7 @@ in
       indicator-idle-visible = false;
 
       # Image (if you want to use a specific image instead of screenshot)
-      image = "${config.home.homeDirectory}/docs/wallpapers/lock.jpeg";
+      image = "${config.home.homeDirectory}/.config/wallpapers/lock.jpeg";
     };
   };
 }

@@ -19,8 +19,8 @@ Mod+Down { focus-window-or-monitor-down; }
 Mod+Ctrl+Up { focus-workspace-up; }
 Mod+Ctrl+Down { focus-workspace-down; }
 
-Mod+Shift+Left { move-column-left; }
-Mod+Shift+Right { move-column-right; }
+Mod+Shift+Left { move-column-left-or-to-monitor-left; }
+Mod+Shift+Right { move-column-right-or-to-monitor-right; }
 Mod+Shift+Up { move-window-to-monitor-up; }
 Mod+Shift+Down { move-window-to-monitor-down; }
 
