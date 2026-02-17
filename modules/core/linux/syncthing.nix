@@ -38,39 +38,20 @@
           "docs" = {
             path = "/home/${machineOptions.username}/docs";
             devices = lib.filter (d: d != machineOptions.hostname) [
-              "imre"
+              "DN2103"
               "newarre"
             ];
             versioning = {
               type = "simple";
               params.keep = "5";
             };
-          };
-          "firefox-profile" = {
-            path = "/home/${machineOptions.username}/.mozilla/firefox/default";
-            devices = lib.filter (d: d != machineOptions.hostname) [
-              "imre"
-              "newarre"
-            ];
-            versioning = {
-              type = "simple";
-              params.keep = "5";
-            };
-            ignorePatterns = [
-              "!places.sqlite"
-              "!favicons.sqlite"
-              "!key4.db"
-              "!logins.json"
-              "!cert9.db"
-              "*"
-            ];
           };
         };
 
         # Only include other devices, not ourselves
         devices = lib.filterAttrs (name: _: name != machineOptions.hostname) {
-          "imre" = {
-            id = "CUATIOC-UAA7JFJ-QXCKMX6-54UICCE-JT7E5IL-Q2WNNUO-X3SCW4B-MWAIVQ3";
+          "DN2103" = {
+            id = "NHWIMFF-JTD744F-3H36QCL-GSL4JQO-WNGXYTF-EHQYZ75-YDAD4DL-KQ4E7AP";
           };
           "newarre" = {
             id = "ZCV2MT5-DAU4RWF-VITKVT6-O5AN4KR-QUEMJPE-7XJFUVV-Z6PYLZP-PP2BTQD";
