@@ -37,4 +37,10 @@ with pkgs.vscode-extensions;
     version = "0.42.0";
     sha256 = "tmwOrZnfgMfEVeV4vgYe1VJDtR+MeM/4bXiQuCcoH38=";
   }
+  {
+    name = "vscode-openapi";
+    publisher = "42Crunch";
+    version = "5.2.0";
+    sha256 = "fw7E8S03XqaqsEryuWEWL/EynxNPHQTzZGPMSAQODBQ=";
+  }
 ]
