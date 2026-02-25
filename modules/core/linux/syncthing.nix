@@ -46,6 +46,21 @@
               params.keep = "5";
             };
           };
+
+          "keepass" = {
+            path = "/home/${machineOptions.username}/keepass";
+            devices = lib.filter (d: d != machineOptions.hostname) [
+              "DN2103"
+              "newarre"
+            ];
+            versioning = {
+              type = "staggered";
+              params = {
+                cleanInterval = "3600";
+                maxAge = "2592000";
+              };
+            };
+          };
         };
 
         # Only include other devices, not ourselves
