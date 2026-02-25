@@ -27,7 +27,6 @@ in
       };
 
       hooks = {
-        # Añade newline al final de archivos si no lo tienen
         PostToolUse = [
           {
             matcher = "Edit|Write";
@@ -41,14 +40,29 @@ in
             ];
           }
         ];
-        # Notificación cuando Claude espera input
         Notification = [
           {
             matcher = "";
             hooks = [
               {
                 type = "command";
-                command = "${pkgs.libnotify}/bin/notify-send 'Claude Code' 'Awaiting your input' -u normal";
+                command = ''
+                  (
+                    ZELLIJ_TAB_INDEX=$(zellij action dump-layout 2>/dev/null | awk '
+                      /^[[:space:]]*cwd "/ && root == "" { split($0, a, "\""); root = a[2]; next }
+                      /^[[:space:]]*tab / { idx++ }
+                      /command="claude"/ && /cwd="/ {
+                        n = split($0, a, "cwd=\""); split(a[2], b, "\"");
+                        if (root "/" b[1] == ENVIRON["PWD"]) { print idx; exit }
+                      }')
+                    ACTION=$(${pkgs.libnotify}/bin/notify-send 'Claude Code' 'Awaiting your input' -u normal \
+                      --hint="string:desktop-entry:Alacritty" \
+                      -A 'default=Open')
+                    if [ "$ACTION" = "default" ] && [ -n "$ZELLIJ_TAB_INDEX" ] && [ -n "$ZELLIJ_SESSION_NAME" ]; then
+                      zellij --session "$ZELLIJ_SESSION_NAME" action go-to-tab "$ZELLIJ_TAB_INDEX"
+                    fi
+                  ) &
+                '';
               }
             ];
           }
