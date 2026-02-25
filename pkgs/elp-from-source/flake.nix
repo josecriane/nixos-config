@@ -1,5 +1,5 @@
 {
-  description = "Erlang Language Platform (ELP) - patched binary version 2025-11-04";
+  description = "Erlang Language Platform (ELP) - patched binary version 2026-02-10";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -18,7 +18,7 @@
         pkgs = import nixpkgs { inherit system; };
 
         # Versión específica de ELP
-        version = "2025-11-04";
+        version = "2026-02-10";
 
         # Binario ELP sin patchear
         elp-binary = pkgs.stdenv.mkDerivation {
@@ -27,7 +27,7 @@
 
           src = pkgs.fetchurl {
             url = "https://github.com/WhatsApp/erlang-language-platform/releases/download/${version}/elp-linux-x86_64-unknown-linux-gnu-otp-28.tar.gz";
-            hash = "sha256-UF4H3i3yu+Kv58QBYU8J/SX7x7hXWYhjmuLJecz7hCQ=";
+            hash = "sha256-0AhI+5tKnUtuoHtK9LXd6GQ9ranj2VWDVl1mnCCdZ1g=";
           };
 
           nativeBuildInputs = with pkgs; [
