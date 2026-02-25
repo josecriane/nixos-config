@@ -21,7 +21,7 @@
     age.secrets = {
       # SSH RSA private key
       "id_rsa" = {
-        file = "${inputs.secrets}/id_rsa.age";
+        file = "${self}/secrets/id_rsa.age";
         path = "/home/${machineOptions.username}/.ssh/id_rsa";
         mode = "600";
         owner = machineOptions.username;
@@ -30,7 +30,7 @@
 
       # SSH RSA public key
       "id_rsa_pub" = {
-        file = "${inputs.secrets}/id_rsa_pub.age";
+        file = "${self}/secrets/id_rsa_pub.age";
         path = "/home/${machineOptions.username}/.ssh/id_rsa.pub";
         mode = "644";
         owner = machineOptions.username;
@@ -39,7 +39,7 @@
 
       # OpenVPN configuration
       "noma-ovpn-config" = {
-        file = "${inputs.secrets}/vpn/noma-ovpn-config.age";
+        file = "${self}/secrets/vpn/noma-ovpn-config.age";
         mode = "600";
         owner = "root";
         group = "root";
@@ -47,7 +47,7 @@
 
       # OpenVPN credentials
       "noma-ovpn-aup" = {
-        file = "${inputs.secrets}/vpn/noma-ovpn-aup.age";
+        file = "${self}/secrets/vpn/noma-ovpn-aup.age";
         mode = "600";
         owner = "root";
         group = "root";
@@ -55,7 +55,7 @@
 
       # GPG private keys
       "gpg-nomasystems" = {
-        file = "${inputs.secrets}/gpg/info_nomasystems_com_DB345B37ADEA4D2D/private-key.age";
+        file = "${self}/secrets/gpg/info_nomasystems_com_DB345B37ADEA4D2D/private-key.age";
         path = "/run/agenix/gpg-nomasystems";
         mode = "600";
         owner = machineOptions.username;
@@ -63,7 +63,7 @@
       };
 
       "gpg-jose-cribeiro" = {
-        file = "${inputs.secrets}/gpg/jose_cribeiro_nomasystems_com_9C15882E63F2A25A/private-key.age";
+        file = "${self}/secrets/gpg/jose_cribeiro_nomasystems_com_9C15882E63F2A25A/private-key.age";
         path = "/run/agenix/gpg-jose-cribeiro";
         mode = "600";
         owner = machineOptions.username;
@@ -71,7 +71,7 @@
       };
 
       "gpg-jose-cribeiro-subkeys" = {
-        file = "${inputs.secrets}/gpg/jose_cribeiro_nomasystems_com_9C15882E63F2A25A/subkeys.age";
+        file = "${self}/secrets/gpg/jose_cribeiro_nomasystems_com_9C15882E63F2A25A/subkeys.age";
         path = "/run/agenix/gpg-jose-cribeiro-subkeys";
         mode = "600";
         owner = machineOptions.username;
@@ -79,7 +79,7 @@
       };
 
       "gpg-inditex" = {
-        file = "${inputs.secrets}/gpg/josecan_ext_inditex_com_27220327E40C90A2/private-key.age";
+        file = "${self}/secrets/gpg/josecan_ext_inditex_com_27220327E40C90A2/private-key.age";
         path = "/run/agenix/gpg-inditex";
         mode = "600";
         owner = machineOptions.username;
@@ -87,7 +87,7 @@
       };
 
       "gpg-inditex-subkeys" = {
-        file = "${inputs.secrets}/gpg/josecan_ext_inditex_com_27220327E40C90A2/subkeys.age";
+        file = "${self}/secrets/gpg/josecan_ext_inditex_com_27220327E40C90A2/subkeys.age";
         path = "/run/agenix/gpg-inditex-subkeys";
         mode = "600";
         owner = machineOptions.username;
@@ -95,7 +95,7 @@
       };
 
       "gpg-gmail" = {
-        file = "${inputs.secrets}/gpg/josecriane_gmail_com_7CBF06A1C0888DFC/private-key.age";
+        file = "${self}/secrets/gpg/josecriane_gmail_com_7CBF06A1C0888DFC/private-key.age";
         path = "/run/agenix/gpg-gmail";
         mode = "600";
         owner = machineOptions.username;
@@ -103,7 +103,7 @@
       };
 
       "gpg-trust-db" = {
-        file = "${inputs.secrets}/gpg/trust-db.age";
+        file = "${self}/secrets/gpg/trust-db.age";
         path = "/run/agenix/gpg-trust-db";
         mode = "600";
         owner = machineOptions.username;

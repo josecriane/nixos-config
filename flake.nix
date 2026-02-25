@@ -41,10 +41,7 @@
       inputs.quickshell.follows = "quickshell";
     };
 
-    secrets = {
-      url = "git+file:./secrets";
-      flake = false;
-    };
+    self.submodules = true;
 
     elp-from-source = {
       url = "path:./pkgs/elp-from-source";
@@ -70,7 +67,6 @@
       agenix,
       quickshell,
       quickshell-config,
-      secrets,
       ...
     }@inputs:
     let

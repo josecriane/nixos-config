@@ -137,11 +137,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1771520882,
-        "narHash": "sha256-9SeTZ4Pwr730YfT7V8Azb8GFbwk1ZwiQDAwft3qAD+o=",
+        "lastModified": 1771992996,
+        "narHash": "sha256-Y/ijH/unOPxzUicbla6yT/14RJgubUWnY2I2A6Ast2Q=",
         "owner": "lnl7",
         "repo": "nix-darwin",
-        "rev": "6a7fdcd5839ec8b135821179eea3b58092171bcf",
+        "rev": "3bfa436c1975674ca465ce34586467be301ff509",
         "type": "github"
       },
       "original": {
@@ -503,11 +503,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1771967867,
-        "narHash": "sha256-7UFGxWmgjkRYkpYvNuKa2ebLgNjQdWjXrgpzj3aWMSI=",
+        "lastModified": 1772000835,
+        "narHash": "sha256-NgYp8OqS7zUVevZogdF7P/9IYqcbqbkuoteLgEPoslM=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "d89da46f6e5aaf02bd2019176ca44c12ac037c1d",
+        "rev": "51a7243b448b898ea61983fc85715161055857ec",
         "type": "github"
       },
       "original": {
@@ -621,7 +621,6 @@
         "nur": "nur",
         "quickshell": "quickshell",
         "quickshell-config": "quickshell-config",
-        "secrets": "secrets",
         "stylix": "stylix"
       }
     },
@@ -644,21 +643,6 @@
         "owner": "oxalica",
         "repo": "rust-overlay",
         "type": "github"
-      }
-    },
-    "secrets": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1754988912,
-        "narHash": "sha256-A92xx7Ds0Aqo7JPXDOnvFqetmBxCwcMgtQPj9962jK8=",
-        "rev": "6fd258b361945b07f1f42252d4542365e792bf00",
-        "revCount": 6,
-        "type": "git",
-        "url": "file:./secrets"
-      },
-      "original": {
-        "type": "git",
-        "url": "file:./secrets"
       }
     },
     "stylix": {
