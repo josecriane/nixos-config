@@ -14,6 +14,7 @@ let
     sessionCommandsPath = ./session-commands.json;
     interactiveCommandsPath = ./interactive-commands.json;
     excludedAppsPath = ./excluded-apps.json;
+    keepassPath = ./keepass.json;
     stylix = config.lib.stylix.colors.withHashtag // {
       # Fonts from Stylix
       monoFont = config.stylix.fonts.monospace.name;

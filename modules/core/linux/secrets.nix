@@ -109,6 +109,14 @@
         owner = machineOptions.username;
         group = "users";
       };
+
+      "keepass-master-password" = {
+        file = "${self}/secrets/kp.age";
+        path = "/run/agenix/keepass-master-password";
+        mode = "600";
+        owner = machineOptions.username;
+        group = "users";
+      };
     };
 
     environment.systemPackages = [ inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.default ];

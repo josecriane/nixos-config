@@ -1,0 +1,4 @@
+{
+  "masterPasswordPath": "/run/agenix/keepass-master-password",
+  "databasePath": "$HOME/keepass/passwords.kdbx"
+}
