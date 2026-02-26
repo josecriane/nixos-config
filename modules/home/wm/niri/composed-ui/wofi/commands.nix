@@ -60,7 +60,7 @@
       name = "Zellij";
       comment = "Terminal multiplexer";
       icon = "utilities-terminal";
-      exec = "alacritty -e zellij attach -c default";
+      exec = "alacritty -e zellij-start";
       terminal = false;
       categories = [
         "System"

@@ -58,8 +58,19 @@ in
                     ACTION=$(${pkgs.libnotify}/bin/notify-send 'Claude Code' 'Awaiting your input' -u normal \
                       --hint="string:desktop-entry:Alacritty" \
                       -A 'default=Open')
-                    if [ "$ACTION" = "default" ] && [ -n "$ZELLIJ_TAB_INDEX" ] && [ -n "$ZELLIJ_SESSION_NAME" ]; then
-                      zellij --session "$ZELLIJ_SESSION_NAME" action go-to-tab "$ZELLIJ_TAB_INDEX"
+                    if [ "$ACTION" = "default" ]; then
+                      # Find the Alacritty window that is our ancestor process
+                      ALACRITTY_WINDOWS=$(niri msg --json windows | ${pkgs.jq}/bin/jq -r '.[] | select(.app_id == "Alacritty") | "\(.pid) \(.id)"')
+                      WALK_PID=$$
+                      WINDOW_ID=""
+                      while [ "$WALK_PID" -gt 1 ] && [ -z "$WINDOW_ID" ]; do
+                        WINDOW_ID=$(echo "$ALACRITTY_WINDOWS" | awk -v p="$WALK_PID" '$1 == p {print $2}')
+                        WALK_PID=$(awk '{print $4}' /proc/$WALK_PID/stat 2>/dev/null || break)
+                      done
+                      [ -n "$WINDOW_ID" ] && niri msg action focus-window --id "$WINDOW_ID"
+                      if [ -n "$ZELLIJ_TAB_INDEX" ] && [ -n "$ZELLIJ_SESSION_NAME" ]; then
+                        zellij --session "$ZELLIJ_SESSION_NAME" action go-to-tab "$ZELLIJ_TAB_INDEX"
+                      fi
                     fi
                   ) &
                 '';

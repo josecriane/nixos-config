@@ -6,7 +6,7 @@
       name = "Zellij";
       comment = "Terminal multiplexer";
       icon = "${config.home.homeDirectory}/.config/icons/zellij.png";
-      exec = "alacritty -e zellij attach -c default";
+      exec = "alacritty -e zellij-start";
       terminal = false;
       categories = [
         "System"
