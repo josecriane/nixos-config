@@ -14,10 +14,12 @@ let
     sessionCommandsPath = ./session-commands.json;
     interactiveCommandsPath = ./interactive-commands.json;
     excludedAppsPath = ./excluded-apps.json;
-    keepassPath = pkgs.writeText "keepass.json" (builtins.toJSON {
-      masterPasswordPath = "/run/agenix/keepass-master-password";
-      databasePath = "${config.home.homeDirectory}/keepass/passwords.kdbx";
-    });
+    keepassPath = pkgs.writeText "keepass.json" (
+      builtins.toJSON {
+        masterPasswordPath = "/run/agenix/keepass-master-password";
+        databasePath = "${config.home.homeDirectory}/keepass/passwords.kdbx";
+      }
+    );
     stylix = config.lib.stylix.colors.withHashtag // {
       # Fonts from Stylix
       monoFont = config.stylix.fonts.monospace.name;
