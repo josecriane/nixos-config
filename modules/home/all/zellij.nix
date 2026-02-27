@@ -4,41 +4,7 @@
   lib,
   ...
 }:
-let
-  zellij-start = pkgs.writeShellScriptBin "zellij-start" ''
-    sessions=$(zellij list-sessions -n 2>/dev/null)
-
-    # If default session has someone attached, open a new session
-    if echo "$sessions" | grep "^default " | grep -q "(current)"; then
-      exec zellij
-    fi
-
-    # If default session exists (detached or EXITED), ask what to do
-    if echo "$sessions" | grep -q "^default "; then
-      echo "La sesion 'default' no tiene nadie conectado."
-      echo ""
-      echo "  [r] Restaurar sesion"
-      echo "  [n] Nueva sesion (resetear)"
-      echo ""
-      read -rp "Elige [r/n]: " choice
-      case "$choice" in
-        n|N)
-          zellij kill-session default 2>/dev/null
-          zellij delete-session default 2>/dev/null
-          exec zellij -s default
-          ;;
-        *)
-          exec zellij attach default
-          ;;
-      esac
-    fi
-
-    # No default session at all, create one
-    exec zellij -s default
-  '';
-in
 {
-  home.packages = [ zellij-start ];
 
   programs.zellij = {
     enable = true;

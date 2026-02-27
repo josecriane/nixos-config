@@ -1,0 +1,83 @@
+#!/usr/bin/env bash
+
+sessions=$(zellij list-sessions -n 2>/dev/null)
+
+# Read connected_clients from zellij's session metadata cache
+zellij_version=$(zellij --version 2>/dev/null | awk '{print $2}')
+session_info_dir="$HOME/.cache/zellij/$zellij_version/session_info"
+
+session_has_client() {
+  local metadata="$session_info_dir/$1/session-metadata.kdl"
+  local clients
+  clients=$(grep "^connected_clients " "$metadata" 2>/dev/null | awk '{print $2}')
+  [ "$clients" -gt 0 ] 2>/dev/null
+}
+
+default_exists=false
+if echo "$sessions" | grep -q "^default "; then
+  default_exists=true
+fi
+
+if [ "$default_exists" = false ] || ! session_has_client default; then
+  # Default doesn't exist or nobody is connected
+  if [ "$default_exists" = true ]; then
+    echo "La sesion 'default' no tiene nadie conectado."
+    echo ""
+    echo "  [r] Restaurar sesion"
+    echo "  [n] Nueva sesion (resetear)"
+    echo ""
+    read -rp "Elige [r/n]: " choice
+    case "$choice" in
+      n|N)
+        zellij kill-session default 2>/dev/null
+        zellij delete-session default 2>/dev/null
+        exec zellij -s default
+        ;;
+      *)
+        exec zellij attach default
+        ;;
+    esac
+  else
+    exec zellij -s default
+  fi
+else
+  # Default has someone connected, show session picker
+  echo "La sesion 'default' ya tiene alguien conectado."
+  echo ""
+  echo "Sesiones disponibles:"
+  echo ""
+  i=1
+  declare -A session_map
+  while IFS= read -r line; do
+    [ -z "$line" ] && continue
+    name=$(echo "$line" | awk '{print $1}')
+    if echo "$line" | grep -qi "exited"; then
+      status="(exited)"
+    elif session_has_client "$name"; then
+      status="(conectada)"
+    else
+      status="(libre)"
+    fi
+    echo "  [$i] $name $status"
+    session_map[$i]="$name"
+    i=$((i + 1))
+  done <<< "$sessions"
+  echo ""
+  echo "Escribe un numero para conectarte a esa sesion,"
+  echo "o un nombre para crear una nueva (enter = nombre auto):"
+  echo ""
+  read -rp "> " choice
+
+  # Empty input: new session with auto name
+  if [ -z "$choice" ]; then
+    exec zellij
+  fi
+
+  # Numeric input: connect to selected session
+  if [[ "$choice" =~ ^[0-9]+$ ]] && [ -n "${session_map[$choice]+x}" ]; then
+    exec zellij attach "${session_map[$choice]}"
+  fi
+
+  # Text input: create new session with that name
+  exec zellij -s "$choice"
+fi
