@@ -9,6 +9,7 @@ with pkgs.vscode-extensions;
   hediet.vscode-drawio
   ms-azuretools.vscode-docker
   redhat.vscode-yaml
+  james-yu.latex-workshop
   rust-lang.rust-analyzer
   ryu1kn.partial-diff
 ]
