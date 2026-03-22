@@ -7,6 +7,7 @@
     ./firefox.nix
     ./gaming.nix
     ./keepassxc.nix
+    ./media.nix
     ./meld.nix
     ./telegram.nix
     ./vscode
