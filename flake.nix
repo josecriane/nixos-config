@@ -41,6 +41,11 @@
       inputs.quickshell.follows = "quickshell";
     };
 
+    claude-code = {
+      url = "github:sadjow/claude-code-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     self.submodules = true;
 
     elp-from-source = {
@@ -67,6 +72,7 @@
       agenix,
       quickshell,
       quickshell-config,
+      claude-code,
       ...
     }@inputs:
     let
@@ -81,6 +87,7 @@
               nixpkgs.overlays = [
                 inputs.android-nixpkgs.overlays.default
                 inputs.nur.overlays.default
+                claude-code.overlays.default
               ];
             }
           ];
