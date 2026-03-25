@@ -39,6 +39,7 @@
             path = "/home/${machineOptions.username}/docs";
             devices = lib.filter (d: d != machineOptions.hostname) [
               "DN2103"
+              "imre"
               "newarre"
             ];
             versioning = {
@@ -51,6 +52,7 @@
             path = "/home/${machineOptions.username}/keepass";
             devices = lib.filter (d: d != machineOptions.hostname) [
               "DN2103"
+              "imre"
               "newarre"
             ];
             versioning = {
@@ -67,6 +69,9 @@
         devices = lib.filterAttrs (name: _: name != machineOptions.hostname) {
           "DN2103" = {
             id = "NHWIMFF-JTD744F-3H36QCL-GSL4JQO-WNGXYTF-EHQYZ75-YDAD4DL-KQ4E7AP";
+          };
+          "imre" = {
+            id = "7XLB2OQ-VZIA3MI-RWBHE42-3Z37WO3-ZGI73HE-6UJQW4L-3MSF3VS-COPTVAL";
           };
           "newarre" = {
             id = "ZCV2MT5-DAU4RWF-VITKVT6-O5AN4KR-QUEMJPE-7XJFUVV-Z6PYLZP-PP2BTQD";
