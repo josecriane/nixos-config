@@ -115,6 +115,22 @@
         "type": "github"
       }
     },
+    "bcn3d-stratos": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "path": "./pkgs/bcn3d-stratos",
+        "type": "path"
+      },
+      "original": {
+        "path": "./pkgs/bcn3d-stratos",
+        "type": "path"
+      },
+      "parent": []
+    },
     "claude-code": {
       "inputs": {
         "flake-utils": "flake-utils_2",
@@ -650,6 +666,7 @@
       "inputs": {
         "agenix": "agenix",
         "android-nixpkgs": "android-nixpkgs",
+        "bcn3d-stratos": "bcn3d-stratos",
         "claude-code": "claude-code",
         "darwin": "darwin",
         "elp-from-source": "elp-from-source",

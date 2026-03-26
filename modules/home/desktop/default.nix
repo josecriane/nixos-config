@@ -1,6 +1,7 @@
 { inputs, host, ... }:
 {
   imports = [
+    ./3dprinting.nix
     ./alacritty.nix
     ./chromium.nix
     ./discord.nix

@@ -48,6 +48,11 @@
 
     self.submodules = true;
 
+    bcn3d-stratos = {
+      url = "path:./pkgs/bcn3d-stratos";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     elp-from-source = {
       url = "path:./pkgs/elp-from-source";
       inputs.nixpkgs.follows = "nixpkgs";
