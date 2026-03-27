@@ -3,8 +3,7 @@
 sessions=$(zellij list-sessions -n 2>/dev/null)
 
 # Read connected_clients from zellij's session metadata cache
-zellij_version=$(zellij --version 2>/dev/null | awk '{print $2}')
-session_info_dir="$HOME/.cache/zellij/$zellij_version/session_info"
+session_info_dir="$HOME/.cache/zellij/contract_version_1/session_info"
 
 session_has_client() {
   local metadata="$session_info_dir/$1/session-metadata.kdl"
