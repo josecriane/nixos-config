@@ -1,5 +1,7 @@
 { config, pkgs, ... }:
 {
+  home.packages = [ pkgs.brave ];
+
   programs.firefox = {
     enable = true;
     profiles.default = {

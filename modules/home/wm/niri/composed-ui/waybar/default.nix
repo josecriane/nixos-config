@@ -48,7 +48,7 @@ in
           max-length = 50;
           rewrite = {
             "(.*) — Mozilla Firefox" = " $1";
-            "(.*) - Google Chrome" = " $1";
+            "(.*) - Brave" = " $1";
             "(.*) - Visual Studio Code" = "󰨞 $1";
             "alacritty" = " Terminal";
           };

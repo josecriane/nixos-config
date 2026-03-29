@@ -36,7 +36,7 @@
       name = "Claude";
       comment = "Claude AI web interface";
       icon = "${config.home.homeDirectory}/.config/icons/claude.svg";
-      exec = "chromium --app=https://claude.ai";
+      exec = "brave --app=https://claude.ai";
       terminal = false;
       categories = [
         "Network"
@@ -48,7 +48,7 @@
       name = "Gmail";
       comment = "Gmail web client";
       icon = "${config.home.homeDirectory}/.config/icons/gmail.svg";
-      exec = "chromium --app=https://mail.google.com";
+      exec = "brave --app=https://mail.google.com";
       terminal = false;
       categories = [
         "Network"
@@ -60,7 +60,7 @@
       name = "Google Chat";
       comment = "Google Chat web client";
       icon = "${config.home.homeDirectory}/.config/icons/gchat.svg";
-      exec = "chromium --app=https://chat.google.com";
+      exec = "brave --app=https://chat.google.com";
       terminal = false;
       categories = [
         "Network"
@@ -72,7 +72,7 @@
       name = "Outlook";
       comment = "Outlook web client";
       icon = "${config.home.homeDirectory}/.config/icons/outlook.svg";
-      exec = "chromium --app=https://outlook.office.com";
+      exec = "brave --app=https://outlook.office.com";
       terminal = false;
       categories = [
         "Network"

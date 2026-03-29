@@ -19,6 +19,7 @@
     ./i18n.nix
     ./networking.nix
     ./openvpn.nix
+    ./policies.nix
     ./pipewire.nix
     ./secrets.nix
     ./security.nix

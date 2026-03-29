@@ -3,9 +3,8 @@
   imports = [
     ./3dprinting.nix
     ./alacritty.nix
-    ./chromium.nix
+    ./browser.nix
     ./discord.nix
-    ./firefox.nix
     ./gaming.nix
     ./keepassxc.nix
     ./media.nix
