@@ -43,9 +43,8 @@ in
     ./services.nix
     ./essential-gui
     ./swaylock.nix
-  ]
-  ++ (lib.optionals (!machineOptions.quickshell_config_enable) [ ./composed-ui ])
-  ++ (lib.optionals (machineOptions.quickshell_config_enable) [ ./quickshell-ui ]);
+    ./quickshell-ui
+  ];
 
   home.packages = with pkgs; [
     niri
@@ -160,21 +159,11 @@ in
       spawn-at-startup "sh" "-c" "~/.config/niri/monitor-setup"
       spawn-at-startup "/run/current-system/sw/libexec/polkit-gnome-authentication-agent-1"
       spawn-at-startup "swaybg" "-i" "${config.home.homeDirectory}/.config/wallpapers/default.png" "-m" "fill"
-      ${lib.optionalString (!machineOptions.quickshell_config_enable) (
-        builtins.readFile ./composed-ui/spawn-at-startup.kdl
-      )}
-      ${lib.optionalString (machineOptions.quickshell_config_enable) (
-        builtins.readFile ./quickshell-ui/spawn-at-startup.kdl
-      )}
+      ${builtins.readFile ./quickshell-ui/spawn-at-startup.kdl}
 
       binds {
           ${builtins.readFile ./keybinds.kdl}
-          ${lib.optionalString (!machineOptions.quickshell_config_enable) (
-            builtins.readFile ./composed-ui/keybinds.kdl
-          )}
-          ${lib.optionalString (machineOptions.quickshell_config_enable) (
-            builtins.readFile ./quickshell-ui/keybinds.kdl
-          )}
+          ${builtins.readFile ./quickshell-ui/keybinds.kdl}
       }
     '';
 
