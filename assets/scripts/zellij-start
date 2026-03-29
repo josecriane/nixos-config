@@ -6,6 +6,12 @@ sessions=$(zellij list-sessions -n 2>/dev/null)
 session_info_dir="$HOME/.cache/zellij/contract_version_1/session_info"
 
 session_has_client() {
+  local line
+  line=$(echo "$sessions" | grep "^$1 ")
+  [ -z "$line" ] && return 1
+  # EXITED sessions have no real clients, even if the cache says otherwise
+  echo "$line" | grep -qi "EXITED" && return 1
+  # Fall back to cache for active sessions
   local metadata="$session_info_dir/$1/session-metadata.kdl"
   local clients
   clients=$(grep "^connected_clients " "$metadata" 2>/dev/null | awk '{print $2}')
