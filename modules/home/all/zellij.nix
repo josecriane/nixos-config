@@ -60,6 +60,16 @@ in
   stylix.targets.zellij.enable = false;
 
   programs.zellij.extraConfig = ''
+    new_tab_template {
+      pane size=1 borderless=true {
+        plugin location="zellij:tab-bar"
+      }
+      pane
+      pane size=1 borderless=true {
+        plugin location="zellij:status-bar"
+      }
+    }
+
     themes {
       stylix {
     ${colorGroup "text_unselected" "base05" "base01" "base09" "base0C" "base0B" "base0F"}

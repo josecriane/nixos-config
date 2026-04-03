@@ -52,4 +52,25 @@
 
   # Políticas de seguridad
   security.polkit.enable = true;
+
+  # Polkit policy para tailscale (pkexec desde quickshell)
+  environment.etc."polkit-1/actions/org.tailscale.cli.policy".text = ''
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE policyconfig PUBLIC
+     "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
+     "http://www.freedesktop.org/standards/PolicyKit/1/policyconfig.dtd">
+    <policyconfig>
+      <action id="org.tailscale.cli">
+        <description>Run Tailscale CLI</description>
+        <message>Authentication is required to control Tailscale</message>
+        <defaults>
+          <allow_any>auth_admin</allow_any>
+          <allow_inactive>auth_admin</allow_inactive>
+          <allow_active>auth_admin_keep</allow_active>
+        </defaults>
+        <annotate key="org.freedesktop.policykit.exec.path">/run/current-system/sw/bin/tailscale</annotate>
+        <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
+      </action>
+    </policyconfig>
+  '';
 }
