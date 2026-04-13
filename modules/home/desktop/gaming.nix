@@ -19,6 +19,9 @@
 
     # Controller support
     jstest-gtk # Joystick testing
+
+    # PS5 Remote Play
+    chiaki-ng
   ];
 
   # Enable gamemode for performance optimization
