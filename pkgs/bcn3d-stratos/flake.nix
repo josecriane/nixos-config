@@ -27,12 +27,19 @@
               pkgs.libglvnd
               pkgs.mesa
             ];
+            appimageContents = pkgs.appimageTools.extractType2 { inherit pname version src; };
           in
           ''
             source ${pkgs.makeWrapper}/nix-support/setup-hook
             wrapProgram $out/bin/${pname} \
               --set QT_QPA_PLATFORM xcb \
               --prefix LD_LIBRARY_PATH : "${glLibs}"
+
+            install -Dm444 ${appimageContents}/cura.desktop $out/share/applications/${pname}.desktop
+            substituteInPlace $out/share/applications/${pname}.desktop \
+              --replace-fail "Exec=UltiMaker-Cura" "Exec=${pname}"
+
+            cp -r ${appimageContents}/usr/share/icons $out/share/icons
           '';
 
         extraPkgs =

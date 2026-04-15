@@ -61,6 +61,15 @@
     game-devices-udev-rules
   ];
 
+  # Chiaki-ng (PS5 Remote Play) ports
+  networking.firewall = {
+    allowedUDPPorts = [
+      9295 # PS5 discovery/registration
+      9296 # Remote Play streaming
+      9297 # Remote Play streaming
+    ];
+  };
+
   # Groups for gaming
   users.groups.gamemode = { };
 }

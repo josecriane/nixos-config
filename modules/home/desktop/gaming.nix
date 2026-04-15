@@ -21,7 +21,12 @@
     jstest-gtk # Joystick testing
 
     # PS5 Remote Play
-    chiaki-ng
+    (chiaki-ng.overrideAttrs (old: {
+      nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.makeWrapper ];
+      postFixup = (old.postFixup or "") + ''
+        wrapProgram $out/bin/chiaki --set QT_STYLE_OVERRIDE ""
+      '';
+    }))
   ];
 
   # Enable gamemode for performance optimization
