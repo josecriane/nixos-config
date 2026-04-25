@@ -158,7 +158,7 @@ in
       spawn-at-startup "xwayland-satellite"
       spawn-at-startup "sh" "-c" "~/.config/niri/monitor-setup"
       spawn-at-startup "/run/current-system/sw/libexec/polkit-gnome-authentication-agent-1"
-      spawn-at-startup "swaybg" "-i" "${config.home.homeDirectory}/.config/wallpapers/default.png" "-m" "fill"
+      spawn-at-startup "swaybg" "-i" "${config.home.homeDirectory}/.config/wallpapers/default.jpeg" "-m" "fill"
       ${builtins.readFile ./quickshell-ui/spawn-at-startup.kdl}
 
       binds {
