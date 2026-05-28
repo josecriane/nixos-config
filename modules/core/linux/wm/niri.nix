@@ -10,16 +10,21 @@
 
   # Servicios esenciales para niri
   services = {
-    # Display manager
-    displayManager.gdm = {
+    # Display manager: greetd + tuigreet (ligero, ideal para WMs tipo niri)
+    greetd = {
       enable = true;
-      wayland = true;
+      settings = {
+        default_session = {
+          command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --remember-user-session --asterisks --cmd niri-session";
+          user = "greeter";
+        };
+      };
     };
 
     # Session niri
     displayManager.sessionPackages = [ pkgs.niri ];
 
-    # Deshabilitar agente SSH de GNOME para evitar conflicto
+    # Deshabilitar agente SSH de GNOME para evitar conflicto con programs.ssh.startAgent
     gnome.gcr-ssh-agent.enable = lib.mkForce false;
   };
 
