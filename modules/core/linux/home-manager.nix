@@ -44,6 +44,7 @@ in
       "networkmanager"
       "docker"
       "wheel"
+      "kvm"
     ];
     shell = pkgs.zsh;
   };
