@@ -15,9 +15,7 @@
     # STIG V-268150: Clock synchronization poll interval
     # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268150
     # Sync when time difference exceeds one second
-    extraConfig = ''
-      PollIntervalMaxSec=60
-    '';
+    settings.Time.PollIntervalMaxSec = 60;
   };
 
   # STIG V-268149: Authorized time servers (INTENTIONALLY NOT FOLLOWED)

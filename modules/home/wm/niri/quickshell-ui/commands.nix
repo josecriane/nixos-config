@@ -68,6 +68,18 @@
       ];
     };
 
+    "remarkable" = {
+      name = "reMarkable";
+      comment = "reMarkable web client";
+      icon = "${config.home.homeDirectory}/.config/icons/remarkable.png";
+      exec = "brave --app=https://app.remarkable.com";
+      terminal = false;
+      categories = [
+        "Network"
+        "Office"
+      ];
+    };
+
     "outlook" = {
       name = "Outlook";
       comment = "Outlook web client";
