@@ -11,7 +11,7 @@
   android-sdk.packages =
     sdk: with sdk; [
       build-tools-36-0-0
-      cmdline-tools-latest
+      cmdline-tools-22-0
       emulator
       platform-tools
       platforms-android-36

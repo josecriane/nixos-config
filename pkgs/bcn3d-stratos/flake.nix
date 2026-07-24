@@ -27,7 +27,7 @@
               pkgs.libglvnd
               pkgs.mesa
             ];
-            appimageContents = pkgs.appimageTools.extractType2 { inherit pname version src; };
+            appimageContents = pkgs.appimageTools.extract { inherit pname version src; };
           in
           ''
             source ${pkgs.makeWrapper}/nix-support/setup-hook

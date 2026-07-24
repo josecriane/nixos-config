@@ -7,14 +7,14 @@
 {
   home.packages = with pkgs; [
     # Erlang
-    erlang_28
+    beam28Packages.erlang
     beamMinimal28Packages.rebar3
 
     # ELP compilado desde source (versión 2025-11-04)
     inputs.elp-from-source.packages.${pkgs.stdenv.hostPlatform.system}.default
 
     # Elixir
-    elixir_1_18
+    beamPackages.elixir_1_18
     (lib.lowPrio elixir-ls)
   ];
 

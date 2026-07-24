@@ -28,7 +28,7 @@
 
       # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
       ${
-        if pkgs.stdenv.isDarwin then
+        if pkgs.stdenv.hostPlatform.isDarwin then
           "[[ ! -f ~/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh"
         else
           "[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh"
