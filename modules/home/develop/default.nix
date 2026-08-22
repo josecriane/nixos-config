@@ -15,6 +15,7 @@
     ./rust.nix
     ./tex.nix
   ]
+  ++ (lib.optionals (machineOptions.ai or false) [ ./local-ai.nix ])
   ++ (lib.optionals (machineOptions.os == "linux") [ ./linux_custom ])
   ++ (lib.optionals (machineOptions.os == "macos") [ ./macos_custom ]);
 }

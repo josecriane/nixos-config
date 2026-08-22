@@ -6,6 +6,7 @@
   username = "sito";
   hostname = "newarre";
   fprint = true;
+  ai = true;
   keyboards = [
     {
       layout = "es";
