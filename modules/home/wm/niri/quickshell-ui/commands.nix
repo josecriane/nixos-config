@@ -1,4 +1,10 @@
-{ config, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  machineOptions,
+  ...
+}:
 {
   # Custom system command entries for wofi
   xdg.desktopEntries = {
@@ -89,6 +95,19 @@
       categories = [
         "Network"
         "Email"
+      ];
+    };
+  }
+  // lib.optionalAttrs machineOptions.develop {
+    "it-tools" = {
+      name = "IT Tools";
+      comment = "Self-hosted developer tools";
+      icon = "${pkgs.it-tools}/lib/android-chrome-512x512.png";
+      exec = "brave --app=http://localhost:8081";
+      terminal = false;
+      categories = [
+        "Development"
+        "Utility"
       ];
     };
   };

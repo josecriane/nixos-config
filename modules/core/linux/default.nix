@@ -29,7 +29,10 @@
     ./virtualization.nix
     ./xserver.nix
   ]
-  ++ (lib.optionals machineOptions.develop [ ./android.nix ])
+  ++ (lib.optionals machineOptions.develop [
+    ./android.nix
+    ./it-tools.nix
+  ])
   ++ (lib.optionals (machineOptions.server or false) [ ./openssh.nix ]);
 
   system.stateVersion = "25.11";
