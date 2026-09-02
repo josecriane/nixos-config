@@ -16,6 +16,7 @@ nixos-config/
 │   ├── newarre/             # Linux laptop
 │   └── macbook-air/         # macOS laptop
 ├── modules/
+│   ├── options.nix          # Typed `machine.*` options (validates hosts/*/options.nix)
 │   ├── core/                # System-level configurations
 │   │   ├── linux/          # NixOS-specific modules
 │   │   └── macos/          # Darwin-specific modules
@@ -25,13 +26,10 @@ nixos-config/
 │       ├── develop/        # Development tools
 │       └── wm/             # Window manager (niri)
 │           └── niri/
-│               ├── composed-ui/    # Traditional UI (waybar, wofi, swaync)
-│               └── quickshell-ui/  # Modern Qt-based shell UI
-└── pkgs/                   # Custom packages
-    └── quickshell-config/  # Quickshell configuration package
-        ├── ds/             # Design system components
-        ├── modules/        # UI modules (bar, launcher, etc.)
-        └── services/       # System services integration
+│               └── quickshell-ui/  # Qt-based shell UI (quickshell-config input)
+└── pkgs/                   # Custom packages, exposed as an overlay
+    ├── default.nix         # The overlay
+    └── bcn3d-stratos.nix   # BCN3D Stratos AppImage wrapper
 ```
 
 ## 🚀 Quick Start
@@ -65,7 +63,7 @@ sudo darwin-rebuild switch --flake ~/nixos-config#MacBookAir10-1-jose-cribeiro
 This configuration uses **niri**, a scrollable-tiling Wayland compositor, with a custom modular setup.
 
 ### Key Features
-- **Quickshell** modern Qt-based shell (optional, can be toggled via `quickshell_config_enable`)
+- **Quickshell** modern Qt-based shell (from the `quickshell-config` flake input)
   - Custom design system with Stylix integration
   - Modular components (bar, launcher, notifications, dashboard)
   - Interactive command system
@@ -118,17 +116,16 @@ The niri configuration is modularized for easy customization:
 ```
 modules/home/wm/niri/
 ├── default.nix          # Main configuration + imports
+├── automount.nix        # Removable media handling
 ├── essential-gui/       # GUI applications & utilities
-├── keybinds.kdl         # All keyboard shortcuts (composed-ui)
-├── composed-ui/         # Traditional UI components (when quickshell disabled)
-│   ├── waybar/          # Status bar config + CSS
-│   ├── wofi/            # App launcher config + CSS
-│   └── swaync/          # Notification center config + CSS
-├── quickshell-ui/       # Quickshell integration (when enabled)
+├── keybinds.kdl         # Keyboard shortcuts
+├── niri-utils/          # Helper scripts (monitor setup, layout switch, reload)
+├── quickshell-ui/       # Quickshell integration
 │   ├── default.nix      # Quickshell configuration
 │   ├── commands.json    # Interactive commands
 │   └── keybinds.kdl     # Quickshell keybindings
-└── services.nix         # System services configuration
+├── services.nix         # User services
+└── swaylock.nix         # Screen locker
 ```
 
 ## 🛠️ Development Environment
@@ -181,11 +178,11 @@ Uses **agenix** for encrypted secrets with a private git repository.
 ## 📝 Code Formatting
 
 ```bash
-# Format all Nix files
-treefmt
+# Format the whole tree
+nix fmt
 
-# Manual formatting
-find . -name "*.nix" -exec nixfmt {} \;
+# Check formatting without writing, as CI does
+nix fmt -- --ci
 ```
 
 ## 🔧 Customization
@@ -193,26 +190,23 @@ find . -name "*.nix" -exec nixfmt {} \;
 ### Adding a New Host
 1. Create `hosts/<hostname>/` directory
 2. Add `default.nix`, `hardware-configuration.nix`, `options.nix`
-3. Update `flake.nix` with new host configuration
-4. Set `quickshell_config_enable` in `options.nix` to choose UI system
+3. Register the host in `flake.nix` via `mkLinuxSystem` or `mkDarwinSystem`
+
+`options.nix` is validated against `modules/options.nix`, so an unknown key or a
+wrong type fails at evaluation time rather than silently.
 
 ### Adding Applications
 - **System-wide**: Add to appropriate `modules/core/` file
 - **User-specific**: Add to relevant `modules/home/` module
 - **Window manager specific**: Add to `modules/home/wm/niri/essential-gui/`
+- **Packaged here**: Add a derivation to `pkgs/` and wire it into `pkgs/default.nix`
 
-### Customizing niri with Quickshell
-- **Enable Quickshell**: Set `quickshell_config_enable = true` in host's `options.nix`
+### Customizing niri
+- **Keybinds**: Edit `modules/home/wm/niri/keybinds.kdl`
 - **Commands**: Edit `modules/home/wm/niri/quickshell-ui/commands.json`
 - **Excluded apps**: Edit `modules/home/wm/niri/quickshell-ui/excluded-apps.json`
-- **Quickshell modules**: Edit files in `pkgs/quickshell-config/modules/`
-- **Design system**: Customize `pkgs/quickshell-config/ds/` components
-
-### Customizing niri with traditional UI (Waybar/Wofi/Swaync)
-- **Enable traditional UI**: Set `quickshell_config_enable = false` in host's `options.nix`
-- **Keybinds**: Edit `modules/home/wm/niri/composed-ui/keybinds.kdl`
-- **Styling**: Modify CSS files in `composed-ui/waybar/`, `composed-ui/wofi/`, `composed-ui/swaync/`
-- **Applications**: Update files in `essential-gui/`
+- **Shell UI**: Lives in the `quickshell-config` flake input
+- **Monitors and keyboard layouts**: Set `monitors` / `keyboards` in the host's `options.nix`
 
 ### Useful Commands
 ```bash

@@ -1,4 +1,8 @@
-{ lib, machineOptions, ... }:
+{
+  lib,
+  machineOptions,
+  ...
+}:
 let
   inherit (lib) mkOption types;
 

@@ -25,7 +25,7 @@
     ./syncthing.nix
     ./system.nix
     ./virtualization.nix
-    ./xserver.nix
+    ./session.nix
   ]
   ++ (lib.optionals machineOptions.develop [
     ./android.nix

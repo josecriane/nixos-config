@@ -51,11 +51,6 @@
 
     self.submodules = true;
 
-    bcn3d-stratos = {
-      url = "path:./pkgs/bcn3d-stratos";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     android-nixpkgs = {
       url = "github:tadfisher/android-nixpkgs";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -90,6 +85,7 @@
 
       overlaysModule = {
         nixpkgs.overlays = [
+          (import ./pkgs)
           inputs.android-nixpkgs.overlays.default
           inputs.nur.overlays.default
           claude-code.overlays.default
@@ -102,9 +98,12 @@
         overlaysModule
       ];
 
-      mkSpecialArgs = host: {
+      mkSpecialArgs = host: os: {
         inherit self inputs;
-        machineOptions = import (./hosts + "/${host}/options.nix");
+        machineOptions = {
+          inherit os;
+        }
+        // import (./hosts + "/${host}/options.nix");
       };
 
       mkLinuxSystem =
@@ -112,7 +111,7 @@
         nixpkgs.lib.nixosSystem {
           system = linuxSystem;
           modules = mkModules host;
-          specialArgs = mkSpecialArgs host;
+          specialArgs = mkSpecialArgs host "linux";
         };
 
       mkDarwinSystem =
@@ -120,7 +119,7 @@
         darwin.lib.darwinSystem {
           system = darwinSystem;
           modules = mkModules host;
-          specialArgs = mkSpecialArgs host;
+          specialArgs = mkSpecialArgs host "macos";
         };
     in
     {

@@ -1,11 +1,7 @@
+{ pkgs, ... }:
 {
-  pkgs,
-  inputs,
-  ...
-}:
-{
-  home.packages = [
-    inputs.bcn3d-stratos.packages.${pkgs.stdenv.hostPlatform.system}.default
-    pkgs.freecad
+  home.packages = with pkgs; [
+    bcn3d-stratos
+    freecad
   ];
 }
