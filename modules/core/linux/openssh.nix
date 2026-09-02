@@ -5,23 +5,19 @@
 
   services.openssh = {
     # STIG V-268159: Protect confidentiality and integrity of transmitted info
-    # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268159
     enable = true;
 
     settings = {
       # STIG V-268137: Prohibit direct SSH root login
-      # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268137
       # Forces individual authentication before accessing privileged accounts
       PermitRootLogin = "no";
 
       # STIG V-268176: Strong authenticators for nonlocal maintenance/diagnostic sessions
-      # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268176
       # Ensures PAM authentication is used for SSH
       UsePAM = true;
     };
 
     # STIG V-268089: DOD-approved encryption for remote access sessions
-    # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268089
     # Only FIPS 140-3 approved ciphers
     settings.Ciphers = [
       "aes256-ctr"
@@ -30,7 +26,6 @@
     ];
 
     # STIG V-268157: Cryptographic protection for nonlocal maintenance comms
-    # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268157
     # Only FIPS 140-3 approved MAC codes
     macs = [
       "hmac-sha2-512"
@@ -38,7 +33,6 @@
     ];
 
     # STIG V-268083: DOD banner for SSH logins (INTENTIONALLY NOT FOLLOWED)
-    # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268083
     # NOTE: DOD banner not applicable - this is not a U.S. Department of Defense system
     # Risk accepted: System is not part of USG infrastructure
     # banner = ''
@@ -47,12 +41,10 @@
 
     # Additional hardening settings
     # STIG V-268142: SSH connection idle timeout
-    # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268142
     # Terminate connections after 10 minutes of inactivity
     # ClientAliveInterval 600
 
     # STIG V-268143: Terminate unresponsive SSH connections
-    # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268143
     # Terminate after 1 failed keepalive
     # ClientAliveCountMax 1
     extraConfig = ''
@@ -61,13 +53,11 @@
     '';
 
     # STIG V-268088: Monitor remote access methods (VERBOSE SSH logging)
-    # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268088
     # Enable verbose logging for security monitoring
     logLevel = "VERBOSE";
   };
 
   # STIG V-268158: DoS protection via rate-limiting for SSH
-  # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268158
   # Protects against SSH brute-force and DoS attacks by limiting connection rates
   # Applied only when SSH server is enabled (server=true)
   networking.firewall.extraCommands = ''
@@ -89,12 +79,10 @@
   '';
 
   # STIG V-268081: Account lockout after 3 failed SSH login attempts
-  # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268081
   # Locks account after 3 consecutive failed attempts within 15 minutes
   # Requires manual unlock by administrator
 
   # STIG V-268171: Four second delay between failed login attempts
-  # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268171
   security.pam.services.sshd.failDelay.enable = true;
   security.pam.services.sshd.failDelay.delay = 4000000; # 4 second delay (4,000,000 microseconds)
 

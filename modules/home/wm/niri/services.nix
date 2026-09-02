@@ -9,7 +9,6 @@
   services = {
     # Control de inactividad
     # STIG V-268086: Session lock after 10 minutes of inactivity
-    # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268086
     swayidle = {
       enable = true;
       timeouts = [

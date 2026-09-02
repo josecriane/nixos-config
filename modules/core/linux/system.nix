@@ -7,19 +7,16 @@
 }:
 {
   # STIG V-268151: Time synchronization enabled
-  # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268151
   # Ensures accurate timestamps for forensic analysis and event correlation
   services.timesyncd = {
     enable = true;
 
     # STIG V-268150: Clock synchronization poll interval
-    # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268150
     # Sync when time difference exceeds one second
     settings.Time.PollIntervalMaxSec = 60;
   };
 
   # STIG V-268149: Authorized time servers (INTENTIONALLY NOT FOLLOWED)
-  # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268149
   # NOTE: DoD time servers not applicable - using system defaults
   # Risk accepted: System uses appropriate NTP servers for non-DoD infrastructure
   # networking.timeServers = [
@@ -41,14 +38,12 @@
   programs.nix-ld.enable = true;
 
   # STIG V-268082: DOD banner for local logins/getty (INTENTIONALLY NOT FOLLOWED)
-  # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268082
   # NOTE: DOD banner not configured - not a U.S. Government system
   # Risk accepted: This is not a DOD/government system, displaying USG legal warnings would be inappropriate
   # DOD banners are specifically for U.S. Government Information Systems with legal monitoring requirements
   # services.getty.helpLine = "..."; # Commented out - not applicable
 
   # STIG V-268162: System security updates (INTENTIONALLY NOT AUTOMATED)
-  # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268162
   # NOTE: Automatic updates not configured - system is updated manually on a weekly basis
   # Risk accepted: Manual updates provide better control and testing for flake-based configurations
   # Update procedure followed weekly:
@@ -70,7 +65,6 @@
 
     # STIG V-268087: session lock for TTY consoles. Graphical sessions use
     # swaylock instead (modules/home/wm/niri/swaylock.nix).
-    # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268087
     vlock
   ];
 }
