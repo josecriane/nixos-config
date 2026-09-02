@@ -6,7 +6,7 @@
   ...
 }:
 {
-  # Custom system command entries for wofi
+  # Custom system command entries for the quickshell launcher
   xdg.desktopEntries = {
     "zellij" = {
       name = "Zellij";

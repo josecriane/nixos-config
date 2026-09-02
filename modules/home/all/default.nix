@@ -1,6 +1,11 @@
-{ ... }:
+{
+  lib,
+  machineOptions,
+  ...
+}:
 {
   imports = [
+    ./alias.nix
     ./commands.nix
     ./direnv.nix
     ./docker.nix
@@ -9,5 +14,6 @@
     ./paths.nix
     ./zellij.nix
     ./zsh
-  ];
+  ]
+  ++ (lib.optionals (machineOptions.os == "linux") [ ./xdg.nix ]);
 }

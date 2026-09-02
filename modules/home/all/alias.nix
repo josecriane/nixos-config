@@ -1,6 +1,6 @@
-{ config, pkgs, ... }:
+{ ... }:
 {
-  environment.shellAliases = {
+  programs.zsh.shellAliases = {
     cdev = "_rcd dev";
     cdocs = "_rcd docs";
     cdl = "_rcd libs";
@@ -14,10 +14,10 @@
     noma-vpn-status = "sudo systemctl status openvpn-noma";
   };
 
-  environment.interactiveShellInit = ''
+  programs.zsh.initContent = ''
     _rcd() {
-      local base_dir="${"$"}{1:-dev}"
-      local sub_dir="${"$"}{2}"
+      local base_dir="''${1:-dev}"
+      local sub_dir="''${2}"
 
       if [ "$base_dir" = "." ]; then
         if [ -z "$sub_dir" ]; then

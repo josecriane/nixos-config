@@ -8,7 +8,6 @@
   imports = [
     ../options.nix
     ./stylix
-    ./alias.nix
     ./essentials.nix
     ./nix.nix
     ./secrets.nix

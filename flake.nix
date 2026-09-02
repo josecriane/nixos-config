@@ -145,9 +145,24 @@
         };
       });
 
-      checks.${linuxSystem} = lib.mapAttrs (
-        _: cfg: cfg.config.system.build.toplevel
-      ) self.nixosConfigurations;
+      checks.${linuxSystem} =
+        lib.mapAttrs (_: cfg: cfg.config.system.build.toplevel) self.nixosConfigurations
+
+        # `niri validate` exits 0 even on a broken config, so assert on its
+        # success line instead of its status.
+        // lib.mapAttrs' (
+          name: cfg:
+          lib.nameValuePair "niri-config-${name}" (
+            (pkgsFor linuxSystem).runCommand "niri-validate-${name}" { } ''
+              config=${
+                cfg.config.home-manager.users.${cfg.config.machine.username}.xdg.configFile."niri/config.kdl".source
+              }
+              ${(pkgsFor linuxSystem).niri}/bin/niri validate -c "$config" 2>&1 | tee output
+              grep -q "config is valid" output
+              touch $out
+            ''
+          )
+        ) (lib.filterAttrs (_: cfg: cfg.config.machine.wm == "niri") self.nixosConfigurations);
 
       checks.${darwinSystem} = lib.mapAttrs (
         _: cfg: cfg.config.system.build.toplevel
