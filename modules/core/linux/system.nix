@@ -40,11 +40,6 @@
 
   programs.nix-ld.enable = true;
 
-  # STIG V-268154: Verify digital signatures on patches/drivers/OS components
-  # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268154
-  # Prevents installation of tampered or malicious software
-  nix.settings.require-sigs = true;
-
   # STIG V-268082: DOD banner for local logins/getty (INTENTIONALLY NOT FOLLOWED)
   # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268082
   # NOTE: DOD banner not configured - not a U.S. Government system
@@ -64,13 +59,18 @@
   # Automatic updates could be enabled with system.autoUpgrade but are not recommended for flake configs
   # system.autoUpgrade.enable = false;
 
-  # STIG V-268087: Session lock package for TTY consoles
-  # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268087
-  # vlock allows manual session lock for text console (TTY) sessions
-  # Note: Graphical sessions use swaylock (configured in modules/home/wm/niri/)
+  services.upower.enable = true;
+
   environment.systemPackages = with pkgs; [
     age
     fwupd
-    vlock # Session lock for TTY consoles
+    ddcutil
+    lm_sensors
+    upower
+
+    # STIG V-268087: session lock for TTY consoles. Graphical sessions use
+    # swaylock instead (modules/home/wm/niri/swaylock.nix).
+    # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268087
+    vlock
   ];
 }

@@ -1,10 +1,4 @@
-{
-  inputs,
-  nixpkgs,
-  self,
-  machineOptions,
-  ...
-}:
+{ ... }:
 {
   imports = [
     ./alias.nix

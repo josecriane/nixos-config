@@ -1,8 +1,6 @@
 {
   inputs,
-  nixpkgs,
   lib,
-  self,
   machineOptions,
   ...
 }:
@@ -35,5 +33,4 @@
   ])
   ++ (lib.optionals (machineOptions.server or false) [ ./openssh.nix ]);
 
-  system.stateVersion = "25.11";
 }

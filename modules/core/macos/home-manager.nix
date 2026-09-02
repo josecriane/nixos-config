@@ -23,7 +23,6 @@ in
         machineOptions
         self
         ;
-      host = machineOptions.hostname;
     };
 
     users.${username} = {
@@ -44,5 +43,4 @@ in
     shell = pkgs.zsh;
   };
 
-  nix.settings.trusted-users = [ username ];
 }

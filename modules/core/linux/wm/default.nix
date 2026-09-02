@@ -1,8 +1,5 @@
 {
-  inputs,
-  nixpkgs,
   lib,
-  self,
   machineOptions,
   ...
 }:

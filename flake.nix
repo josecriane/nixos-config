@@ -6,17 +6,19 @@
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-    lanzaboote.url = "github:nix-community/lanzaboote";
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     darwin = {
-      url = "github:lnl7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs-darwin";
+      url = "github:nix-darwin/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     stylix = {
@@ -28,6 +30,7 @@
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.darwin.follows = "darwin";
+      inputs.home-manager.follows = "home-manager";
     };
 
     quickshell = {
@@ -53,67 +56,71 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    elp-from-source = {
-      url = "path:./pkgs/elp-from-source";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     android-nixpkgs = {
       url = "github:tadfisher/android-nixpkgs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nur.url = "github:nix-community/NUR";
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
     {
       nixpkgs,
-      nixos-hardware,
       self,
       darwin,
-      home-manager,
-      lanzaboote,
-      agenix,
-      quickshell,
-      quickshell-config,
       claude-code,
       ...
     }@inputs:
     let
+      inherit (nixpkgs) lib;
+
+      linuxSystem = "x86_64-linux";
+      darwinSystem = "aarch64-darwin";
+
+      forAllSystems = lib.genAttrs [
+        linuxSystem
+        darwinSystem
+      ];
+
+      pkgsFor = system: nixpkgs.legacyPackages.${system};
+
+      overlaysModule = {
+        nixpkgs.overlays = [
+          inputs.android-nixpkgs.overlays.default
+          inputs.nur.overlays.default
+          claude-code.overlays.default
+        ];
+      };
+
+      mkModules = host: [
+        (./hosts + "/${host}")
+        ./modules/core
+        overlaysModule
+      ];
+
+      mkSpecialArgs = host: {
+        inherit self inputs;
+        machineOptions = import (./hosts + "/${host}/options.nix");
+      };
+
       mkLinuxSystem =
         host:
         nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            (./hosts + "/${host}")
-            ./modules/core
-            {
-              nixpkgs.overlays = [
-                inputs.android-nixpkgs.overlays.default
-                inputs.nur.overlays.default
-                claude-code.overlays.default
-              ];
-            }
-          ];
-          specialArgs = {
-            inherit self inputs;
-            machineOptions = import (./hosts + "/${host}/options.nix");
-          };
+          system = linuxSystem;
+          modules = mkModules host;
+          specialArgs = mkSpecialArgs host;
         };
 
       mkDarwinSystem =
         host:
         darwin.lib.darwinSystem {
-          system = "aarch64-darwin";
-          modules = [
-            (./hosts + "/${host}")
-            ./modules/core
-          ];
-          specialArgs = {
-            inherit self inputs;
-            machineOptions = import (./hosts + "/${host}/options.nix");
-          };
+          system = darwinSystem;
+          modules = mkModules host;
+          specialArgs = mkSpecialArgs host;
         };
     in
     {
@@ -126,5 +133,25 @@
         MacBookAir10-1-jose-cribeiro = mkDarwinSystem "macbook-air";
       };
 
+      formatter = forAllSystems (system: (pkgsFor system).nixfmt-tree);
+
+      devShells = forAllSystems (system: {
+        default = (pkgsFor system).mkShell {
+          packages = [
+            (pkgsFor system).nixfmt-rfc-style
+            (pkgsFor system).nix-tree
+            inputs.agenix.packages.${system}.default
+          ]
+          ++ lib.optionals (system == linuxSystem) [ (pkgsFor system).sbctl ];
+        };
+      });
+
+      checks.${linuxSystem} = lib.mapAttrs (
+        _: cfg: cfg.config.system.build.toplevel
+      ) self.nixosConfigurations;
+
+      checks.${darwinSystem} = lib.mapAttrs (
+        _: cfg: cfg.config.system.build.toplevel
+      ) self.darwinConfigurations;
     };
 }

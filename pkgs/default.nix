@@ -1,4 +1,0 @@
-{ inputs, host, ... }:
-{
-  imports = [ ];
-}

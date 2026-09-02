@@ -1,6 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
-  home.packages = with pkgs; [
-    vlc
-  ];
+  home.packages = lib.optional pkgs.stdenv.hostPlatform.isLinux pkgs.vlc;
 }

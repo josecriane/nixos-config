@@ -23,7 +23,6 @@ in
         machineOptions
         self
         ;
-      host = machineOptions.hostname;
     };
     users.${username} = {
       imports = [
@@ -49,7 +48,4 @@ in
     shell = pkgs.zsh;
   };
 
-  # STIG V-268152: Restrict software installation to authorized users
-  # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268152
-  nix.settings.allowed-users = [ "${username}" ];
 }

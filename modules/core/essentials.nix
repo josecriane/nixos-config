@@ -1,10 +1,4 @@
-{
-  self,
-  pkgs,
-  lib,
-  inputs,
-  ...
-}:
+{ pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
     git
@@ -15,9 +9,5 @@
     sshpass
     gawk
     btop
-    ddcutil
-    lm_sensors
-    upower
   ];
-  services.upower.enable = true;
 }

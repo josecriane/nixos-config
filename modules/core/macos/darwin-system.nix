@@ -17,10 +17,6 @@ in
 #
 ###################################################################################
 {
-  nix.settings = {
-    auto-optimise-store = false;
-  };
-
   system = {
     primaryUser = "${username}";
     stateVersion = 5;

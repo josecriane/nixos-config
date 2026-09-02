@@ -1,7 +1,6 @@
 {
   pkgs,
   lib,
-  inputs,
   ...
 }:
 {
@@ -9,9 +8,7 @@
     # Erlang
     beam28Packages.erlang
     beamMinimal28Packages.rebar3
-
-    # ELP compilado desde source (versión 2025-11-04)
-    inputs.elp-from-source.packages.${pkgs.stdenv.hostPlatform.system}.default
+    erlang-language-platform
 
     # Elixir
     beamPackages.elixir_1_18
