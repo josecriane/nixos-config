@@ -6,10 +6,12 @@
 }:
 {
   imports = [
+    ../options.nix
     ./stylix
     ./alias.nix
     ./essentials.nix
     ./nix.nix
+    ./secrets.nix
     ./system.nix
     ./zsh.nix
   ]

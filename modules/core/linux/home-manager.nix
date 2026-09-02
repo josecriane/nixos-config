@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   inputs,
   machineOptions,
@@ -6,7 +7,7 @@
   ...
 }:
 let
-  username = machineOptions.username;
+  username = config.machine.username;
 in
 {
   imports = [ inputs.home-manager.nixosModules.home-manager ];
@@ -27,6 +28,7 @@ in
     users.${username} = {
       imports = [
         inputs.android-nixpkgs.hmModule
+        ./../../options.nix
         ./../../home
       ];
       home.username = "${username}";

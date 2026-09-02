@@ -1,19 +1,13 @@
 {
-  pkgs,
+  config,
   lib,
   machineOptions,
   ...
 }:
 let
-  keyboards =
-    machineOptions.keyboards or [
-      {
-        layout = "us";
-        variant = "intl";
-      }
-    ];
+  inherit (config.machine) keyboards;
   layouts = lib.concatMapStringsSep "," (kb: kb.layout) keyboards;
-  variants = lib.concatMapStringsSep "," (kb: kb.variant or "") keyboards;
+  variants = lib.concatMapStringsSep "," (kb: kb.variant) keyboards;
 in
 {
   services = {

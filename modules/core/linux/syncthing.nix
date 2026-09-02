@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  machineOptions,
   inputs,
   ...
 }:
@@ -11,10 +10,10 @@
   config = {
     services.syncthing = {
       enable = true;
-      user = machineOptions.username;
+      user = config.machine.username;
       group = "users";
-      dataDir = "/home/${machineOptions.username}";
-      configDir = "/home/${machineOptions.username}/.config/syncthing";
+      dataDir = "${config.machine.homeDirectory}";
+      configDir = "${config.machine.homeDirectory}/.config/syncthing";
       openDefaultPorts = true;
 
       settings = {
@@ -36,8 +35,8 @@
         # Common folders synchronized across all machines
         folders = {
           "docs" = {
-            path = "/home/${machineOptions.username}/docs";
-            devices = lib.filter (d: d != machineOptions.hostname) [
+            path = "${config.machine.homeDirectory}/docs";
+            devices = lib.filter (d: d != config.machine.hostname) [
               "DN2103"
               "imre"
               "newarre"
@@ -49,8 +48,8 @@
           };
 
           "keepass" = {
-            path = "/home/${machineOptions.username}/keepass";
-            devices = lib.filter (d: d != machineOptions.hostname) [
+            path = "${config.machine.homeDirectory}/keepass";
+            devices = lib.filter (d: d != config.machine.hostname) [
               "DN2103"
               "imre"
               "newarre"
@@ -66,7 +65,7 @@
         };
 
         # Only include other devices, not ourselves
-        devices = lib.filterAttrs (name: _: name != machineOptions.hostname) {
+        devices = lib.filterAttrs (name: _: name != config.machine.hostname) {
           "DN2103" = {
             id = "NHWIMFF-JTD744F-3H36QCL-GSL4JQO-WNGXYTF-EHQYZ75-YDAD4DL-KQ4E7AP";
           };

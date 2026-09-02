@@ -1,6 +1,7 @@
 {
   desktop = true;
   develop = true;
+  server = false;
   wm = null;
   os = "macos";
   username = "jose.cribeiro";

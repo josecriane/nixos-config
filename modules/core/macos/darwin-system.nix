@@ -1,10 +1,9 @@
 {
-  pkgs,
-  machineOptions,
+  config,
   ...
 }:
 let
-  username = machineOptions.username;
+  username = config.machine.username;
 in
 ###################################################################################
 #

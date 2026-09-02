@@ -5,6 +5,5 @@
     ./darwin-system.nix
     ./home-manager.nix
     ./networking.nix
-    ./secrets.nix
   ];
 }

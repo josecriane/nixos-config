@@ -1,9 +1,12 @@
-{ pkgs, machineOptions, ... }:
+{ config, ... }:
+let
+  inherit (config.machine) hostname;
+in
 {
   networking = {
-    hostName = "${machineOptions.hostname}";
-    computerName = "${machineOptions.hostname}";
+    hostName = hostname;
+    computerName = hostname;
   };
 
-  system.defaults.smb.NetBIOSName = "${machineOptions.hostname}";
+  system.defaults.smb.NetBIOSName = hostname;
 }

@@ -1,11 +1,11 @@
 {
+  config,
   lib,
-  machineOptions,
   ...
 }:
 let
-  isLinux = machineOptions.os == "linux";
-  inherit (machineOptions) username;
+  isLinux = config.machine.os == "linux";
+  inherit (config.machine) username;
 in
 {
   nix = {

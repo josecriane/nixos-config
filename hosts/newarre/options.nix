@@ -1,6 +1,7 @@
 {
   desktop = true;
   develop = true;
+  server = false;
   wm = "niri";
   os = "linux";
   username = "sito";

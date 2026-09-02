@@ -3,37 +3,24 @@
   pkgs,
   config,
   lib,
-  machineOptions,
   ...
 }:
 let
-  # Get all keyboard configurations
-  keyboards =
-    machineOptions.keyboards or [
-      {
-        layout = "us";
-        variant = "intl";
-      }
-    ];
-  layouts = lib.concatStringsSep "," (map (k: k.layout) keyboards);
-  variants = lib.concatStringsSep "," (map (k: k.variant or "") keyboards);
+  inherit (config.machine) keyboards monitors;
 
-  # Get monitor configurations
-  monitors = machineOptions.monitors or [ ];
+  layouts = lib.concatMapStringsSep "," (k: k.layout) keyboards;
+  variants = lib.concatMapStringsSep "," (k: k.variant) keyboards;
 
-  # Function to generate monitor output configuration
   generateMonitorConfig = monitor: ''
     output "${monitor.name}" {
-      ${lib.optionalString (monitor ? mode) ''mode "${monitor.mode}"''}
-      ${lib.optionalString (monitor ? scale) "scale ${toString monitor.scale}"}
+      ${lib.optionalString (monitor.mode != null) ''mode "${monitor.mode}"''}
+      ${lib.optionalString (monitor.scale != null) "scale ${toString monitor.scale}"}
       ${lib.optionalString (
-        monitor ? position
+        monitor.position != null
       ) "position x=${toString monitor.position.x} y=${toString monitor.position.y}"}
-      ${lib.optionalString (monitor ? transform) ''transform "${monitor.transform}"''}
-      ${lib.optionalString (
-        monitor ? variableRefreshRate && monitor.variableRefreshRate
-      ) "variable-refresh-rate"}
-      ${lib.optionalString (monitor ? focusAtStartup && monitor.focusAtStartup) "focus-at-startup"}
+      ${lib.optionalString (monitor.transform != null) ''transform "${monitor.transform}"''}
+      ${lib.optionalString monitor.variableRefreshRate "variable-refresh-rate"}
+      ${lib.optionalString monitor.focusAtStartup "focus-at-startup"}
     }
   '';
 in

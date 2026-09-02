@@ -1,7 +1,7 @@
-{ pkgs, machineOptions, ... }:
+{ config, ... }:
 {
   networking = {
-    hostName = "${machineOptions.hostname}";
+    hostName = config.machine.hostname;
     networkmanager.enable = true;
     # STIG V-268078: Enable built-in firewall
     # https://stigviewer.com/stigs/anduril_nixos/2024-10-25/finding/V-268078

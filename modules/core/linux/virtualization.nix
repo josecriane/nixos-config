@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  machineOptions,
   ...
 }:
 {
@@ -36,6 +35,6 @@
     gnome-boxes
   ];
 
-  users.extraGroups.libvirtd.members = [ machineOptions.username ];
+  users.extraGroups.libvirtd.members = [ config.machine.username ];
 
 }

@@ -3,7 +3,6 @@
   lib,
   pkgs,
   inputs,
-  machineOptions,
   ...
 }:
 
@@ -16,7 +15,7 @@ let
     excludedAppsPath = ./excluded-apps.json;
     keepassPath = pkgs.writeText "keepass.json" (
       builtins.toJSON {
-        encryptedPasswordPath = "/home/${machineOptions.username}/nixos-config/secrets/kp.age";
+        encryptedPasswordPath = "${config.machine.homeDirectory}/nixos-config/secrets/kp.age";
         ageIdentityPath = "/etc/agenix/agenix-key.age";
         databasePath = "${config.home.homeDirectory}/keepass/passwords.kdbx";
       }

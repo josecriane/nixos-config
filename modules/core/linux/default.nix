@@ -31,6 +31,6 @@
     ./android.nix
     ./it-tools.nix
   ])
-  ++ (lib.optionals (machineOptions.server or false) [ ./openssh.nix ]);
+  ++ (lib.optionals machineOptions.server [ ./openssh.nix ]);
 
 }
