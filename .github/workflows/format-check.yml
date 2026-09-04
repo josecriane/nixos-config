@@ -7,17 +7,7 @@ on:
       - main
 
 jobs:
-  format:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: cachix/install-nix-action@v31
-
-      - name: Check formatting
-        run: nix fmt -- --ci
-
-  eval:
+  check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -30,6 +20,9 @@ jobs:
           git rm --cached secrets -q || true
           rm -rf secrets && mkdir -p secrets && touch secrets/.keep
           git -c user.email=ci@local -c user.name=ci add -A
+
+      - name: Check formatting
+        run: nix fmt -- --ci
 
       - name: Evaluate host configurations
         run: |
