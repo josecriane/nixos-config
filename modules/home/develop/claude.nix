@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  self,
   ...
 }:
 let
@@ -17,6 +18,12 @@ in
   programs.claude-code = {
     enable = true;
   };
+
+  home.file.".claude/rules/working-style.md".source =
+    "${self}/modules/home/develop/claude-rules/working-style.md";
+
+  home.file.".claude/rules/writing-style.md".source =
+    "${self}/modules/home/develop/claude-rules/writing-style.md";
 
   # Write settings.json as a mutable copy instead of a read-only nix store symlink,
   # so Claude Code can write runtime changes (effort level, etc.)
