@@ -16,6 +16,11 @@
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
 
+    history = {
+      size = 100000;
+      save = 100000;
+    };
+
     enableCompletion = true;
     completionInit = ''
       autoload -Uz compinit
