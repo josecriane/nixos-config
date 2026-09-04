@@ -9,6 +9,7 @@
       autoStart = false;
       updateResolvConf = true;
       config = ''
+        dev tun
         config ${config.age.secrets.noma-ovpn-config.path}
         auth-user-pass ${config.age.secrets.noma-ovpn-aup.path}
 

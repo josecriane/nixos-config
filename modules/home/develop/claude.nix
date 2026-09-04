@@ -90,58 +90,68 @@ in
       chmod u+w "$HOME/.claude/settings.json"
     '';
 
-  # Configuración de ccstatusline
-  xdg.configFile."ccstatusline/settings.json".text = builtins.toJSON {
-    version = 3;
-    lines = [
-      [
-        {
-          id = "1";
-          type = "model";
-          color = toHex colors.base0D;
-        } # azul
-        {
-          id = "2";
-          type = "separator";
-        }
-        {
-          id = "3";
-          type = "session-cost";
-          color = toHex colors.base0B;
-        } # verde
-        {
-          id = "4";
-          type = "separator";
-        }
-        {
-          id = "5";
-          type = "context-percentage";
-          color = toHex colors.base0A;
-        } # amarillo
-        {
-          id = "6";
-          type = "separator";
-        }
-        {
-          id = "7";
-          type = "git-branch";
-          color = toHex colors.base0E;
-        } # morado
-      ]
-      [ ]
-      [ ]
-    ];
-    flexMode = "full-minus-40";
-    compactThreshold = 60;
-    colorLevel = 3;
-    globalBold = false;
-    powerline = {
-      enabled = false;
-      separators = [ "" ];
-      separatorInvertBackground = [ false ];
-      startCaps = [ ];
-      endCaps = [ ];
-      autoAlign = false;
-    };
-  };
+  # ccstatusline reescribe este fichero cuando migra su propio formato de
+  # settings, así que necesita una copia mutable en vez de un symlink al store
+  home.activation.ccstatuslineSettings =
+    let
+      settingsFile = (pkgs.formats.json { }).generate "ccstatusline-settings.json" {
+        version = 4;
+        lines = [
+          [
+            {
+              id = "1";
+              type = "model";
+              color = toHex colors.base0D;
+            } # azul
+            {
+              id = "2";
+              type = "separator";
+            }
+            {
+              id = "3";
+              type = "session-cost";
+              color = toHex colors.base0B;
+            } # verde
+            {
+              id = "4";
+              type = "separator";
+            }
+            {
+              id = "5";
+              type = "context-percentage";
+              color = toHex colors.base0A;
+            } # amarillo
+            {
+              id = "6";
+              type = "separator";
+            }
+            {
+              id = "7";
+              type = "git-branch";
+              color = toHex colors.base0E;
+            } # morado
+          ]
+          [ ]
+          [ ]
+        ];
+        flexMode = "full-minus-40";
+        compactThreshold = 60;
+        colorLevel = 3;
+        globalBold = false;
+        powerline = {
+          enabled = false;
+          separators = [ "" ];
+          separatorInvertBackground = [ false ];
+          startCaps = [ ];
+          endCaps = [ ];
+          autoAlign = false;
+        };
+      };
+    in
+    config.lib.dag.entryAfter [ "writeBoundary" ] ''
+      mkdir -p "$HOME/.config/ccstatusline"
+      rm -f "$HOME/.config/ccstatusline/settings.json"
+      cp "${settingsFile}" "$HOME/.config/ccstatusline/settings.json"
+      chmod u+w "$HOME/.config/ccstatusline/settings.json"
+    '';
 }
