@@ -1,6 +1,12 @@
 { pkgs, ... }:
 {
-  home.packages = with pkgs; [
-    texliveFull
+  home.packages = [
+    (pkgs.texlive.withPackages (
+      ps: with ps; [
+        scheme-small
+        latexmk
+        biber
+      ]
+    ))
   ];
 }
