@@ -39,6 +39,8 @@ in
 
         "nix.enableLanguageServer" = true;
         "nix.formatterPath" = "nixfmt";
+        "qt-qml.qmlls.customExePath" = "${pkgs.qt6.qtdeclarative}/bin/qmlls";
+        "qt-qml.qmlls.enabled" = true;
         "qt-qml.qmlls.useQmlImportPathEnvVar" = true;
         "redhat.telemetry.enabled" = false;
 

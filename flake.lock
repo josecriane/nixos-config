@@ -510,11 +510,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1788543734,
-        "narHash": "sha256-y4VG1QPPqikMbsV/S+eUVvVn44wAGG6cAwdvtIFjC80=",
+        "lastModified": 1788692902,
+        "narHash": "sha256-uRK3pBR4aRIWpTjVicPIJQL1uMw1z3OEnreDf+UQdQY=",
         "owner": "josecriane",
         "repo": "quickshell-config",
-        "rev": "bf3db0e503fe181f0062aafea8132ad431670734",
+        "rev": "abb645d7b4941503a8b30c311f9b9debacad7128",
         "type": "github"
       },
       "original": {
