@@ -131,6 +131,12 @@ in
       }
 
       window-rule {
+          match app-id="^xdg-desktop-portal-gnome$"
+          open-floating true
+          open-focused true
+      }
+
+      window-rule {
           match app-id="^floating$"
           default-column-width { fixed 1680; }
           open-maximized false

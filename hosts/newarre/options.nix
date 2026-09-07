@@ -19,7 +19,7 @@
   monitors = [
     {
       name = "eDP-1";
-      mode = "2880x1800";
+      mode = "2880x1920";
       scale = 1.3;
       position = {
         x = 160;

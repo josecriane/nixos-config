@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  home.packages = with pkgs; [
-    vesktop
+  home.packages = [
+    (pkgs.vesktop.override { withSystemVencord = true; })
   ];
 }
