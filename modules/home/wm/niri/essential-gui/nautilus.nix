@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   nautilusExtensions = pkgs.symlinkJoin {
     name = "nautilus-extensions";
@@ -59,6 +64,10 @@ in
   '';
 
   home.file.".local/share/nautilus-python/extensions/copy_path.py".source = copyPathExtension;
+
+  home.activation.clearNautilusPythonCache = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    run rm -rf "${config.home.homeDirectory}/.local/share/nautilus-python/extensions/__pycache__"
+  '';
 
   home.file.".config/gtk-3.0/bookmarks".text = ''
     file://${config.home.homeDirectory}/Desktop
