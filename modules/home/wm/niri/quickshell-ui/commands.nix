@@ -103,7 +103,7 @@
       name = "IT Tools";
       comment = "Self-hosted developer tools";
       icon = "${pkgs.it-tools}/lib/android-chrome-512x512.png";
-      exec = "brave --app=http://localhost:8081";
+      exec = "brave --app=http://localhost:19081";
       terminal = false;
       categories = [
         "Development"
