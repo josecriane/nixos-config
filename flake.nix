@@ -126,6 +126,7 @@
       nixosConfigurations = {
         imre = mkLinuxSystem "imre";
         newarre = mkLinuxSystem "newarre";
+        bast = mkLinuxSystem "bast";
       };
 
       darwinConfigurations = {
