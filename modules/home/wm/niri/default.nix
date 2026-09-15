@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (config.machine) keyboards monitors focusFollowsMouse;
+  inherit (config.machine) keyboards monitors;
 
   layouts = lib.concatMapStringsSep "," (k: k.layout) keyboards;
   variants = lib.concatMapStringsSep "," (k: k.variant) keyboards;
@@ -72,7 +72,7 @@ in
               click-method "clickfinger"
           }
           
-          ${lib.optionalString focusFollowsMouse ''focus-follows-mouse max-scroll-amount="0%"''}
+          focus-follows-mouse max-scroll-amount="0%"
       }
 
       ${lib.concatMapStringsSep "\n" generateMonitorConfig monitors}

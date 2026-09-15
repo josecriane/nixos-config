@@ -109,11 +109,6 @@ in
       default = [ ];
     };
 
-    focusFollowsMouse = mkOption {
-      type = types.bool;
-      default = true;
-    };
-
     homeDirectory = mkOption {
       type = types.str;
       readOnly = true;

@@ -6,7 +6,6 @@
   username = "sito";
   hostname = "bast";
   fprint = false;
-  focusFollowsMouse = false;
   keyboards = [
     {
       layout = "us";
