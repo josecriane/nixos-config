@@ -12,5 +12,11 @@
       variant = "intl";
     }
   ];
-  monitors = [ ];
+  monitors = [
+    {
+      name = "DP-1";
+      mode = "2560x1440@143.972";
+      focusAtStartup = true;
+    }
+  ];
 }
