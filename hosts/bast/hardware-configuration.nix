@@ -27,17 +27,16 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/00000000-0000-0000-0000-000000000000";
-    fsType = "btrfs";
-    options = [ "subvol=@" ];
+    device = "/dev/mapper/luks-67ea9d04-bbf6-4c25-b800-b7823d00e06e";
+    fsType = "ext4";
   };
 
   # STIG V-268144: Protect confidentiality/integrity of data at rest (LUKS encryption)
-  boot.initrd.luks.devices."luks-11111111-1111-1111-1111-111111111111".device =
-    "/dev/disk/by-uuid/11111111-1111-1111-1111-111111111111";
+  boot.initrd.luks.devices."luks-67ea9d04-bbf6-4c25-b800-b7823d00e06e".device =
+    "/dev/disk/by-uuid/67ea9d04-bbf6-4c25-b800-b7823d00e06e";
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/0000-0000";
+    device = "/dev/disk/by-uuid/0E82-ADBE";
     fsType = "vfat";
     options = [
       "fmask=0077"
@@ -46,8 +45,6 @@
   };
 
   swapDevices = [ ];
-
-  networking.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;

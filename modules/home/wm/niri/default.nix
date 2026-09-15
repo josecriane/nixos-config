@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (config.machine) keyboards monitors;
+  inherit (config.machine) keyboards monitors focusFollowsMouse;
 
   layouts = lib.concatMapStringsSep "," (k: k.layout) keyboards;
   variants = lib.concatMapStringsSep "," (k: k.variant) keyboards;
@@ -72,7 +72,7 @@ in
               click-method "clickfinger"
           }
           
-          focus-follows-mouse max-scroll-amount="0%"
+          ${lib.optionalString focusFollowsMouse ''focus-follows-mouse max-scroll-amount="0%"''}
       }
 
       ${lib.concatMapStringsSep "\n" generateMonitorConfig monitors}
@@ -147,7 +147,6 @@ in
 
       spawn-at-startup "systemctl" "--user" "import-environment" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
       spawn-at-startup "dbus-update-activation-environment" "--systemd" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
-      spawn-at-startup "xwayland-satellite"
       spawn-at-startup "sh" "-c" "~/.config/niri/monitor-setup"
       spawn-at-startup "/run/current-system/sw/libexec/polkit-gnome-authentication-agent-1"
       spawn-at-startup "swaybg" "-i" "${config.home.homeDirectory}/.config/wallpapers/default.jpeg" "-m" "fill"

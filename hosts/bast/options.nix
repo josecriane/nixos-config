@@ -6,11 +6,8 @@
   username = "sito";
   hostname = "bast";
   fprint = false;
+  focusFollowsMouse = false;
   keyboards = [
-    {
-      layout = "es";
-      variant = "";
-    }
     {
       layout = "us";
       variant = "intl";

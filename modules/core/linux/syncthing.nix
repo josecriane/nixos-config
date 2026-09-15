@@ -38,6 +38,7 @@
               "DN2103"
               "imre"
               "newarre"
+              "bast"
             ];
             versioning = {
               type = "simple";
@@ -51,6 +52,7 @@
               "DN2103"
               "imre"
               "newarre"
+              "bast"
             ];
             versioning = {
               type = "staggered";
@@ -72,6 +74,9 @@
           };
           "newarre" = {
             id = "ZCV2MT5-DAU4RWF-VITKVT6-O5AN4KR-QUEMJPE-7XJFUVV-Z6PYLZP-PP2BTQD";
+          };
+          "bast" = {
+            id = "TICMXNT-CTEBSYC-BUEZTPB-OUDQ6XT-3MYOPTG-HBZBYEF-6CD3HOK-Z2RQPAZ";
           };
         };
       };
