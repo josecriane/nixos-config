@@ -1,5 +1,6 @@
 {
   config,
+  pkgs,
   ...
 }:
 
@@ -9,7 +10,7 @@
       autoStart = false;
       updateResolvConf = true;
       config = ''
-        dev tun
+        dev tun0
         config ${config.age.secrets.noma-ovpn-config.path}
         auth-user-pass ${config.age.secrets.noma-ovpn-aup.path}
 
@@ -21,4 +22,8 @@
       '';
     };
   };
+
+  systemd.services.openvpn-noma.serviceConfig.ExecStopPost = [
+    "-${pkgs.openresolv}/bin/resolvconf -d tun0.inet"
+  ];
 }

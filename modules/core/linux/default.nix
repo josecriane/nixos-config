@@ -11,6 +11,7 @@
     ./audit.nix
     ./bluetooth.nix
     ./boot.nix
+    ./devices.nix
     ./gaming.nix
     ./gvfs.nix
     ./home-manager.nix

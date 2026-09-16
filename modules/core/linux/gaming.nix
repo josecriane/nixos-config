@@ -54,11 +54,6 @@
   # FIXME: xpadneo no compila con kernel 6.18 (ida_simple_get deprecado)
   # hardware.xpadneo.enable = true; # Xbox controller support
 
-  # udev rules for controllers
-  services.udev.packages = with pkgs; [
-    game-devices-udev-rules
-  ];
-
   # Chiaki-ng (PS5 Remote Play) ports
   networking.firewall = {
     allowedUDPPorts = [
