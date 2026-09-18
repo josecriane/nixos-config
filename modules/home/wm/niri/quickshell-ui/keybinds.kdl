@@ -2,4 +2,6 @@
 Mod+Space { spawn "qs-toggle-launcher"; }
 Mod+V { spawn "qs-toggle-launcher" "!"; }
 Mod+Slash { spawn "qs-toggle-launcher" "/"; }
+Mod+I { spawn "qs-ipc" "call" "idleInhibitor" "toggle"; }
+Mod+N { spawn "qs-ipc" "call" "notifications" "toggleDnd"; }
 Mod+Shift+Q { spawn "systemctl" "--user" "restart" "quickshell"; }

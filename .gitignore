@@ -11,3 +11,10 @@ secrets/*.age.key
 
 # QML LS
 .qmlls.ini
+
+# Nix build outputs
+result
+result-*
+
+# direnv
+.direnv

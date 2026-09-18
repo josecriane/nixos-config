@@ -23,17 +23,6 @@
     };
   };
 
-  # Systemd user services
-  systemd.user.targets.niri-session = {
-    Unit = {
-      Description = "niri compositor session";
-      Documentation = [ "man:systemd.special(7)" ];
-      BindsTo = [ "graphical-session.target" ];
-      Wants = [ "graphical-session-pre.target" ];
-      After = [ "graphical-session-pre.target" ];
-    };
-  };
-
   # Polkit authentication agent
   systemd.user.services.polkit-gnome = {
     Unit = {
