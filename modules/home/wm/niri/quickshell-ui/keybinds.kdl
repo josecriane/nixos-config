@@ -1,4 +1,5 @@
 // QuickShell-specific keybinds
 Mod+Space { spawn "qs-toggle-launcher"; }
 Mod+V { spawn "qs-toggle-launcher" "!"; }
+Mod+Slash { spawn "qs-toggle-launcher" "/"; }
 Mod+Shift+Q { spawn "systemctl" "--user" "restart" "quickshell"; }

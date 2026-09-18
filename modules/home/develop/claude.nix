@@ -97,8 +97,8 @@ in
       chmod u+w "$HOME/.claude/settings.json"
     '';
 
-  # ccstatusline reescribe este fichero cuando migra su propio formato de
-  # settings, así que necesita una copia mutable en vez de un symlink al store
+  # ccstatusline rewrites this file when it migrates its own settings
+  # format, so it needs a mutable copy rather than a symlink into the store.
   home.activation.ccstatuslineSettings =
     let
       settingsFile = (pkgs.formats.json { }).generate "ccstatusline-settings.json" {

@@ -51,7 +51,7 @@
 
   # Kernel modules for controllers
   boot.kernelModules = [ "uinput" ];
-  # FIXME: xpadneo no compila con kernel 6.18 (ida_simple_get deprecado)
+  # FIXME: xpadneo does not build against kernel 6.18 (ida_simple_get deprecated)
   # hardware.xpadneo.enable = true; # Xbox controller support
 
   # Chiaki-ng (PS5 Remote Play) ports

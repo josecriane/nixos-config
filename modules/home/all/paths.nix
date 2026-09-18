@@ -8,16 +8,16 @@
 {
   home.activation = {
     userPaths = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      echo "=== Ejecutando Scripts para $USER ==="
+      echo "=== Running scripts for $USER ==="
       if [ -x $HOME/nixos-config/build-utils/paths.sh ]; then
          ${pkgs.bash}/bin/bash $HOME/nixos-config/build-utils/paths.sh
       fi
-      echo "=== Ejecución completada ==="
+      echo "=== Done ==="
     '';
   }
   // lib.optionalAttrs (machineOptions.os == "macos") {
     macScripts = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
-      echo "=== Copiando scripts de macOS ==="
+      echo "=== Copying macOS scripts ==="
       if [ -d $HOME/nixos-config/assets/scripts-mac ]; then
         for script in $HOME/nixos-config/assets/scripts-mac/*; do
           if [ -f "$script" ]; then
@@ -36,7 +36,7 @@
           fi
         done
       fi
-      echo "=== Scripts de macOS copiados ==="
+      echo "=== macOS scripts copied ==="
     '';
   };
 

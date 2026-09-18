@@ -19,12 +19,9 @@ let
   });
 in
 {
-  # Habilitar niri como session
   programs.niri.enable = true;
 
-  # Servicios esenciales para niri
   services = {
-    # Display manager: greetd + tuigreet (ligero, ideal para WMs tipo niri)
     greetd = {
       enable = true;
       settings = {
@@ -35,14 +32,12 @@ in
       };
     };
 
-    # Session niri
     displayManager.sessionPackages = [ pkgs.niri ];
 
-    # Deshabilitar agente SSH de GNOME para evitar conflicto con programs.ssh.startAgent
+    # Disabled to avoid clashing with programs.ssh.startAgent.
     gnome.gcr-ssh-agent.enable = lib.mkForce false;
   };
 
-  # Portales XDG para Wayland
   xdg.portal = {
     enable = true;
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
@@ -60,17 +55,15 @@ in
     XDG_SESSION_TYPE = "wayland";
   };
 
-  # Paquetes del sistema necesarios
   environment.systemPackages = [
     pkgs.wayland
     pkgs.xwayland
     xwayland-satellite
   ];
 
-  # Políticas de seguridad
   security.polkit.enable = true;
 
-  # Polkit policy para tailscale (pkexec desde quickshell)
+  # Lets quickshell drive tailscale through pkexec.
   environment.etc."polkit-1/actions/org.tailscale.cli.policy".text = ''
     <?xml version="1.0" encoding="UTF-8"?>
     <!DOCTYPE policyconfig PUBLIC

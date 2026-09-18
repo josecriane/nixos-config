@@ -3,9 +3,7 @@
   ...
 }:
 {
-  # Servicios esenciales para niri
   services = {
-    # Control de inactividad
     # STIG V-268086: Session lock after 10 minutes of inactivity
     swayidle = {
       enable = true;

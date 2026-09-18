@@ -3,12 +3,10 @@
 {
   programs.ssh.startAgent = true;
 
-  # Agregar las claves SSH automáticamente al agente
   programs.ssh.extraConfig = ''
     AddKeysToAgent yes
   '';
 
-  # Configurar systemd para agregar las claves de agenix al ssh-agent
   systemd.user.services.ssh-add-keys = {
     description = "Add SSH keys to agent";
     wantedBy = [ "default.target" ];

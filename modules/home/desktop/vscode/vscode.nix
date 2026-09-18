@@ -44,7 +44,6 @@ in
         "qt-qml.qmlls.useQmlImportPathEnvVar" = true;
         "redhat.telemetry.enabled" = false;
 
-        # Excluir directorios de búsqueda
         "search.exclude" = {
           "**/.direnv" = true;
           "**/.git" = true;

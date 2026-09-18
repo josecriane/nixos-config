@@ -144,12 +144,10 @@
 
   security.rtkit.enable = true;
 
-  # Habilitar fprintd para autenticación por huella dactilar
   services.fprintd = {
     enable = config.machine.fprint;
   };
 
-  # Habilitar autenticación por huella para greetd, swaylock y sudo si fprint está habilitado
   security.pam.services.greetd.fprintAuth = lib.mkDefault (config.machine.fprint);
   security.pam.services.swaylock.fprintAuth = lib.mkDefault (config.machine.fprint);
   security.pam.services.sudo.fprintAuth = lib.mkDefault (config.machine.fprint);
