@@ -7,7 +7,8 @@
 }:
 
 let
-  # QuickShell configuration parameters (reused 3 times)
+  system = pkgs.stdenv.hostPlatform.system;
+
   quickshellConfig = {
     commandsPath = ./commands.json;
     sessionCommandsPath = ./session-commands.json;
@@ -21,52 +22,67 @@ let
       }
     );
     stylix = config.lib.stylix.colors.withHashtag // {
-      # Fonts from Stylix
       monoFont = config.stylix.fonts.monospace.name;
       sansFont = config.stylix.fonts.sansSerif.name;
     };
   };
 
-  # Build the quickshell package with our configuration
-  quickshellPackage =
-    inputs.quickshell-config.packages.${pkgs.stdenv.hostPlatform.system}.withAllCommands
-      quickshellConfig;
+  quickshellPackage = inputs.quickshell-config.lib.${system}.mkQuickshellConfig quickshellConfig;
 
 in
 {
   imports = [
     ./commands.nix
   ];
-  # Use the custom quickshell configuration package with both commands and Stylix colors
+
   home.packages = [
-    inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default
+    inputs.quickshell.packages.${system}.default
     quickshellPackage
+    pkgs.cliphist
+    pkgs.wl-clipboard
   ];
 
-  # Create symlink to quickshell configuration
-  xdg.configFile."quickshell".source = "${quickshellPackage}/share/quickshell-config";
+  # Not redundant with the wrapper's XDG_CONFIG_DIRS: instances are keyed by
+  # the resolved shell.qml path, and the store one moves on every rebuild.
+  xdg.configFile."quickshell/qsc".source = "${quickshellPackage}/etc/xdg/quickshell/qsc";
 
-  # Put the start script in a different location to avoid conflicts
-  xdg.configFile."niri/start-quickshell" = {
-    executable = true;
-    text = ''
-      #!/usr/bin/env bash
+  systemd.user.services.quickshell = {
+    Unit = {
+      Description = "QuickShell desktop shell";
+      After = [ "graphical-session.target" ];
+      PartOf = [ "graphical-session.target" ];
+    };
+    Service = {
+      Type = "simple";
+      ExecStart = "${quickshellPackage}/bin/quickshell-config";
+      Restart = "on-failure";
+      RestartSec = 1;
+      TimeoutStopSec = 10;
+    };
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
+  };
 
-      # Kill existing quickshell processes
-      pgrep -f "/bin/quickshell" | xargs -r kill 2>/dev/null || true
-
-      # Wait a moment for process to terminate
-      sleep 0.5
-
-      # Start quickshell with custom config
-      exec ${quickshellPackage}/bin/quickshell-config
-    '';
+  systemd.user.services.cliphist = {
+    Unit = {
+      Description = "Clipboard history store";
+      After = [ "graphical-session.target" ];
+      PartOf = [ "graphical-session.target" ];
+    };
+    Service = {
+      Type = "simple";
+      ExecStart = "${pkgs.wl-clipboard}/bin/wl-paste --watch ${pkgs.cliphist}/bin/cliphist store";
+      Restart = "on-failure";
+      RestartSec = 1;
+    };
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
   };
 
   # Enable QML language server support
   home.sessionVariables = {
-    QML2_IMPORT_PATH = "${
-      inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default
-    }/lib/qt-6/qml";
+    QML2_IMPORT_PATH = "${inputs.quickshell.packages.${system}.default}/lib/qt-6/qml";
   };
 }

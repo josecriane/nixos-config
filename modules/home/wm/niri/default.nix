@@ -148,9 +148,7 @@ in
       spawn-at-startup "systemctl" "--user" "import-environment" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
       spawn-at-startup "dbus-update-activation-environment" "--systemd" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
       spawn-at-startup "sh" "-c" "~/.config/niri/monitor-setup"
-      spawn-at-startup "/run/current-system/sw/libexec/polkit-gnome-authentication-agent-1"
       spawn-at-startup "swaybg" "-i" "${config.home.homeDirectory}/.config/wallpapers/default.jpeg" "-m" "fill"
-      ${builtins.readFile ./quickshell-ui/spawn-at-startup.kdl}
 
       binds {
           ${builtins.readFile ./keybinds.kdl}

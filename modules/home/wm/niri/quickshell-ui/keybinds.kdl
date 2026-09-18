@@ -1,3 +1,4 @@
 // QuickShell-specific keybinds
 Mod+Space { spawn "qs-toggle-launcher"; }
-Mod+Shift+Q { spawn "sh" "-c" "~/.config/niri/start-quickshell"; }
+Mod+V { spawn "qs-toggle-launcher" "!"; }
+Mod+Shift+Q { spawn "systemctl" "--user" "restart" "quickshell"; }
