@@ -1,6 +1,13 @@
 {
   "commands": [
     {
+      "name": "Keyboard shortcuts",
+      "command": "niri msg action show-hotkey-overlay",
+      "icon": "keyboard",
+      "description": "Show the niri hotkey overlay",
+      "delayed": true
+    },
+    {
       "name": "Screenshot",
       "command": "niri msg action screenshot",
       "icon": "photo_camera",

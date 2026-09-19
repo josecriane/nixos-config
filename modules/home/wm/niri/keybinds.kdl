@@ -1,17 +1,18 @@
-Mod+L { spawn "swaylock"; }
+Mod+Slash hotkey-overlay-title="Show this list" { show-hotkey-overlay; }
+Mod+L hotkey-overlay-title="Lock the screen" { spawn "swaylock"; }
 
 Mod+F { maximize-column; }
 Mod+Shift+F { fullscreen-window; }
 Mod+Q { close-window; }
-Mod+Ctrl+Q { quit skip-confirmation=true; }
-Mod+Ctrl+R { spawn "reload-niri"; }
-Mod+Ctrl+Z { spawn "alacritty" "-e" "zellij-start"; }
+Mod+Ctrl+Q hotkey-overlay-title="Quit niri" { quit skip-confirmation=true; }
+Mod+Ctrl+R hotkey-overlay-title="Restart niri" { spawn "reload-niri"; }
+Mod+Ctrl+Z hotkey-overlay-title="Terminal with zellij" { spawn "alacritty" "-e" "zellij-start"; }
 
 Mod+Shift+C { screenshot; }
 Mod+Alt+C { screenshot-screen; }
 Mod+Ctrl+C { screenshot-window; }
-Mod+S { spawn "screenshot-annotate"; }
-Mod+P { spawn "color-picker"; }
+Mod+S hotkey-overlay-title="Screenshot and annotate" { spawn "screenshot-annotate"; }
+Mod+P hotkey-overlay-title="Pick a colour" { spawn "color-picker"; }
 
 Mod+Left { focus-column-or-monitor-left; }
 Mod+Right { focus-column-or-monitor-right; }
@@ -36,16 +37,16 @@ Mod+Equal { set-column-width "+10%"; }
 Mod+Alt+Left { set-window-height "-10%"; }
 Mod+Alt+Right { set-window-height "+10%"; }
 
-Mod+Ctrl+K { spawn "switch-layout"; }
+Mod+Ctrl+K hotkey-overlay-title="Switch the keyboard layout" { spawn "switch-layout"; }
 Mod+Ctrl+Shift+Up { toggle-overview; }
 
-XF86AudioMute { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
-XF86AudioMicMute { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
-XF86AudioRaiseVolume { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+"; }
-XF86AudioLowerVolume { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"; }
-XF86MonBrightnessDown { spawn "brightnessctl" "set" "10%-"; }
-XF86MonBrightnessUp { spawn "brightnessctl" "set" "+10%"; }
-XF86AudioPrev { spawn "playerctl" "previous"; }
-XF86AudioNext { spawn "playerctl" "next"; }
-XF86AudioPlay { spawn "playerctl" "play-pause"; }
-XF86AudioPause { spawn "playerctl" "play-pause"; }
+XF86AudioMute hotkey-overlay-title="Mute the output" { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+XF86AudioMicMute hotkey-overlay-title="Mute the microphone" { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+XF86AudioRaiseVolume hotkey-overlay-title="Volume up" { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+"; }
+XF86AudioLowerVolume hotkey-overlay-title="Volume down" { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"; }
+XF86MonBrightnessDown hotkey-overlay-title="Brightness down" { spawn "brightnessctl" "set" "10%-"; }
+XF86MonBrightnessUp hotkey-overlay-title="Brightness up" { spawn "brightnessctl" "set" "+10%"; }
+XF86AudioPrev hotkey-overlay-title="Previous track" { spawn "playerctl" "previous"; }
+XF86AudioNext hotkey-overlay-title="Next track" { spawn "playerctl" "next"; }
+XF86AudioPlay hotkey-overlay-title="Play or pause" { spawn "playerctl" "play-pause"; }
+XF86AudioPause hotkey-overlay-title="Play or pause" { spawn "playerctl" "play-pause"; }

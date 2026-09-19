@@ -22,6 +22,10 @@ let
       ${lib.optionalString monitor.focusAtStartup "focus-at-startup"}
     }
   '';
+  annotatedBinds = import ./binds.nix { inherit lib; } [
+    ./keybinds.kdl
+    ./quickshell-ui/keybinds.kdl
+  ];
 in
 {
   imports = [
@@ -107,6 +111,10 @@ in
 
       prefer-no-csd
 
+      hotkey-overlay {
+          hide-not-bound
+      }
+
       screenshot-path "~/tmp/scrn-%Y%m%d%H%M%S.png"
 
       animations {
@@ -153,8 +161,7 @@ in
       spawn-at-startup "monitor-setup"
 
       binds {
-          ${builtins.readFile ./keybinds.kdl}
-          ${builtins.readFile ./quickshell-ui/keybinds.kdl}
+          ${annotatedBinds}
       }
     '';
 

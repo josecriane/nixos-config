@@ -14,9 +14,6 @@ let
     sessionCommandsPath = ./session-commands.json;
     interactiveCommandsPath = ./interactive-commands.json;
     excludedAppsPath = ./excluded-apps.json;
-    # Generated from the kdl the compositor actually gets, so the cheat sheet
-    # cannot drift from the binds.
-    bindsPath = import ./binds.nix { inherit lib pkgs; };
     keepassPath = pkgs.writeText "keepass.json" (
       builtins.toJSON {
         encryptedPasswordPath = "${config.machine.homeDirectory}/nixos-config/secrets/kp.age";

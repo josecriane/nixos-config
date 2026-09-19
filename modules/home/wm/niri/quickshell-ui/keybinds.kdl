@@ -1,9 +1,8 @@
 // QuickShell-specific keybinds
-Mod+Space { spawn "qs-toggle-launcher"; }
-Mod+V { spawn "qs-toggle-launcher" "!"; }
-Mod+Slash { spawn "qs-toggle-launcher" "/"; }
-Mod+I { spawn "qs-ipc" "call" "idleInhibitor" "toggle"; }
-Mod+N { spawn "qs-ipc" "call" "notifications" "toggleDnd"; }
-Mod+B { spawn "qs-ipc" "call" "bluetooth" "toggle"; }
-Mod+Shift+V { spawn "qs-ipc" "call" "vpn" "toggleOpenvpn"; }
-Mod+Shift+Q { spawn "systemctl" "--user" "restart" "quickshell"; }
+Mod+Space hotkey-overlay-title="Open the launcher" { spawn "qs-toggle-launcher"; }
+Mod+V hotkey-overlay-title="Clipboard history" { spawn "qs-toggle-launcher" "!"; }
+Mod+I hotkey-overlay-title="Keep the screen awake" { spawn "qs-ipc" "call" "idleInhibitor" "toggle"; }
+Mod+N hotkey-overlay-title="Do not disturb" { spawn "qs-ipc" "call" "notifications" "toggleDnd"; }
+Mod+B hotkey-overlay-title="Toggle bluetooth" { spawn "qs-ipc" "call" "bluetooth" "toggle"; }
+Mod+Shift+V hotkey-overlay-title="Toggle the work VPN" { spawn "qs-ipc" "call" "vpn" "toggleOpenvpn"; }
+Mod+Shift+Q hotkey-overlay-title="Restart the shell" { spawn "systemctl" "--user" "restart" "quickshell"; }
