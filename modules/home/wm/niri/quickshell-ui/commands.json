@@ -3,8 +3,15 @@
     {
       "name": "Screenshot",
       "command": "niri msg action screenshot",
-      "icon": "camera-photo",
+      "icon": "photo_camera",
       "description": "Take a screenshot",
+      "delayed": true
+    },
+    {
+      "name": "Screenshot and annotate",
+      "command": "~/.config/niri/screenshot-annotate",
+      "icon": "draw",
+      "description": "Select a region and open it in swappy",
       "delayed": true
     }
   ]

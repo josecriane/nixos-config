@@ -39,6 +39,7 @@ in
     swayidle
     grim
     slurp
+    swappy
     wl-clipboard
   ];
 
@@ -148,7 +149,6 @@ in
       spawn-at-startup "systemctl" "--user" "import-environment" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
       spawn-at-startup "dbus-update-activation-environment" "--systemd" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
       spawn-at-startup "sh" "-c" "~/.config/niri/monitor-setup"
-      spawn-at-startup "swaybg" "-i" "${config.home.homeDirectory}/.config/wallpapers/default.jpeg" "-m" "fill"
 
       binds {
           ${builtins.readFile ./keybinds.kdl}
@@ -166,6 +166,15 @@ in
     executable = true;
     source = pkgs.replaceVars ./niri-utils/switch-layout.sh {
       libnotify = "${pkgs.libnotify}/bin/notify-send";
+    };
+  };
+
+  xdg.configFile."niri/screenshot-annotate" = {
+    executable = true;
+    source = pkgs.replaceVars ./niri-utils/screenshot-annotate.sh {
+      slurp = "${pkgs.slurp}/bin/slurp";
+      grim = "${pkgs.grim}/bin/grim";
+      swappy = "${pkgs.swappy}/bin/swappy";
     };
   };
 

@@ -10,6 +10,7 @@ Mod+Ctrl+Z { spawn "alacritty" "-e" "zellij-start"; }
 Mod+Shift+C { screenshot; }
 Mod+Alt+C { screenshot-screen; }
 Mod+Ctrl+C { screenshot-window; }
+Mod+S { spawn "sh" "-c" "~/.config/niri/screenshot-annotate"; }
 
 Mod+Left { focus-column-or-monitor-left; }
 Mod+Right { focus-column-or-monitor-right; }

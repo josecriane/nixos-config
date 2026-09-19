@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   ...
 }:
@@ -20,6 +21,23 @@
       events = {
         before-sleep = "${pkgs.swaylock-effects}/bin/swaylock -f";
       };
+    };
+  };
+
+  systemd.user.services.swaybg = {
+    Unit = {
+      Description = "Wallpaper";
+      After = [ "graphical-session.target" ];
+      PartOf = [ "graphical-session.target" ];
+    };
+    Service = {
+      Type = "simple";
+      ExecStart = "${pkgs.swaybg}/bin/swaybg -i ${config.home.homeDirectory}/.config/wallpapers/default.jpeg -m fill";
+      Restart = "on-failure";
+      RestartSec = 1;
+    };
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
     };
   };
 
