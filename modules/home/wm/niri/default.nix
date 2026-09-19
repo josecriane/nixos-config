@@ -178,6 +178,16 @@ in
     };
   };
 
+  xdg.configFile."niri/color-picker" = {
+    executable = true;
+    source = pkgs.replaceVars ./niri-utils/color-picker.sh {
+      slurp = "${pkgs.slurp}/bin/slurp";
+      grim = "${pkgs.grim}/bin/grim";
+      wlcopy = "${pkgs.wl-clipboard}/bin/wl-copy";
+      libnotify = "${pkgs.libnotify}/bin/notify-send";
+    };
+  };
+
   xdg.configFile."niri/reload-niri" = {
     executable = true;
     source = ./niri-utils/reload-niri.sh;

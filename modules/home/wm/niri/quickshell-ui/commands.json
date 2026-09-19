@@ -13,6 +13,13 @@
       "icon": "draw",
       "description": "Select a region and open it in swappy",
       "delayed": true
+    },
+    {
+      "name": "Color picker",
+      "command": "~/.config/niri/color-picker",
+      "icon": "colorize",
+      "description": "Pick a pixel and copy its hex value",
+      "delayed": true
     }
   ]
 }
