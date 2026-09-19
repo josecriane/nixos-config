@@ -4,14 +4,14 @@ Mod+F { maximize-column; }
 Mod+Shift+F { fullscreen-window; }
 Mod+Q { close-window; }
 Mod+Ctrl+Q { quit skip-confirmation=true; }
-Mod+Ctrl+R { spawn "sh" "-c" "~/.config/niri/reload-niri"; }
+Mod+Ctrl+R { spawn "reload-niri"; }
 Mod+Ctrl+Z { spawn "alacritty" "-e" "zellij-start"; }
 
 Mod+Shift+C { screenshot; }
 Mod+Alt+C { screenshot-screen; }
 Mod+Ctrl+C { screenshot-window; }
-Mod+S { spawn "sh" "-c" "~/.config/niri/screenshot-annotate"; }
-Mod+P { spawn "sh" "-c" "~/.config/niri/color-picker"; }
+Mod+S { spawn "screenshot-annotate"; }
+Mod+P { spawn "color-picker"; }
 
 Mod+Left { focus-column-or-monitor-left; }
 Mod+Right { focus-column-or-monitor-right; }
@@ -36,7 +36,7 @@ Mod+Equal { set-column-width "+10%"; }
 Mod+Alt+Left { set-window-height "-10%"; }
 Mod+Alt+Right { set-window-height "+10%"; }
 
-Mod+Ctrl+K { spawn "sh" "-c" "~/.config/niri/switch-layout"; }
+Mod+Ctrl+K { spawn "switch-layout"; }
 Mod+Ctrl+Shift+Up { toggle-overview; }
 
 XF86AudioMute { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }

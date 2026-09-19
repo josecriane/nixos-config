@@ -1,7 +1,3 @@
-#!/usr/bin/env bash
-
-current_layout_info=$(niri msg keyboard-layouts)
-
 niri msg action switch-layout next
 
 sleep 0.1
@@ -13,6 +9,6 @@ else
     new_layout="English (US)"
 fi
 
-if [ -n "$DISPLAY" ] || [ -n "$WAYLAND_DISPLAY" ]; then
-    @libnotify@ "Keyboard Layout" "Switched to $new_layout" -t 1500 2>/dev/null || true
+if [ -n "${DISPLAY:-}" ] || [ -n "${WAYLAND_DISPLAY:-}" ]; then
+    notify-send "Keyboard Layout" "Switched to $new_layout" -t 1500
 fi

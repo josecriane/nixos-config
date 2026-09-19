@@ -32,16 +32,18 @@ in
     ./quickshell-ui
   ];
 
-  home.packages = with pkgs; [
-    niri
-    swaybg
-    swaylock-effects
-    swayidle
-    grim
-    slurp
-    swappy
-    wl-clipboard
-  ];
+  home.packages =
+    (with pkgs; [
+      niri
+      swaybg
+      swaylock-effects
+      swayidle
+      grim
+      slurp
+      swappy
+      wl-clipboard
+    ])
+    ++ import ./scripts.nix { inherit pkgs; };
 
   # Niri main configuration
   xdg.configFile."niri/config.kdl".text =
@@ -148,49 +150,12 @@ in
 
       spawn-at-startup "systemctl" "--user" "import-environment" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
       spawn-at-startup "dbus-update-activation-environment" "--systemd" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
-      spawn-at-startup "sh" "-c" "~/.config/niri/monitor-setup"
+      spawn-at-startup "monitor-setup"
 
       binds {
           ${builtins.readFile ./keybinds.kdl}
           ${builtins.readFile ./quickshell-ui/keybinds.kdl}
       }
     '';
-
-  # Helper scripts - link to separate files
-  xdg.configFile."niri/monitor-setup" = {
-    executable = true;
-    source = ./niri-utils/monitor-setup.sh;
-  };
-
-  xdg.configFile."niri/switch-layout" = {
-    executable = true;
-    source = pkgs.replaceVars ./niri-utils/switch-layout.sh {
-      libnotify = "${pkgs.libnotify}/bin/notify-send";
-    };
-  };
-
-  xdg.configFile."niri/screenshot-annotate" = {
-    executable = true;
-    source = pkgs.replaceVars ./niri-utils/screenshot-annotate.sh {
-      slurp = "${pkgs.slurp}/bin/slurp";
-      grim = "${pkgs.grim}/bin/grim";
-      swappy = "${pkgs.swappy}/bin/swappy";
-    };
-  };
-
-  xdg.configFile."niri/color-picker" = {
-    executable = true;
-    source = pkgs.replaceVars ./niri-utils/color-picker.sh {
-      slurp = "${pkgs.slurp}/bin/slurp";
-      grim = "${pkgs.grim}/bin/grim";
-      wlcopy = "${pkgs.wl-clipboard}/bin/wl-copy";
-      libnotify = "${pkgs.libnotify}/bin/notify-send";
-    };
-  };
-
-  xdg.configFile."niri/reload-niri" = {
-    executable = true;
-    source = ./niri-utils/reload-niri.sh;
-  };
 
 }

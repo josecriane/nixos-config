@@ -32,7 +32,7 @@
     },
     {
       "name": "Reload Niri",
-      "command": "bash ~/.config/niri/reload-niri",
+      "command": "reload-niri",
       "icon": "autorenew",
       "description": "Reload niri configuration and restart services"
     }
