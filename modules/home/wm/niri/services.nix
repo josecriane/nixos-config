@@ -33,7 +33,7 @@
     Service = {
       Type = "simple";
       ExecStart = "${pkgs.swaybg}/bin/swaybg -i ${config.home.homeDirectory}/.config/wallpapers/default.jpeg -m fill";
-      Restart = "on-failure";
+      Restart = "always";
       RestartSec = 1;
     };
     Install = {
@@ -51,7 +51,7 @@
     Service = {
       Type = "simple";
       ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-      Restart = "on-failure";
+      Restart = "always";
       RestartSec = 1;
       TimeoutStopSec = 10;
     };

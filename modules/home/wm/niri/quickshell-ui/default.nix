@@ -58,7 +58,7 @@ in
     Service = {
       Type = "simple";
       ExecStart = "${quickshellPackage}/bin/quickshell-config";
-      Restart = "on-failure";
+      Restart = "always";
       RestartSec = 1;
       TimeoutStopSec = 10;
     };
@@ -76,7 +76,7 @@ in
     Service = {
       Type = "simple";
       ExecStart = "${pkgs.wl-clipboard}/bin/wl-paste --watch ${pkgs.cliphist}/bin/cliphist store";
-      Restart = "on-failure";
+      Restart = "always";
       RestartSec = 1;
     };
     Install = {
