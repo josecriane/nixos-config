@@ -60,6 +60,12 @@ in
         "workbench.colorCustomizations" = {
           "sideBar.background" = "#${colors.base00}";
         };
+        "workbench.startupEditor" = "none";
+
+        "workbench.editorAssociations" = {
+          "*.qrc" = "qt-core.qrcEditor";
+          "{git,gitlens,chat-editing-snapshot-text-model,copilot,git-graph,git-graph-3}:/**/*.qrc" = "default";
+        };
         "qt-qml.doNotAskForQmllsDownload" = true;
       };
     };
