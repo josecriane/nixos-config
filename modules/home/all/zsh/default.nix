@@ -66,7 +66,6 @@
       enable = true;
       plugins = [
         "git"
-        "ssh-agent"
         "sudo"
         "colored-man-pages"
         "colorize"
