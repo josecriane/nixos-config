@@ -16,5 +16,8 @@
     ./zellij.nix
     ./zsh
   ]
-  ++ (lib.optionals (machineOptions.os == "linux") [ ./xdg.nix ]);
+  ++ (lib.optionals (machineOptions.os == "linux") [
+    ./stylix.nix
+    ./xdg.nix
+  ]);
 }
