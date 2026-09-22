@@ -44,4 +44,10 @@ with pkgs.vscode-extensions;
     version = "5.9.0";
     sha256 = "sUfug0F0OaoMmKEmcHyXQIXcun35MAFVSGAHbx7xK/8=";
   }
+  {
+    name = "arazzo-visualizer";
+    publisher = "WSO2";
+    version = "0.3.2";
+    sha256 = "ulIaZu7bXhsOTMLvDhAj99uAcUgpZj6DYylgkbuLz8M=";
+  }
 ]

@@ -21,6 +21,20 @@
   #   "tock.usnogps.navy.mil"
   # ];
 
+  systemd.coredump.settings.Coredump = {
+    ProcessSizeMax = "4G";
+    ExternalSizeMax = "4G";
+  };
+
+  systemd.services."systemd-coredump@" = {
+    overrideStrategy = "asDropin";
+    serviceConfig = {
+      RuntimeMaxSec = 60;
+      MemoryMax = "2G";
+      IOSchedulingClass = "idle";
+    };
+  };
+
   services.printing.enable = true;
 
   services.tailscale = {
