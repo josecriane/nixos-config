@@ -16,6 +16,7 @@
     ./gvfs.nix
     ./home-manager.nix
     ./i18n.nix
+    ./localsend.nix
     ./networking.nix
     ./openvpn.nix
     ./policies.nix
