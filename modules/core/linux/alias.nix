@@ -1,8 +1,11 @@
-{ config, pkgs, ... }:
+{ config, ... }:
+let
+  inherit (config.programs.nh) flake;
+in
 {
   environment.shellAliases = {
-    nixrebuild = "sudo SSH_AUTH_SOCK=$SSH_AUTH_SOCK nixos-rebuild switch --flake ~/nixos-config";
-    nixupdate = "sudo nixos-rebuild switch --upgrade";
+    nixrebuild = "nh os switch ${flake}";
+    nixupdate = "nix flake update --flake ${flake} && nh os switch ${flake}";
     open = "xdg-open";
   };
 }

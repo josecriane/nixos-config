@@ -18,6 +18,7 @@
     ./i18n.nix
     ./localsend.nix
     ./networking.nix
+    ./nh.nix
     ./openvpn.nix
     ./policies.nix
     ./pipewire.nix

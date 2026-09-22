@@ -9,6 +9,7 @@
     ./commands.nix
     ./direnv.nix
     ./docker.nix
+    ./fzf.nix
     ./git.nix
     ./gnugp.nix
     ./paths.nix
