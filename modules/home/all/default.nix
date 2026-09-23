@@ -6,6 +6,7 @@
 {
   imports = [
     ./alias.nix
+    ./btop.nix
     ./commands.nix
     ./direnv.nix
     ./docker.nix

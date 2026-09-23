@@ -8,6 +8,5 @@
     curl
     sshpass
     gawk
-    btop
   ];
 }
