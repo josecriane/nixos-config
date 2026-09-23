@@ -5,6 +5,7 @@
   wm = "niri";
   username = "sito";
   hostname = "bast";
+  cpuVendor = "intel";
   fprint = false;
   keyboards = [
     {
