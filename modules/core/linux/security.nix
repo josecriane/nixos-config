@@ -151,4 +151,11 @@
   security.pam.services.greetd.fprintAuth = lib.mkDefault (config.machine.fprint);
   security.pam.services.swaylock.fprintAuth = lib.mkDefault (config.machine.fprint);
   security.pam.services.sudo.fprintAuth = lib.mkDefault (config.machine.fprint);
+
+  security.pam.u2f = {
+    enable = true;
+    settings.cue = true;
+  };
+
+  security.pam.services.sudo.u2f.enable = true;
 }
