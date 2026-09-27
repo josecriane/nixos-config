@@ -169,6 +169,7 @@ Uses **agenix** for encrypted secrets with a private git repository.
 - **Secure Boot**: Linux systems use lanzaboote
 - **Encrypted secrets**: agenix integration
 - **Polkit**: Proper privilege escalation
+- **FIDO2 keys**: `pam_u2f` for login, screen lock and sudo
 
 ### Cross-Platform
 - **Unified configuration**: Shared modules between NixOS/Darwin
@@ -200,6 +201,58 @@ wrong type fails at evaluation time rather than silently.
 - **User-specific**: Add to relevant `modules/home/` module
 - **Window manager specific**: Add to `modules/home/wm/niri/essential-gui/`
 - **Packaged here**: Add a derivation to `pkgs/` and wire it into `pkgs/default.nix`
+
+### Registering a FIDO2 Key
+
+`security.pam.u2f.enable` in `modules/core/linux/security.nix` turns `pam_u2f`
+on for every PAM service, which in practice means session login (greetd runs
+through the `login` stack), `swaylock` and `sudo`. Control is `sufficient`, so a
+registered key replaces the password and each of them falls back to the password
+when no key is plugged in. The LUKS passphrase is asked in the initrd, where PAM
+does not exist, so that one is always typed.
+
+1. Plug the key in and confirm the system sees it. A Flipper Zero needs
+   Settings -> USB -> U2F first.
+
+```bash
+nix shell nixpkgs#libfido2 -c fido2-token -L
+```
+
+2. Register it, touching the device when it asks. This writes the first key:
+
+```bash
+mkdir -p ~/.config/Yubico
+nix shell nixpkgs#pam_u2f -c pamu2fcfg > ~/.config/Yubico/u2f_keys
+```
+
+3. Check the result is one non-empty line, then test with a root shell open in
+   another terminal as a safety net:
+
+```bash
+wc -l ~/.config/Yubico/u2f_keys
+sudo -k && sudo true
+```
+
+**Adding a second key** (a spare, or swapping the Flipper for a real one). The
+authfile holds one line per user, `user:key1:key2:...`, so extra keys are
+appended to that same line. `pamu2fcfg -n` prints an entry with a leading colon
+for exactly this, and the `printf` below keeps it from landing on a new line:
+
+```bash
+printf '%s' "$(nix shell nixpkgs#pam_u2f -c pamu2fcfg -n)" >> ~/.config/Yubico/u2f_keys
+```
+
+Notes:
+- **Per machine**: registration is bound to `pam://<hostname>`, so a key
+  enrolled on one host does not work on another. Repeat there.
+- **Screen lock**: a key left plugged into a desktop turns the idle lock into a
+  button press. Set `security.pam.services.swaylock.u2f.enable = false` to keep
+  the lock on passwords only.
+- **Not in the repo**: `~/.config/Yubico/u2f_keys` is per-user, per-machine
+  state. Deleting it falls back to password authentication.
+- **Biometric keys**: register with `pamu2fcfg -V` and set
+  `security.pam.u2f.settings.userverification = 1` to require the fingerprint
+  on the key instead of a mere touch.
 
 ### Customizing niri
 - **Keybinds**: Edit `modules/home/wm/niri/keybinds.kdl`

@@ -77,6 +77,14 @@ in
     hostname = mkOption { type = types.str; };
     username = mkOption { type = types.str; };
 
+    cpuVendor = mkOption {
+      type = types.enum [
+        "amd"
+        "intel"
+        "apple"
+      ];
+    };
+
     desktop = mkOption { type = types.bool; };
     develop = mkOption { type = types.bool; };
     server = mkOption {
