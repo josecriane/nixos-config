@@ -18,5 +18,6 @@
     ./3dprinting.nix
     ./gaming.nix
     ./ghostty.nix
+    ./teamspeak.nix
   ]);
 }
