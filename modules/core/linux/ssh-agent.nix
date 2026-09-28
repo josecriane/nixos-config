@@ -5,6 +5,8 @@
 
   programs.ssh.extraConfig = ''
     AddKeysToAgent yes
+
+    Include ${config.age.secrets.ssh-nomasystems.path}
   '';
 
   systemd.user.services.ssh-add-keys = {

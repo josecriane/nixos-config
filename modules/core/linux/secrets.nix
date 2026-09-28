@@ -36,5 +36,8 @@ in
   age.secrets = lib.mapAttrs mkGpgSecret gpgKeys // {
     "noma-ovpn-config" = mkRootSecret "vpn/noma-ovpn-config.age";
     "noma-ovpn-aup" = mkRootSecret "vpn/noma-ovpn-aup.age";
+    "ssh-nomasystems" = mkRootSecret "ssh/nomasystems-config.age" // {
+      mode = "444";
+    };
   };
 }
