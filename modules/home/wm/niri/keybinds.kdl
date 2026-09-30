@@ -14,13 +14,13 @@ Mod+Ctrl+C { screenshot-window; }
 Mod+S hotkey-overlay-title="Screenshot and annotate" { spawn "screenshot-annotate"; }
 Mod+P hotkey-overlay-title="Pick a colour" { spawn "color-picker"; }
 
-Mod+Left { focus-column-or-monitor-left; }
-Mod+Right { focus-column-or-monitor-right; }
-Mod+Up { focus-window-or-monitor-up; }
-Mod+Down { focus-window-or-monitor-down; }
+Mod+Left allow-inhibiting=false hotkey-overlay-title="Focus column or monitor left" { focus-column-or-monitor-left; }
+Mod+Right allow-inhibiting=false hotkey-overlay-title="Focus column or monitor right" { focus-column-or-monitor-right; }
+Mod+Up allow-inhibiting=false hotkey-overlay-title="Focus window or monitor up" { focus-window-or-monitor-up; }
+Mod+Down allow-inhibiting=false hotkey-overlay-title="Focus window or monitor down" { focus-window-or-monitor-down; }
 
-Mod+Ctrl+Up { focus-workspace-up; }
-Mod+Ctrl+Down { focus-workspace-down; }
+Mod+Ctrl+Up allow-inhibiting=false hotkey-overlay-title="Focus workspace up" { focus-workspace-up; }
+Mod+Ctrl+Down allow-inhibiting=false hotkey-overlay-title="Focus workspace down" { focus-workspace-down; }
 
 Mod+Shift+Left { move-column-left-or-to-monitor-left; }
 Mod+Shift+Right { move-column-right-or-to-monitor-right; }
@@ -38,7 +38,8 @@ Mod+Alt+Left { set-window-height "-10%"; }
 Mod+Alt+Right { set-window-height "+10%"; }
 
 Mod+Ctrl+K hotkey-overlay-title="Switch the keyboard layout" { spawn "switch-layout"; }
-Mod+Ctrl+Shift+Up { toggle-overview; }
+Mod+Ctrl+Shift+Up allow-inhibiting=false hotkey-overlay-title="Toggle overview" { toggle-overview; }
+Mod+Escape allow-inhibiting=false hotkey-overlay-title="Let the focused app grab shortcuts" { toggle-keyboard-shortcuts-inhibit; }
 
 XF86AudioMute hotkey-overlay-title="Mute the output" { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
 XF86AudioMicMute hotkey-overlay-title="Mute the microphone" { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
