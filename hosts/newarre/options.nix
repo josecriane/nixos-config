@@ -14,7 +14,7 @@
     }
     {
       layout = "us";
-      variant = "intl";
+      variant = "altgr-intl";
     }
   ];
   monitors = [

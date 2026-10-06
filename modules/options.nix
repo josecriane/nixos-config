@@ -107,7 +107,7 @@ in
       default = [
         {
           layout = "us";
-          variant = "intl";
+          variant = "altgr-intl";
         }
       ];
     };
