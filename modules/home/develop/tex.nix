@@ -6,6 +6,14 @@
         scheme-small
         latexmk
         biber
+        preprint
+        enumitem
+        keycommand
+        tcolorbox
+        titlesec
+        tikzfill
+        pdfcol
+        listingsutf8
       ]
     ))
   ];
