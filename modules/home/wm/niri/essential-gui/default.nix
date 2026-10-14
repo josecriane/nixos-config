@@ -1,4 +1,8 @@
-{ pkgs, ... }:
+{
+  inputs,
+  pkgs,
+  ...
+}:
 {
   imports = [
     ./nautilus.nix # file manager
@@ -12,7 +16,7 @@
     wdisplays # Display manager for Wayland
     file-roller # GNOME archive manager
     eog # GNOME image viewer
-    evince # GNOME PDF viewer
+    inputs.craft-apps.packages.${pkgs.stdenv.hostPlatform.system}.pdfcraft
 
     # System utilities
     brightnessctl
@@ -23,4 +27,6 @@
     # Qt/Wayland compatibility
     qt6.qtwayland
   ];
+
+  xdg.mimeApps.defaultApplications."application/pdf" = [ "ai.storyteller.pdfcraft.desktop" ];
 }

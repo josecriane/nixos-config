@@ -37,7 +37,6 @@
         "application/x-extension-shtml" = [ "firefox.desktop" ];
         "application/x-extension-xhtml" = [ "firefox.desktop" ];
         "application/x-extension-xht" = [ "firefox.desktop" ];
-        "application/pdf" = [ "firefox.desktop" ];
 
         # Application URL handlers
         "x-scheme-handler/tg" = [ "org.telegram.desktop.desktop" ];
