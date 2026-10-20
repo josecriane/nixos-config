@@ -10,7 +10,6 @@
 
   home.packages = with pkgs; [
     # Essential GUI tools
-    polkit_gnome # GNOME authentication agent
     pavucontrol # Volume control that works on Wayland
     gnome-power-manager # GNOME power and brightness manager
     wdisplays # Display manager for Wayland
