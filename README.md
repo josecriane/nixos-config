@@ -12,8 +12,9 @@ This configuration supports multiple hosts with both **Linux (NixOS)** and **mac
 nixos-config/
 ├── flake.nix                 # Main entry point
 ├── hosts/                    # Host-specific configurations
-│   ├── imre/                # Linux workstation
+│   ├── bast/                # Linux workstation
 │   ├── newarre/             # Linux laptop
+│   ├── manet/               # Workshop laptop (MacBook Pro 2016)
 │   └── macbook-air/         # macOS laptop
 ├── modules/
 │   ├── options.nix          # Typed `machine.*` options (validates hosts/*/options.nix)

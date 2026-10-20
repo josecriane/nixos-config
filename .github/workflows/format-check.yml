@@ -27,8 +27,9 @@ jobs:
       - name: Evaluate host configurations
         run: |
           for attr in \
-            nixosConfigurations.imre \
+            nixosConfigurations.bast \
             nixosConfigurations.newarre \
+            nixosConfigurations.manet \
             darwinConfigurations.MacBookAir10-1-jose-cribeiro
           do
             echo "::group::$attr"

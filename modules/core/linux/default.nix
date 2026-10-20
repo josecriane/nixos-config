@@ -12,7 +12,6 @@
     ./bluetooth.nix
     ./boot.nix
     ./devices.nix
-    ./gaming.nix
     ./gvfs.nix
     ./home-manager.nix
     ./i18n.nix
@@ -34,6 +33,6 @@
     ./android.nix
     ./it-tools.nix
   ])
-  ++ (lib.optionals machineOptions.server [ ./openssh.nix ]);
+  ++ (lib.optionals machineOptions.gaming [ ./gaming.nix ]);
 
 }

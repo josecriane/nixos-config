@@ -16,8 +16,8 @@
   ]
   ++ (lib.optionals (machineOptions.os == "linux") [
     ./3dprinting.nix
-    ./gaming.nix
     ./ghostty.nix
     ./teamspeak.nix
-  ]);
+  ])
+  ++ (lib.optionals machineOptions.gaming [ ./gaming.nix ]);
 }

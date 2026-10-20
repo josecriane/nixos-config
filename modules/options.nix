@@ -87,7 +87,7 @@ in
 
     desktop = mkOption { type = types.bool; };
     develop = mkOption { type = types.bool; };
-    server = mkOption {
+    gaming = mkOption {
       type = types.bool;
       default = false;
     };

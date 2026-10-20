@@ -68,7 +68,7 @@
   # NOTE: Faillock NOT configured for local console login
   # Risk accepted: Users with physical access to the machine should not be locked out
   # This prevents legitimate users from being locked out if they mistype their password
-  # SSH faillock is configured in openssh.nix to protect against remote brute-force attacks
+  # No SSH server is enabled, so there is no remote login to protect with faillock
 
   # STIG V-268171: Four second delay between failed login attempts
   # Still apply delay to slow down physical access brute-force attempts
@@ -122,7 +122,7 @@
   # NOTE: MFA not configured - requires PIV/CAC smart card or hardware token (YubiKey)
   # Risk accepted: Hardware tokens (YubiKey, smart cards) not available
   # This is a personal/development system, not a production or government system
-  # Alternative mitigations: Strong passwords, SSH key authentication, faillock protection
+  # Alternative mitigations: Strong passwords, no SSH server (no network login)
   # For production use, implement with: security.pam.p11.enable = true (requires smart card)
   # or security.pam.u2f.enable = true (requires YubiKey)
   # security.pam.p11.enable = false;

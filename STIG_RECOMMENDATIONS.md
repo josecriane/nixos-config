@@ -4,12 +4,13 @@ This document contains all vulnerabilities listed in https://stigviewer.com/stig
 
 ## 📊 Executive Summary
 
-**STIG Compliance: 94.2%** (98/104 vulnerabilities)
+**STIG Compliance: 71.6%** (68/95 applicable vulnerabilities implemented)
 
-**Implementation Status:**
-- ✅ **IMPLEMENTED**: 79 vulnerabilities (76.0%)
-- ⚠️ **SKIPPED** (Conscious Exceptions): 22 vulnerabilities (21.2%)
-- ⏸️ **DEFERRED**: 4 vulnerabilities (3.8%)
+**Implementation Status** (percentages over the 95 applicable rules):
+- ✅ **IMPLEMENTED**: 68 vulnerabilities (71.6%)
+- ⚠️ **SKIPPED** (Conscious Exceptions): 23 vulnerabilities (24.2%)
+- ⏸️ **DEFERRED**: 4 vulnerabilities (4.2%)
+- ➖ **NOT APPLICABLE**: 9 vulnerabilities (not counted, the service they harden is not present)
 
 ---
 
@@ -21,11 +22,27 @@ This document contains all vulnerabilities listed in https://stigviewer.com/stig
 
 ---
 
-### ⚠️ Conscious Exceptions / NixOS Adaptations (22 rules):
+### ➖ Not Applicable (9 rules):
 
-**DOD-Specific (Not Applicable - 4 rules):**
+**No SSH Server (9 rules):**
+
+No host runs an SSH server, so there is no remote access service to harden.
+- **V-268159**: SSH for confidentiality and integrity of transmitted info
+- **V-268176**: PAM authentication for nonlocal maintenance sessions
+- **V-268157**: FIPS-approved SSH MACs
+- **V-268089**: FIPS-approved SSH ciphers
+- **V-268137**: Prohibit direct SSH root login
+- **V-268142**: SSH connection idle timeout
+- **V-268143**: Terminate unresponsive SSH connections
+- **V-268088**: VERBOSE SSH logging
+- **V-268083**: SSH DOD banner
+
+---
+
+### ⚠️ Conscious Exceptions / NixOS Adaptations (23 rules):
+
+**DOD-Specific (3 rules):**
 - **V-268082**: DOD local login banner (not a U.S. Government system)
-- **V-268083**: SSH DOD banner (not a DOD system)
 - **V-268084**: DOD graphical login banner (not a U.S. Government system)
 - **V-268149**: DoD time servers (not DoD infrastructure)
 
@@ -33,13 +50,15 @@ This document contains all vulnerabilities listed in https://stigviewer.com/stig
 - **V-268177**: Multifactor authentication (requires YubiKey/PIV smart card hardware)
 - **V-268179**: PKI-based authentication with CRL caching (requires PKI infrastructure and smart cards)
 
-**Operational Requirements (4 rules):**
+**Operational Requirements (6 rules):**
 - **V-268139**: USBGuard (too restrictive for desktop/laptop usage - would impact productivity)
 - **V-268146**: Wireless disabled (CAT I - WiFi connectivity required for mobile devices)
 - **V-268147**: Bluetooth disabled (required for peripheral device connectivity)
 - **V-268162**: Automatic security updates (manual weekly updates preferred for flake-based system)
+- **V-268081**: Account lockout (not configured for local console - physical access policy; it was only applied to SSH)
+- **V-268158**: DoS rate-limiting (the only limit was for SSH on port 22; TCP syncookies from V-268141 remain)
 
-**Remote Logging (Not Applicable for Standalone Systems - 3 rules):**
+**Remote Logging (Standalone Systems - 3 rules):**
 - **V-268107**: Install syslog-ng for audit log offloading
 - **V-268108**: Audit records off-loading to remote system
 - **V-268109**: Remote logging server authentication with TLS
@@ -49,7 +68,6 @@ This document contains all vulnerabilities listed in https://stigviewer.com/stig
 - **V-268119**: Audit configuration immutable (NixOS manages audit config declaratively through build process)
 
 **Partial/Adapted Implementations (4 rules):**
-- **V-268081**: Account lockout (implemented for SSH only, not local console - physical access policy)
 - **V-268097**: Audit cron configuration (NixOS uses systemd timers instead of cron)
 - **V-268148**: Audit privilege execution (covered by V-268091 rules)
 - **V-268164**: Audit privilege deletion (may be covered by general audit rules)

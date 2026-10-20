@@ -1,7 +1,7 @@
 {
   desktop = true;
   develop = true;
-  server = false;
+  gaming = false;
   wm = null;
   username = "jose.cribeiro";
   hostname = "MacBookAir10-1-jose-cribeiro";

@@ -1,7 +1,7 @@
 {
   desktop = true;
   develop = true;
-  server = false;
+  gaming = true;
   wm = "niri";
   username = "sito";
   hostname = "bast";
