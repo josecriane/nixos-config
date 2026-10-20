@@ -30,6 +30,7 @@ in
       copy_on_select = true;
       scrollback_editor = "${pkgs.neovim}/bin/nvim";
       mouse_mode = true;
+      scroll_mode_sync = false;
       show_startup_tips = false;
       simplified_ui = false;
       theme = "stylix";
