@@ -39,6 +39,7 @@
               "imre"
               "newarre"
               "bast"
+              "manet"
             ];
             versioning = {
               type = "simple";
@@ -53,6 +54,7 @@
               "imre"
               "newarre"
               "bast"
+              "manet"
             ];
             versioning = {
               type = "staggered";
@@ -77,6 +79,9 @@
           };
           "bast" = {
             id = "TICMXNT-CTEBSYC-BUEZTPB-OUDQ6XT-3MYOPTG-HBZBYEF-6CD3HOK-Z2RQPAZ";
+          };
+          "manet" = {
+            id = "7UWZ5F3-W3CHW7O-7ACNSMZ-HKEH2PX-IKMS7GH-GIVTYXH-YU3WYME-E23J7QS";
           };
         };
       };
