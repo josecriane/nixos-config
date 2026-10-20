@@ -39,5 +39,12 @@ in
     "ssh-nomasystems" = mkRootSecret "ssh/nomasystems-config.age" // {
       mode = "444";
     };
+    "keepass-master-password" = {
+      file = "${self}/secrets/kp.age";
+      path = "/run/agenix/keepass-master-password";
+      mode = "400";
+      owner = username;
+      group = userGroup;
+    };
   };
 }
