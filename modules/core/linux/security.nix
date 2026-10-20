@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 {
@@ -39,11 +40,8 @@
   # V-268134: Minimum 15 characters - DEFERRED (current passwords don't meet requirement)
   # V-268133: Maximum 60 days - DEFERRED (forced rotation not desired)
   security.pam.services.passwd.text = lib.mkForce ''
-    # SHA512 hashing with minimum password lifetime (1 day)
-    password required pam_unix.so sha512 shadow mindays=1
-
     # Password complexity requirements (without minlen and maxdays)
-    password requisite pam_pwquality.so \
+    password requisite ${pkgs.libpwquality.lib}/lib/security/pam_pwquality.so \
       ucredit=-1 \
       lcredit=-1 \
       dcredit=-1 \
@@ -52,6 +50,9 @@
       dictcheck=1 \
       enforce_for_root \
       retry=3
+
+    # SHA512 hashing
+    password required ${config.security.pam.package}/lib/security/pam_unix.so sha512 shadow use_authtok
   '';
 
   # STIG V-268156: Reauthentication when executing privileged commands
@@ -102,6 +103,9 @@
 
     TTYGROUP tty
     TTYPERM 0620
+
+    # STIG V-268132: Minimum password lifetime (1 day)
+    PASS_MIN_DAYS 1
 
     # UMASK 077 - Privacy for newly created files and home directories
     UMASK 077
