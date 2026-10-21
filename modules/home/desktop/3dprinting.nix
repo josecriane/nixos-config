@@ -15,6 +15,8 @@ in
   home.packages = with pkgs; [
     bcn3d-stratos
     freecad
+    lycheeslicer
     orca-slicer
+    rayforge
   ];
 }
