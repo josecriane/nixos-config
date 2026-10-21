@@ -37,8 +37,11 @@
 
   hardware.enableRedistributableFirmware = lib.mkDefault true;
 
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x106b", ATTR{device}=="0x2003", ATTR{d3cold_allowed}="0"
+  '';
+
   systemd.sleep.settings.Sleep = {
-    AllowSuspend = "no";
     AllowHibernation = "no";
   };
 }
