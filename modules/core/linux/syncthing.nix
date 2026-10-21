@@ -64,6 +64,19 @@
               };
             };
           };
+
+          "3dprinting" = {
+            path = "${config.machine.homeDirectory}/.config/3dprinting";
+            devices = lib.filter (d: d != config.machine.hostname) [
+              "newarre"
+              "bast"
+              "manet"
+            ];
+            versioning = {
+              type = "simple";
+              params.keep = "5";
+            };
+          };
         };
 
         # Only include other devices, not ourselves
