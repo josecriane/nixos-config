@@ -1,0 +1,55 @@
+thunderbolt: keep the TB3 host router awake in suspend-to-idle
+
+Rebased onto v6.18 from omacom/omarchy-pkgs PR #596
+(0664-thunderbolt-keep-tb3-host-router-awake-in-s2idle.patch, angellindo).
+
+On Apple Alpine Ridge hosts driven by the software connection manager,
+tb_switch_suspend() sets the LC sleep bit on the host router from the
+NHI's suspend_noirq. The router then stops answering PCIe config
+accesses before the PCI core reaches the controller's bridges, so the
+core saves all-ones and every tb_cfg access on resume fails with
+-ESHUTDOWN. In suspend-to-idle the controller stays powered, so the
+sleep bit is not needed there. Leave the host router awake for
+suspend-to-idle only; S3, hibernation, runtime PM, device routers and
+USB4 routers keep the current path.
+
+--- a/drivers/thunderbolt/switch.c
++++ b/drivers/thunderbolt/switch.c
+@@ -15,6 +15,7 @@
+ #include <linux/sizes.h>
+ #include <linux/slab.h>
+ #include <linux/string_helpers.h>
++#include <linux/suspend.h>
+ 
+ #include "tb.h"
+ 
+@@ -3654,10 +3655,26 @@
+ 
+ 	tb_switch_set_wake(sw, flags, runtime);
+ 
+-	if (tb_switch_is_usb4(sw))
++	if (tb_switch_is_usb4(sw)) {
+ 		usb4_switch_set_sleep(sw);
+-	else
+-		tb_lc_set_sleep(sw);
++		return;
++	}
++
++	/*
++	 * The LC sleep bit prepares a Thunderbolt 3 router for power
++	 * removal. In suspend-to-idle the host router stays powered. On
++	 * Apple Alpine Ridge hosts setting the bit there makes the router
++	 * stop answering: its PCIe config space reads all-ones before the
++	 * PCI core saves it, and every tb_cfg access on resume fails with
++	 * -ESHUTDOWN. Leave the host router awake for suspend-to-idle only.
++	 */
++	if (!runtime && !tb_route(sw) &&
++	    pm_suspend_target_state == PM_SUSPEND_TO_IDLE) {
++		tb_sw_dbg(sw, "suspend-to-idle, not setting LC sleep\n");
++		return;
++	}
++
++	tb_lc_set_sleep(sw);
+ }
+ 
+ /**
