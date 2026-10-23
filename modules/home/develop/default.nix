@@ -6,7 +6,7 @@
 {
   imports = [
     ./beam.nix
-    ./claude.nix
+    ./claude
     ./essentials.nix
     ./postman.nix
     ./rust.nix

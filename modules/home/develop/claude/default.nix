@@ -1,29 +1,116 @@
 {
+  lib,
   pkgs,
   config,
-  self,
   ...
 }:
 let
-  colors = config.lib.stylix.colors;
-  toHex = color: "hex:${color}";
+  ruleToolInputs = with pkgs; [
+    coreutils
+    diffutils
+    findutils
+    gawk
+    git
+    gnugrep
+    gnused
+  ];
+
+  claudeStack = pkgs.writeShellApplication {
+    name = "claude-stack";
+    runtimeInputs = ruleToolInputs;
+    text = builtins.readFile ./bin/claude-stack.sh;
+  };
+
+  claudeContrib = pkgs.writeShellApplication {
+    name = "claude-contrib";
+    runtimeInputs = ruleToolInputs;
+    text = builtins.readFile ./bin/claude-contrib.sh;
+  };
+
+  sessionCheckHook = pkgs.writeShellApplication {
+    name = "claude-session-check";
+    runtimeInputs = [
+      pkgs.git
+      claudeStack
+      claudeContrib
+    ];
+    text = builtins.readFile ./hooks/session-check.sh;
+  };
+
+  adhdAlwaysOnHook = pkgs.writeShellApplication {
+    name = "claude-adhd-always-on";
+    runtimeInputs = with pkgs; [ gawk ];
+    text = builtins.readFile ./hooks/adhd-always-on.sh;
+  };
+
+  goplsWithGo = pkgs.writeShellApplication {
+    name = "gopls";
+    runtimeInputs = with pkgs; [
+      go
+      gopls
+    ];
+    text = ''
+      exec gopls "$@"
+    '';
+  };
 in
 {
   home.packages = with pkgs; [
-    bun
     nodejs_22
     libnotify
+    claudeStack
+    claudeContrib
   ];
 
   programs.claude-code = {
     enable = true;
+    context = ./global-context.md;
+    rulesDir = ./rules;
+    agentsDir = ./agents;
+    skills = ./skills;
+    lspServers = {
+      nix = {
+        command = lib.getExe pkgs.nixd;
+        extensionToLanguage = {
+          ".nix" = "nix";
+        };
+      };
+      rust = {
+        command = lib.getExe pkgs.rust-analyzer;
+        extensionToLanguage = {
+          ".rs" = "rust";
+        };
+      };
+      erlang = {
+        command = lib.getExe' pkgs.erlang-language-platform "elp";
+        args = [ "server" ];
+        extensionToLanguage = {
+          ".erl" = "erlang";
+          ".hrl" = "erlang";
+          ".escript" = "erlang";
+        };
+      };
+      go = {
+        command = lib.getExe goplsWithGo;
+        extensionToLanguage = {
+          ".go" = "go";
+        };
+      };
+      elixir = {
+        command = lib.getExe' pkgs.elixir-ls "elixir-ls";
+        extensionToLanguage = {
+          ".ex" = "elixir";
+          ".exs" = "elixir";
+          ".heex" = "phoenix-heex";
+        };
+      };
+    };
   };
 
-  home.file.".claude/rules/working-style.md".source =
-    "${self}/modules/home/develop/claude-rules/working-style.md";
-
-  home.file.".claude/rules/writing-style.md".source =
-    "${self}/modules/home/develop/claude-rules/writing-style.md";
+  home.file.".claude/stacks" = {
+    source = ./stacks;
+    recursive = true;
+  };
 
   # Write settings.json as a mutable copy instead of a read-only nix store symlink,
   # so Claude Code can write runtime changes (effort level, etc.)
@@ -33,10 +120,36 @@ in
         "$schema" = "https://json.schemastore.org/claude-code-settings.json";
         statusLine = {
           type = "command";
-          command = "bunx ccstatusline@latest";
+          command = "${lib.getExe pkgs.perl} ${./statusline.pl} ${lib.getExe pkgs.git}";
           padding = 0;
         };
         hooks = {
+          SessionStart = [
+            {
+              matcher = "";
+              hooks = [
+                {
+                  type = "command";
+                  command = "${sessionCheckHook}/bin/claude-session-check";
+                }
+                {
+                  type = "command";
+                  command = "${adhdAlwaysOnHook}/bin/claude-adhd-always-on ${./skills/i-have-adhd/SKILL.md}";
+                }
+              ];
+            }
+          ];
+          PreToolUse = [
+            {
+              matcher = "Write|Edit|NotebookEdit|Bash";
+              hooks = [
+                {
+                  type = "command";
+                  command = "${pkgs.perl}/bin/perl ${./hooks/style-gate.pl}";
+                }
+              ];
+            }
+          ];
           PostToolUse = [
             {
               matcher = "Edit|Write";
@@ -95,70 +208,5 @@ in
       rm -f "$HOME/.claude/settings.json"
       cp "${settingsFile}" "$HOME/.claude/settings.json"
       chmod u+w "$HOME/.claude/settings.json"
-    '';
-
-  # ccstatusline rewrites this file when it migrates its own settings
-  # format, so it needs a mutable copy rather than a symlink into the store.
-  home.activation.ccstatuslineSettings =
-    let
-      settingsFile = (pkgs.formats.json { }).generate "ccstatusline-settings.json" {
-        version = 4;
-        lines = [
-          [
-            {
-              id = "1";
-              type = "model";
-              color = toHex colors.base0D;
-            } # azul
-            {
-              id = "2";
-              type = "separator";
-            }
-            {
-              id = "3";
-              type = "session-cost";
-              color = toHex colors.base0B;
-            } # verde
-            {
-              id = "4";
-              type = "separator";
-            }
-            {
-              id = "5";
-              type = "context-percentage";
-              color = toHex colors.base0A;
-            } # amarillo
-            {
-              id = "6";
-              type = "separator";
-            }
-            {
-              id = "7";
-              type = "git-branch";
-              color = toHex colors.base0E;
-            } # morado
-          ]
-          [ ]
-          [ ]
-        ];
-        flexMode = "full-minus-40";
-        compactThreshold = 60;
-        colorLevel = 3;
-        globalBold = false;
-        powerline = {
-          enabled = false;
-          separators = [ "" ];
-          separatorInvertBackground = [ false ];
-          startCaps = [ ];
-          endCaps = [ ];
-          autoAlign = false;
-        };
-      };
-    in
-    config.lib.dag.entryAfter [ "writeBoundary" ] ''
-      mkdir -p "$HOME/.config/ccstatusline"
-      rm -f "$HOME/.config/ccstatusline/settings.json"
-      cp "${settingsFile}" "$HOME/.config/ccstatusline/settings.json"
-      chmod u+w "$HOME/.config/ccstatusline/settings.json"
     '';
 }
