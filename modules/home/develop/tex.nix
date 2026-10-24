@@ -14,7 +14,12 @@
         tikzfill
         pdfcol
         listingsutf8
+        needspace
+        changepage
+        marginfix
+        tex-gyre
       ]
     ))
+    pkgs.poppler-utils
   ];
 }
