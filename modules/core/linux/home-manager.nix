@@ -45,7 +45,6 @@ in
     description = "${username}";
     extraGroups = [
       "networkmanager"
-      "docker"
       "wheel"
       "kvm"
     ];
