@@ -13,11 +13,7 @@
     };
   };
 
-  # Load Bluetooth kernel modules
-  boot.kernelModules = [ "btusb" ];
-
   environment.systemPackages = with pkgs; [
-    bluez
     bluez-tools
   ];
 }

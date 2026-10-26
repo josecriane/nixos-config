@@ -32,8 +32,6 @@ in
       };
     };
 
-    displayManager.sessionPackages = [ pkgs.niri ];
-
     # Disabled to avoid clashing with programs.ssh.startAgent.
     gnome.gcr-ssh-agent.enable = lib.mkForce false;
   };
@@ -46,14 +44,12 @@ in
   # Environment variables
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
-    MOZ_ENABLE_WAYLAND = "1";
     QT_QPA_PLATFORM = "wayland;xcb";
     ELECTRON_OZONE_PLATFORM_HINT = "wayland";
     _JAVA_AWT_WM_NONREPARENTING = "1";
   };
 
   environment.systemPackages = [
-    pkgs.wayland
     pkgs.xwayland
     xwayland-satellite
   ];

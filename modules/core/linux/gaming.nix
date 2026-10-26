@@ -37,15 +37,7 @@
 
     # Additional packages for better compatibility
     extraPackages = with pkgs; [
-      mesa
-      vulkan-loader
       vulkan-validation-layers
-      vulkan-tools
-    ];
-
-    extraPackages32 = with pkgs.pkgsi686Linux; [
-      mesa
-      vulkan-loader
     ];
   };
 
@@ -62,7 +54,4 @@
       9297 # Remote Play streaming
     ];
   };
-
-  # Groups for gaming
-  users.groups.gamemode = { };
 }
