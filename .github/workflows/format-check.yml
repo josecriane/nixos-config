@@ -43,3 +43,10 @@ jobs:
             echo
             echo "::endgroup::"
           done
+
+      - name: Validate niri configurations
+        run: |
+          nix build --no-link \
+            .#checks.x86_64-linux.niri-config-bast \
+            .#checks.x86_64-linux.niri-config-newarre \
+            .#checks.x86_64-linux.niri-config-manet
