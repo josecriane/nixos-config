@@ -51,33 +51,37 @@ let
   '';
 in
 {
-  home.packages = with pkgs; [
-    nautilus # GNOME file manager
-    nautilus-python
-    wl-clipboard
-  ];
+  home = {
+    packages = with pkgs; [
+      nautilus # GNOME file manager
+      nautilus-python
+      wl-clipboard
+    ];
 
-  home.sessionVariables.NAUTILUS_4_EXTENSION_DIR = "${nautilusExtensions}/lib/nautilus/extensions-4";
+    sessionVariables.NAUTILUS_4_EXTENSION_DIR = "${nautilusExtensions}/lib/nautilus/extensions-4";
 
-  home.file.".config/environment.d/nautilus.conf".text = ''
-    NAUTILUS_4_EXTENSION_DIR=${nautilusExtensions}/lib/nautilus/extensions-4
-  '';
+    file = {
+      ".config/environment.d/nautilus.conf".text = ''
+        NAUTILUS_4_EXTENSION_DIR=${nautilusExtensions}/lib/nautilus/extensions-4
+      '';
 
-  home.file.".local/share/nautilus-python/extensions/copy_path.py".source = copyPathExtension;
+      ".local/share/nautilus-python/extensions/copy_path.py".source = copyPathExtension;
 
-  home.activation.clearNautilusPythonCache = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    run rm -rf "${config.home.homeDirectory}/.local/share/nautilus-python/extensions/__pycache__"
-  '';
+      ".config/gtk-3.0/bookmarks".text = ''
+        file://${config.home.homeDirectory}/Desktop
+        file://${config.home.homeDirectory}/dev
+        file://${config.home.homeDirectory}/docs
+        file://${config.home.homeDirectory}/Downloads
+        file://${config.home.homeDirectory}/nixos-config NixOS Config
+        file://${config.home.homeDirectory}/scripts
+        file://${config.home.homeDirectory}/tmp
+      '';
+    };
 
-  home.file.".config/gtk-3.0/bookmarks".text = ''
-    file://${config.home.homeDirectory}/Desktop
-    file://${config.home.homeDirectory}/dev
-    file://${config.home.homeDirectory}/docs
-    file://${config.home.homeDirectory}/Downloads
-    file://${config.home.homeDirectory}/nixos-config NixOS Config
-    file://${config.home.homeDirectory}/scripts
-    file://${config.home.homeDirectory}/tmp
-  '';
+    activation.clearNautilusPythonCache = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      run rm -rf "${config.home.homeDirectory}/.local/share/nautilus-python/extensions/__pycache__"
+    '';
+  };
 
   dconf.settings = {
     "org/gnome/nautilus/preferences" = {

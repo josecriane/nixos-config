@@ -7,7 +7,7 @@ in
     enable = true;
     mutableExtensionsDir = false;
     profiles.default = {
-      extensions = import ./vscode-extensions.nix { pkgs = pkgs; };
+      extensions = import ./vscode-extensions.nix { inherit pkgs; };
       userSettings = {
         "[nix]" = {
           "editor.defaultFormatter" = "bbenoist.nix";

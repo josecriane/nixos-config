@@ -27,6 +27,9 @@ jobs:
       - name: Check dead code
         run: nix run --inputs-from . nixpkgs#deadnix -- --fail .
 
+      - name: Lint
+        run: nix run --inputs-from . nixpkgs#statix -- check .
+
       - name: Evaluate host configurations
         run: |
           for attr in \

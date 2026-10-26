@@ -1,5 +1,4 @@
-{ ... }:
-{
+_: {
   programs.zsh.shellAliases = {
     cdev = "_rcd dev";
     cdocs = "_rcd docs";

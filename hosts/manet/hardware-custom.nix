@@ -45,7 +45,19 @@
     ];
   };
 
-  services.libinput.enable = true;
+  services = {
+    libinput.enable = true;
+
+    udev.extraRules = ''
+      ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x106b", ATTR{device}=="0x2003", ATTR{d3cold_allowed}="0"
+      ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0x9d14|0x9d18|0x1578|0x15d3|0x15d2|0x15d4", ATTR{d3cold_allowed}="0", ATTR{power/control}="on"
+      ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x14e4", ATTR{device}=="0x43a3", ATTR{d3cold_allowed}="0", ATTR{power/control}="on"
+      ACTION=="bind", SUBSYSTEM=="pci", DRIVER=="thunderbolt", ATTR{power/control}="on"
+    '';
+
+    tlp.settings.RUNTIME_PM_DENYLIST = "00:1c.4 00:1d.0 02:00.0 04:00.0 05:00.0 05:01.0 05:02.0 05:04.0 06:00.0 07:00.0";
+  };
+
   environment.etc."libinput/local-overrides.quirks".text = ''
     [MacBook(Pro) SPI Touchpads]
     MatchName=*Apple SPI Touchpad*
@@ -59,15 +71,6 @@
   '';
 
   hardware.enableRedistributableFirmware = lib.mkDefault true;
-
-  services.udev.extraRules = ''
-    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x106b", ATTR{device}=="0x2003", ATTR{d3cold_allowed}="0"
-    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0x9d14|0x9d18|0x1578|0x15d3|0x15d2|0x15d4", ATTR{d3cold_allowed}="0", ATTR{power/control}="on"
-    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x14e4", ATTR{device}=="0x43a3", ATTR{d3cold_allowed}="0", ATTR{power/control}="on"
-    ACTION=="bind", SUBSYSTEM=="pci", DRIVER=="thunderbolt", ATTR{power/control}="on"
-  '';
-
-  services.tlp.settings.RUNTIME_PM_DENYLIST = "00:1c.4 00:1d.0 02:00.0 04:00.0 05:00.0 05:01.0 05:02.0 05:04.0 06:00.0 07:00.0";
 
   systemd.sleep.settings.Sleep = {
     AllowHibernation = "no";

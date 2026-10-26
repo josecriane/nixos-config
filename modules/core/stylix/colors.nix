@@ -1,5 +1,4 @@
-{ ... }:
-{
+_: {
   stylix = {
     # Style preview: https://dt.iki.fi/base16-previews
     # Style schemes: https://github.com/tinted-theming/schemes

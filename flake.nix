@@ -143,6 +143,7 @@
           packages = [
             (pkgsFor system).nixfmt
             (pkgsFor system).deadnix
+            (pkgsFor system).statix
             (pkgsFor system).nix-tree
             inputs.agenix.packages.${system}.default
           ]

@@ -4,12 +4,26 @@
   ...
 }:
 {
-  # STIG V-268151: Time synchronization enabled
-  services.timesyncd = {
-    enable = true;
+  services = {
+    # STIG V-268151: Time synchronization enabled
+    timesyncd = {
+      enable = true;
 
-    # STIG V-268150: Clock synchronization poll interval
-    settings.Time.PollIntervalMaxSec = 60;
+      # STIG V-268150: Clock synchronization poll interval
+      settings.Time.PollIntervalMaxSec = 60;
+    };
+
+    printing.enable = true;
+
+    tailscale = {
+      enable = true;
+      useRoutingFeatures = "client";
+      extraSetFlags = [ "--operator=${config.machine.username}" ];
+    };
+
+    fwupd.enable = true;
+
+    upower.enable = true;
   };
 
   systemd.coredump.settings.Coredump = {
@@ -26,21 +40,9 @@
     };
   };
 
-  services.printing.enable = true;
-
-  services.tailscale = {
-    enable = true;
-    useRoutingFeatures = "client";
-    extraSetFlags = [ "--operator=${config.machine.username}" ];
-  };
-
-  services.fwupd.enable = true;
-
   hardware.enableRedistributableFirmware = true;
 
   programs.nix-ld.enable = true;
-
-  services.upower.enable = true;
 
   environment.systemPackages = with pkgs; [
     age

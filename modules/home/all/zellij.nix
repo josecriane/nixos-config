@@ -55,52 +55,52 @@ in
         ];
       };
     };
+
+    extraConfig = ''
+      new_tab_template {
+        pane size=1 borderless=true {
+          plugin location="zellij:tab-bar"
+        }
+        pane
+        pane size=1 borderless=true {
+          plugin location="zellij:status-bar"
+        }
+      }
+
+      themes {
+        stylix {
+      ${colorGroup "text_unselected" "base05" "base01" "base09" "base0C" "base0B" "base0F"}
+      ${colorGroup "text_selected" "base05" "base04" "base09" "base0C" "base0B" "base0F"}
+      ${colorGroup "ribbon_selected" "base01" "base0E" "base08" "base09" "base0F" "base0D"}
+      ${colorGroup "ribbon_unselected" "base01" "base05" "base08" "base05" "base0D" "base0F"}
+      ${colorGroup "table_title" "base0E" "base00" "base09" "base0C" "base0B" "base0F"}
+      ${colorGroup "table_cell_selected" "base05" "base04" "base09" "base0C" "base0B" "base0F"}
+      ${colorGroup "table_cell_unselected" "base05" "base01" "base09" "base0C" "base0B" "base0F"}
+      ${colorGroup "list_selected" "base05" "base04" "base09" "base0C" "base0B" "base0F"}
+      ${colorGroup "list_unselected" "base05" "base01" "base09" "base0C" "base0B" "base0F"}
+      ${colorGroup "frame_selected" "base0E" "base00" "base09" "base0C" "base0F" "base00"}
+      ${colorGroup "frame_highlight" "base08" "base00" "base0F" "base09" "base09" "base09"}
+      ${colorGroup "exit_code_success" "base0B" "base00" "base0C" "base01" "base0F" "base0D"}
+      ${colorGroup "exit_code_error" "base08" "base00" "base0A" "base00" "base00" "base00"}
+          multiplayer_user_colors {
+            player_1 ${c "base0F"}
+            player_2 ${c "base0D"}
+            player_3 ${c "base00"}
+            player_4 ${c "base0A"}
+            player_5 ${c "base0C"}
+            player_6 ${c "base00"}
+            player_7 ${c "base08"}
+            player_8 ${c "base00"}
+            player_9 ${c "base00"}
+            player_10 ${c "base00"}
+          }
+        }
+      }
+    '';
   };
 
   # Stylix's zellij target generates hex colors, but zellij 0.44+ needs RGB decimal
   stylix.targets.zellij.enable = false;
-
-  programs.zellij.extraConfig = ''
-    new_tab_template {
-      pane size=1 borderless=true {
-        plugin location="zellij:tab-bar"
-      }
-      pane
-      pane size=1 borderless=true {
-        plugin location="zellij:status-bar"
-      }
-    }
-
-    themes {
-      stylix {
-    ${colorGroup "text_unselected" "base05" "base01" "base09" "base0C" "base0B" "base0F"}
-    ${colorGroup "text_selected" "base05" "base04" "base09" "base0C" "base0B" "base0F"}
-    ${colorGroup "ribbon_selected" "base01" "base0E" "base08" "base09" "base0F" "base0D"}
-    ${colorGroup "ribbon_unselected" "base01" "base05" "base08" "base05" "base0D" "base0F"}
-    ${colorGroup "table_title" "base0E" "base00" "base09" "base0C" "base0B" "base0F"}
-    ${colorGroup "table_cell_selected" "base05" "base04" "base09" "base0C" "base0B" "base0F"}
-    ${colorGroup "table_cell_unselected" "base05" "base01" "base09" "base0C" "base0B" "base0F"}
-    ${colorGroup "list_selected" "base05" "base04" "base09" "base0C" "base0B" "base0F"}
-    ${colorGroup "list_unselected" "base05" "base01" "base09" "base0C" "base0B" "base0F"}
-    ${colorGroup "frame_selected" "base0E" "base00" "base09" "base0C" "base0F" "base00"}
-    ${colorGroup "frame_highlight" "base08" "base00" "base0F" "base09" "base09" "base09"}
-    ${colorGroup "exit_code_success" "base0B" "base00" "base0C" "base01" "base0F" "base0D"}
-    ${colorGroup "exit_code_error" "base08" "base00" "base0A" "base00" "base00" "base00"}
-        multiplayer_user_colors {
-          player_1 ${c "base0F"}
-          player_2 ${c "base0D"}
-          player_3 ${c "base00"}
-          player_4 ${c "base0A"}
-          player_5 ${c "base0C"}
-          player_6 ${c "base00"}
-          player_7 ${c "base08"}
-          player_8 ${c "base00"}
-          player_9 ${c "base00"}
-          player_10 ${c "base00"}
-        }
-      }
-    }
-  '';
 
   home.shellAliases = {
     zj = "zellij";

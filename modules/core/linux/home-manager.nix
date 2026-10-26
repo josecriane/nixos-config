@@ -31,9 +31,11 @@ in
         ./../../options.nix
         ./../../home
       ];
-      home.username = "${username}";
-      home.homeDirectory = config.machine.homeDirectory;
-      home.stateVersion = "26.05";
+      home = {
+        username = "${username}";
+        homeDirectory = config.machine.homeDirectory;
+        stateVersion = "26.05";
+      };
       programs.home-manager.enable = true;
     };
   };

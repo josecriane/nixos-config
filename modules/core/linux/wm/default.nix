@@ -4,7 +4,5 @@
   ...
 }:
 {
-  imports = [
-  ]
-  ++ (lib.optionals (machineOptions.wm == "niri") [ ./niri.nix ]);
+  imports = lib.optionals (machineOptions.wm == "niri") [ ./niri.nix ];
 }

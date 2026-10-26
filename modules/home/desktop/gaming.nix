@@ -3,29 +3,39 @@
   ...
 }:
 {
-  home.packages = with pkgs; [
-    # Steam and gaming essentials
-    steam
-    steam-run # Run non-Steam games in Steam runtime
+  home = {
+    packages = with pkgs; [
+      # Steam and gaming essentials
+      steam
+      steam-run # Run non-Steam games in Steam runtime
 
-    # Gaming utilities
-    gamemode # Optimize system performance for games
-    gamescope # Wayland game compositor
+      # Gaming utilities
+      gamemode # Optimize system performance for games
+      gamescope # Wayland game compositor
 
-    # Compatibility layers
-    protonup-qt # Manage Proton versions
+      # Compatibility layers
+      protonup-qt # Manage Proton versions
 
-    # Controller support
-    jstest-gtk # Joystick testing
+      # Controller support
+      jstest-gtk # Joystick testing
 
-    # PS5 Remote Play
-    (chiaki-ng.overrideAttrs (old: {
-      nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.makeWrapper ];
-      postFixup = (old.postFixup or "") + ''
-        wrapProgram $out/bin/chiaki --set QT_STYLE_OVERRIDE ""
-      '';
-    }))
-  ];
+      # PS5 Remote Play
+      (chiaki-ng.overrideAttrs (old: {
+        nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.makeWrapper ];
+        postFixup = (old.postFixup or "") + ''
+          wrapProgram $out/bin/chiaki --set QT_STYLE_OVERRIDE ""
+        '';
+      }))
+    ];
+
+    # Steam environment variables for better compatibility
+    sessionVariables = {
+      STEAM_EXTRA_COMPAT_TOOLS_PATHS = "$HOME/.steam/root/compatibilitytools.d";
+    };
+
+    # Create necessary directories
+    file.".steam/root/compatibilitytools.d/.keep".text = "";
+  };
 
   # Enable gamemode for performance optimization
   systemd.user.services.gamemoded = {
@@ -37,12 +47,4 @@
     };
     Install.WantedBy = [ "default.target" ];
   };
-
-  # Steam environment variables for better compatibility
-  home.sessionVariables = {
-    STEAM_EXTRA_COMPAT_TOOLS_PATHS = "$HOME/.steam/root/compatibilitytools.d";
-  };
-
-  # Create necessary directories
-  home.file.".steam/root/compatibilitytools.d/.keep".text = "";
 }

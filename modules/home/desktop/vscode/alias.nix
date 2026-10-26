@@ -1,5 +1,4 @@
-{ ... }:
-{
+_: {
   programs.zsh.shellAliases = {
     codedocs = "code ~/docs";
     codenix = "code ~/nixos-config";
