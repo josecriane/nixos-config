@@ -143,7 +143,7 @@
       devShells = forAllSystems (system: {
         default = (pkgsFor system).mkShell {
           packages = [
-            (pkgsFor system).nixfmt-rfc-style
+            (pkgsFor system).nixfmt
             (pkgsFor system).nix-tree
             inputs.agenix.packages.${system}.default
           ]

@@ -88,28 +88,15 @@
   # STIG V-268181: UMASK 077 default file permissions
   # Ensures newly created files are only readable/writable by owner (privacy by default)
   # UMASK 077 = Owner: rwx (7), Group: --- (0), Others: --- (0)
-  environment.etc."login.defs".text = lib.mkForce ''
-    DEFAULT_HOME yes
-
-    SYS_UID_MIN 400
-    SYS_UID_MAX 999
-    UID_MIN 1000
-    UID_MAX 29999
-
-    SYS_GID_MIN 400
-    SYS_GID_MAX 999
-    GID_MIN 1000
-    GID_MAX 29999
-
-    TTYGROUP tty
-    TTYPERM 0620
+  security.loginDefs.settings = {
+    # STIG V-268130: SHA512 password hashing
+    ENCRYPT_METHOD = "SHA512";
 
     # STIG V-268132: Minimum password lifetime (1 day)
-    PASS_MIN_DAYS 1
+    PASS_MIN_DAYS = 1;
 
-    # UMASK 077 - Privacy for newly created files and home directories
-    UMASK 077
-  '';
+    UMASK = "077";
+  };
 
   # STIG V-268085: Limit concurrent sessions to 10 per account
   # Prevents resource exhaustion and helps detect anomalous activity

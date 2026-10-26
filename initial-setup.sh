@@ -48,6 +48,7 @@ function setup_ssh_keys {
         nix run nixpkgs#age -- -d -i "$AGENIX_KEY" ~/.ssh/id_rsa_pub.age > ~/.ssh/id_rsa.pub
     else
         # Insert HERE a copy ssh keys.
+        :
     fi
     
     # Set proper permissions
