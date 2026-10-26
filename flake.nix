@@ -142,6 +142,7 @@
         default = (pkgsFor system).mkShell {
           packages = [
             (pkgsFor system).nixfmt
+            (pkgsFor system).deadnix
             (pkgsFor system).nix-tree
             inputs.agenix.packages.${system}.default
           ]

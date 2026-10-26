@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 {
   stylix = {
     # Style preview: https://dt.iki.fi/base16-previews

@@ -24,6 +24,9 @@ jobs:
       - name: Check formatting
         run: nix fmt -- --ci
 
+      - name: Check dead code
+        run: nix run --inputs-from . nixpkgs#deadnix -- --fail .
+
       - name: Evaluate host configurations
         run: |
           for attr in \

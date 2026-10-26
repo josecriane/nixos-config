@@ -50,119 +50,115 @@ in
     ++ import ./scripts.nix { inherit pkgs; };
 
   # Niri main configuration
-  xdg.configFile."niri/config.kdl".text =
-    let
-      colors = config.lib.stylix.colors.withHashtag;
-    in
-    ''
-      input {
-          keyboard {
-              xkb {
-                  layout "${layouts}"
-                  ${lib.optionalString (variants != "") ''variant "${variants}"''}
-                  options "grp:alt_shift_toggle"
-              }
-              repeat-delay 200
-              repeat-rate 40
-          }
-          
-          mouse {
-              natural-scroll
-              accel-speed 0.0
-          }
-          
-          touchpad {
-              tap
-              dwt
-              natural-scroll
-              scroll-method "two-finger"
-              click-method "clickfinger"
-          }
-          
-          focus-follows-mouse max-scroll-amount="0%"
-      }
+  xdg.configFile."niri/config.kdl".text = ''
+    input {
+        keyboard {
+            xkb {
+                layout "${layouts}"
+                ${lib.optionalString (variants != "") ''variant "${variants}"''}
+                options "grp:alt_shift_toggle"
+            }
+            repeat-delay 200
+            repeat-rate 40
+        }
+        
+        mouse {
+            natural-scroll
+            accel-speed 0.0
+        }
+        
+        touchpad {
+            tap
+            dwt
+            natural-scroll
+            scroll-method "two-finger"
+            click-method "clickfinger"
+        }
+        
+        focus-follows-mouse max-scroll-amount="0%"
+    }
 
-      ${lib.concatMapStringsSep "\n" generateMonitorConfig monitors}
+    ${lib.concatMapStringsSep "\n" generateMonitorConfig monitors}
 
-      layout {
-          gaps 8
-          
-          preset-column-widths {
-              proportion 0.3333
-              proportion 0.5
-              proportion 0.6667
-              proportion 1.0
-          }
-          
-          default-column-width { proportion 0.5; }
-          
-          center-focused-column "never"
-          
-          focus-ring {
-              width 2
-          }
-      }
+    layout {
+        gaps 8
+        
+        preset-column-widths {
+            proportion 0.3333
+            proportion 0.5
+            proportion 0.6667
+            proportion 1.0
+        }
+        
+        default-column-width { proportion 0.5; }
+        
+        center-focused-column "never"
+        
+        focus-ring {
+            width 2
+        }
+    }
 
-      gestures {
-          hot-corners {
-              off
-          }
-      }
+    gestures {
+        hot-corners {
+            off
+        }
+    }
 
-      prefer-no-csd
+    prefer-no-csd
 
-      hotkey-overlay {
-          hide-not-bound
-      }
+    hotkey-overlay {
+        hide-not-bound
+    }
 
-      screenshot-path "~/tmp/scrn-%Y%m%d%H%M%S.png"
+    screenshot-path "~/tmp/scrn-%Y%m%d%H%M%S.png"
 
-      animations {
-          slowdown 1.0
-          
-          window-open {
-              curve "ease-out-quad"
-              duration-ms 150
-          }
-          
-          window-close {
-              curve "ease-out-quad"
-              duration-ms 150
-          }
-          
-          workspace-switch {
-              curve "ease-out-cubic"
-              duration-ms 150
-          }
-      }
+    animations {
+        slowdown 1.0
+        
+        window-open {
+            curve "ease-out-quad"
+            duration-ms 150
+        }
+        
+        window-close {
+            curve "ease-out-quad"
+            duration-ms 150
+        }
+        
+        workspace-switch {
+            curve "ease-out-cubic"
+            duration-ms 150
+        }
+    }
 
-      window-rule {
-          geometry-corner-radius 12
-          clip-to-geometry true
-      }
+    window-rule {
+        geometry-corner-radius 12
+        clip-to-geometry true
+    }
 
-      window-rule {
-          match app-id="^xdg-desktop-portal-gnome$"
-          open-floating true
-          open-focused true
-      }
+    window-rule {
+        match app-id="^xdg-desktop-portal-gnome$"
+        open-floating true
+        open-focused true
+    }
 
-      window-rule {
-          match app-id="^floating$"
-          default-column-width { fixed 1680; }
-          open-maximized false
-          open-fullscreen false
-          geometry-corner-radius 12
-          clip-to-geometry true
-      }
+    window-rule {
+        match app-id="^floating$"
+        default-column-width { fixed 1680; }
+        open-maximized false
+        open-fullscreen false
+        geometry-corner-radius 12
+        clip-to-geometry true
+    }
 
-      spawn-at-startup "systemctl" "--user" "import-environment" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
-      spawn-at-startup "dbus-update-activation-environment" "--systemd" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
-      spawn-at-startup "monitor-setup"
+    spawn-at-startup "systemctl" "--user" "import-environment" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
+    spawn-at-startup "dbus-update-activation-environment" "--systemd" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
+    spawn-at-startup "monitor-setup"
 
-      binds {
-          ${annotatedBinds}
-      }
-    '';
+    binds {
+        ${annotatedBinds}
+    }
+  '';
 
 }

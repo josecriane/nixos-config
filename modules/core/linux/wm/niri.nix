@@ -4,7 +4,7 @@
   ...
 }:
 let
-  xwayland-satellite = pkgs.xwayland-satellite.overrideAttrs (old: rec {
+  xwayland-satellite = pkgs.xwayland-satellite.overrideAttrs (_old: rec {
     version = "0.8.2-unstable-2026-09-09";
     src = pkgs.fetchFromGitHub {
       owner = "Supreeeme";
