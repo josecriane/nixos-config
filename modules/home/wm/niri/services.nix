@@ -10,7 +10,7 @@
       enable = true;
       timeouts = [
         {
-          timeout = 600; # 10 minutes - STIG requirement (was 5 minutes)
+          timeout = 600;
           command = "${pkgs.swaylock-effects}/bin/swaylock -f";
         }
         {

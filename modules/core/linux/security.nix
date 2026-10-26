@@ -6,39 +6,13 @@
 }:
 {
   # STIG V-268173: AppArmor must be enabled
-  # Provides mandatory access control framework that restricts application permissions at kernel level
   security.apparmor.enable = true;
 
   # STIG V-268080: Enable audit daemon
-  # Tracks account creation and system changes for security monitoring and forensics
   security.auditd.enable = true;
   security.audit.enable = true;
 
-  # STIG V-268138: Prevent direct root login
-  # Forces individual authentication before accessing privileged accounts
-  # Ensures accountability and traceability of administrative actions
-  # TODO: Implement this properly with SSH keys or hashed passwords configured declaratively
-  # users.mutableUsers = false;
-
-  # STIG V-268131: Remove telnet client
-  # Telnet is inherently insecure (unencrypted) and should not be present
-  # NixOS does not include telnet by default - verified compliant
-
-  # STIG V-268130: SHA512 password hashing
-  # Use SHA512 for password hashing to prevent brute-force attacks
-
-  # STIG V-268132: Minimum password lifetime (1 day)
-  # Prevents users from changing password multiple times to circumvent history
-
-  # STIG Password Quality Requirements (7 rules implemented, 2 deferred)
-  # V-268126: Uppercase requirement
-  # V-268127: Lowercase requirement
-  # V-268128: Numeric requirement
-  # V-268145: Special character requirement
-  # V-268129: 50% character change from old password
-  # V-268169-170: Dictionary checking
-  # V-268134: Minimum 15 characters - DEFERRED (current passwords don't meet requirement)
-  # V-268133: Maximum 60 days - DEFERRED (forced rotation not desired)
+  # STIG V-268126, V-268127, V-268128, V-268129, V-268145, V-268169, V-268170: Password complexity
   security.pam.services.passwd.text = lib.mkForce ''
     # Password complexity requirements (without minlen and maxdays)
     password requisite ${pkgs.libpwquality.lib}/lib/security/pam_pwquality.so \
@@ -56,38 +30,22 @@
   '';
 
   # STIG V-268156: Reauthentication when executing privileged commands
-  # Requires password authentication for sudo access
   security.sudo.wheelNeedsPassword = true;
 
   # STIG V-268155: Sudo reauthentication for privilege escalation
-  # Forces reauthentication on every sudo command (no cached credentials)
   security.sudo.extraConfig = ''
     Defaults timestamp_timeout=0
   '';
 
-  # STIG V-268081: Account lockout after 3 failed login attempts (ADAPTED FOR PHYSICAL ACCESS)
-  # NOTE: Faillock NOT configured for local console login
-  # Risk accepted: Users with physical access to the machine should not be locked out
-  # This prevents legitimate users from being locked out if they mistype their password
-  # No SSH server is enabled, so there is no remote login to protect with faillock
-
   # STIG V-268171: Four second delay between failed login attempts
-  # Still apply delay to slow down physical access brute-force attempts
   security.pam.services.login.failDelay.enable = true;
-  security.pam.services.login.failDelay.delay = 4000000; # 4 second delay (4,000,000 microseconds)
+  security.pam.services.login.failDelay.delay = 4000000;
 
   # STIG V-268174: Inactive accounts disabled after 35 days
-  # Automatically disable NEW accounts that haven't been used for 35 days
-  # NOTE: Only affects accounts created AFTER this configuration is applied
-  # Existing accounts (like 'sito') are NOT affected unless manually configured
-  # Prevents exploitation of dormant accounts by threat actors
   environment.etc."default/useradd".text = lib.mkForce ''
     INACTIVE=35
   '';
 
-  # STIG V-268181: UMASK 077 default file permissions
-  # Ensures newly created files are only readable/writable by owner (privacy by default)
-  # UMASK 077 = Owner: rwx (7), Group: --- (0), Others: --- (0)
   security.loginDefs.settings = {
     # STIG V-268130: SHA512 password hashing
     ENCRYPT_METHOD = "SHA512";
@@ -95,11 +53,11 @@
     # STIG V-268132: Minimum password lifetime (1 day)
     PASS_MIN_DAYS = 1;
 
+    # STIG V-268181: UMASK 077 default file permissions
     UMASK = "077";
   };
 
   # STIG V-268085: Limit concurrent sessions to 10 per account
-  # Prevents resource exhaustion and helps detect anomalous activity
   security.pam.loginLimits = [
     {
       domain = "*";
@@ -108,30 +66,6 @@
       value = "10";
     }
   ];
-
-  # STIG V-268177: Multifactor authentication for network access (INTENTIONALLY NOT FOLLOWED)
-  # NOTE: MFA not configured - requires PIV/CAC smart card or hardware token (YubiKey)
-  # Risk accepted: Hardware tokens (YubiKey, smart cards) not available
-  # This is a personal/development system, not a production or government system
-  # Alternative mitigations: Strong passwords, no SSH server (no network login)
-  # For production use, implement with: security.pam.p11.enable = true (requires smart card)
-  # or security.pam.u2f.enable = true (requires YubiKey)
-  # security.pam.p11.enable = false;
-
-  # STIG V-268179: PKI-based authentication with CRL caching (INTENTIONALLY NOT FOLLOWED)
-  # NOTE: PKI authentication not configured - requires smart card infrastructure
-  # Risk accepted: PKI/smart card hardware and infrastructure not available
-  # Requires: pam_pkcs11 with cert_policy including crl_auto for certificate revocation checking
-  # This control is intended for government/enterprise environments with PKI infrastructure
-  # Alternative mitigations: SSH key-based authentication with passphrase protection
-  # security.pam.p11.enable = false;
-
-  # STIG V-268139: USBGuard for USB device control (INTENTIONALLY NOT FOLLOWED)
-  # NOTE: USBGuard not enabled - would be too restrictive for desktop/laptop usage
-  # Risk accepted: Personal workstation frequently connects various USB devices (keyboards, mice, storage, peripherals)
-  # USBGuard would require manual authorization for each new device, impacting productivity
-  # Alternative mitigations: Physical security, user awareness, antivirus scanning
-  # services.usbguard.enable = false;
 
   security.rtkit.enable = true;
 
