@@ -2,7 +2,7 @@
 
 with pkgs.vscode-extensions;
 [
-  bbenoist.nix
+  jnoortheen.nix-ide
   dart-code.dart-code
   dotjoshjohnson.xml
   foxundermoon.shell-format

@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   colors = config.lib.stylix.colors;
 in
@@ -10,7 +15,7 @@ in
       extensions = import ./vscode-extensions.nix { inherit pkgs; };
       userSettings = {
         "[nix]" = {
-          "editor.defaultFormatter" = "bbenoist.nix";
+          "editor.defaultFormatter" = "jnoortheen.nix-ide";
           "editor.formatOnSave" = true;
         };
         "[xml]" = {
@@ -29,8 +34,8 @@ in
 
         "editor.minimap.enabled" = true;
         "editor.renderWhitespace" = "all";
-        "elpClient.serverPath" = "/etc/profiles/per-user/sito/bin/elp";
-        "erlangDap.erlangInstallationPath" = "/etc/profiles/per-user/sito/bin/";
+        "elpClient.serverPath" = "${config.home.profileDirectory}/bin/elp";
+        "erlangDap.erlangInstallationPath" = "${config.home.profileDirectory}/bin/";
         "erlangFormatter.formatter" = "erlfmt";
         "explorer.confirmDelete" = false;
         "explorer.confirmDragAndDrop" = false;
@@ -38,6 +43,7 @@ in
         "extensions.ignoreRecommendations" = true;
 
         "nix.enableLanguageServer" = true;
+        "nix.serverPath" = lib.getExe pkgs.nixd;
         "nix.formatterPath" = "nixfmt";
         "qt-qml.qmlls.customExePath" = "${pkgs.qt6.qtdeclarative}/bin/qmlls";
         "qt-qml.qmlls.enabled" = true;
