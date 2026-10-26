@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   ...
 }:
@@ -40,6 +41,7 @@
   services.tailscale = {
     enable = true;
     useRoutingFeatures = "client";
+    extraSetFlags = [ "--operator=${config.machine.username}" ];
   };
 
   services.fwupd.enable = true;
