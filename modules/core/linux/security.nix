@@ -78,9 +78,6 @@
 
       # STIG V-268132: Minimum password lifetime (1 day)
       PASS_MIN_DAYS = 1;
-
-      # STIG V-268181: UMASK 077 default file permissions
-      UMASK = "077";
     };
 
     rtkit.enable = true;

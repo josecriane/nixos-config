@@ -4,11 +4,11 @@ This document contains all vulnerabilities listed in https://stigviewer.com/stig
 
 ## 📊 Executive Summary
 
-**STIG Compliance: 71.6%** (68/95 applicable vulnerabilities implemented)
+**STIG Compliance: 70.5%** (67/95 applicable vulnerabilities implemented)
 
 **Implementation Status** (percentages over the 95 applicable rules):
-- ✅ **IMPLEMENTED**: 68 vulnerabilities (71.6%)
-- ⚠️ **SKIPPED** (Conscious Exceptions): 23 vulnerabilities (24.2%)
+- ✅ **IMPLEMENTED**: 67 vulnerabilities (70.5%)
+- ⚠️ **SKIPPED** (Conscious Exceptions): 24 vulnerabilities (25.3%)
 - ⏸️ **DEFERRED**: 4 vulnerabilities (4.2%)
 - ➖ **NOT APPLICABLE**: 9 vulnerabilities (not counted, the service they harden is not present)
 
@@ -39,7 +39,7 @@ No host runs an SSH server, so there is no remote access service to harden.
 
 ---
 
-### ⚠️ Conscious Exceptions / NixOS Adaptations (23 rules):
+### ⚠️ Conscious Exceptions / NixOS Adaptations (24 rules):
 
 **DOD-Specific (3 rules):**
 - **V-268082**: DOD local login banner (not a U.S. Government system)
@@ -50,13 +50,14 @@ No host runs an SSH server, so there is no remote access service to harden.
 - **V-268177**: Multifactor authentication (requires YubiKey/PIV smart card hardware)
 - **V-268179**: PKI-based authentication with CRL caching (requires PKI infrastructure and smart cards)
 
-**Operational Requirements (6 rules):**
+**Operational Requirements (7 rules):**
 - **V-268139**: USBGuard (too restrictive for desktop/laptop usage - would impact productivity)
 - **V-268146**: Wireless disabled (CAT I - WiFi connectivity required for mobile devices)
 - **V-268147**: Bluetooth disabled (required for peripheral device connectivity)
 - **V-268162**: Automatic security updates (manual weekly updates preferred for flake-based system)
 - **V-268081**: Account lockout (not configured for local console - physical access policy; it was only applied to SSH)
 - **V-268158**: DoS rate-limiting (the only limit was for SSH on port 22; TCP syncookies from V-268141 remain)
+- **V-268181**: Session umask 077 (sessions keep umask 022 because rootless Docker build contexts need files that other users in the container can read)
 
 **Remote Logging (Standalone Systems - 3 rules):**
 - **V-268107**: Install syslog-ng for audit log offloading
