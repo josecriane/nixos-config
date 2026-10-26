@@ -40,13 +40,10 @@ in
       text-wrong-color = "${colors.base08}60";
 
       # Effects from swaylock-effects
-      # screenshots = false;  # Commented out so the image below is used instead
       clock = true;
       indicator = true;
       indicator-radius = 100;
       indicator-thickness = 7;
-      # effect-blur = "7x5";  # Only works with screenshots enabled
-      # effect-vignette = "0.5:0.5";  # Only works with screenshots enabled
       grace = 2;
       grace-no-mouse = true;
       grace-no-touch = true;

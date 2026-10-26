@@ -28,7 +28,9 @@
       
       if [ -f "$key_path" ]; then
         echo "Importing GPG key: $key_name"
-        ${pkgs.gnupg}/bin/gpg --batch --import "$key_path" 2>/dev/null || true
+        if ! ${pkgs.gnupg}/bin/gpg --batch --quiet --import "$key_path"; then
+          echo "warning: failed to import GPG key $key_name" >&2
+        fi
       fi
     }
 
@@ -43,7 +45,9 @@
     # Import trust database
     if [ -f "/run/agenix/gpg-trust-db" ]; then
       echo "Importing GPG trust database"
-      ${pkgs.gnupg}/bin/gpg --import-ownertrust < "/run/agenix/gpg-trust-db" 2>/dev/null || true
+      if ! ${pkgs.gnupg}/bin/gpg --batch --quiet --import-ownertrust < "/run/agenix/gpg-trust-db"; then
+        echo "warning: failed to import the GPG trust database" >&2
+      fi
     fi
 
     echo "GPG keys import completed"
