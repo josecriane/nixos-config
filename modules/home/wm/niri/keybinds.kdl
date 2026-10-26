@@ -5,7 +5,7 @@ Mod+F allow-inhibiting=false hotkey-overlay-title="Maximize column" { maximize-c
 Mod+Shift+F allow-inhibiting=false hotkey-overlay-title="Fullscreen window" { fullscreen-window; }
 Mod+Q { close-window; }
 Mod+Ctrl+Q hotkey-overlay-title="Quit niri" { quit skip-confirmation=true; }
-Mod+Ctrl+R hotkey-overlay-title="Restart niri" { spawn "reload-niri"; }
+Mod+Ctrl+R hotkey-overlay-title="Reload the niri config" { spawn "reload-niri"; }
 Mod+Ctrl+Z hotkey-overlay-title="Terminal with zellij" { spawn "alacritty" "-e" "zellij-start"; }
 
 Mod+Shift+C { screenshot; }

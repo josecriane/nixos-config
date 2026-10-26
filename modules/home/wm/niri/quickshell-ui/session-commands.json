@@ -34,7 +34,7 @@
       "name": "Reload Niri",
       "command": "reload-niri",
       "icon": "autorenew",
-      "description": "Reload niri configuration and restart services"
+      "description": "Reload niri configuration"
     }
   ]
 }

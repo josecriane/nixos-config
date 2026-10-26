@@ -9,8 +9,7 @@ let
     };
 in
 [
-  (mkScript "monitor-setup" [ pkgs.niri ])
-  (mkScript "reload-niri" [ pkgs.systemd ])
+  (mkScript "reload-niri" [ pkgs.niri ])
   (mkScript "switch-layout" [
     pkgs.niri
     pkgs.libnotify

@@ -38,14 +38,10 @@ in
 
   home.packages =
     (with pkgs; [
-      niri
       swaybg
-      swaylock-effects
-      swayidle
       grim
       slurp
       swappy
-      wl-clipboard
     ])
     ++ import ./scripts.nix { inherit pkgs; };
 
@@ -151,10 +147,6 @@ in
         geometry-corner-radius 12
         clip-to-geometry true
     }
-
-    spawn-at-startup "systemctl" "--user" "import-environment" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
-    spawn-at-startup "dbus-update-activation-environment" "--systemd" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
-    spawn-at-startup "monitor-setup"
 
     binds {
         ${annotatedBinds}

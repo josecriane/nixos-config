@@ -1,2 +1,1 @@
-# niri has no reload-config command, so the service has to be restarted.
-systemctl --user restart niri.service
+niri msg action load-config-file
