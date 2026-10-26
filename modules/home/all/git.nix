@@ -69,8 +69,6 @@ in
       core.editor = "vim";
       core.hooksPath = "${gitHooks}";
 
-      credential.helper = "store";
-
       diff.submodule = "log";
 
       filter.lfs = {
@@ -89,6 +87,8 @@ in
       push.autoSetupRemote = true;
 
       status.submoduleSummary = true;
+
+      url."git@github.com:".pushInsteadOf = "https://github.com/";
     };
 
     ignores = [
