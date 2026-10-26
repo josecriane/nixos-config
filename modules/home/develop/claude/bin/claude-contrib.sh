@@ -40,6 +40,10 @@ or a directory under the stacks directory.
 EOF
 }
 
+file_mode() {
+  printf '%o\n' $((0666 & ~0$(umask)))
+}
+
 project_root() {
   local dir=$1 root
   if root=$(git -C "$dir" rev-parse --show-toplevel 2>/dev/null) && [ -n "$root" ]; then
@@ -177,6 +181,7 @@ cmd_render() {
   first=$(rule_title "${files[0]}")
 
   tmp=$(mktemp "$root/.CONTRIBUTING.md.XXXXXX")
+  chmod "$(file_mode)" "$tmp"
   compose "$target" "$name" "$first" "${files[@]}" | cat -s >"$tmp"
   mv -f "$tmp" "$target"
   printf '%s: stack %s, %s sections from "%s"\n' "${target#"$root"/}" "$stack" "${#files[@]}" "$first"

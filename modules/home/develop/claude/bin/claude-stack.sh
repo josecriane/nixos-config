@@ -33,6 +33,10 @@ external import. `add` replaces such a link with a copy.
 EOF
 }
 
+file_mode() {
+  printf '%o\n' $((0666 & ~0$(umask)))
+}
+
 project_root() {
   local dir=$1 root
   if root=$(git -C "$dir" rev-parse --show-toplevel 2>/dev/null) && [ -n "$root" ]; then
@@ -122,6 +126,7 @@ copy_stack() {
   while IFS= read -r file; do
     hash=$(source_hash "$STACKS_DIR/$name/$file")
     tmp=$(mktemp "$dest/.$file.XXXXXX")
+    chmod "$(file_mode)" "$tmp"
     {
       printf '%s %s/%s sha256=%s -->\n' "$MARK" "$name" "$file" "$hash"
       cat "$STACKS_DIR/$name/$file"

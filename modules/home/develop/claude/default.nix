@@ -102,7 +102,6 @@ in
 
   home = {
     packages = with pkgs; [
-      nodejs_22
       libnotify
       claudeStack
       claudeContrib
@@ -158,12 +157,14 @@ in
                   {
                     type = "command";
                     command = ''
-                      file_path=$(jq -r '.tool_input.file_path // empty'); if [ -n "$file_path" ] && [ -f "$file_path" ] && [ -n "$(tail -c 1 "$file_path")" ]; then echo >> "$file_path"; fi
+                      file_path=$(${lib.getExe pkgs.jq} -r '.tool_input.file_path // empty'); if [ -n "$file_path" ] && [ -f "$file_path" ] && [ -n "$(tail -c 1 "$file_path")" ]; then echo >> "$file_path"; fi
                     '';
                   }
                 ];
               }
             ];
+          }
+          // lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
             Notification = [
               {
                 matcher = "";
