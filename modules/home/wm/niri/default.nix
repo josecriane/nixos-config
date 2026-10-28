@@ -89,7 +89,9 @@ in
         default-column-width { proportion 0.5; }
         
         center-focused-column "never"
-        
+
+        empty-workspace-above-first
+
         focus-ring {
             width 2
         }
