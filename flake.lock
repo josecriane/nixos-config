@@ -131,27 +131,6 @@
         "type": "github"
       }
     },
-    "craft-apps": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "nixpkgs-rust": "nixpkgs-rust"
-      },
-      "locked": {
-        "lastModified": 1792305007,
-        "narHash": "sha256-7eS+c/KeuJ2d++smdaM0vWSNb5Oc4KOJmTXk0UWZd7E=",
-        "owner": "mrrubinos",
-        "repo": "craft-apps-nix",
-        "rev": "551f349431675ecbca8c8008595ceb7a55bc666d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "mrrubinos",
-        "repo": "craft-apps-nix",
-        "type": "github"
-      }
-    },
     "crane": {
       "locked": {
         "lastModified": 1790899423,
@@ -410,29 +389,13 @@
         "url": "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz"
       }
     },
-    "nixpkgs-rust": {
-      "locked": {
-        "lastModified": 1791883866,
-        "narHash": "sha256-yvkDdToRZ4IgPc9tSBzzCYJvTLf8n5eE3rgUkpCuD5A=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "a033e66ab94a6bedf2c3d58d93a36319d3cbbbaf",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-26.05",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1792094642,
-        "narHash": "sha256-zp8ToDMnqZcu4o4IH9pdwXFXGp7yLm/M0dEnNWnyd7I=",
+        "lastModified": 1793540411,
+        "narHash": "sha256-fiPJ88izTVucjeo2EQ3jk4aWmLg03I1D4vxnX2QjEgE=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "fe13242281a67641c0102cdb1087f0ebe586c7df",
+        "rev": "0bb2eedc20e4739f29e8045034f2828ad7054f8f",
         "type": "github"
       },
       "original": {
@@ -558,7 +521,6 @@
         "agenix": "agenix",
         "android-nixpkgs": "android-nixpkgs",
         "claude-code": "claude-code",
-        "craft-apps": "craft-apps",
         "darwin": "darwin",
         "home-manager": "home-manager",
         "lanzaboote": "lanzaboote",

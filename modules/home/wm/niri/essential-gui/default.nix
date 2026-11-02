@@ -1,5 +1,4 @@
 {
-  inputs,
   pkgs,
   ...
 }:
@@ -15,7 +14,7 @@
     wdisplays # Display manager for Wayland
     file-roller # GNOME archive manager
     eog # GNOME image viewer
-    inputs.craft-apps.packages.${pkgs.stdenv.hostPlatform.system}.pdfcraft
+    pdfcraft
 
     # System utilities
     brightnessctl
