@@ -5,14 +5,9 @@
 }:
 {
   services = {
-    # STIG V-268086: Session lock after 10 minutes of inactivity
     swayidle = {
       enable = true;
       timeouts = [
-        {
-          timeout = 600;
-          command = "${pkgs.swaylock-effects}/bin/swaylock -f";
-        }
         {
           timeout = 900; # 15 minutes - suspend after lock
           command = "${pkgs.systemd}/bin/systemctl suspend";

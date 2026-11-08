@@ -22,7 +22,6 @@
     nvidiaSettings = true;
   };
 
-  # STIG V-268144: Protect confidentiality/integrity of data at rest (LUKS encryption)
   environment.etc.crypttab.text = ''
     games UUID=efc12277-9151-4ff6-bae6-a3272f77328f /etc/cryptsetup-keys.d/games.key luks,discard,nofail
   '';

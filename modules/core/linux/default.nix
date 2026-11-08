@@ -7,12 +7,13 @@
 {
   imports = [
     inputs.lanzaboote.nixosModules.lanzaboote
+    inputs.nixos-hardening.nixosModules.default
     ./alias.nix
-    ./audit.nix
     ./bluetooth.nix
     ./boot.nix
     ./devices.nix
     ./gvfs.nix
+    ./hardening.nix
     ./home-manager.nix
     ./i18n.nix
     ./localsend.nix

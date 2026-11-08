@@ -26,7 +26,6 @@
     fsType = "ext4";
   };
 
-  # STIG V-268144: Protect confidentiality/integrity of data at rest (LUKS encryption)
   boot.initrd.luks.devices."root".device = "/dev/disk/by-label/manet-crypt";
 
   fileSystems."/boot" = {

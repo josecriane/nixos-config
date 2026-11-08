@@ -5,14 +5,6 @@
 }:
 {
   services = {
-    # STIG V-268151: Time synchronization enabled
-    timesyncd = {
-      enable = true;
-
-      # STIG V-268150: Clock synchronization poll interval
-      settings.Time.PollIntervalMaxSec = 60;
-    };
-
     printing.enable = true;
 
     tailscale = {
@@ -50,8 +42,5 @@
     ddcutil
     lm_sensors
     upower
-
-    # STIG V-268087: Session lock for TTY consoles
-    vlock
   ];
 }

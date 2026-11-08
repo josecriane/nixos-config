@@ -357,6 +357,26 @@
         "type": "github"
       }
     },
+    "nixos-hardening": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1794168724,
+        "narHash": "sha256-wzzQW/bUUqBJKQKsO9E1sm8sb/J5PUKx3NdSfyU1okY=",
+        "owner": "josecriane",
+        "repo": "nixos-hardening",
+        "rev": "97a3eea78037929d22133fea65708e919860d96d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "josecriane",
+        "repo": "nixos-hardening",
+        "type": "github"
+      }
+    },
     "nixos-hardware": {
       "inputs": {
         "nixpkgs": "nixpkgs"
@@ -524,6 +544,7 @@
         "darwin": "darwin",
         "home-manager": "home-manager",
         "lanzaboote": "lanzaboote",
+        "nixos-hardening": "nixos-hardening",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
         "nur": "nur",
