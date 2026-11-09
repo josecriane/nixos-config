@@ -15,6 +15,7 @@
         emulator
         platform-tools
         platforms-android-36
+        system-images-android-36-default-x86-64
         system-images-android-36-google-apis-playstore-x86-64
       ];
   };
