@@ -364,11 +364,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794168724,
-        "narHash": "sha256-wzzQW/bUUqBJKQKsO9E1sm8sb/J5PUKx3NdSfyU1okY=",
+        "lastModified": 1794186005,
+        "narHash": "sha256-FNno4GO+GmNN7xcTWkub+EzcpjnQdq6jPxLOViTUOa4=",
         "owner": "josecriane",
         "repo": "nixos-hardening",
-        "rev": "97a3eea78037929d22133fea65708e919860d96d",
+        "rev": "e26f805a3c17837052e1b561e2441d5aca73cc71",
         "type": "github"
       },
       "original": {
