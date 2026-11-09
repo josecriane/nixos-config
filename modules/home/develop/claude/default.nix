@@ -180,7 +180,7 @@ in
                             n = split($0, a, "cwd=\""); split(a[2], b, "\"");
                             if (root "/" b[1] == ENVIRON["PWD"]) { print idx; exit }
                           }')
-                        ACTION=$(${pkgs.libnotify}/bin/notify-send 'Claude Code' 'Awaiting your input' -u normal \
+                        ACTION=$(${pkgs.coreutils}/bin/timeout 1h ${pkgs.libnotify}/bin/notify-send 'Claude Code' 'Awaiting your input' -u normal \
                           --hint="string:desktop-entry:Alacritty" \
                           -A 'default=Open')
                         if [ "$ACTION" = "default" ]; then

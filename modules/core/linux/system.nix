@@ -16,6 +16,8 @@
     fwupd.enable = true;
 
     upower.enable = true;
+
+    speechd.enable = false;
   };
 
   systemd.coredump.settings.Coredump = {
