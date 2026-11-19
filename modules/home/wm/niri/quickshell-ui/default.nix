@@ -70,7 +70,7 @@ in
     };
     Service = {
       Type = "simple";
-      ExecStart = "${pkgs.wl-clipboard}/bin/wl-paste --watch ${pkgs.cliphist}/bin/cliphist store";
+      ExecStart = "${pkgs.wl-clipboard}/bin/wl-paste --watch ${pkgs.coreutils}/bin/timeout 10 ${pkgs.cliphist}/bin/cliphist store";
       Restart = "always";
       RestartSec = 1;
     };
