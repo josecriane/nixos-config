@@ -26,7 +26,10 @@
     fsType = "ext4";
   };
 
-  boot.initrd.luks.devices."root".device = "/dev/disk/by-label/manet-crypt";
+  boot.initrd.luks.devices."root" = {
+    device = "/dev/disk/by-label/manet-crypt";
+    bypassWorkqueues = true;
+  };
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-label/BOOT";
