@@ -30,16 +30,6 @@ let
     '';
   };
 
-  rayforge = pkgs.symlinkJoin {
-    name = "rayforge";
-    paths = [ pkgs.rayforge ];
-    nativeBuildInputs = [ pkgs.makeWrapper ];
-    postBuild = ''
-      wrapProgram $out/bin/rayforge \
-        --set RAYFORGE_CONFIG_DIR ${sharedDir}/rayforge
-    '';
-  };
-
   orcaImportSharedPrinters = pkgs.writeShellScript "orca-import-shared-printers" ''
     conf="${config.xdg.configHome}/OrcaSlicer/OrcaSlicer.conf"
     shared="${sharedDir}/orcaslicer"
@@ -79,12 +69,13 @@ let
   '';
 in
 {
+  # Re-add rayforge, wrapped with RAYFORGE_CONFIG_DIR=${sharedDir}/rayforge,
+  # once https://github.com/NixOS/nixpkgs/pull/587263 lands.
   home.packages = with pkgs; [
     bcn3d-stratos
     freecad
     lycheeslicer
     orca-slicer
-    rayforge
   ];
 
   home.activation.sharedPrintingDirs = lib.hm.dag.entryBefore [ "linkGeneration" ] ''
