@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }:
@@ -9,8 +10,9 @@
       enable = true;
       timeouts = [
         {
-          timeout = 900; # 15 minutes - suspend after lock
-          command = "${pkgs.systemd}/bin/systemctl suspend";
+          timeout = 900;
+          command = "${lib.getExe pkgs.niri} msg action power-off-monitors";
+          resumeCommand = "${lib.getExe pkgs.niri} msg action power-on-monitors";
         }
       ];
       events = {
